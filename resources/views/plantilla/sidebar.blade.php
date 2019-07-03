@@ -8,46 +8,36 @@
                         Mantenimiento
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Componentes</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Productos</a>
                         <ul class="nav-dropdown-items">
                             <li @click=" menu=1"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> control</a>
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> inventario</a>
                             </li>
                             <li @click="menu=2"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Gestion</a>
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Gestion de inventario</a>
                             </li>
                         </ul>
                     </li>
+                  
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Monitoreo</a>
-                        <ul class="nav-dropdown-items">
-                            <li @click="menu=3"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-wallet"></i> Estados</a>
-                            </li>
-                            <li @click="menu=4"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Alertas</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Horarios</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=5"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> agregar</a>
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Favturas</a>
                             </li>
                             <li @click="menu=6"  class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Ver</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Nueva venta</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> perfiles</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Compras</a>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=7"  class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-user"></i> Agregar</a>
                             </li>
                             <li @click="menu=8" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Gestion de perfiles</a>
+                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Gestion de compras</a>
                             </li>
                         </ul>
                     </li>
@@ -63,9 +53,7 @@
                         </ul>
                     </li>
                   
-                    <li @click="menu=11" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-info"></i> Acerca de...<span class="badge badge-info">IT</span></a>
-                    </li>
+                
 
                   
 
