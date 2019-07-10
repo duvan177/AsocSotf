@@ -158,13 +158,16 @@ export default {
       fecha: ""
     };
   },
-
+  
+  //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
 
      addArticulo() {
      //var insert = { producto: this.producto, cantidad: this.cantidad };
       // this.insertDatos.push(insert);
       //console.log(this.insertDatos);
+      
+      // TRAIGO LOS DATOS DE MI DATA PARA ASOCIARLOS LOCALMENTE Y DAR USO DE ELLOS PARA MANDAR PARAMETROS ETC
 
       let meconsulta = this;
       let cantidad = this.cantidad;
@@ -189,6 +192,7 @@ export default {
         .then(function() {
           // always executed
         });
+        //AL FINAL DE LA PETICION Y CARGAR LA TABLA ME DEJARA EN LIMPIO LOS CAMPOS PARA NUEVOS DATOS
 
       this.producto = "";
       this.cantidad = "";
@@ -236,15 +240,16 @@ export default {
           // handle error
           console.log(error);
           num.num = ' no hay facturas'
-          
-      
-
-        
+ 
         })
+        
         .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
     }
   },
+  //METODOS QUE SE CARGARAN CUANDO EL COMPONENTE SEA INVOCADO. IMPORTANTE PARA ALGUNOS DATOS QUE SE NECESITEN EN LA VISTA.
   mounted() {
     this.getFecha();
     this.numero_factura();
