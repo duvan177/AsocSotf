@@ -20,3 +20,4 @@ Route::middleware(['auth:api','cors'])->get('/user', function (Request $request)
 
 Route::post('fecha','fechaController@traer_fecha');
 Route::post('NumeroFactura','fechaController@NumeroFactura');
+Route::post('ver','ArticuloController@ver');

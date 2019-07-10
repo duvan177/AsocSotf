@@ -1,5 +1,6 @@
 <template>
   <main class="main">
+
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
@@ -14,10 +15,23 @@
                 <div></div>
               </div>
             </section>
+              
 
             <!-- fin del loading-->
 
+
             <section v-else>
+
+                 <!-- toast -->
+                 
+                 
+
+
+                 
+                      <!-- fin del toast-->
+
+
+
               <div class="form-row">
                 <label>
                   <h5>Fecha</h5>
@@ -49,38 +63,58 @@
               </div>
               <!--fin de numero de factua-->
               <div class="form-row">
-                <div class="form-group col-md-4">
+          
+
+                    <div class="form-group col-md-4">
                   <input
                     type="number"
                     class="form-control"
                     placeholder="Codigo del producto"
                     id="codProducto"
+                    v-model="producto"
                   />
                 </div>
                 <div class="form-group col-md-2">
-                  <input type="number" class="form-control" placeholder="cantidad" />
+                  <input
+                   
+                    type="number"
+                    class="form-control"
+                    placeholder="cantidad"
+                    v-on:keyup.enter="addArticulo"
+                    v-model="cantidad"
+                  />
+
                 </div>
+                 <div class="form-group col-md-2">
+                
+                <button type="button" class="btn btn-warning" >Warning</button>
+
+                </div>
+              
+               
               </div>
 
               <!--inicio de tabla de los productos selecionados -->
+
               <table class="table">
                 <caption>Lista de productos</caption>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">cantidad</th>
+                   
+                    <th scope="col">nombre</th>
+                     <th scope="col">cantidad</th>
                     <th scope="col">precio unitario</th>
-                    <th scope="col">total</th>
+               
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>carne</td>
-                    <td>2 libras</td>
-                    <td>1</td>
-                    <td>5000</td>
+                  <tr v-for="datos in consulta" :key="datos.id">
+                    <th scope="row"></th>
+            
+                    <td v-text="datos.datos.nombre" ></td>
+                     <td v-text="datos.cantidad" ></td>
+                    <td v-text="datos.datos.precio_venta"></td>
                   </tr>
                 </tbody>
               </table>
@@ -96,7 +130,7 @@
                   <h5>Total</h5>
                 </label>
                 <div class="form-group col-md-2">
-                  <input type="number" class="form-control" style="left:300px" />
+                  <input type="number" class="form-control" style="left:300px" v-model="totalpagar"/>
                 </div>
               </div>
               <button type="button" class="btn btn-success">Finalizar</button>
@@ -110,23 +144,69 @@
   </main>
 </template>
 
-
-
 <script>
 export default {
   data() {
     return {
-      loading: true,
+      totalpagar:"",
+      producto: "",
+      cantidad: "",
+      consulta: [],
+      consultaFact:false,
+       loading: true,
       num: [],
       fecha: ""
     };
   },
 
   methods: {
+
+     addArticulo() {
+     //var insert = { producto: this.producto, cantidad: this.cantidad };
+      // this.insertDatos.push(insert);
+      //console.log(this.insertDatos);
+
+      let meconsulta = this;
+      let cantidad = this.cantidad;
+      let producto = this.producto;
+       axios
+        .post('/api/ver', {
+          id:this.producto,
+          cantidad:this.cantidad
+        })
+        .then(function(response) {
+       if (response.data == 404){
+             alert(response.data + ' El producto no se encuentra disponible');
+            }else{
+        var array_articulo = response.data;
+        meconsulta.consulta.push(array_articulo);
+        }
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+           })
+        .then(function() {
+          // always executed
+        });
+
+      this.producto = "";
+      this.cantidad = "";
+       this.totalPagar();
+     
+
+    },
+
+     totalPagar(){
+
+      let arraytotal = this.consulta;
+      
+  },
+
     idUse() {},
 
     getFecha() {
-      let fecha = this;
+       let fecha = this;
       axios
         .post("/api/fecha")
         .then(function(response) {
@@ -136,6 +216,7 @@ export default {
         .catch(function(error) {
           // handle error
           console.log(error);
+         
         })
         .then(function() {
           // always executed
@@ -154,6 +235,11 @@ export default {
         .catch(function(error) {
           // handle error
           console.log(error);
+          num.num = ' no hay facturas'
+          
+      
+
+        
         })
         .then(function() {})
         .finally(() => (this.loading = false));
@@ -162,6 +248,8 @@ export default {
   mounted() {
     this.getFecha();
     this.numero_factura();
+    
+    
   }
 };
 </script>

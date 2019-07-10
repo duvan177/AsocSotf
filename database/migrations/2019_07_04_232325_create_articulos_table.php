@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdenTurnoMatrizsTable extends Migration
+class CreateArticulosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrdenTurnoMatrizsTable extends Migration
      */
     public function up()
     {
-        Schema::create('orden_turno_matrizs', function (Blueprint $table) {
+        Schema::create('articulos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateOrdenTurnoMatrizsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orden_turno_matrizs');
+        Schema::dropIfExists('articulos');
     }
 }
