@@ -89,14 +89,17 @@
 
     
 
-    <footer class="app-footer" style="width: 100%;
-	height:40px;
-	
-	position: absolute;
-	bottom: 0; ">
-        <span><a href="#">AsocSotf</a> &copy; 2019</span>
-        <span class="ml-auto">Desarrollado por ASOCSOTF</a></span>
-    </footer>
+  <!-- Footer 
+<footer class="page-footer font-small blue" id="footer">
+
+     Copyright 
+    <div id="fot"  class="footer-copyright text-center py-3">© 2019 Copyright:
+      <a href="#"> AsoSotf - Vents.app</a>
+    </div>
+     Copyright 
+  
+  </footer>
+ Footer -->
 
     <!-- Bootstrap and necessary plugins -->
       <!-- Bootstrap and necessary plugins -->  

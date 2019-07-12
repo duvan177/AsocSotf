@@ -1,14 +1,23 @@
 .lds-ring {
-    left: 300px;
+    left: 600px;
     display: inline-block;
     position: relative;
     width: 64px;
     height: 64px;
 }
 
+@media (max-width:800px) {
+    .lds-ring {
+        left: 50px;
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+    }
+}
+
 .lds-ring div {
     box-sizing: border-box;
-    display: block;
     position: absolute;
     width: 51px;
     height: 51px;
@@ -43,4 +52,28 @@
 #btnAdd {
     height: 10%;
     top: 50%;
+}
+
+#footer a {
+    color: #ffffff;
+}
+
+#tot {
+    -webkit-box-shadow: 10px 10px 40px -13px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 40px -13px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 40px -13px rgba(0, 0, 0, 0.75);
+}
+
+#footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 35px;
+    width: 100%;
+    background: rgb(0, 138, 230);
+}
+
+#fot {
+    text-align: center;
+    bottom: 10px;
 }

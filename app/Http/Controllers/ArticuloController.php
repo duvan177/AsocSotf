@@ -102,7 +102,12 @@ class ArticuloController extends Controller
         ->where('codigo','=',$dato)->value('codigo');
 
 
+        if ($cant == '') {
+           
+            $data = 1004;
+            return response()->json( $data);
 
+        }
                 // OPERACION CUANDO EL PRODUCTO SEA VALIDADO Y EXISTA
         if($validar == $dato){
             
@@ -117,12 +122,24 @@ class ArticuloController extends Controller
          ->where('detalle_ingreso.id_articulo','=',$idArticulo)
          ->first(); // FIN DE LA VALIDACIÓN
 
+         $precioDB = DB::table('detalle_ingreso')
+         ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
+         ->select('detalle_ingreso.precio_venta')
+         ->where('detalle_ingreso.id_articulo','=',$idArticulo)
+         ->value('detalle_ingreso.precio_venta');
+        
+         $precioT = $precioDB * $cant;
+         
+
+
+
   
 
                 // CARGO UNA VARIABLE ARRAY PARA GUARDAR EL PARÁMETRO Y A CONSULTA DEL PRODUCTO
           $cantidad2=[
             'cantidad'=>$cant,
-            'datos'=>$consulta
+            'datos'=>$consulta,
+            'totalPagar'=>$precioT
           ];
 
             //EN VIO LA VARIABLE EN UN RESPONSISE CON LOS DOS OBJETOS 
@@ -133,7 +150,7 @@ class ArticuloController extends Controller
 
         else {
             $data = 404;
-            return response()->json( $data);
+            return response()->json($data);
         }
       
 
