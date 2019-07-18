@@ -16,12 +16,13 @@
     <link href="css/simple-line-icons.min.css" rel="stylesheet">
     <!-- Main styles for this application -->
      <link href="css/cargando.css" rel="stylesheet">
+     <link rel="css/toastr.css" href="">
 
       <link href="css/style.css" rel="stylesheet">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-   <script src="js/jquery.min.js"></script>
+   
     <!-- Icons -->
 
     <link href="css/plantilla.css" rel="stylesheet">
@@ -86,28 +87,17 @@
     </div>
     </div>
      
-
-    
-
-  <!-- Footer 
-<footer class="page-footer font-small blue" id="footer">
-
-     Copyright 
-    <div id="fot"  class="footer-copyright text-center py-3">© 2019 Copyright:
-      <a href="#"> AsoSotf - Vents.app</a>
-    </div>
-     Copyright 
-  
-  </footer>
- Footer -->
-
     <!-- Bootstrap and necessary plugins -->
+    <script src="js/jquery.min.js"></script>
       <!-- Bootstrap and necessary plugins -->  
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/pace.min.js"></script>
      <!-- Plugins and scripts required by all views -->
     <script src="js/Chart.min.js"></script>
+    <script src="{{asset("js/anime.js")}}"></script>
+
+
     <!-- GenesisUI main scripts -->
  
 

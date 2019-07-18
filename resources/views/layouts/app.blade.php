@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/plantilla.css') }}" rel="stylesheet">
+    <link href = "{{asset ('css / toastr.css')}}" rel = "hoja de estilo ">
 </head>
 <body>
     <div id="app">
