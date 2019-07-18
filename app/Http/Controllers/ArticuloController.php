@@ -10,82 +10,79 @@ use Illuminate\Support\Facades\DB;
 
 class ArticuloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+  public function editarArticulo(Request $ia){
+$id= $ia->id;
+$id_categoria=$ia->categoriaEditar;
+    $codigo=$ia->codigoEditar;
+    $nombre=$ia->nombreEditar;
+    $stock=$ia->stockEditar;
+    $descripcion=$ia->descripcionEditar;
+    $estado=$ia->estadoEditar;
+    //editamos
+    $articulo = articulo::find($id);
+    $articulo->id_categoria=$id_categoria;
+$articulo->codigo=$codigo;
+$articulo->nombre=$nombre;
+$articulo->stock=$stock;
+$articulo->descripcion=$descripcion;
+$articulo->estado=$estado;
+$articulo->save();
+  }
+  public function guardarArticulo(Request $ia){
+    
+    $this->validate($ia,[
+      'codigo'=>'required'
+    ]);
+      
+    $id_categoria=$ia->categoria;
+    $codigo=$ia->codigo;
+    $nombre=$ia->nombre;
+    $stock=$ia->stock;
+    $descripcion=$ia->descripcion;
+    $estado=$ia->estado;
+    //guardamos en la base de datos
+    $articulo = new articulo();
+$articulo->id_categoria=$id_categoria;
+$articulo->codigo=$codigo;
+$articulo->nombre=$nombre;
+$articulo->stock=$stock;
+$articulo->descripcion=$descripcion;
+$articulo->estado=$estado;
+$articulo->save();
+    
+ 
+  }
+  public function getCategoria(){
+    $categoria= DB::table('categoria')
+    ->select('categoria.id','categoria.nombre_categoria')
+    ->get();
+    
+   
+    return response()->json($categoria);
+  }
+  public function getEstado(){
+    $estado= DB::table('estado')
+    ->select('estado.id','estado.estado_articulo')
+    ->get();
+    return response()->json($estado);
+  }
+ 
+  public function deleteArticulo(Request $idA){
+$id = $idA->id;
+$articulo = articulo::destroy($id);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  }
+public function getArticulo(){
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+//$cons = articulo::all();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\articulo  $articulo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(articulo $articulo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\articulo  $articulo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(articulo $articulo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\articulo  $articulo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, articulo $articulo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\articulo  $articulo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(articulo $articulo)
-    {
-        //
-    }
-
+$consulta= DB::table('articulo')
+    ->join('estado','articulo.estado','=','estado.id')
+   ->join('categoria','articulo.id_categoria','=','categoria.id')
+    ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo','articulo.estado','articulo.id_categoria','categoria.nombre_categoria','categoria.descripcion_categoria')
+    ->get(); 
+      return response()->json($consulta);
+}
     public function ver(Request $idA){
 
         //DESFRAGMENTO LOS PARAMETROS ENVIADOS DESDE EL BACKEND PARA USARLOS EN LA CONSULTA

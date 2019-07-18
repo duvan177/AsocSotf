@@ -11,10 +11,10 @@
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Productos</a>
                         <ul class="nav-dropdown-items">
                             <li @click=" menu=1"  class="nav-item mobile-sidebar-toggler">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> inventario</a>
+                                <a class="nav-link" ><i class="icon-bag"></i> Categorias</a>
                             </li>
                             <li @click="menu=2"  class="nav-item mobile-sidebar-toggler">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Gestion de inventario</a>
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Articulos</a>
                             </li>
                         </ul>
                     </li>

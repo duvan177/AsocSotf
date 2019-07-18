@@ -10,10 +10,7 @@
         </template>
 
         <template v-if="menu == 1">
-        <div>
-
-        <h1>formulario</h1>
-        </div>
+       
 
 
         <!--GESTION -->
@@ -21,11 +18,11 @@
 
         <template v-if="menu == 2">
 
-        <example-component></example-component>
+        <art></art>
               
         </template>
         <template v-if="menu == 3">
-        
+        <!-- menu no colocar nada-->
                 
         </template>
         <template v-if="menu == 4">
