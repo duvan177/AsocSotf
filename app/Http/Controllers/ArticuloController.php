@@ -101,14 +101,18 @@ class ArticuloController extends Controller
         ->select('codigo')
         ->where('codigo','=',$dato)->value('codigo');
 
-
         if ($cant == '') {
            
             $data = 1004;
             return response()->json( $data);
 
         }
+ 
                 // OPERACION CUANDO EL PRODUCTO SEA VALIDADO Y EXISTA
+
+        
+
+
         if($validar == $dato){
             
 
@@ -119,7 +123,7 @@ class ArticuloController extends Controller
          $consulta = DB::table('detalle_ingreso')
          ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
          ->select('articulo.nombre','detalle_ingreso.precio_venta','articulo.id','articulo.codigo')
-         ->where('detalle_ingreso.id_articulo','=',$idArticulo)
+         ->where('articulo.id','=',$idArticulo)
          ->first(); // FIN DE LA VALIDACIÓN
 
          $precioDB = DB::table('detalle_ingreso')
@@ -127,23 +131,26 @@ class ArticuloController extends Controller
          ->select('detalle_ingreso.precio_venta')
          ->where('detalle_ingreso.id_articulo','=',$idArticulo)
          ->value('detalle_ingreso.precio_venta');
-        
+     
+          if ($consulta == null) {
+              $data = 1005;
+                return response()->json($data);
+          }else {
+                 
          $precioT = $precioDB * $cant;
-         
 
+         // CARGO UNA VARIABLE ARRAY PARA GUARDAR EL PARÁMETRO Y A CONSULTA DEL PRODUCTO
 
-
-  
-
-                // CARGO UNA VARIABLE ARRAY PARA GUARDAR EL PARÁMETRO Y A CONSULTA DEL PRODUCTO
-          $cantidad2=[
-            'cantidad'=>$cant,
-            'datos'=>$consulta,
-            'totalPagar'=>$precioT
-          ];
-
+            $cantidad2=[
+              'cantidad'=>$cant,
+             'datos'=>$consulta,
+             'totalPagar'=>$precioT
+             ];
+   
+             
             //EN VIO LA VARIABLE EN UN RESPONSISE CON LOS DOS OBJETOS 
           return response()->json($cantidad2);
+          }
 
         }
         // EN TAL CASO DE QUE EL CODIGO DEL PRODUCTO INSERTADO NO EXISTA
