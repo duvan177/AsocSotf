@@ -47,7 +47,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Crear Articulo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+        <button type="button" class="close" data-dismiss="modal" v-on:click="limpiar()" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -55,7 +55,7 @@
       <div class="modal-body">
           <div class="form-group">
     <label for="formGroupExampleInput">codigo</label>
-    <input type="text" class="form-control" v-model="codigo" id="formGroupExampleInput" placeholder="codigo" >
+    <input type="number" class="form-control" v-model="codigo" id="formGroupExampleInput" placeholder="codigo" >
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Categoria</label>
@@ -130,7 +130,7 @@
       <div class="modal-body">
           <div class="form-group">
     <label for="formGroupExampleInput">codigo</label>
-    <input type="text" class="form-control" v-model="codigoEditar" id="formGroupExampleInput" placeholder="codigo" >
+    <input type="number" class="form-control" v-model="codigoEditar" id="formGroupExampleInput" placeholder="codigo" >
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Categoria</label>
