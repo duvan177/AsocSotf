@@ -111,7 +111,7 @@
                     <caption>Lista de productos</caption>
                     <thead>
                       <tr>
-                        <!--  <th scope="col">#</th> -->
+                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio unitario</th>
@@ -156,7 +156,7 @@
                     />
                    
                   </div>
-                   <div class="form-group col-md-2" style="left:95x; width:120px; top:18px;">
+                   <div class="form-group col-md-2" style="left:90x; width:120px; top:18px;">
                       <button type="button" class="btn btn-info" v-on:click="evento">Aplicar</button>
                     </div>
 
@@ -169,7 +169,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-4">
                     <div id="tot" class="card border-info mb-4 mov" style="max-width: 25rem;">
                       <div id="tit" class="card-header">Total Pagar con descuento</div>
                       <div class="card-body text-info">
