@@ -24,6 +24,7 @@ window.$ = require('jquery');
 Vue.component('venta', require('./components/ventas.vue').default);
 //vue.component('categoria', require('./components/categoria.vue'));
 Vue.component('art', require('./components/articuloVista.vue').default);
+Vue.component('cat', require('./components/categoriaVista.vue').default);
 //vue.component('categoria1', require('./components/categoria.vue'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to

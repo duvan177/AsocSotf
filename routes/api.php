@@ -21,9 +21,15 @@ Route::middleware(['auth:api','cors'])->get('/user', function (Request $request)
 Route::post('fecha','fechaController@traer_fecha');
 Route::post('NumeroFactura','fechaController@NumeroFactura');
 Route::post('ver','ArticuloController@ver');
+//articulo
 Route::post('articulo','ArticuloController@getArticulo');
 Route::post('eliminarArticulo','ArticuloController@deleteArticulo');
 Route::post('categoria','ArticuloController@getCategoria');
 Route::post('estado','ArticuloController@getEstado');
 Route::post('guardararticulo','ArticuloController@guardarArticulo');
 Route::post('editararticulo','ArticuloController@editarArticulo');
+//categoria
+Route::post('categoria','CategoriaController@getCategoria');
+Route::post('eliminarCategoria','CategoriaController@deleteCategoria');
+Route::post('guardarcategoria','CategoriaController@guardarCategoria');
+Route::post('editarcategoria','CategoriaController@editarCategoria');

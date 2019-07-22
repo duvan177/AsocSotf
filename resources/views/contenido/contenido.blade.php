@@ -11,7 +11,7 @@
 
         <template v-if="menu == 1">
        
-
+<cat></cat>
 
         <!--GESTION -->
         </template>
