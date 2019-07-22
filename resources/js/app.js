@@ -24,12 +24,8 @@ window.$ = require('jquery');
 Vue.component('venta', require('./components/ventas.vue').default);
 //vue.component('categoria', require('./components/categoria.vue'));
 Vue.component('art', require('./components/articuloVista.vue').default);
-<<<<<<< HEAD
 Vue.component('cat', require('./components/categoriaVista.vue').default);
 //vue.component('categoria1', require('./components/categoria.vue'));
-=======
-vue.component('compras???articulos', require('./components/comprasArticulos.vue'));
->>>>>>> 9018df1674f42ac585ea90308f98b78c07667778
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

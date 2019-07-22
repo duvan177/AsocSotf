@@ -44,14 +44,6 @@
                   </tr>
                 </tbody>
               </table>
-=======
-          <div class="form-group col-md-2">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-toggle="modal"
-              data-target="#articuloModal"
-            >Crear Articulo</button>
           </div>
 
           <table class="table">
@@ -101,7 +93,6 @@
       </div>
     </div>
     <!-- Modal de articulos -->
-<<<<<<< HEAD
 <div class="modal fade" id="articuloModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
