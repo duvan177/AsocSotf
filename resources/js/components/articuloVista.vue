@@ -1,5 +1,6 @@
 <template>
   <main class="main">
+
     <div class="container-fluid">
       <div class="card">
         <div class="card-header"> </div>
@@ -115,8 +116,12 @@
           <button type="button" v-on:click="guardarArticulo()" data-dismiss="modal"  class="btn btn-primary" >Guardar</button>
         </div>
       </div>
+      </div>
+      </form>
     </div>
-    <!-- fin del modal-->
+  </div>
+</div>
+<!-- fin del modal-->
 
   <!-- Modal de editar articulos -->
 <div class="modal fade" id="articuloeditarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -186,154 +191,172 @@
           <button type="button" v-on:click="EditarArticulo()" data-dismiss="modal"  class="btn btn-primary" >Guardar</button>
         </div>
       </div>
+      </div>
+      </form>
     </div>
-    <!-- fin del modal-->
-  </main>
+  </div>
+</div>
+<!-- fin del modal-->
+  </main>  
+  
 </template>
 
 <script>
 export default {
   data() {
     return {
-      seleccionar: "selec...",
+      
+  seleccionar:"selec...",
       consulta: [],
-      consultaFact: false,
-      loading: true,
+      consultaFact:false,
+       loading: true,
       num: [],
-      consulcat: [],
-      consulest: [],
-      codigo: "",
-      nombre: "",
-      stock: 0,
-      descripcion: "",
-      selec: 0,
-      estado: 0,
-      categoria: "",
-      codigoEditar: "",
-      nombreEditar: "",
-      stockEditar: "",
-      descripcionEditar: "",
-      selecEditar: 0,
-      estadoEditar: 0,
-      categoriaEditar: "",
-      id: 0
+      consulcat:[],
+      consulest:[],
+      codigo:"",
+      nombre:"",
+      stock:0,
+      descripcion:"",
+      selec:0,
+      estado:0,
+      categoria:'',
+      codigoEditar:"",
+      nombreEditar:"",
+      stockEditar:"",
+      descripcionEditar:"",
+      selecEditar:0,
+      estadoEditar:0,
+      categoriaEditar:'',
+     id:0
     };
   },
 
-  methods: {
-    EditarArticulo() {
-      let consulta2 = this;
-      let codigoEditar = this.codigoEditar;
-      let nombreEditar = this.nombreEditar;
-      let stockEditar = this.stockEditar;
-      let descripcionEditar = this.descripcionEditar;
-      let estadoEditar = this.estadoEditar;
-      let categoriaEditar = this.categoriaEditar;
-      let sub = categoriaEditar;
-      this.selecEditar = sub;
-      axios
-        .post("api/editararticulo", {
-          id: this.id,
-          categoriaEditar: this.selecEditar,
-          codigoEditar: this.codigoEditar,
-          nombreEditar: this.nombreEditar,
-          stockEditar: this.stockEditar,
-          descripcionEditar: this.descripcionEditar,
-          estadoEditar: this.estadoEditar
-        })
-        .then(response => {
-          this.addArticulo();
-        });
+  methods:{
+    EditarArticulo(){
+let consulta2 = this;
+     let codigoEditar = this.codigoEditar;
+     let nombreEditar = this.nombreEditar;
+     let stockEditar = this.stockEditar;
+     let descripcionEditar = this.descripcionEditar;
+     let estadoEditar = this.estadoEditar;
+  let categoriaEditar = this.categoriaEditar;
+    let sub = categoriaEditar;
+    this.selecEditar= sub;
+    axios
+     .post("api/editararticulo",{
+       id:this.id,
+       categoriaEditar: this.selecEditar,
+      codigoEditar: this.codigoEditar,
+      nombreEditar: this.nombreEditar,
+      stockEditar: this.stockEditar,
+       descripcionEditar: this.descripcionEditar,
+      estadoEditar: this.estadoEditar
+     }).then(response =>{
+      this.addArticulo(); 
+     });
     },
-    guardarArticulo() {
-      let consulta2 = this;
-      let codigo = this.codigo;
-      let nombre = this.nombre;
-      let stock = this.stock;
-      let descripcion = this.descripcion;
-      let estado = this.estado;
-      let categoria = this.categoria;
-      let sub = categoria;
-      this.selec = sub;
-
-      console.log(sub);
-      axios
-        .post("api/guardararticulo", {
-          categoria: this.selec,
-          codigo: this.codigo,
-          nombre: this.nombre,
-          stock: this.stock,
-          descripcion: this.descripcion,
-          estado: this.estado
-        })
-        .then(response => {
-          this.addArticulo();
-          this.categoria = "";
-          this.codigo = "";
-          this.nombre = "";
-          this.stock = 0;
-          this.descripcion = "";
-          this.estado = 0;
-        });
-    },
-    limpiar() {
-      this.categoria = "";
-      this.codigo = "";
-      this.nombre = "";
-      this.stock = 0;
-      this.descripcion = "";
-      this.estado = 0;
-    },
-    /* seleccion(){
+   guardarArticulo(){
+     
+     let consulta2 = this;
+     let codigo = this.codigo;
+     let nombre = this.nombre;
+     let stock = this.stock;
+     let descripcion = this.descripcion;
+     let estado = this.estado;
+  let categoria = this.categoria;
+    let sub = categoria;
+    this.selec= sub;
+    
+   console.log(sub);
+     axios
+     .post("api/guardararticulo",{
+       categoria: this.selec,
+      codigo: this.codigo,
+      nombre: this.nombre,
+      stock: this.stock,
+       descripcion: this.descripcion,
+      estado: this.estado 
+     }).then(response =>{
+      this.addArticulo(); 
+        this.categoria="";
+        this.codigo="";
+        this.nombre="";
+        this.stock=0;
+        this.descripcion="";
+        this.estado=0;
+        
+     });
+    
+   }, limpiar(){
+      this.categoria="";
+        this.codigo="";
+        this.nombre="";
+        this.stock=0;
+        this.descripcion="";
+        this.estado=0;
+   },
+  /* seleccion(){
    let categoria = this.categoria;
     let sub = categoria.substring(0,1);
     this.selec= sub;
    },*/
-    addArticulo() {
-      let meconsulta = this;
-      axios.post("api/articulo").then(function(response) {
-        meconsulta.consulta = response.data;
-      });
-    },
+   addArticulo(){
+     let meconsulta = this;
+     axios
+     .post("api/articulo")
+     .then(function(response){
+      meconsulta.consulta = response.data;
+        
+     });
+   },
 
-    addcategoria() {
-      let consultaCate = this;
-      axios.post("api/categoria").then(function(response) {
+   addcategoria(){
+     let consultaCate = this;
+     axios
+     .post("api/categoria")
+     .then(function(response){
         consultaCate.consulcat = response.data;
-      });
-    },
-    addestado() {
-      let consultaEstad = this;
-      axios.post("api/estado").then(function(response) {
+           
+         
+     });
+   },
+     addestado(){
+     let consultaEstad = this;
+     axios
+     .post("api/estado")
+     .then(function(response){
         consultaEstad.consulest = response.data;
-      });
-    },
-    traerArticuloEditar(consul) {
-      this.codigoEditar = consul.codigo;
-      this.nombreEditar = consul.nombre;
-      this.stockEditar = consul.stock;
-      this.descripcionEditar = consul.descripcion;
-      this.estadoEditar = consul.estado;
-      this.categoriaEditar = consul.id_categoria;
-      this.id = consul.id;
-    },
-    eliminarArticulo(consul) {
-      axios
-        .post("api/eliminarArticulo", {
-          id: consul.id
-        })
-        .then(response => {
-          this.addArticulo();
-        });
-    }
+            
+        
+     });
+   },
+   traerArticuloEditar(consul){
+    this.codigoEditar=consul.codigo;
+      this.nombreEditar=consul.nombre;
+      this.stockEditar=consul.stock;
+      this.descripcionEditar=consul.descripcion;
+      this.estadoEditar=consul.estado;   
+      this.categoriaEditar=consul.id_categoria;
+      this.id=consul.id;
+   },
+   eliminarArticulo(consul){
+
+     axios.post("api/eliminarArticulo",{
+     id: consul.id
+     }).then(response =>{
+      this.addArticulo(); 
+     });
+ 
+   }
   },
   created() {},
-  mounted() {
-    this.addArticulo();
-    this.addcategoria();
-    this.addestado();
-  }
+    mounted(){
+      this.addArticulo();
+     this.addcategoria();
+     this.addestado();
+    }
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
+ 
 };
 </script>
 <style>
