@@ -1922,6 +1922,166 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1938,14 +2098,14 @@ __webpack_require__.r(__webpack_exports__);
       descripcion: "",
       selec: 0,
       estado: 0,
-      categoria: '',
+      categoria: "",
       codigoEditar: "",
       nombreEditar: "",
       stockEditar: "",
       descripcionEditar: "",
       selecEditar: 0,
       estadoEditar: 0,
-      categoriaEditar: '',
+      categoriaEditar: "",
       id: 0
     };
   },
@@ -2015,10 +2175,10 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /* seleccion(){
-     let categoria = this.categoria;
-      let sub = categoria.substring(0,1);
-      this.selec= sub;
-     },*/
+    let categoria = this.categoria;
+    let sub = categoria.substring(0,1);
+    this.selec= sub;
+    },*/
     addArticulo: function addArticulo() {
       var meconsulta = this;
       axios.post("api/articulo").then(function (response) {
@@ -38465,7 +38625,7 @@ var render = function() {
           _vm._m(1),
           _vm._v(" "),
           _c("table", { staticClass: "table" }, [
-            _c("caption", [_vm._v("Lista de Articulos")]),
+            _c("caption", [_vm._v("Lista Articulos")]),
             _vm._v(" "),
             _vm._m(2),
             _vm._v(" "),
@@ -38674,7 +38834,11 @@ var render = function() {
                             }
                           })
                         }),
-                        _vm._v(" \n        " + _vm._s(_vm.categoria) + "\n    ")
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.categoria) +
+                            "\n              "
+                        )
                       ],
                       2
                     )
