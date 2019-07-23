@@ -39590,7 +39590,7 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("label", [
                       _c("img", { attrs: { src: "img\\venta.png", alt: "" } }),
-                      _vm._v(" precio venta\n                ")
+                      _vm._v("precio venta\n                ")
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-3" }, [

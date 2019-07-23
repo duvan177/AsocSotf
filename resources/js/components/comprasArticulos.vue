@@ -66,7 +66,7 @@
                   </div>
 
                   <label>
-                    <img src="img\venta.png" alt /> precio venta
+                    <img src="img\venta.png" alt />precio venta
                   </label>
 
                   <div class="form-group col-md-3" style>
