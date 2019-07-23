@@ -6,7 +6,7 @@
       <!-- Ejemplo de tabla Listado -->
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Categorías
+          <i class="fa fa-align-justify"></i>Categorías
           <button
             type="button"
             class="btn btn-secondary"
@@ -75,9 +75,7 @@
                 </form>
 
                 <div class="input-group mb-3" style=" height: 200px;">
-                  <div class="input-group-prepend">
-                    
-                  </div>
+                  <div class="input-group-prepend"></div>
                 </div>
 
                 <div>
@@ -87,7 +85,7 @@
                 </div>
 
                 <p class="card-text">
-                  <small class="text-muted">formulario para compra de producto</small>
+                  <small class="text-muted">compra de producto</small>
                 </p>
               </div>
             </div>
