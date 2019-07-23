@@ -91,7 +91,7 @@
             </div>
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Compras registradas</h5>
+                <h5 class="card-title">lista Compras registradas</h5>
                 <div class="form-group row">
                   <div class="col-md-6">
                     <div class="input-group">
@@ -142,7 +142,7 @@
                         </button>
                       </td>
                       <td>Equipos</td>
-                      <td>Dispositivos electrónicos</td>
+                      <td>electrónicos</td>
                       <td>
                         <span class="badge badge-success">Activo</span>
                       </td>

@@ -39640,7 +39640,7 @@ var staticRenderFns = [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _c("h5", { staticClass: "card-title" }, [
-                    _vm._v("Compras registradas")
+                    _vm._v("lista Compras registradas")
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group row" }, [
@@ -39738,7 +39738,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("td", [_vm._v("Equipos")]),
                           _vm._v(" "),
-                          _c("td", [_vm._v("Dispositivos electrónicos")]),
+                          _c("td", [_vm._v("electrónicos")]),
                           _vm._v(" "),
                           _c("td", [
                             _c("span", { staticClass: "badge badge-success" }, [
