@@ -39652,7 +39652,7 @@ var staticRenderFns = [
               },
               [
                 _c("i", { staticClass: "icon-plus" }),
-                _vm._v(" Nuevo\n        ")
+                _vm._v(" Nuevo producto\n        ")
               ]
             )
           ]),
@@ -39822,7 +39822,7 @@ var staticRenderFns = [
                             ]),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "descripcion" } }, [
-                              _vm._v("Descripción")
+                              _vm._v("Descripción del articulo")
                             ])
                           ]
                         ),

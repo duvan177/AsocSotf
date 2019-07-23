@@ -13,7 +13,7 @@
             data-toggle="modal"
             data-target="#modalNuevo"
           >
-            <i class="icon-plus"></i>&nbsp;Nuevo
+            <i class="icon-plus"></i>&nbsp;Nuevo producto
           </button>
         </div>
         <div class="card-body">
@@ -97,7 +97,7 @@
                     <div class="input-group">
                       <select class="form-control col-md-3" id="opcion" name="opcion">
                         <option value="nombre">Nombre</option>
-                        <option value="descripcion">Descripción</option>
+                        <option value="descripcion">Descripción del articulo</option>
                       </select>
                       <input
                         type="text"
