@@ -38,7 +38,7 @@
                
         </template>
         <template v-if="menu == 7">
-                
+                <compa></compa>
         </template>
         <template v-if="menu == 8">
                 <h2>menu del contenido 8 </h2>

@@ -156,29 +156,18 @@ $consulta= DB::table('articulo')
             $data = 404;
             return response()->json($data);
         }
-      
-
-        
-           
-      
-        
-
-
-
-                
-    
-         
-     
-
-
-
-      
-
-       
-
-
-      
-
 
     }
+
+    public function getArticulos(){
+
+      //$cons = articulo::all();
+      
+      $consulta= DB::table('articulo')
+          ->join('estado','articulo.estado','=','estado.id')
+         ->join('categoria','articulo.id_categoria','=','categoria.id')
+          ->select('articulo.id','articulo.codigo','articulo.nombre')
+          ->first(); 
+            return response()->json($consulta);
+      }
 }

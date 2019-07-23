@@ -3,12 +3,19 @@
 
     <div class="container-fluid">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header"> </div>
+          
+      <div class="card-body">
              <div class="form-group col-md-2">
                 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#articuloModal"  >Crear Articulo</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#articuloModal"  style="position:relative; rigth:100px;">Crear Articulo</button>
 
                 </div>
+ <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+                
            
                 <table class="table">
                 <caption>Lista de Articulos</caption>

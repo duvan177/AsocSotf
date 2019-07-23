@@ -2,7 +2,8 @@
   <main class="main">
     <div class="container-fluid">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header"> </div>
+        <div class="card-body">
           <div class="container-fluid">
             <!--Formularios de venta -->
             <form>
@@ -11,7 +12,9 @@
               <section v-if="loading">
                 <div class="container-fluid">
                   <div class="card">
-                    <div class="card-header">
+                    <div class="card-header"></div>
+
+                    <div class="card-body">
                       <div class="container-fluid">
                         <div class="lds-ring">
                           <div></div>
@@ -46,6 +49,7 @@
                 fin la section alerta-->
 
                 <!-- fin del toast-->
+
                 <div class="form-row">
                   <label>
                     <h5>Fecha</h5>
@@ -98,7 +102,7 @@
                       required
                     />
                   </div>
-                  <div class="form-group col-md-2" style="left:95x; width:120px; top:9px;">
+                  <div class="form-group col-md-2" style="left:95x; width:100px; top:11px;">
                     <button type="button" class="btn btn-warning" v-on:click="addArticulo">
                       <i class="icon-basket-loaded"></i> Añadir
                     </button>
@@ -111,7 +115,7 @@
                     <caption>Lista de productos</caption>
                     <thead>
                       <tr>
-                        <!--  <th scope="col">#</th> -->
+                        <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio unitario</th>
@@ -154,11 +158,10 @@
                       placeholder="%00.0"
                       v-model="descuento"
                     />
-                   
                   </div>
-                   <div class="form-group col-md-2" style="left:95x; width:120px; top:18px;">
-                      <button type="button" class="btn btn-info" v-on:click="evento">Aplicar</button>
-                    </div>
+                  <div class="form-group col-md-2" style="left:95x; width:120px; top:18px;">
+                    <button type="button" class="btn btn-info" v-on:click="evento">Aplicar</button>
+                  </div>
 
                   <div class="form-group col-md-3">
                     <div id="tot" class="card border-info mb-4" style="max-width: 25rem;">
@@ -169,7 +172,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-4">
                     <div id="tot" class="card border-info mb-4 mov" style="max-width: 25rem;">
                       <div id="tit" class="card-header">Total Pagar con descuento</div>
                       <div class="card-body text-info">
@@ -243,7 +246,8 @@ export default {
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
-    evento() {/*
+    evento() {
+      /*
       let elemento = document.getElementsByClassName(
         "card border-info mb-4 mov"
       );
@@ -400,34 +404,29 @@ export default {
       metpd.totalPD = tpd;
       //n = String(n).replace(/\D/g, "");
 
-        let elemento = document.getElementsByClassName("card border-info mb-4 mov");
-        
-    
-      if (this.descuento !=0) {
-      anime({
-        targets: elemento,
-        translateY:130,
-        direction: "normal",
-        duration: 1000,
-        delay:1000
-      });
-      cont = 1;
-        
-      }
-      
-      else{
-      anime({
-        targets: elemento,
-        translateY: [0,0],
-        direction: "normal",
-        duration: 1000,
-        delay:1000
-      });
-      }
-        return  Number(tpd).toLocaleString();
+      let elemento = document.getElementsByClassName(
+        "card border-info mb-4 mov"
+      );
 
-    
-      
+      if (this.descuento != 0) {
+        anime({
+          targets: elemento,
+          translateY: 130,
+          direction: "normal",
+          duration: 1000,
+          delay: 1000
+        });
+        cont = 1;
+      } else {
+        anime({
+          targets: elemento,
+          translateY: [0, 0],
+          direction: "normal",
+          duration: 1000,
+          delay: 1000
+        });
+      }
+      return Number(tpd).toLocaleString();
     },
     descuentoTotal: function() {
       let medescuento = this;
