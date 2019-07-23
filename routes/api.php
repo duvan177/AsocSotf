@@ -28,3 +28,9 @@ Route::post('categoria','ArticuloController@getCategoria');
 Route::post('estado','ArticuloController@getEstado');
 Route::post('guardararticulo','ArticuloController@guardarArticulo');
 Route::post('editararticulo','ArticuloController@editarArticulo');
+
+//categoria
+Route::post('categoria','CategoriaController@getCategoria');
+Route::post('eliminarCategoria','CategoriaController@deleteCategoria');
+Route::post('guardarcategoria','CategoriaController@guardarCategoria');
+Route::post('editarcategoria','CategoriaController@editarCategoria');

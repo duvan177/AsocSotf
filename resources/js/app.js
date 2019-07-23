@@ -24,6 +24,7 @@ window.$ = require('jquery');
 Vue.component('venta', require('./components/ventas.vue').default);
 //vue.component('categoria', require('./components/categoria.vue'));
 Vue.component('art', require('./components/articuloVista.vue').default);
+Vue.component('categoria', require('./components/categoriaVista.vue').default);
 
 Vue.component('compa', require('./components/comprasArticulos.vue').default);
 /**
