@@ -34,3 +34,15 @@ Route::post('categoria','CategoriaController@getCategoria');
 Route::post('eliminarCategoria','CategoriaController@deleteCategoria');
 Route::post('guardarcategoria','CategoriaController@guardarCategoria');
 Route::post('editarcategoria','CategoriaController@editarCategoria');
+
+// crear personas 
+
+Route::post('create_personas','personasController@create');
+Route::post('get_provedores','personasController@setProvedores');
+
+// registro entradas de articulos
+Route::post('ingreso_articulo','IngresoController@createCompra');
+
+
+
+

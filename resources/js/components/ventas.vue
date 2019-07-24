@@ -2,7 +2,7 @@
   <main class="main">
     <div class="container-fluid">
       <div class="card">
-        <div class="card-header"> </div>
+        <div class="card-header"></div>
         <div class="card-body">
           <div class="container-fluid">
             <!--Formularios de venta -->
@@ -57,7 +57,7 @@
                   <div class="form-group col-md-2">
                     <input
                       class="form-control"
-                      style="height:50"
+                      style="height:50;"
                       id="fecha"
                       type="tex"
                       v-model="fecha"
@@ -102,9 +102,14 @@
                       required
                     />
                   </div>
-                  <div class="form-group col-md-2" style="left:95x; width:100px; top:11px;">
+                  <div class="form-group" style>
                     <button type="button" class="btn btn-warning" v-on:click="addArticulo">
                       <i class="icon-basket-loaded"></i> Añadir
+                    </button>
+                  </div>
+                  <div class="form-group col" style>
+                    <button type="button" class="btn btn-info">
+                      <img src="img/buscar.png" alt /> Buscar
                     </button>
                   </div>
                 </div>
@@ -125,11 +130,11 @@
                     </thead>
                     <tbody>
                       <tr v-for="(datos, index) in consulta" :key="datos.id">
-                        <th v-text="index + 1"></th>
+                        <td v-text="index + 1"></td>
                         <td v-text="datos.datos.nombre"></td>
                         <td v-text="datos.cantidad"></td>
-                        <td v-text="datos.datos.precio_venta"></td>
-                        <td v-text="datos.totalPagar"></td>
+                        <td v-text="eventoNum(datos.datos.precio_venta)"></td>
+                        <td v-text="eventoNum(datos.totalPagar)"></td>
                         <td>
                           <button
                             type="button"
@@ -153,14 +158,23 @@
 
                   <div class="form-group col-md-2" style="left:100x; top:10px; width:100px;">
                     <input
+                      id="descuentox"
                       type="number"
                       class="form-control"
                       placeholder="%00.0"
+                      v-bind:disabled="totalPagarDes==0"
                       v-model="descuento"
                     />
-                  </div>
-                  <div class="form-group col-md-2" style="left:95x; width:120px; top:18px;">
-                    <button type="button" class="btn btn-info" v-on:click="evento">Aplicar</button>
+
+                    <section v-if="validar == true">
+                      <div style="left:95x; width:120px; ">
+                        <button
+                          id="css2"
+                          type="button"
+                          class="btn btn-danger animated pulse"
+                        >Validar descuento</button>
+                      </div>
+                    </section>
                   </div>
 
                   <div class="form-group col-md-3">
@@ -187,15 +201,20 @@
                     </div>
                   </div>
                 </div>
-
-                <div id="tras" class="form-row">
-                  <div class="card border-info mb-4" style="max-width: 25rem;">
-                    <div id="tit" class="card-header">relleno XD</div>
-                    <div class="card-body text-info"></div>
+                <div class="row">
+                  <div class="col-md-2 col-lg-2">
+                    <button
+                      class="btn btn-success btn-block"
+                      style="  width:240px;"
+                      v-on:click="launch_toast"
+                      type="button"
+                    >
+                      <h5>Finalizar</h5>
+                    </button>
                   </div>
+                  <!-- /col -->
                 </div>
-
-                <button type="button" class="btn btn-success" v-on:click="launch_toast">Finalizar</button>
+                <!-- /row -->
 
                 <div id="toast">
                   <div id="img">
@@ -211,7 +230,6 @@
                 </div>
               </section>
             </form>
-
             <!-- fin del formulario de venta-->
           </div>
         </div>
@@ -228,6 +246,7 @@ import { parse } from "path";
 export default {
   data() {
     return {
+      validar: false,
       totalPD: "",
       totalPagarDes: "",
       totalpagarDesT: "",
@@ -246,17 +265,10 @@ export default {
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
-    evento() {
-      /*
-      let elemento = document.getElementsByClassName(
-        "card border-info mb-4 mov"
-      );
-      anime({
-        targets: elemento,
-        translateY: 130,
-        direction: "normal",
-        duration: 1000
-      });*/
+    eventoNum(i) {
+      i = String(i).replace(/\D/g, "");
+
+      return i === "" ? i : Number(i).toLocaleString();
     },
 
     remove(index) {
@@ -366,11 +378,7 @@ export default {
   },
 
   computed: {
-    validarCamp: function() {
-      if (producto != "") {
-        $("#codProducto").addClass("form-control is-valid");
-      }
-    },
+    validarCamp: function() {},
 
     result: function() {
       let totp = this;
@@ -407,8 +415,7 @@ export default {
       let elemento = document.getElementsByClassName(
         "card border-info mb-4 mov"
       );
-
-      if (this.descuento != 0) {
+      if (this.descuento <= 10 && this.descuento >= 1) {
         anime({
           targets: elemento,
           translateY: 130,
@@ -429,6 +436,9 @@ export default {
       return Number(tpd).toLocaleString();
     },
     descuentoTotal: function() {
+      let elemento = document.getElementsByClassName(
+        "card border-info mb-4 mov"
+      );
       let medescuento = this;
 
       let d = 0;
@@ -438,14 +448,18 @@ export default {
 
       totalpag = this.totalPagarDes;
       descuento = this.descuento;
+      if (descuento > 10) {
+        this.validar = true;
+        return "descuento pasa el limite autorizado";
+      } else {
+        porcentaje = (descuento * totalpag) / 100;
 
-      porcentaje = (descuento * totalpag) / 100;
-
-      d = porcentaje.toFixed(2);
-      d = parseFloat(d);
-      medescuento.totalpagarDesT = d;
-
-      return d === "" ? d : Number(d).toLocaleString();
+        d = porcentaje.toFixed(2);
+        d = parseFloat(d);
+        medescuento.totalpagarDesT = d;
+        this.validar = false;
+        return d === "" ? d : Number(d).toLocaleString();
+      }
     }
   },
 

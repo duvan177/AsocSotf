@@ -19,6 +19,7 @@
      <link rel="css/toastr.css" href="">
 
       <link href="css/style.css" rel="stylesheet">
+      <link href="css/animate.css" rel="stylesheet">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

@@ -167,7 +167,7 @@ $consulta= DB::table('articulo')
           ->join('estado','articulo.estado','=','estado.id')
          ->join('categoria','articulo.id_categoria','=','categoria.id')
           ->select('articulo.id','articulo.codigo','articulo.nombre')
-          ->first(); 
+          ->get(); 
             return response()->json($consulta);
       }
 }
