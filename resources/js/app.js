@@ -25,6 +25,7 @@ Vue.component('venta', require('./components/ventas.vue').default);
 //vue.component('categoria', require('./components/categoria.vue'));
 Vue.component('art', require('./components/articuloVista.vue').default);
 Vue.component('categoria', require('./components/categoriaVista.vue').default);
+Vue.component('Boton', require('./components/notificacionExito.vue').default);
 
 Vue.component('compa', require('./components/comprasArticulos.vue').default);
 /**
@@ -36,10 +37,7 @@ Vue.component('compa', require('./components/comprasArticulos.vue').default);
 const app = new Vue({
     el: '#app',
     data: {
-
         menu: 0,
-
-
     }
 
 });

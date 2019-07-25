@@ -359,8 +359,11 @@ export default {
       axios
         .post("/api/NumeroFactura")
         .then(function(response) {
-          num.num = response.data;
-          // console.log(numfactura);
+          if ((response.data = 404)) {
+            num.num = "no hay facturas";
+          } else {
+            num.num = response.data;
+          }
         })
         .catch(function(error) {
           // handle error

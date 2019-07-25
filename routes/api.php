@@ -42,6 +42,17 @@ Route::post('get_provedores','personasController@setProvedores');
 
 // registro entradas de articulos
 Route::post('ingreso_articulo','IngresoController@createCompra');
+// tipos de comprobantes
+Route::post('get_comprobantes','IngresoController@setComprobantes');
+// tipo de series 
+Route::post('get_series','IngresoController@setSeries');
+// registro de ingreso
+Route::post('guardar_ingreso','IngresoController@createIngreso');
+//ingresos en estado ejecuccion
+Route::post('get_ingresosE','IngresoController@setIngresos');
+
+
+
 
 
 

@@ -9,15 +9,11 @@ use Illuminate\Support\Facades\DB;
 class fechaController extends Controller
 {
         public function traer_fecha(){
-        
-
-       
-
+      
       $date = Carbon::now();
  
       
-      $data = $date->format('d-m-y');
-        
+      $data = $date->format('d-m-y');    
 
 return response()->json($data);
         
@@ -25,10 +21,18 @@ return response()->json($data);
     }
     public function NumeroFactura(){
 
-             $data = DB::table('sell')
+             $data = DB::table('venta')
              ->select( 'id')
              ->max('id');
-            return response()->json($data, 200);
-            
+
+             if ($data == null) {
+               
+              $notif = 404;
+                return response()->json($notif);
+              
+             }else {
+                return response()->json($data, 200);
+               
+             }    
     }
 }
