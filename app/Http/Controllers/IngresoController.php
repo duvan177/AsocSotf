@@ -109,4 +109,30 @@ class IngresoController extends Controller
 
 
     }
+
+    public function RegistrarIngreso(Request $request){
+
+        $id_ingreso = $request->id_ingreso;
+        $id_articulo = $request->id_articulo;
+        $cantidad =$request->cantidad;
+        $precio_comrpa =$request->precio_comrpa;
+        $precio_venta =$request->precio_venta;
+
+        $detalle_ingreso = new detalle_ingreso();
+         $detalle_ingreso->id_ingreso =$id_ingreso ;
+         $detalle_ingreso->id_articulo=$id_articulo;
+          $detalle_ingreso->cantidad=$cantidad;
+          $detalle_ingreso->precio_comrpa=$precio_comrpa;
+         $detalle_ingreso->precio_venta=$precio_venta;
+
+         $detalle_ingreso->save();
+
+         if ($detalle_ingreso->save()) {
+             $data = [ msg=>"exito al guardar",data=>1002];
+             return response()->json($data);
+         }
+         $data = "error al guardar contactar con servicio";
+
+         return response()->json($data);
+    }
 }

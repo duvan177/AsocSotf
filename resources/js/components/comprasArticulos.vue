@@ -29,7 +29,7 @@
           <div class="card">
             <div id="cardPrueba" class="card-body">
               <h5 class="card-title">Registro de Ingreso</h5>
-              <form class="form-row">
+              <div class="form-group">
                 <button
                   type="button"
                   class="btn btn-danger"
@@ -37,11 +37,15 @@
                   style=" height:35px;border-radius:12px;"
                   data-target="#modalCompra"
                 >
-                  <i class="icon-plus"></i>&nbsp;Nuevo Ingreso
+                  <i class="icon-plus"></i>
+                  &nbsp;Nuevo Ingreso
                 </button>
+              </div>
+              <form class="form-row">
                 <label class="form-group col-md-2">
                   <img src="img\compra2.png" alt /> Ingrese Provedor
                 </label>
+
                 <div class="form-group col-md-6">
                   <select class="form-control" v-model="ingreso">
                     <option disabled value>Selecciona...</option>
@@ -63,7 +67,7 @@
                   <img src="img\comprobante.png" />Numero comprobante
                 </label>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <input
                     type="number"
                     class="form-control"
@@ -78,9 +82,9 @@
               </p>
             </div>
 
-            <!--nueva compra-->
-            <section v-if="ingreso !='' ">
-              <div id="cardPrueba2" class="card-body animated fadeInUp">
+            <!--nueva compra  v-if="ingreso !=''"-->
+            <section>
+              <div id="cardPrueba2" class="card-body fantasma">
                 <h5 class="card-title">
                   Nueva compra
                   <br />Proveedor
@@ -151,7 +155,7 @@
                   </div>
                 </form>
 
-                <div class="input-group mb-3" style=" height:100px;">
+                <div class="input-group mb-3" style=" height:40px;">
                   <div class="input-group-prepend"></div>
                 </div>
 
@@ -188,7 +192,7 @@
           </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">lista Compras registradas</h5>
+              <h5 class="card-title">lista de compras registradas</h5>
               <div class="form-group row">
                 <div class="col-md-6">
                   <div class="input-group">
@@ -700,7 +704,8 @@ export default {
       this.cantidad = "";
       this.preciocompra = "";
       this.precioventa = "";
-    }
+    },
+    RegistrarIngreso() {}
   },
 
   mounted() {
@@ -710,23 +715,12 @@ export default {
     this.getSeries();
     this.getImgresosE();
   },
-  computed: {
-    tp: function() {
-      let mevaidar = this;
-      var validar = 0;
-      var dato = false;
-
-      validar = this.NumComprobante;
-
-      if (validar != "") {
+  watch: {
+    ingreso: function(val) {
+      if (val != "") {
         var x = document.getElementById("cardPrueba2");
         x.classList.remove("fantasma");
         x.classList.add("animated", "fadeInUp");
-
-        dato = true;
-        return dato;
-      } else {
-        return dato;
       }
     }
   }

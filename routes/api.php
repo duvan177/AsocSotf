@@ -50,6 +50,9 @@ Route::post('get_series','IngresoController@setSeries');
 Route::post('guardar_ingreso','IngresoController@createIngreso');
 //ingresos en estado ejecuccion
 Route::post('get_ingresosE','IngresoController@setIngresos');
+// registro de ingreso
+Route::post('Registrar_Ingreso','IngresoController@RegistrarIngreso');
+
 
 
 
