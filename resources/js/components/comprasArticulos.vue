@@ -721,6 +721,7 @@ export default {
         var x = document.getElementById("cardPrueba2");
         x.classList.remove("fantasma");
         x.classList.add("animated", "fadeInUp");
+        console.log("cambio  echo");
       }
     }
   }
