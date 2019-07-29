@@ -1,6 +1,6 @@
  <template>
   <button type="button" class="btn btn-success animated fadeOut">
-    <span class="cui-contrast"></span> guardar
+    <span class="cui-contrast"></span> Guardar
   </button>
 </template>
 <script>

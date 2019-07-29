@@ -23,16 +23,17 @@
             </div>
           </form>
         </div>
-        <!-- primer formulario crear ingreso -->
 
         <div class="card-deck">
+          <!-- primer formulario crear ingreso -->
+
           <div class="card">
             <div id="cardPrueba" class="card-body">
               <h5 class="card-title">Registro de Ingreso</h5>
               <div class="form-group">
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-danger animated bounce"
                   data-toggle="modal"
                   style=" height:35px;border-radius:12px;"
                   data-target="#modalCompra"
@@ -97,11 +98,11 @@
 
                   <div class="form-group col-md-6" style>
                     <select class="form-control" v-model="articulo">
-                      <option disabled value>Selecciona tipo documento</option>
+                      <option disabled value>Selecciona articulo</option>
                       <option
                         v-for="optione in articulos"
                         v-bind:key="optione.id"
-                        v-bind:value="optione.codigo"
+                        v-bind:value="optione.id"
                         v-text="optione.nombre"
                       ></option>
                     </select>
@@ -118,7 +119,7 @@
                       type="number"
                       class="form-control"
                       placeholder="Unidades"
-                      v-model="cantidad"
+                      v-model.number="cantidad"
                       id
                       required
                     />
@@ -135,7 +136,7 @@
                       type="number"
                       class="form-control"
                       placeholder="$00.00"
-                      v-model="preciocompra"
+                      v-model.number="preciocompra"
                     />
                   </div>
 
@@ -148,7 +149,7 @@
                       type="number"
                       class="form-control"
                       placeholder="$00.00"
-                      v-model="precioventa"
+                      v-model.number="precioventa"
                       id
                       required
                     />
@@ -161,25 +162,45 @@
 
                 <form class="form-row">
                   <div class="form-group col-md-3">
-                    <button type="button" class="btn btn-info" v-on:click="limpiar">
+                    <button type="button" class="btn btn-info" v-on:click="getIngreso_all">
                       <span class="cui-contrast"></span> Limpiar
                     </button>
                   </div>
 
                   <div class="form-group col-md-3" style>
                     <section
-                      v-if="articulo!='' && cantidad > 0 && preciocompra >0 && precioventa >0"
+                      v-if="articulo!='' && cantidad > 0 && preciocompra >0 && precioventa >0 && ingreso !=''"
                     >
                       <button
                         type="button"
-                        v-on:click="prueba"
+                        v-on:click="RegistrarIngreso"
                         class="btn btn-success animated fadeIn"
                       >
-                        <span class="cui-contrast"></span> guardar
+                        <span class="cui-contrast"></span> Guardar
                       </button>
                     </section>
+
                     <section v-else>
                       <Boton></Boton>
+                    </section>
+                  </div>
+                  <div class="form-group col-md-3" style>
+                    <section
+                      v-if="articulo!='' && cantidad > 0 && preciocompra >0 && precioventa >0 && ingreso !=''"
+                    >
+                      <button
+                        type="button"
+                        v-on:click="RegistrarIngreso"
+                        class="btn btn-success animated fadeIn"
+                      >
+                        <span class="cui-contrast"></span> Guardar y finalizar
+                      </button>
+                    </section>
+
+                    <section v-else>
+                      <button type="button" class="btn btn-success animated fadeOut">
+                        <span class="cui-contrast"></span> Guardar y finalizar
+                      </button>
                     </section>
                   </div>
                 </form>
@@ -190,6 +211,8 @@
               </div>
             </section>
           </div>
+          <!-- fin formulario crear ingreso -->
+
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">lista de compras registradas</h5>
@@ -197,8 +220,8 @@
                 <div class="col-md-6">
                   <div class="input-group">
                     <select class="form-control col-md-3" id="opcion" name="opcion">
-                      <option value="nombre">Nombre</option>
-                      <option value="descripcion">Descripción del articulo</option>
+                      <option value="nombre">Finalizado</option>
+                      <option value="descripcion">Ejecucion</option>
                     </select>
                     <input
                       type="text"
@@ -213,34 +236,38 @@
                   </div>
                 </div>
               </div>
-              <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm">
+              <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-bordered table-striped mb-0">
                   <thead>
                     <tr>
-                      <th>Opciones</th>
-                      <th>Nombre</th>
-                      <th>Descripción</th>
-                      <th>Estado</th>
+                      <th scope="col">Ver mas+</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Numero comprobante</th>
+                      <th scope="col">Articulo</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Total Compra</th>
+                      <th scope="col">Fecha</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr v-for="(ingreso) in ingresosAll" :key="ingreso.id">
                       <td>
                         <button
                           type="button"
-                          class="btn btn-warning btn-sm"
+                          class="btn btn-info btn-sm"
                           data-toggle="modal"
                           data-target="#modalNuevo"
                         >
-                          <i class="icon-pencil"></i>
+                          <i class="icon-info"></i>
                         </button>
                         &nbsp;
                       </td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span class="badge badge-success">Activo</span>
-                      </td>
+                      <td v-text="ingreso.persona[0]['nombre']"></td>
+                      <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
+                      <td v-text="ingreso.articulo[0]['nombre']"></td>
+                      <td v-text="ingreso.cantidad"></td>
+                      <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
+                      <td v-text="ingreso.created_at"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -253,8 +280,15 @@
           </div>
         </div>
       </div>
-      <!-- Fin ejemplo de tabla Listado -->
     </div>
+    <div id="toast">
+      <div id="img">
+        <i class="icon-check"></i>
+      </div>
+      <div id="desc">Guardado con exito...</div>
+    </div>
+    <!-- Fin ejemplo de tabla Listado -->
+
     <!--Inicio del modal agregar/actualizar-->
     <div
       class="modal fade"
@@ -438,7 +472,7 @@ border-radius: 34px 40px 40px 40px;"
               <img src="img\validated.png" /> Guardado con exito
             </div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" v-on:click="guardaringreso">Guardar</button>
+            <button class="btn btn-primary" v-on:click="guardaringreso">Guardar</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -492,13 +526,15 @@ export default {
       numComp: "",
       //
       ingreso: "",
-      ingresos: []
+      ingresos: [],
+      ingresosAll: [],
+      tabla: true
     };
   },
 
   methods: {
-    prueba() {
-      alert();
+    prueba(dato) {
+      alert(dato);
     },
     GuardarCompra() {
       axios
@@ -663,6 +699,7 @@ export default {
 
             //ser.series = response.data;
           }
+
           console.log(response.data);
         })
         .catch(function(error) {
@@ -705,7 +742,62 @@ export default {
       this.preciocompra = "";
       this.precioventa = "";
     },
-    RegistrarIngreso() {}
+    RegistrarIngreso() {
+      let reld = this;
+      let table = this;
+      axios
+        .post("/api/RegistIngreso", {
+          id_ingreso: this.ingreso,
+          articulo: this.articulo,
+          cantidad: this.cantidad,
+          precio_compra: this.preciocompra,
+          precio_venta: this.precioventa
+        })
+        .then(function(response) {
+          table.tabla = false;
+          function toastAlert() {
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function() {
+              x.className = x.className.replace("show", "");
+            }, 3000);
+          }
+
+          toastAlert();
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.loading = false));
+
+      this.articulo = "";
+      this.cantidad = "";
+      this.preciocompra = "";
+      this.precioventa = "";
+    },
+    getIngreso_all() {
+      let ingAll = this;
+
+      axios
+        .post("/api/setIngresosTodo")
+        .then(function(response) {
+          ingAll.ingresosAll = response.data;
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          // handle error
+          // console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.tabla = true));
+    }
   },
 
   mounted() {
@@ -714,6 +806,7 @@ export default {
     this.getComprobantes();
     this.getSeries();
     this.getImgresosE();
+    this.getIngreso_all();
   },
   watch: {
     ingreso: function(val) {
@@ -722,6 +815,12 @@ export default {
         x.classList.remove("fantasma");
         x.classList.add("animated", "fadeInUp");
         console.log("cambio  echo");
+        // this.getIngreso_all();
+      }
+    },
+    tabla: function(val) {
+      if (val == false) {
+        this.getIngreso_all();
       }
     }
   }

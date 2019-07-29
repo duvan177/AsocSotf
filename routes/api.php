@@ -51,7 +51,11 @@ Route::post('guardar_ingreso','IngresoController@createIngreso');
 //ingresos en estado ejecuccion
 Route::post('get_ingresosE','IngresoController@setIngresos');
 // registro de ingreso
-Route::post('Registrar_Ingreso','IngresoController@RegistrarIngreso');
+Route::post('RegistIngreso','IngresoController@RegistrarIngreso');
+//traer todo los ingresos con sus datos
+Route::post('setIngresosTodo','IngresoController@setIngresosTodo');
+//suma de todas las compras
+Route::post('getTotal_Compras','IngresoController@TotalCompras');
 
 
 

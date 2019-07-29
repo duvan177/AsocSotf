@@ -28,6 +28,9 @@ Vue.component('categoria', require('./components/categoriaVista.vue').default);
 Vue.component('Boton', require('./components/notificacionExito.vue').default);
 
 Vue.component('compa', require('./components/comprasArticulos.vue').default);
+Vue.component('graficos', require('./components/graficos.vue').default);
+Vue.component('escritorio', require('./components/escritorio.vue').default);
+Vue.component('gestion-compras', require('./components/comprasList.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

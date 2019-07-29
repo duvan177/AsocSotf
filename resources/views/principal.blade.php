@@ -9,7 +9,7 @@
     <meta name="author" content="AsocSoft">
     <meta name="keyword" content="SISVENTI">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>  Sistema Domotico</title>
+    <title>  Vents-app</title>
      <!-- token de seguridad -->
        <!-- Icons -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -69,6 +69,23 @@
                         <span class="badge badge-danger">2</span>
                     </a>
                 </div>
+                 <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
             </li>
          
         </ul>
@@ -97,6 +114,8 @@
      <!-- Plugins and scripts required by all views -->
     <script src="js/Chart.min.js"></script>
     <script src="{{asset("js/anime.js")}}"></script>
+      <script src="{{asset("js/operacionsAdd.js")}}"></script>
+
 
 
     <!-- GenesisUI main scripts -->

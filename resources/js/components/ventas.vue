@@ -115,7 +115,7 @@
                 </div>
 
                 <!--inicio de tabla de los productos selecionados -->
-                <div class="table-responsive">
+                <div class="table-responsive form-row">
                   <table class="table table table-striped">
                     <caption>Lista de productos</caption>
                     <thead>

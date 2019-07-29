@@ -8,6 +8,8 @@ use App\ingreso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
+
 class IngresoController extends Controller
 {
     
@@ -113,26 +115,59 @@ class IngresoController extends Controller
     public function RegistrarIngreso(Request $request){
 
         $id_ingreso = $request->id_ingreso;
-        $id_articulo = $request->id_articulo;
-        $cantidad =$request->cantidad;
-        $precio_comrpa =$request->precio_comrpa;
+        $id_articulo = $request->articulo;
+        $cantidad = $request->cantidad;
+        $precio_comrpa =$request->precio_compra;
         $precio_venta =$request->precio_venta;
 
-        $detalle_ingreso = new detalle_ingreso();
-         $detalle_ingreso->id_ingreso =$id_ingreso ;
-         $detalle_ingreso->id_articulo=$id_articulo;
-          $detalle_ingreso->cantidad=$cantidad;
-          $detalle_ingreso->precio_comrpa=$precio_comrpa;
-         $detalle_ingreso->precio_venta=$precio_venta;
+        $detalle_ing = new detalle_ingreso;
+         $detalle_ing->id_ingreso =$id_ingreso ;
+         $detalle_ing->id_articulo=$id_articulo;
+          $detalle_ing->cantidad=$cantidad;
+          $detalle_ing->precio_comrpa=$precio_comrpa;
+         $detalle_ing->precio_venta=$precio_venta;
 
-         $detalle_ingreso->save();
+         $detalle_ing->save();
 
-         if ($detalle_ingreso->save()) {
-             $data = [ msg=>"exito al guardar",data=>1002];
-             return response()->json($data);
-         }
+         if ( $detalle_ing->save()) {
+                    $data = "Guardado con exito";
+
+         return response()->json($data);
+             
+         }else{
          $data = "error al guardar contactar con servicio";
 
          return response()->json($data);
+       }
+       
+    }
+
+    public function setIngresosTodo(){
+
+        $count = detalle_ingreso::all()->count();
+
+           $data = detalle_ingreso::orderBy('id','desc')->get();
+         
+
+           for ($i=0; $i <  $count ; $i++) { 
+                $data[$i]->ingreso;
+                 $data[$i]->persona;  
+                  $data[$i]->articulo;
+                  
+               
+           }       
+            return response()->json($data);
+
+
+    }
+    public function TotalCompras(){
+
+        $compras = detalle_ingreso::sum('precio_comrpa');
+
+        return response()->json($compras);
+
+
+
+
     }
 }

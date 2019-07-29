@@ -5,7 +5,7 @@
 @section('contenido')
 
         <template v-if="menu == 0">
-                
+                <escritorio></escritorio>
         
         </template>
 
@@ -41,7 +41,7 @@
                 <compa></compa>
         </template>
         <template v-if="menu == 8">
-                <h2>menu del contenido 8 </h2>
+               <gestion-compras></gestion-compras>
         </template>
 
         <template v-if="menu == 9">

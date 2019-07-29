@@ -111,6 +111,9 @@ $consulta= DB::table('articulo')
 
 
         if($validar == $dato){
+
+          $idIngresoMax = detalle_ingreso::max('id_ingreso');
+          
             
 
          $idArticulo = DB::table('articulo')
@@ -127,11 +130,12 @@ $consulta= DB::table('articulo')
          ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
          ->select('detalle_ingreso.precio_venta')
          ->where('detalle_ingreso.id_articulo','=',$idArticulo)
+        
          ->value('detalle_ingreso.precio_venta');
      
           if ($consulta == null) {
               $data = 1005;
-                return response()->json($data);
+                return response()->json($consulta);
           }else {
                  
          $precioT = $precioDB * $cant;

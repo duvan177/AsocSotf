@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="img/favicon.png">
-        <title>Sistema Domotico</title>
+        <title>Vents-App</title>
         <link href="css/plantilla.css" rel="stylesheet">
 
         <!-- Fonts -->
@@ -75,10 +75,6 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Iniciar Sesion</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registro</a>
-                        @endif
                     @endauth
                 </div>
             @endif
@@ -86,18 +82,10 @@
             <div class="content">
 
                 <div class="title m-b-md" >
-                DMOOS 151
                 </div>
 
-               <!-- <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>-->
+                <img src="img\iconoC.png"  width="500" height="500"/>
+
             </div>
         </div>
     </body>
