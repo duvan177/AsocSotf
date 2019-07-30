@@ -167,7 +167,39 @@ class IngresoController extends Controller
         return response()->json($compras);
 
 
+    }
 
+    public function Buscar(Request $request){
 
+        $dato =(int) $request->buscar;
+
+      
+           
+          function Even($data) 
+            { 
+	// returns if the input integer is even 
+	            if($data%2==0) 
+	            return TRUE; 
+	            else
+	        return FALSE; 
+            } 
+
+        $count = detalle_ingreso::all()->count();
+
+           $data = detalle_ingreso::orderBy('id','desc')->get();
+         
+
+           for ($i=0; $i <  $count ; $i++) { 
+                $data[$i]->ingreso;
+                 $data[$i]->persona;  
+                  $data[$i]->articulo;
+                  
+               
+           }
+          
+           
+        
+   
+    return response($consulta);
     }
 }

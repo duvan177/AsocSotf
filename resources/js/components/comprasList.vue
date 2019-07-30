@@ -17,8 +17,35 @@
           </button>
         </div>
         <div class="card-body">
+          <form>
+            <div class="form-row align-items-center">
+              <div class="col-auto my-1">
+                <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+                <select class="form-control" v-model="filtro">
+                  <option disabled value>Selecciona tipo documento</option>
+                  <option
+                    v-for="optione in filtros"
+                    v-bind:key="optione.value"
+                    v-bind:value="optione.value"
+                    v-text="optione.text"
+                  ></option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input
+                    type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    id="myInput"
+                    v-on:keyup="myFunction"
+                    placeholder="Buscar..."
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
           <div class="table-wrapper-scroll-y my-custom-scrollbar">
-            <table class="table table-bordered table-striped mb-0">
+            <table id="myTable" class="table table-hover table-responsive mt-2">
               <!--Table head-->
               <thead>
                 <tr>
@@ -138,6 +165,18 @@
 export default {
   data() {
     return {
+      filtros: [
+        { text: "Poveedor", value: 0 },
+        { text: "numero comprobante", value: 1 },
+        { text: "Articulo", value: 2 },
+        { text: "Cantidad", value: 3 },
+        { text: "Precio Compra", value: 4 },
+        { text: "Precio Venta", value: 5 },
+        { text: "Total Compra", value: 6 },
+        { text: "Estado ", value: 7 },
+        { text: "Fecha", value: 8 }
+      ],
+      filtro: "",
       mensage: "hola",
       lista_compras: [],
       totalCompra: "",
@@ -148,8 +187,26 @@ export default {
   },
 
   methods: {
-    prueba(dato) {
-      alert(dato);
+    myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[this.filtro];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     },
     listCompras() {
       let lis = this;

@@ -88,7 +88,7 @@
                       placeholder="Codigo del producto"
                       id="codProducto"
                       v-model="producto"
-                      required
+                      autofocus
                     />
                   </div>
                   <div class="form-group col-md-2">
@@ -99,7 +99,6 @@
                       id="cantidad"
                       v-on:keyup.enter="addArticulo"
                       v-model="cantidad"
-                      required
                     />
                   </div>
                   <div class="form-group" style>
@@ -342,7 +341,7 @@ export default {
         .post("/api/fecha")
         .then(function(response) {
           fecha.fecha = response.data;
-          console.log(datos);
+          //  console.log(datos);
         })
         .catch(function(error) {
           // handle error

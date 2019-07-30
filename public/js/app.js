@@ -3488,9 +3488,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      filtros: [{
+        text: "Poveedor",
+        value: 0
+      }, {
+        text: "numero comprobante",
+        value: 1
+      }, {
+        text: "Articulo",
+        value: 2
+      }, {
+        text: "Cantidad",
+        value: 3
+      }, {
+        text: "Precio Compra",
+        value: 4
+      }, {
+        text: "Precio Venta",
+        value: 5
+      }, {
+        text: "Total Compra",
+        value: 6
+      }, {
+        text: "Estado ",
+        value: 7
+      }, {
+        text: "Fecha",
+        value: 8
+      }],
+      filtro: "",
       mensage: "hola",
       lista_compras: [],
       totalCompra: "",
@@ -3500,8 +3556,27 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    prueba: function prueba(dato) {
-      alert(dato);
+    myFunction: function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr"); // Loop through all table rows, and hide those who don't match the search query
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[this.filtro];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     },
     listCompras: function listCompras() {
       var _this = this;
@@ -3658,9 +3733,253 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  }
+  data: function data() {
+    return {
+      lists: [{
+        id: 61,
+        id_ingreso: 95,
+        id_articulo: 44,
+        cantidad: 30,
+        precio_comrpa: 700,
+        precio_venta: 3000,
+        created_at: "2019-07-28 19:39:21",
+        updated_at: "2019-07-28 19:39:21",
+        ingreso: [{
+          id: 95,
+          id_proveedor: 30,
+          id_tipo_comprobante: 3,
+          id_serie_comprobante: 2,
+          num_comprobante: "3104666575",
+          id_estado: 2,
+          created_at: "2019-07-28 19:37:40",
+          updated_at: "2019-07-28 19:37:40"
+        }],
+        persona: [{
+          id: 30,
+          id_tipo_persona: 3,
+          nombre: "PEPE",
+          id_tipo_documento: 3,
+          num_documento: "12345",
+          direccion: "CALLE 10# 19-049",
+          telefono: "3104666575",
+          email: "duvannarvaez17@gmail.com",
+          created_at: "2019-07-25 13:18:55",
+          updated_at: "2019-07-25 13:18:55",
+          laravel_through_key: 95
+        }],
+        articulo: [{
+          id: 44,
+          id_categoria: 4,
+          codigo: 71,
+          nombre: "postobon",
+          stock: 0,
+          descripcion: "bebida colombina",
+          imagen: null,
+          estado: 1,
+          created_at: "2019-07-18 20:30:46",
+          updated_at: "2019-07-18 20:30:46"
+        }]
+      }, {
+        id: 60,
+        id_ingreso: 92,
+        id_articulo: 41,
+        cantidad: 12,
+        precio_comrpa: 1200,
+        precio_venta: 4000,
+        created_at: "2019-07-28 18:58:31",
+        updated_at: "2019-07-28 18:58:31",
+        ingreso: [{
+          id: 92,
+          id_proveedor: 2,
+          id_tipo_comprobante: 3,
+          id_serie_comprobante: 2,
+          num_comprobante: "00090909009",
+          id_estado: 2,
+          created_at: "2019-07-27 00:15:13",
+          updated_at: "2019-07-27 00:15:13"
+        }],
+        persona: [{
+          id: 2,
+          id_tipo_persona: 3,
+          nombre: "COCA-COLA",
+          id_tipo_documento: 4,
+          num_documento: "12345",
+          direccion: "CALLE 10# 19-049",
+          telefono: "3104666575",
+          email: "duvannarvaez17@gmail.com",
+          created_at: "2019-06-25 00:00:00",
+          updated_at: null,
+          laravel_through_key: 92
+        }],
+        articulo: [{
+          id: 41,
+          id_categoria: 5,
+          codigo: 21,
+          nombre: "bandeja de pollo",
+          stock: 0,
+          descripcion: "pollo bucanero",
+          imagen: null,
+          estado: 1,
+          created_at: "2019-07-18 20:22:36",
+          updated_at: "2019-07-18 20:22:36"
+        }]
+      }, {
+        id: 59,
+        id_ingreso: 94,
+        id_articulo: 44,
+        cantidad: 12,
+        precio_comrpa: 12,
+        precio_venta: 12,
+        created_at: "2019-07-28 18:13:55",
+        updated_at: "2019-07-28 18:13:55",
+        ingreso: [{
+          id: 94,
+          id_proveedor: 11,
+          id_tipo_comprobante: 3,
+          id_serie_comprobante: 2,
+          num_comprobante: "1212121212",
+          id_estado: 2,
+          created_at: "2019-07-28 18:13:41",
+          updated_at: "2019-07-28 18:13:41"
+        }],
+        persona: [{
+          id: 11,
+          id_tipo_persona: 3,
+          nombre: "alqueria",
+          id_tipo_documento: 4,
+          num_documento: "345453",
+          direccion: "CALLE 10# 19-049",
+          telefono: "3104666575",
+          email: "duvannarvaez17@gmail.com",
+          created_at: "2019-07-23 19:54:57",
+          updated_at: "2019-07-23 19:54:57",
+          laravel_through_key: 94
+        }],
+        articulo: [{
+          id: 44,
+          id_categoria: 4,
+          codigo: 71,
+          nombre: "postobon",
+          stock: 0,
+          descripcion: "bebida colombina",
+          imagen: null,
+          estado: 1,
+          created_at: "2019-07-18 20:30:46",
+          updated_at: "2019-07-18 20:30:46"
+        }]
+      }, {
+        id: 44,
+        id_ingreso: 92,
+        id_articulo: 43,
+        cantidad: 15,
+        precio_comrpa: 1500,
+        precio_venta: 2300,
+        created_at: "2019-07-27 00:15:47",
+        updated_at: "2019-07-27 00:15:47",
+        ingreso: [{
+          id: 92,
+          id_proveedor: 2,
+          id_tipo_comprobante: 3,
+          id_serie_comprobante: 2,
+          num_comprobante: "00090909009",
+          id_estado: 2,
+          created_at: "2019-07-27 00:15:13",
+          updated_at: "2019-07-27 00:15:13"
+        }],
+        persona: [{
+          id: 2,
+          id_tipo_persona: 3,
+          nombre: "COCA-COLA",
+          id_tipo_documento: 4,
+          num_documento: "12345",
+          direccion: "CALLE 10# 19-049",
+          telefono: "3104666575",
+          email: "duvannarvaez17@gmail.com",
+          created_at: "2019-06-25 00:00:00",
+          updated_at: null,
+          laravel_through_key: 92
+        }],
+        articulo: [{
+          id: 43,
+          id_categoria: 2,
+          codigo: 51,
+          nombre: "jabon protex",
+          stock: 0,
+          descripcion: "jabón para ingenie personal",
+          imagen: null,
+          estado: 1,
+          created_at: "2019-07-18 20:24:04",
+          updated_at: "2019-07-18 20:24:04"
+        }]
+      }, {
+        id: 32,
+        id_ingreso: 86,
+        id_articulo: 43,
+        cantidad: 12,
+        precio_comrpa: 1200,
+        precio_venta: 2000,
+        created_at: "2019-07-26 14:41:53",
+        updated_at: "2019-07-26 14:41:53",
+        ingreso: [{
+          id: 86,
+          id_proveedor: 2,
+          id_tipo_comprobante: 3,
+          id_serie_comprobante: 2,
+          num_comprobante: "3104666575",
+          id_estado: 1,
+          created_at: "2019-07-26 14:41:06",
+          updated_at: "2019-07-26 14:41:06"
+        }],
+        persona: [{
+          id: 2,
+          id_tipo_persona: 3,
+          nombre: "COCA-COLA",
+          id_tipo_documento: 4,
+          num_documento: "12345",
+          direccion: "CALLE 10# 19-049",
+          telefono: "3104666575",
+          email: "duvannarvaez17@gmail.com",
+          created_at: "2019-06-25 00:00:00",
+          updated_at: null,
+          laravel_through_key: 86
+        }],
+        articulo: [{
+          id: 43,
+          id_categoria: 2,
+          codigo: 51,
+          nombre: "jabon protex",
+          stock: 0,
+          descripcion: "jabón para ingenie personal",
+          imagen: null,
+          estado: 1,
+          created_at: "2019-07-18 20:24:04",
+          updated_at: "2019-07-18 20:24:04"
+        }]
+      }],
+      noticia_titulo_cas: "",
+      encontrado: false
+    };
+  },
+  methods: {
+    buscarEnObjecto: function buscarEnObjecto(objecto, palabra) {
+      for (var key in objecto) {
+        if (objecto.hasOwnProperty(key) && objecto[key].toString().toLowerCase().includes(palabra)) {
+          this.encontrado = true;
+          return true;
+        } else {}
+      }
+    }
+  },
+  computed: {
+    searchNoticia: function searchNoticia() {
+      var _this = this;
+
+      return this.lists.filter(function (item) {
+        return _this.buscarEnObjecto(item, _this.noticia_titulo_cas.toLowerCase());
+      });
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3999,7 +4318,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4085,8 +4403,7 @@ __webpack_require__.r(__webpack_exports__);
     getFecha: function getFecha() {
       var fecha = this;
       axios.post("/api/fecha").then(function (response) {
-        fecha.fecha = response.data;
-        console.log(datos);
+        fecha.fecha = response.data; //  console.log(datos);
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -75983,13 +76300,95 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
+          _c("form", [
+            _c("div", { staticClass: "form-row align-items-center" }, [
+              _c("div", { staticClass: "col-auto my-1" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filtro,
+                        expression: "filtro"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filtro = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { disabled: "", value: "" } }, [
+                      _vm._v("Selecciona tipo documento")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.filtros, function(optione) {
+                      return _c("option", {
+                        key: optione.value,
+                        domProps: {
+                          value: optione.value,
+                          textContent: _vm._s(optione.text)
+                        }
+                      })
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto my-1" }, [
+                _c(
+                  "div",
+                  { staticClass: "custom-control custom-checkbox mr-sm-2" },
+                  [
+                    _c("input", {
+                      staticClass: "form-control mb-2 mr-sm-2",
+                      attrs: {
+                        type: "text",
+                        id: "myInput",
+                        placeholder: "Buscar..."
+                      },
+                      on: { keyup: _vm.myFunction }
+                    })
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "table-wrapper-scroll-y my-custom-scrollbar" },
             [
               _c(
                 "table",
-                { staticClass: "table table-bordered table-striped mb-0" },
+                {
+                  staticClass: "table table-hover table-responsive mt-2",
+                  attrs: { id: "myTable" }
+                },
                 [
                   _vm._m(1),
                   _vm._v(" "),
@@ -76644,7 +77043,7 @@ var render = function() {
                             type: "number",
                             placeholder: "Codigo del producto",
                             id: "codProducto",
-                            required: ""
+                            autofocus: ""
                           },
                           domProps: { value: _vm.producto },
                           on: {
@@ -76672,8 +77071,7 @@ var render = function() {
                           attrs: {
                             type: "number",
                             placeholder: "cantidad",
-                            id: "cantidad",
-                            required: ""
+                            id: "cantidad"
                           },
                           domProps: { value: _vm.cantidad },
                           on: {

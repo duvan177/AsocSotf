@@ -56,6 +56,8 @@ Route::post('RegistIngreso','IngresoController@RegistrarIngreso');
 Route::post('setIngresosTodo','IngresoController@setIngresosTodo');
 //suma de todas las compras
 Route::post('getTotal_Compras','IngresoController@TotalCompras');
+//buscar en los ingresos
+Route::post('Buscar_Dato','IngresoController@Buscar');
 
 
 

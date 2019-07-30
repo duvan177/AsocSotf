@@ -130,7 +130,7 @@ $consulta= DB::table('articulo')
          ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
          ->select('detalle_ingreso.precio_venta')
          ->where('detalle_ingreso.id_articulo','=',$idArticulo)
-        
+         
          ->value('detalle_ingreso.precio_venta');
      
           if ($consulta == null) {
@@ -174,4 +174,6 @@ $consulta= DB::table('articulo')
           ->get(); 
             return response()->json($consulta);
       }
+
+   
 }
