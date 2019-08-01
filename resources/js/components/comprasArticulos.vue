@@ -48,8 +48,8 @@
                 </label>
 
                 <div class="form-group col-md-6">
-                  <select class="form-control" v-model="ingreso">
-                    <option disabled value>Selecciona...</option>
+                  <select id="optn" class="form-control" v-model="ingreso">
+                    <option selected="true" value>Selecciona...</option>
                     <option
                       v-for="optione in ingresos"
                       v-bind:key="optione.id"
@@ -57,6 +57,7 @@
                       v-text="optione.nombre"
                     ></option>
                   </select>
+
                   <p class="card-text">
                     <small class="text-muted">(*) Selecciona Ingreso Provedor</small>
                   </p>
@@ -75,6 +76,23 @@
                     placeholder="Numero Comprobante"
                     v-model.number="NumComprobante"
                   />
+                </div>
+              </form>
+              <form class="form-row">
+                <label class="form-group col-md-2">
+                  <img src="img\comprobante.png" />prueba
+                </label>
+                <div>
+                  <label class="typo__label">Single select</label>
+                  <multiselect
+                    v-model="value"
+                    :options="options"
+                    :searchable="false"
+                    :close-on-select="false"
+                    :show-labels="false"
+                    placeholder="Pick a value"
+                  ></multiselect>
+                  <pre class="language-json"><code>{{ value  }}</code></pre>
                 </div>
               </form>
 
@@ -185,12 +203,10 @@
                     </section>
                   </div>
                   <div class="form-group col-md-3" style>
-                    <section
-                      v-if="articulo!='' && cantidad > 0 && preciocompra >0 && precioventa >0 && ingreso !=''"
-                    >
+                    <section v-if="ingreso !=''">
                       <button
                         type="button"
-                        v-on:click="RegistrarIngreso"
+                        v-on:click="finalizarCompra"
                         class="btn btn-success animated fadeIn"
                       >
                         <span class="cui-contrast"></span> Guardar y finalizar
@@ -241,6 +257,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Ver mas+</th>
+                      <th scope="col">Estado Compra</th>
                       <th scope="col">Proveedor</th>
                       <th scope="col">Numero comprobante</th>
                       <th scope="col">Articulo</th>
@@ -250,7 +267,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(ingreso) in ingresosAll" :key="ingreso.id">
+                    <tr v-for="ingreso in busqueda" :key="ingreso.id">
                       <td>
                         <button
                           type="button"
@@ -262,6 +279,16 @@
                         </button>
                         &nbsp;
                       </td>
+
+                      <td>
+                        <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
+                          <span class="badge badge-warning">En Ejecucion</span>
+                        </section>
+                        <section v-if="ingreso.ingreso[0]['id_estado'] == 1">
+                          <span class="badge badge-success">Finalizado</span>
+                        </section>
+                      </td>
+
                       <td v-text="ingreso.persona[0]['nombre']"></td>
                       <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
                       <td v-text="ingreso.articulo[0]['nombre']"></td>
@@ -424,7 +451,7 @@
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="email-input">Tipo comprobante</label>
                 <div class="form-group col-md-6">
-                  <select class="form-control" v-model="comprobante">
+                  <select id="opt" class="form-control" v-model="comprobante">
                     <option disabled value>Selecciona...</option>
                     <option
                       v-for="optione in comprobantes"
@@ -493,11 +520,18 @@ border-radius: 34px 40px 40px 40px;"
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
 import { setTimeout } from "timers";
+Vue.component("multiselect", Multiselect);
+
 export default {
+  components: {
+    Multiselect
+  },
   data() {
     return {
-      mensage: "hola",
+      value: "",
+      //
       NumComprobante: "",
       valido: false,
       //
@@ -527,14 +561,42 @@ export default {
       //
       ingreso: "",
       ingresos: [],
+      //
       ingresosAll: [],
-      tabla: true
+      busqueda: [],
+      allbusqueda: [],
+      tabla: true,
+      reloads: true
     };
   },
 
   methods: {
-    prueba(dato) {
-      alert(dato);
+    filtrar() {
+      let arr = this.ingresosAll.filter(function(el) {
+        return el.ingreso[0]["id_estado"] === 2;
+      });
+
+      this.busqueda = arr;
+      this.reloads = true;
+      //console.log(arr);
+    },
+    finalizarCompra() {
+      axios
+        .post("/api/actualizar_ingreso", {
+          id: this.ingreso
+        })
+        .then(function(response) {
+          prov.provedores = response.data;
+        })
+        .catch(function(error) {
+          // handle error
+          // console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.tabla = false));
     },
     GuardarCompra() {
       axios
@@ -723,8 +785,13 @@ export default {
       axios
         .post("/api/get_ingresosE")
         .then(function(response) {
-          ing.ingresos = response.data;
-          //console.log(response.data);
+          if (response.data == 4004) {
+            console.log("no hay registos");
+            document.getElementById("optn").options.length = 1;
+          } else {
+            ing.ingresos = response.data;
+            console.log(response.data.length);
+          }
         })
         .catch(function(error) {
           // handle error
@@ -734,7 +801,7 @@ export default {
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
-        .finally(() => (this.loading = false));
+        .finally(() => (this.reloads = false));
     },
     limpiar() {
       this.articulo = "";
@@ -772,7 +839,7 @@ export default {
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
-        .finally(() => (this.loading = false));
+        .finally(() => (this.tabla = false));
 
       this.articulo = "";
       this.cantidad = "";
@@ -786,7 +853,6 @@ export default {
         .post("/api/setIngresosTodo")
         .then(function(response) {
           ingAll.ingresosAll = response.data;
-          console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -796,31 +862,52 @@ export default {
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
-        .finally(() => (this.tabla = true));
+        .finally(() => ((this.tabla = true), (this.reloads = false)));
+      this.getImgresosE();
     }
   },
 
   mounted() {
+    this.getIngreso_all();
     this.getProvedores();
     this.getArticulos();
     this.getComprobantes();
     this.getSeries();
     this.getImgresosE();
-    this.getIngreso_all();
   },
   watch: {
     ingreso: function(val) {
       if (val != "") {
+        function mostrar() {}
         var x = document.getElementById("cardPrueba2");
         x.classList.remove("fantasma");
         x.classList.add("animated", "fadeInUp");
         console.log("cambio  echo");
+
         // this.getIngreso_all();
+      }
+      if (val == "") {
+        function mostrar() {
+          var x = document.getElementById("cardPrueba2");
+          x.classList.remove("animated", "fadeInUp");
+          x.classList.add("animated", "fadeOuntDown");
+          console.log("cambio  echo");
+
+          setTimeout(function() {
+            x.classList.remove("animated", "fadeOuntDown");
+            x.classList.add("fantasma");
+          }, 3000);
+        }
       }
     },
     tabla: function(val) {
       if (val == false) {
         this.getIngreso_all();
+      }
+    },
+    reloads: function(val) {
+      if (val == false) {
+        this.filtrar();
       }
     }
   }

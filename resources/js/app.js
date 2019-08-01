@@ -10,6 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.$ = require('jquery');
 
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -22,6 +23,7 @@ window.$ = require('jquery');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('venta', require('./components/ventas.vue').default);
+
 //vue.component('categoria', require('./components/categoria.vue'));
 Vue.component('art', require('./components/articuloVista.vue').default);
 Vue.component('categoria', require('./components/categoriaVista.vue').default);

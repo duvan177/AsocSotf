@@ -133,9 +133,9 @@ $consulta= DB::table('articulo')
          
          ->value('detalle_ingreso.precio_venta');
      
-          if ($consulta == null) {
-              $data = 1005;
-                return response()->json($consulta);
+          if ($consulta == null ) {
+              $data = 1005; 
+                return response()->json($data);
           }else {
                  
          $precioT = $precioDB * $cant;

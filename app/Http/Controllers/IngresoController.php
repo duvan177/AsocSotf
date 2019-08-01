@@ -106,8 +106,14 @@ class IngresoController extends Controller
             ->join('persona','ingreso.id_proveedor','=','persona.id')
             ->select('ingreso.id','persona.nombre','ingreso.id_estado','ingreso.num_comprobante')
             ->where('id_estado','=',2)->get();
+         $cont =count($data);
+         if ($cont == 0) {
 
-            return response()->json($data);
+              return response()->json(4004);  
+            
+         }else {
+             return response()->json($data);  
+         }
 
 
     }
@@ -143,6 +149,7 @@ class IngresoController extends Controller
     }
 
     public function setIngresosTodo(){
+        $est = 2;
 
         $count = detalle_ingreso::all()->count();
 
@@ -150,7 +157,7 @@ class IngresoController extends Controller
          
 
            for ($i=0; $i <  $count ; $i++) { 
-                $data[$i]->ingreso;
+                $data[$i]->ingreso->first();
                  $data[$i]->persona;  
                   $data[$i]->articulo;
                   
@@ -171,10 +178,7 @@ class IngresoController extends Controller
 
     public function Buscar(Request $request){
 
-        $dato =(int) $request->buscar;
-
-      
-           
+        $dato =(int) $request->buscar;         
           function Even($data) 
             { 
 	// returns if the input integer is even 
@@ -186,20 +190,50 @@ class IngresoController extends Controller
 
         $count = detalle_ingreso::all()->count();
 
-           $data = detalle_ingreso::orderBy('id','desc')->get();
-         
+           $data = detalle_ingreso::orderBy('id','desc')->get();      
 
            for ($i=0; $i <  $count ; $i++) { 
                 $data[$i]->ingreso;
                  $data[$i]->persona;  
-                  $data[$i]->articulo;
-                  
-               
+                  $data[$i]->articulo;               
            }
-          
-           
-        
-   
+    
     return response($consulta);
     }
+    public function finalizarIngreso(Request $request){
+
+
+
+
+    }
+    public function idIngreso(Request $request){
+
+        $id = $request->id;
+
+
+        $ingreso = ingreso::where('id','=',$id)->first();
+
+        if ($ingreso != ['']) {
+            
+            $ingreso->id_estado = 1;
+            $ingreso->save();
+             $data = 200;
+               return response()->json($data);
+        }else {
+            $data = 'el ingreso no se encuentra en la base de datos';
+               return response()->json($data);
+
+            
+        }
+
+      
+     
+
+    }
+
+
+      
+
+
+    
 }

@@ -32,15 +32,13 @@
                 </select>
               </div>
               <div class="col-auto my-1">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="myInput"
-                    v-on:keyup="myFunction"
-                    placeholder="Buscar..."
-                  />
-                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="myInput"
+                  v-on:keyup="myFunction"
+                  placeholder="Buscar..."
+                />
               </div>
             </div>
           </form>
