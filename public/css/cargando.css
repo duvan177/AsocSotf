@@ -428,3 +428,12 @@ table.dataTable thead .sorting_desc_disabled:before {
 input[type=number] {
     border-radius: 10px;
 }
+
+#fecha {
+    background-color: rgb(255, 255, 255);
+    border: 2;
+    font-size: 18px;
+    border-top: #111;
+    border-left: #111;
+    border-right: #111;
+}

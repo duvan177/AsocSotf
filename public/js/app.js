@@ -3392,6 +3392,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -76056,89 +76061,106 @@ var render = function() {
                 "div",
                 { staticClass: "table-wrapper-scroll-y my-custom-scrollbar" },
                 [
-                  _c(
-                    "table",
-                    { staticClass: "table table-bordered table-striped mb-0" },
-                    [
-                      _vm._m(15),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.busqueda, function(ingreso) {
-                          return _c("tr", { key: ingreso.id }, [
-                            _vm._m(16, true),
+                  _vm.ingresos.length === 0
+                    ? _c("section", [
+                        _c("img", {
+                          staticClass:
+                            "rounded mx-auto d-block animated fadeIn",
+                          attrs: { src: "img\\comprasx.png", alt: "" }
+                        })
+                      ])
+                    : _c("section", [
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-bordered table-striped mb-0"
+                          },
+                          [
+                            _vm._m(15),
                             _vm._v(" "),
-                            _c("td", [
-                              ingreso.ingreso[0]["id_estado"] == 2
-                                ? _c("section", [
-                                    _c(
-                                      "span",
-                                      { staticClass: "badge badge-warning" },
-                                      [_vm._v("En Ejecucion")]
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              ingreso.ingreso[0]["id_estado"] == 1
-                                ? _c("section", [
-                                    _c(
-                                      "span",
-                                      { staticClass: "badge badge-success" },
-                                      [_vm._v("Finalizado")]
-                                    )
-                                  ])
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  ingreso.persona[0]["nombre"]
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  ingreso.ingreso[0]["num_comprobante"]
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  ingreso.articulo[0]["nombre"]
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(ingreso.cantidad)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  ingreso.precio_comrpa * ingreso.cantidad
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(ingreso.created_at)
-                              }
-                            })
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  )
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.busqueda, function(ingreso) {
+                                return _c("tr", { key: ingreso.id }, [
+                                  _vm._m(16, true),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    ingreso.ingreso[0]["id_estado"] == 2
+                                      ? _c("section", [
+                                          _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-warning"
+                                            },
+                                            [_vm._v("En Ejecucion")]
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    ingreso.ingreso[0]["id_estado"] == 1
+                                      ? _c("section", [
+                                          _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-success"
+                                            },
+                                            [_vm._v("Finalizado")]
+                                          )
+                                        ])
+                                      : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        ingreso.persona[0]["nombre"]
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        ingreso.ingreso[0]["num_comprobante"]
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        ingreso.articulo[0]["nombre"]
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(ingreso.cantidad)
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        ingreso.precio_comrpa * ingreso.cantidad
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(ingreso.created_at)
+                                    }
+                                  })
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
                 ]
               ),
               _vm._v(" "),
@@ -77008,7 +77030,7 @@ var staticRenderFns = [
         },
         [_c("i", { staticClass: "icon-info" })]
       ),
-      _vm._v("\n                         \n                      ")
+      _vm._v("\n                           \n                        ")
     ])
   },
   function() {
@@ -77036,7 +77058,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Agregar categoría")]),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Agregar Proveedor")]),
       _vm._v(" "),
       _c(
         "button",

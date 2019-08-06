@@ -57,7 +57,7 @@
                   <div class="form-group col-md-2">
                     <input
                       class="form-control"
-                      style="width:100px"
+                      style="width:100px;"
                       id="fecha"
                       type="tex"
                       v-model="fecha"

@@ -246,53 +246,58 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-bordered table-striped mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col">Ver mas+</th>
-                      <th scope="col">Estado Compra</th>
-                      <th scope="col">Proveedor</th>
-                      <th scope="col">Numero comprobante</th>
-                      <th scope="col">Articulo</th>
-                      <th scope="col">Cantidad</th>
-                      <th scope="col">Total Compra</th>
-                      <th scope="col">Fecha</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="ingreso in busqueda" :key="ingreso.id">
-                      <td>
-                        <button
-                          type="button"
-                          class="btn btn-info btn-sm"
-                          data-toggle="modal"
-                          data-target="#modalNuevo"
-                        >
-                          <i class="icon-info"></i>
-                        </button>
-                        &nbsp;
-                      </td>
+                <section v-if="ingresos.length === 0">
+                  <img src="img\comprasx.png" class="rounded mx-auto d-block animated fadeIn" alt />
+                </section>
+                <section v-else>
+                  <table class="table table-bordered table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">Ver mas+</th>
+                        <th scope="col">Estado Compra</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Numero comprobante</th>
+                        <th scope="col">Articulo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total Compra</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="ingreso in busqueda" :key="ingreso.id">
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            data-toggle="modal"
+                            data-target="#modalNuevo"
+                          >
+                            <i class="icon-info"></i>
+                          </button>
+                          &nbsp;
+                        </td>
 
-                      <td>
-                        <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
-                          <span class="badge badge-warning">En Ejecucion</span>
-                        </section>
-                        <section v-if="ingreso.ingreso[0]['id_estado'] == 1">
-                          <span class="badge badge-success">Finalizado</span>
-                        </section>
-                      </td>
+                        <td>
+                          <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
+                            <span class="badge badge-warning">En Ejecucion</span>
+                          </section>
+                          <section v-if="ingreso.ingreso[0]['id_estado'] == 1">
+                            <span class="badge badge-success">Finalizado</span>
+                          </section>
+                        </td>
 
-                      <td v-text="ingreso.persona[0]['nombre']"></td>
-                      <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
-                      <td v-text="ingreso.articulo[0]['nombre']"></td>
-                      <td v-text="ingreso.cantidad"></td>
-                      <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
-                      <td v-text="ingreso.created_at"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                        <td v-text="ingreso.persona[0]['nombre']"></td>
+                        <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
+                        <td v-text="ingreso.articulo[0]['nombre']"></td>
+                        <td v-text="ingreso.cantidad"></td>
+                        <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
+                        <td v-text="ingreso.created_at"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
               </div>
 
               <p class="card-text">
@@ -324,7 +329,7 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Agregar categoría</h4>
+            <h4 class="modal-title">Agregar Proveedor</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
