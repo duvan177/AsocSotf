@@ -48,15 +48,22 @@
                 </label>
 
                 <div class="form-group col-md-6">
-                  <select id="optn" class="form-control" v-model="ingreso">
-                    <option selected="true" value>Selecciona...</option>
-                    <option
-                      v-for="optione in ingresos"
-                      v-bind:key="optione.id"
-                      v-bind:value="optione.id"
-                      v-text="optione.nombre"
-                    ></option>
-                  </select>
+                  <section v-if="ingresos == ''">
+                    <h4>no hay registros</h4>
+                  </section>
+                  <section v-else>
+                    <multiselect
+                      v-model="ingreso"
+                      :options="ingresos"
+                      :custom-label="nombresSelect"
+                      :searchable="true"
+                      selectLabel="seleciona"
+                      deselectLabel="quitar seleccion"
+                      selectedLabel="seleccionado"
+                      placeholder="Selecione proveedor"
+                      noOptions="ingrese provedor"
+                    ></multiselect>
+                  </section>
 
                   <p class="card-text">
                     <small class="text-muted">(*) Selecciona Ingreso Provedor</small>
@@ -76,23 +83,6 @@
                     placeholder="Numero Comprobante"
                     v-model.number="NumComprobante"
                   />
-                </div>
-              </form>
-              <form class="form-row">
-                <label class="form-group col-md-2">
-                  <img src="img\comprobante.png" />prueba
-                </label>
-                <div>
-                  <label class="typo__label">Single select</label>
-                  <multiselect
-                    v-model="value"
-                    :options="options"
-                    :searchable="false"
-                    :close-on-select="false"
-                    :show-labels="false"
-                    placeholder="Pick a value"
-                  ></multiselect>
-                  <pre class="language-json"><code>{{ value  }}</code></pre>
                 </div>
               </form>
 
@@ -115,15 +105,19 @@
                   </label>
 
                   <div class="form-group col-md-6" style>
-                    <select class="form-control" v-model="articulo">
-                      <option disabled value>Selecciona articulo</option>
-                      <option
-                        v-for="optione in articulos"
-                        v-bind:key="optione.id"
-                        v-bind:value="optione.id"
-                        v-text="optione.nombre"
-                      ></option>
-                    </select>
+                    <multiselect
+                      id="opciones"
+                      v-model="articulo"
+                      noResult="elemento no encontrado"
+                      noOptions="ingrese provedor"
+                      :custom-label="nombresSelect"
+                      :options="articulos"
+                      :searchable="true"
+                      selectLabel
+                      deselectLabel="quitar"
+                      selectedLabel="x"
+                      placeholder="seleccione articulo"
+                    ></multiselect>
                   </div>
                 </form>
 
@@ -252,6 +246,7 @@
                   </div>
                 </div>
               </div>
+              
               <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-bordered table-striped mb-0">
                   <thead>
@@ -571,6 +566,10 @@ export default {
   },
 
   methods: {
+    nombresSelect({ nombre }) {
+      return `${nombre}`;
+    },
+
     filtrar() {
       let arr = this.ingresosAll.filter(function(el) {
         return el.ingreso[0]["id_estado"] === 2;
@@ -583,7 +582,7 @@ export default {
     finalizarCompra() {
       axios
         .post("/api/actualizar_ingreso", {
-          id: this.ingreso
+          id: this.ingreso.id
         })
         .then(function(response) {
           prov.provedores = response.data;
@@ -787,7 +786,7 @@ export default {
         .then(function(response) {
           if (response.data == 4004) {
             console.log("no hay registos");
-            document.getElementById("optn").options.length = 1;
+            document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
             console.log(response.data.length);
@@ -814,8 +813,8 @@ export default {
       let table = this;
       axios
         .post("/api/RegistIngreso", {
-          id_ingreso: this.ingreso,
-          articulo: this.articulo,
+          id_ingreso: this.ingreso.id,
+          articulo: this.articulo.id,
           cantidad: this.cantidad,
           precio_compra: this.preciocompra,
           precio_venta: this.precioventa
@@ -826,7 +825,7 @@ export default {
             var x = document.getElementById("toast");
             x.className = "show";
             setTimeout(function() {
-              x.className = x.className.replace("show", "");
+              x.className = x.className.replace("show", "animate ");
             }, 3000);
           }
 
@@ -913,3 +912,4 @@ export default {
   }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

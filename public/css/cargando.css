@@ -345,7 +345,13 @@
 
 .my-custom-scrollbar {
     position: relative;
-    height: 500px;
+    height: 600px;
+    overflow: auto;
+}
+
+.my-custom-scrollbar2 {
+    position: relative;
+    height: 310px;
     overflow: auto;
 }
 
@@ -413,4 +419,12 @@ table.dataTable thead .sorting_desc_disabled:before {
 #myTable tr:hover {
     /* Add a grey background color to the table header and on hover */
     background-color: #f1f1f1;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+input[type=number] {
+    border-radius: 10px;
 }

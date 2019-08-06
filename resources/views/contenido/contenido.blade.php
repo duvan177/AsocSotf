@@ -29,6 +29,7 @@
             
         </template>
         <template v-if="menu == 5">
+                <gestion-ventas></gestion-ventas>
 
         </template>
         <template v-if="menu == 6">

@@ -57,7 +57,7 @@
                   <div class="form-group col-md-2">
                     <input
                       class="form-control"
-                      style="height:50;"
+                      style="width:100px"
                       id="fecha"
                       type="tex"
                       v-model="fecha"
@@ -71,12 +71,41 @@
                   <div class="form-group col-md-2">
                     <input
                       class="form-control"
-                      style="height:50"
+                      style="width:100px"
                       id="fecha"
                       type="tex"
                       v-model="num"
                       readonly
                     />
+                  </div>
+                  <div class="form-group" style>
+                    <label>
+                      <h6>
+                        Cliente
+                        <img src="img\consumer.png" alt />
+                      </h6>
+                    </label>
+                  </div>
+                  <div class="input-group col-md-4" style>
+                    <div class="form-group">
+                      <multiselect
+                        style="width:200px"
+                        v-model="cliente"
+                        :options="clientes"
+                        :custom-label="nombresSelect"
+                        :searchable="true"
+                        selectLabel="add"
+                        deselectLabel="quitar"
+                        selectedLabel="seleccionado"
+                        placeholder="Seleccione cliente"
+                        noOptions="ingrese Cliente"
+                      ></multiselect>
+                    </div>
+                    <div class="form-group" style>
+                      <button type="button" class="btn btn-light">
+                        <img src="img\addpersona.png" alt /> Añadir
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <!--fin de numero de factua-->
@@ -106,46 +135,55 @@
                       <i class="icon-basket-loaded"></i> Añadir
                     </button>
                   </div>
-                  <div class="form-group col" style>
+                  <div class="form-group col-md-4" style>
                     <button type="button" class="btn btn-info">
-                      <img src="img/buscar.png" alt /> Buscar
+                      <img src="img/buscar.png" alt />
                     </button>
                   </div>
                 </div>
 
                 <!--inicio de tabla de los productos selecionados -->
-                <div class="table-responsive form-row">
-                  <table class="table table table-striped">
-                    <caption>Lista de productos</caption>
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Precio unitario</th>
-                        <th scope="col">valor total</th>
-                        <th scope="col">Opciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(datos, index) in consulta" :key="datos.id">
-                        <td v-text="index + 1"></td>
-                        <td v-text="datos.datos.nombre"></td>
-                        <td v-text="datos.cantidad"></td>
-                        <td v-text="eventoNum(datos.datos.precio_venta)"></td>
-                        <td v-text="eventoNum(datos.totalPagar)"></td>
-                        <td>
-                          <button
-                            type="button"
-                            class="button button-success"
-                            v-on:click="remove(index)"
-                          >
-                            <i class="icon-close"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar2">
+                  <section v-if="consulta.length === 0">
+                    <img src="img\store.png" class="rounded mx-auto d-block animated fadeIn" alt />
+                  </section>
+                  <section v-else>
+                    <table class="table table table-striped">
+                      <caption>Lista de productos</caption>
+                      <thead>
+                        <tr class="animated fadeIn">
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Cantidad</th>
+                          <th scope="col">Precio unitario</th>
+                          <th scope="col">valor total</th>
+                          <th scope="col">Opciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          class="animated fadeIn"
+                          v-for="(datos, index) in consulta"
+                          :key="datos.id"
+                        >
+                          <td v-text="index + 1"></td>
+                          <td v-text="datos.datos.nombre"></td>
+                          <td v-text="datos.cantidad"></td>
+                          <td v-text="eventoNum(datos.datos.precio_venta)"></td>
+                          <td v-text="eventoNum(datos.totalPagar)"></td>
+                          <td>
+                            <button
+                              type="button"
+                              class="button button-info"
+                              v-on:click="remove(index)"
+                            >
+                              <i class="icon-close"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </div>
 
                 <!-- fin de los productos selecionados -->
@@ -178,10 +216,36 @@
 
                   <div class="form-group col-md-3">
                     <div id="tot" class="card border-info mb-4" style="max-width: 25rem;">
-                      <div class="card-header">descuento</div>
+                      <div class="card-header">Total Pagar</div>
                       <div class="card-body text-info">
-                        <h5>{{descuentoTotal}}</h5>
+                        <h5>{{result}}</h5>
                       </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                          <div class="input-group mb-3">
+                            <button type="button" class="btn btn-light form-control-lg">Recibido</button>
+
+                            <input
+                              type="number"
+                              class="form-control form-control-lg"
+                              v-model="recibido"
+                              v-on:onkeyup="{{validarCamp}}"
+                            />
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <div class="input-group mb-3 animated fadeInDown">
+                            <button type="button" class="btn btn-light form-control-lg">Devuelto</button>
+
+                            <input
+                              type="number"
+                              class="form-control form-control-lg"
+                              readonly
+                              v-bind:value="devuelta"
+                            />
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
 
@@ -193,13 +257,14 @@
                       </div>
                     </div>
                     <div id="efec" class="card border-info mb-4 -el" style="max-width: 25rem;">
-                      <div id="tit" class="card-header">Total Pagar</div>
+                      <div id="tit" class="card-header">Descuento</div>
                       <div class="card-body text-info">
-                        <h5>{{result}}</h5>
+                        <h5>{{descuentoTotal}}</h5>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-md-2 col-lg-2">
                     <button
@@ -242,9 +307,11 @@
 
 <script >
 import { parse } from "path";
+
 export default {
   data() {
     return {
+      recibido: 0,
       validar: false,
       totalPD: "",
       totalPagarDes: "",
@@ -258,12 +325,38 @@ export default {
       alerta: false,
       num: [],
       fecha: "",
-      descuento: ""
+      descuento: "",
+      clientes: [],
+      cliente: [
+        {
+          id: 33,
+          nombre: "Persona Natural"
+        }
+      ]
     };
   },
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    nombresSelect({ nombre }) {
+      return `${nombre}`;
+    },
+    getProveedores2() {
+      let prove = this;
+      axios
+        .post("/api/get_clientes")
+        .then(function(response) {
+          prove.clientes = response.data;
+          //  console.log(datos);
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function() {
+          // always executed
+        });
+    },
     eventoNum(i) {
       i = String(i).replace(/\D/g, "");
 
@@ -303,14 +396,20 @@ export default {
                 var x = document.getElementById("toast2");
                 x.className = "show";
                 setTimeout(function() {
-                  x.className = x.className.replace("show", "");
+                  x.classList.add("animated", "fadeOutDown");
                 }, 3000);
+                setTimeout(function() {
+                  x.className = x.className.replace("show", "");
+                }, 5000);
+
+                document.getElementById("codProducto").focus();
               }
               toastAlert();
             } else {
               var array_articulo = response.data;
               meconsulta.consulta.push(array_articulo);
               that.alerta = false;
+              document.getElementById("codProducto").focus();
             }
           })
           .catch(function(error) {
@@ -359,7 +458,7 @@ export default {
         .post("/api/NumeroFactura")
         .then(function(response) {
           if ((response.data = 404)) {
-            num.num = "no hay facturas";
+            num.num = 1001;
           } else {
             num.num = response.data;
           }
@@ -376,12 +475,19 @@ export default {
         .finally(() => (this.loading = false));
     },
 
-    totalfinal() {}
+    buscar() {
+      for (let index = 0; index < 10; index++) {
+        setTimeout(function() {}, 2000);
+
+        console.log(index);
+      }
+    },
+    validarCamp: function(num) {
+      return Number(num).toLocaleString();
+    }
   },
 
   computed: {
-    validarCamp: function() {},
-
     result: function() {
       let totp = this;
       let rest = 0;
@@ -399,6 +505,27 @@ export default {
 
       return n === "" ? n : Number(n).toLocaleString();
     },
+
+    devuelta: function() {
+      let total = 0;
+      let totalsub = 0;
+      let recibido = 0;
+      let devuelta = 0;
+      let toal2 = 0;
+
+      total = this.totalPagarDes;
+      totalsub = this.totalpagarDesT;
+      recibido = this.recibido;
+      toal2 = total - totalsub;
+
+      if (recibido != 0) {
+        devuelta = recibido - toal2;
+        return devuelta === "" ? devuelta : Number(devuelta).toLocaleString();
+      } else {
+        return 0;
+      }
+    },
+
     TPD: function() {
       let metpd = this;
       let tp = 0;
@@ -470,6 +597,7 @@ export default {
   mounted() {
     this.getFecha();
     this.numero_factura();
+    this.getProveedores2();
   }
 };
 </script>

@@ -28,7 +28,7 @@ Vue.component('venta', require('./components/ventas.vue').default);
 Vue.component('art', require('./components/articuloVista.vue').default);
 Vue.component('categoria', require('./components/categoriaVista.vue').default);
 Vue.component('Boton', require('./components/notificacionExito.vue').default);
-
+Vue.component('gestion-ventas', require('./components/GestionVentas.vue').default);
 Vue.component('compa', require('./components/comprasArticulos.vue').default);
 Vue.component('graficos', require('./components/graficos.vue').default);
 Vue.component('escritorio', require('./components/escritorio.vue').default);
@@ -40,6 +40,7 @@ Vue.component('gestion-compras', require('./components/comprasList.vue').default
  */
 
 const app = new Vue({
+    props: ['mensaje'],
     el: '#app',
     data: {
         menu: 0,

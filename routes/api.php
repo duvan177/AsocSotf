@@ -39,6 +39,7 @@ Route::post('editarcategoria','CategoriaController@editarCategoria');
 
 Route::post('create_personas','personasController@create');
 Route::post('get_provedores','personasController@setProvedores');
+Route::post('get_clientes','personasController@setClientes');
 
 // registro entradas de articulos
 Route::post('ingreso_articulo','IngresoController@createCompra');
@@ -60,6 +61,9 @@ Route::post('getTotal_Compras','IngresoController@TotalCompras');
 Route::post('Buscar_Dato','IngresoController@Buscar');
 //
 Route::post('actualizar_ingreso','IngresoController@idIngreso');
+Route::post('prueba','IngresoController@prueba');
+// CREAR VENTA
+Route::post('insert_venta','ventasController@ingresarVenta');
 
 
 

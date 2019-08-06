@@ -56,6 +56,13 @@ class personasController extends Controller
          return response()->json($data);
 
     }
+        public function setClientes(){
+
+         $data = DB::table('persona')
+         ->select('id','nombre')->where('id_tipo_persona','=',4)->get();
+         return response()->json($data);
+
+    }
 
 
 }

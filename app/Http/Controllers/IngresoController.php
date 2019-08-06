@@ -225,11 +225,21 @@ class IngresoController extends Controller
 
             
         }
+    }
 
-      
-     
+    public function prueba(Request $request){
+
+    
+            $id = $request->data;
+
+
+        return response($id);
+
 
     }
+
+    
+
 
 
       

@@ -12,6 +12,8 @@
     <title>  Vents-app</title>
      <!-- token de seguridad -->
        <!-- Icons -->
+       <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/simple-line-icons.min.css" rel="stylesheet">
     <!-- Main styles for this application -->
