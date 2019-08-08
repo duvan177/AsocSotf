@@ -22,8 +22,8 @@ return response()->json($data);
     public function NumeroFactura(){
 
              $data = DB::table('venta')
-             ->select( 'id')
-             ->max('id');
+             ->select( 'num_comprobante')
+             ->max('num_comprobante');
 
              if ($data == null) {
                

@@ -3452,7 +3452,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   },
   methods: {
     nombresSelect: function nombresSelect(_ref) {
-      var nombre = _ref.nombre;
+      var nombre = _ref.nombre,
+          num_comprobante = _ref.num_comprobante;
+      return "".concat(nombre + " N.C: " + num_comprobante);
+    },
+    nombresSelectArt: function nombresSelectArt(_ref2) {
+      var nombre = _ref2.nombre;
       return "".concat(nombre);
     },
     filtrar: function filtrar() {
@@ -3596,6 +3601,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }).then(function (response) {
         if (response.data.error == 404) {
           alert("error");
+        } else if (response.data == 4004) {
+          alert("error numero de comprobante ya existente");
         } else {
           var toastAl = function toastAl() {
             var x = document.getElementById("efectox");
@@ -4659,11 +4666,14 @@ __webpack_require__.r(__webpack_exports__);
       cliente: [{
         id: 33,
         nombre: "Persona Natural"
-      }]
+      }],
+      idusers: this.username
     };
   },
+  props: ["username"],
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    pruebaId: function pruebaId() {},
     nombresSelect: function nombresSelect(_ref) {
       var nombre = _ref.nombre;
       return "".concat(nombre);
@@ -4758,10 +4768,10 @@ __webpack_require__.r(__webpack_exports__);
 
       var num = this;
       axios.post("/api/NumeroFactura").then(function (response) {
-        if (response.data = 404) {
-          num.num = 1001;
+        if (response.data == 404) {
+          num.num = 1000;
         } else {
-          num.num = response.data;
+          num.num = response.data + 1;
         }
       })["catch"](function (error) {
         // handle error
@@ -4781,6 +4791,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     validarCamp: function validarCamp(num) {
       return Number(num).toLocaleString();
+    },
+    prueba: function prueba() {
+      var _this2 = this;
+
+      axios.post("/api/insert_venta", {
+        num_comp: this.num,
+        total_venta: this.totalPD,
+        descuento: this.totalpagarDesT,
+        articulos: this.consulta,
+        id_user: this.username,
+        cliente: this.cliente
+      }).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+      //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+      ["finally"](function () {
+        return _this2.loading = false;
+      });
+      this.numero_factura();
+      this.totalPD = "";
+      this.totalpagarDesT = "";
+      this.consulta = [];
     }
   },
   computed: {
@@ -4877,6 +4912,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {},
   //METODOS QUE SE CARGARAN CUANDO EL COMPONENTE SEA INVOCADO. IMPORTANTE PARA ALGUNOS DATOS QUE SE NECESITEN EN LA VISTA.
   mounted: function mounted() {
+    this.pruebaId();
     this.getFecha();
     this.numero_factura();
     this.getProveedores2();
@@ -75772,8 +75808,8 @@ var render = function() {
                                 options: _vm.ingresos,
                                 "custom-label": _vm.nombresSelect,
                                 searchable: true,
-                                selectLabel: "seleciona",
-                                deselectLabel: "quitar seleccion",
+                                selectLabel: "add",
+                                deselectLabel: "quitar",
                                 selectedLabel: "seleccionado",
                                 placeholder: "Selecione proveedor",
                                 noOptions: "ingrese provedor"
@@ -75855,7 +75891,7 @@ var render = function() {
                             id: "opciones",
                             noResult: "elemento no encontrado",
                             noOptions: "ingrese provedor",
-                            "custom-label": _vm.nombresSelect,
+                            "custom-label": _vm.nombresSelectArt,
                             options: _vm.articulos,
                             searchable: true,
                             selectLabel: "",
@@ -76061,7 +76097,7 @@ var render = function() {
                 "div",
                 { staticClass: "table-wrapper-scroll-y my-custom-scrollbar" },
                 [
-                  _vm.ingresos.length === 0
+                  _vm.busqueda.length === 0
                     ? _c("section", [
                         _c("img", {
                           staticClass:
@@ -77058,7 +77094,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Agregar Proveedor")]),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Agregar categoría")]),
       _vm._v(" "),
       _c(
         "button",
@@ -78038,7 +78074,21 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(5)
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-info",
+                            attrs: { type: "button" },
+                            on: { click: _vm.prueba }
+                          },
+                          [
+                            _c("img", {
+                              attrs: { src: "img/buscar.png", alt: "" }
+                            })
+                          ]
+                        )
+                      ])
                     ]),
                     _vm._v(" "),
                     _c(
@@ -78063,7 +78113,7 @@ var render = function() {
                                 [
                                   _c("caption", [_vm._v("Lista de productos")]),
                                   _vm._v(" "),
-                                  _vm._m(6),
+                                  _vm._m(5),
                                   _vm._v(" "),
                                   _c(
                                     "tbody",
@@ -78150,7 +78200,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-row" }, [
-                      _vm._m(7),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -78191,7 +78241,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _vm.validar == true
-                            ? _c("section", [_vm._m(8)])
+                            ? _c("section", [_vm._m(7)])
                             : _vm._e()
                         ]
                       ),
@@ -78362,9 +78412,9 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(9),
+                    _vm._m(8),
                     _vm._v(" "),
-                    _vm._m(10)
+                    _vm._m(9)
                   ])
             ])
           ])
@@ -78434,16 +78484,6 @@ var staticRenderFns = [
           _vm._v(" Añadir\n                    ")
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-4" }, [
-      _c("button", { staticClass: "btn btn-info", attrs: { type: "button" } }, [
-        _c("img", { attrs: { src: "img/buscar.png", alt: "" } })
-      ])
     ])
   },
   function() {

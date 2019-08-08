@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
 Route::get('/contenido', function () {
     return view('contenido/contenido');
 });
@@ -22,14 +23,17 @@ Auth::routes();
 
 
 Route::get('/', function() {
-
     return view('welcome');
 });
 
 
-Auth::routes();
+
 
 Route::get('/home', function () {
     return view('contenido/contenido');
 });
 
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
