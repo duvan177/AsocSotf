@@ -66,8 +66,11 @@ Route::post('actualizar_ingreso','IngresoController@idIngreso');
 Route::post('prueba','IngresoController@prueba');
 // CREAR VENTA
 Route::post('insert_venta','ventasController@ingresarVenta');
-
-
+//Gestion de usuarios
+Route::post('usuario','Controllerusuarios@getUser');
+Route::post('guardarusuario','Controllerusuarios@guardarUsuario');
+Route::post('eliminarUsuario','Controllerusuarios@deleteUser');
+Route::post('usuario1','Controllerusuarios@getUser1');
 
 
 
