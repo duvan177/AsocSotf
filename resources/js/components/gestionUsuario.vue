@@ -45,11 +45,16 @@
                   >Editar</button>
                 </td>
                 <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    v-on:click.prevent="eliminarUsuario(consul)"
-                  >Eliminar</button>
+                  <section v-if="consul.id == id_user">
+                    <button type="button" class="btn btn-danger" disabled>Eliminar</button>
+                  </section>
+                  <section v-else>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      v-on:click.prevent="eliminarUsuario(consul)"
+                    >Eliminar</button>
+                  </section>
                 </td>
               </tr>
             </tbody>
