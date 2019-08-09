@@ -9,11 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 class Controllerusuarios extends Controller
 {
-  public function getUser1(){
-    
-    $id=Auth()->id();;
-    return response()->json($id);
-  }
+  
    public function getUser(){
     $usuario= DB::table('users')
     ->join('rol_usuario','rol_usuario.id','=','users.id_rol')

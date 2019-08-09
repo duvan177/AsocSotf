@@ -70,7 +70,7 @@ Route::post('insert_venta','ventasController@ingresarVenta');
 Route::post('usuario','Controllerusuarios@getUser');
 Route::post('guardarusuario','Controllerusuarios@guardarUsuario');
 Route::post('eliminarUsuario','Controllerusuarios@deleteUser');
-Route::post('usuario1','Controllerusuarios@getUser1');
+
 
 
 
