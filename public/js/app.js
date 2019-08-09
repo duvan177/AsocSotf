@@ -4432,6 +4432,122 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4451,9 +4567,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       correo_editar: "",
       nombre_editar: "",
       apellido_editar: "",
-      rol_editar: 0
+      rol_editar: 0,
+      id_user: this.username
     };
   },
+  props: ["username"],
   methods: {
     Editarusuario: function Editarusuario() {
       var _this = this;
@@ -4501,10 +4619,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /* seleccion(){
-     let categoria = this.categoria;
-      let sub = categoria.substring(0,1);
-      this.selec= sub;
-     },*/
+         let categoria = this.categoria;
+          let sub = categoria.substring(0,1);
+          this.selec= sub;
+         },*/
     addUsuario: function addUsuario() {
       var meconsulta = this;
       axios.post("api/usuario").then(function (response) {
@@ -78612,7 +78730,9 @@ var render = function() {
                   _vm.apellido == "" ||
                   _vm.rol == 0
                     ? _c("div", [
-                        _vm._v("\n         FALTAN CAMPOS POR LLENAR\n        "),
+                        _vm._v(
+                          "\n              FALTAN CAMPOS POR LLENAR\n              "
+                        ),
                         _c(
                           "button",
                           {
@@ -78933,7 +79053,9 @@ var render = function() {
                   _vm.identificacion_editar == "" ||
                   _vm.rol_editar == 0
                     ? _c("div", [
-                        _vm._v("\n         FALTAN CAMPOS POR LLENAR\n        "),
+                        _vm._v(
+                          "\n              FALTAN CAMPOS POR LLENAR\n              "
+                        ),
                         _c(
                           "button",
                           {
@@ -93217,7 +93339,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\felip\Desktop\AsocSotf\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\AsocSotf\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

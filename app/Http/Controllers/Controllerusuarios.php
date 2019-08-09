@@ -40,4 +40,8 @@ class Controllerusuarios extends Controller
     $id = $idA->id;
     $categoria = usuarios::destroy($id);
    }
+
+  
+
+
 }

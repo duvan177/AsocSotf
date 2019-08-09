@@ -46,7 +46,7 @@
         </template>
 
         <template v-if="menu == 9">
-        <usuarios> </usuarios>
+        <usuarios :username={{Auth::user()->id}}> </usuarios>
         </template>
         <template v-if="menu ==10">
                 <h2>menu del contenido 10 </h2>
