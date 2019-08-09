@@ -48,11 +48,15 @@
                 </label>
 
                 <div class="form-group col-md-6">
-                  <section v-if="ingresos == ''">
-                    <h4>no hay registros</h4>
+                  <section v-if="valid == true">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>No hay ingresos!</strong>
+                      Por favor haga un nuevo ingreso.
+                    </div>
                   </section>
                   <section v-else>
                     <multiselect
+                      class="animated fadeIn"
                       v-model="ingreso"
                       :options="ingresos"
                       :custom-label="nombresSelect"
@@ -566,7 +570,8 @@ export default {
       busqueda: [],
       allbusqueda: [],
       tabla: true,
-      reloads: true
+      reloads: true,
+      valid: true
     };
   },
 
@@ -593,7 +598,7 @@ export default {
           id: this.ingreso.id
         })
         .then(function(response) {
-          prov.provedores = response.data;
+          console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -604,6 +609,7 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.tabla = false));
+      this.getImgresosE();
     },
     GuardarCompra() {
       axios
@@ -788,6 +794,7 @@ export default {
       this.numComp = "";
     },
     getImgresosE() {
+      let validarx = this;
       let ing = this;
 
       axios
@@ -798,6 +805,7 @@ export default {
             document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
+
             console.log(response.data.length);
           }
         })
