@@ -102,8 +102,13 @@
                       ></multiselect>
                     </div>
                     <div class="form-group" style>
-                      <button type="button" class="btn btn-light">
-                        <img src="img\addpersona.png" alt /> Añadir
+                      <button
+                        data-toggle="modal"
+                        data-target="#registarCliente"
+                        type="button"
+                        class="btn btn-light"
+                      >
+                        <img src="img\addpersona.png" alt />
                       </button>
                     </div>
                   </div>
@@ -136,7 +141,7 @@
                     </button>
                   </div>
                   <div class="form-group col-md-4" style>
-                    <button type="button" class="btn btn-info" v-on:click="prueba">
+                    <button type="button" class="btn btn-info">
                       <img src="img/buscar.png" alt />
                     </button>
                   </div>
@@ -266,17 +271,30 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-2 col-lg-2">
-                    <button
-                      class="btn btn-success btn-block"
-                      style="  width:240px;"
-                      v-on:click="launch_toast"
-                      type="button"
-                    >
-                      <h5>Finalizar</h5>
-                    </button>
-                  </div>
-                  <!-- /col -->
+                  <section v-if="consulta !=''">
+                    <div class="col-md-2 col-lg-2">
+                      <button
+                        class="btn btn-success btn-block animated fadeIn"
+                        style="  width:150px;"
+                        v-on:click="setVenta"
+                        type="button"
+                      >
+                        <h6>Finalizar</h6>
+                      </button>
+                    </div>
+                    <!-- /col -->
+                  </section>
+                  <section v-else>
+                    <div class="col-md-2 col-lg-2">
+                      <button
+                        class="btn btn-success btn-block animated fadeOut"
+                        style="  width:150px;"
+                        type="button"
+                      >
+                        <h6>Finalizar</h6>
+                      </button>
+                    </div>
+                  </section>
                 </div>
                 <!-- /row -->
 
@@ -296,6 +314,107 @@
             </form>
             <!-- fin del formulario de venta-->
           </div>
+          <div
+            class="modal fade"
+            id="registarCliente"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            style="display: none;"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-primary modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Agregar categoría</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Nombre Proveedor</label>
+                      <div class="col-md-9">
+                        <input type="text" id="nombre" class="form-control" v-model="nombrePro" />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="email-input">Tipo documento</label>
+                      <div class="col-md-9">
+                        <select class="form-control" v-model="selectedProvedor">
+                          <option disabled value>Selecciona tipo documento</option>
+                          <option
+                            v-for="optione in options"
+                            v-bind:key="optione.value"
+                            v-bind:value="optione.value"
+                            v-text="optione.text"
+                          ></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label
+                        class="col-md-3 form-control-label"
+                        for="text-input"
+                      >Numero del documento</label>
+                      <div class="col-md-9">
+                        <input
+                          type="number"
+                          id="numIdocument"
+                          class="form-control"
+                          v-model="documento"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
+                      <div class="col-md-9">
+                        <input type="text" id="direccion" class="form-control" v-model="direccion" />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          id="nombre"
+                          name="telf"
+                          class="form-control"
+                          v-model="telefono"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Email</label>
+                      <div class="col-md-9">
+                        <input type="email" id="email" class="form-control" v-model="email" />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" v-on:click="setarticulos">Guardar</button>
+
+                  <div id="toast">
+                    <div id="img">
+                      <i class="icon-check"></i>
+                    </div>
+                    <div id="desc">Guadado con exito...</div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+            <div id="toast2">
+              <div id="img">
+                <i class="icon-check"></i>
+              </div>
+              <div id="desc">Finalizado con exito...</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -311,6 +430,15 @@ import { parse } from "path";
 export default {
   data() {
     return {
+      // datos para registrar cliente
+      options: [{ text: "C.C", value: 3 }, { text: "N.I.T", value: 4 }],
+      nombrePro: "",
+      selectedProvedor: "",
+      documento: "",
+      direccion: "",
+      telefono: "",
+      email: "",
+      //
       recibido: 0,
       validar: false,
       totalPD: "",
@@ -333,13 +461,55 @@ export default {
           nombre: "Persona Natural"
         }
       ],
-      idusers: this.username
+      idusers: this.username,
+      loading: true
     };
   },
   props: ["username"],
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    setarticulos() {
+      let art = this;
+
+      axios
+        .post("/api/create_personas", {
+          nombre: this.nombrePro,
+          TipoPersona: 4,
+          NumDocument: this.documento,
+          selectedProvedor: this.selectedProvedor,
+          direccion: this.direccion,
+          telefono: this.telefono,
+          email: this.email
+        })
+        .then(function(response) {
+          function toastAlert() {
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function() {
+              x.className = x.className.replace("show", "");
+            }, 3000);
+          }
+          toastAlert();
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          // handle error
+          // console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.loading = false));
+      this.getProveedores2();
+      this.nombrePro = "";
+      this.selectedProvedor = "";
+      this.documento = "";
+      this.telefono = "";
+      this.email = "";
+      this.direccion = "";
+    },
     pruebaId() {},
     nombresSelect({ nombre }) {
       return `${nombre}`;
@@ -489,7 +659,7 @@ export default {
       return Number(num).toLocaleString();
     },
 
-    prueba() {
+    setVenta() {
       axios
         .post("/api/insert_venta", {
           num_comp: this.num,
@@ -512,7 +682,7 @@ export default {
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
       this.numero_factura();
-
+      this.launch_toast();
       this.totalPD = "";
       this.totalpagarDesT = "";
       this.consulta = [];
