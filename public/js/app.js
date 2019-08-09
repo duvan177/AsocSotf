@@ -79068,7 +79068,6 @@ var render = function() {
                   _vm.correo_editar == "" ||
                   _vm.nombre_editar == "" ||
                   _vm.apellido_editar == "" ||
-                  _vm.identificacion_editar == "" ||
                   _vm.rol_editar == 0
                     ? _c("div", [
                         _vm._v(

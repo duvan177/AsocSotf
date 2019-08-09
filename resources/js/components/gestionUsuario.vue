@@ -253,7 +253,7 @@
 
             <div class="modal-footer">
               <div
-                v-if="nombre_usuario_editar=='' || nombre_editar==''||contraseña_editar==''|| correo_editar==''|| nombre_editar==''|| apellido_editar==''|| identificacion_editar=='' || rol_editar==0"
+                v-if="nombre_usuario_editar=='' || nombre_editar==''||contraseña_editar==''|| correo_editar==''|| nombre_editar==''|| apellido_editar==''|| rol_editar==0"
               >
                 FALTAN CAMPOS POR LLENAR
                 <button
