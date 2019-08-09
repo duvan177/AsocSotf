@@ -57,8 +57,8 @@
                       :options="ingresos"
                       :custom-label="nombresSelect"
                       :searchable="true"
-                      selectLabel="seleciona"
-                      deselectLabel="quitar seleccion"
+                      selectLabel="add"
+                      deselectLabel="quitar"
                       selectedLabel="seleccionado"
                       placeholder="Selecione proveedor"
                       noOptions="ingrese provedor"
@@ -110,7 +110,7 @@
                       v-model="articulo"
                       noResult="elemento no encontrado"
                       noOptions="ingrese provedor"
-                      :custom-label="nombresSelect"
+                      :custom-label="nombresSelectArt"
                       :options="articulos"
                       :searchable="true"
                       selectLabel
@@ -248,7 +248,7 @@
               </div>
 
               <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <section v-if="ingresos.length === 0">
+                <section v-if="busqueda.length === 0">
                   <img src="img\comprasx.png" class="rounded mx-auto d-block animated fadeIn" alt />
                 </section>
                 <section v-else>
@@ -329,7 +329,7 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Agregar Proveedor</h4>
+            <h4 class="modal-title">Agregar categoría</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -571,7 +571,10 @@ export default {
   },
 
   methods: {
-    nombresSelect({ nombre }) {
+    nombresSelect({ nombre, num_comprobante }) {
+      return `${nombre + " N.C: " + num_comprobante}`;
+    },
+    nombresSelectArt({ nombre }) {
       return `${nombre}`;
     },
 
@@ -747,6 +750,8 @@ export default {
         .then(function(response) {
           if (response.data.error == 404) {
             alert("error");
+          } else if (response.data == 4004) {
+            alert("error numero de comprobante ya existente");
           } else {
             function toastAl() {
               var x = document.getElementById("efectox");
@@ -762,7 +767,6 @@ export default {
               }, 3000);
             }
             toastAl();
-
             //ser.series = response.data;
           }
 

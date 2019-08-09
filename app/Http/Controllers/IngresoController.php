@@ -17,10 +17,16 @@ class IngresoController extends Controller
     public function createCompra(Request $request){
 
         $id_ingreso = $request->id_ingreso;
+
+        
+
+
         $id_articulo = $request->articulo;
         $cantidad = $request->cantidad;
         $precio_comrpa = $request->preciocompra;
         $precio_venta = $request->precioventa;
+
+        
 
         $detalle_ingreso = new detalle_ingreso();
 
@@ -30,12 +36,13 @@ class IngresoController extends Controller
         $detalle_ingreso->precio_comrpa = $precio_comrpa;
         $detalle_ingreso->precio_venta = $precio_venta;
 
+
         $detalle_ingreso->save();
 
 
-        $data = " registrado con exito";
+        $data = " registrado con exito"; 
 
-        return response()->json($data);
+        return response()->json($verificar);
 
 
     }
@@ -55,11 +62,17 @@ class IngresoController extends Controller
     public function createIngreso(Request $request){
 
         $idProv = $request->id_proveedor;
+        $num_comprobante = $request->num_comprobante;
 
         $estado = DB::table('ingreso')
         ->select('id_estado')
         ->where('id_proveedor','=',$idProv)->value('id_estado');
 
+         $vali_comp = DB::table('ingreso')
+        ->select('num_comprobante')
+        ->where('num_comprobante','=',$num_comprobante)->get();
+
+        
         if ($estado == 2) {
         
             $data=[
@@ -89,13 +102,22 @@ class IngresoController extends Controller
                 $ingreso->num_comprobante=$num_comprobante;
      
                 $ingreso->id_estado=$id_estado;
-        
-        $ingreso->save(); 
+
+                if (count($vali_comp)<=0) {
+                     $ingreso->save(); 
 
         $data = "Guardado con exito";
         
         return response()->json($data);
+                   
+                }else{
+
+        $data = 4004;
+        
+        return response()->json($data);
         }
+    }
+      
 
     }
 

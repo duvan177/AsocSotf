@@ -35,7 +35,7 @@
         <template v-if="menu == 6">
             
                 <!--componentes de ventas -->
-                <venta></venta>
+                <venta :username={{Auth::user()->id}}></venta>
                
         </template>
         <template v-if="menu == 7">

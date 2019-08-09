@@ -136,7 +136,7 @@
                     </button>
                   </div>
                   <div class="form-group col-md-4" style>
-                    <button type="button" class="btn btn-info">
+                    <button type="button" class="btn btn-info" v-on:click="prueba">
                       <img src="img/buscar.png" alt />
                     </button>
                   </div>
@@ -332,12 +332,15 @@ export default {
           id: 33,
           nombre: "Persona Natural"
         }
-      ]
+      ],
+      idusers: this.username
     };
   },
+  props: ["username"],
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    pruebaId() {},
     nombresSelect({ nombre }) {
       return `${nombre}`;
     },
@@ -457,10 +460,10 @@ export default {
       axios
         .post("/api/NumeroFactura")
         .then(function(response) {
-          if ((response.data = 404)) {
-            num.num = 1001;
+          if (response.data == 404) {
+            num.num = 1000;
           } else {
-            num.num = response.data;
+            num.num = response.data + 1;
           }
         })
         .catch(function(error) {
@@ -484,6 +487,35 @@ export default {
     },
     validarCamp: function(num) {
       return Number(num).toLocaleString();
+    },
+
+    prueba() {
+      axios
+        .post("/api/insert_venta", {
+          num_comp: this.num,
+          total_venta: this.totalPD,
+          descuento: this.totalpagarDesT,
+          articulos: this.consulta,
+          id_user: this.username,
+          cliente: this.cliente
+        })
+        .then(function(response) {
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.loading = false));
+      this.numero_factura();
+
+      this.totalPD = "";
+      this.totalpagarDesT = "";
+      this.consulta = [];
     }
   },
 
@@ -595,6 +627,7 @@ export default {
   created() {},
   //METODOS QUE SE CARGARAN CUANDO EL COMPONENTE SEA INVOCADO. IMPORTANTE PARA ALGUNOS DATOS QUE SE NECESITEN EN LA VISTA.
   mounted() {
+    this.pruebaId();
     this.getFecha();
     this.numero_factura();
     this.getProveedores2();

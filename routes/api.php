@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 |
 
 
+
 Route::middleware(['auth:api','cors'])->get('/user', function (Request $request) {
     return $request->user();
 });
 */
+
 
 Route::post('fecha','fechaController@traer_fecha');
 Route::post('NumeroFactura','fechaController@NumeroFactura');
@@ -69,6 +71,7 @@ Route::post('usuario','Controllerusuarios@getUser');
 Route::post('guardarusuario','Controllerusuarios@guardarUsuario');
 Route::post('eliminarUsuario','Controllerusuarios@deleteUser');
 Route::post('usuario1','Controllerusuarios@getUser1');
+
 
 
 
