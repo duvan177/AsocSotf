@@ -40,7 +40,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="consul in consulta" :key="consul.id">
+              <tr class="animated fadeIn" v-for="consul in consulta" :key="consul.id">
                 <th scope="row"></th>
                 <td v-text="consul.codigo"></td>
                 <td v-text="consul.nombre"></td>

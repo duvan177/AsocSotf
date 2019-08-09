@@ -195,7 +195,6 @@ class IngresoController extends Controller
 
         return response()->json($compras);
 
-
     }
 
     public function Buscar(Request $request){

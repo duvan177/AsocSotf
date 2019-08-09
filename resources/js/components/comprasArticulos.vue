@@ -49,7 +49,10 @@
 
                 <div class="form-group col-md-6">
                   <section v-if="valid == true">
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div
+                      class="alert alert-warning alert-dismissible fade show animated pulse"
+                      role="alert"
+                    >
                       <strong>No hay ingresos!</strong>
                       Por favor haga un nuevo ingreso.
                     </div>

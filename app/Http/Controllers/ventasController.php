@@ -15,9 +15,6 @@ class ventasController extends Controller
     
     public function ingresarVenta(Request $request){
 
-     
-
-        
     
         $num_comprobante =  $request->num_comp;
          $num_comprobante_validar = DB::table('venta')->select('num_comprobante')->where('num_comprobante','=',$num_comprobante)->get();
@@ -58,6 +55,21 @@ class ventasController extends Controller
          }
     
 }
+
+
+
+        public function SetVentas(){
+
+          $data =   DB::table('venta')
+            ->join('persona','venta.id_cliente','=','persona.id')
+            ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
+            ->join('users','venta.id_user','=','users.id')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','users.name')
+            
+            ->get();
+            return response()->json($data);
+
+        }
 }
 
 

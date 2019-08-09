@@ -17,171 +17,71 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="form-group row">
-            <div class="col-md-6">
-              <div class="input-group">
-                <multiselect
-                  v-model="value"
-                  :custom-label="nombresSelect"
-                  :options="options"
-                  :searchable="true"
-                  selectLabel="seleciona"
-                  deselectLabel="quitar seleccion"
-                  selectedLabel="seleccionado"
-                  noResult="elemento no encontrado"
-                  noOptions="ingrese provedor"
-                ></multiselect>
-                <input
-                  type="text"
-                  id="texto"
-                  name="texto"
-                  class="form-control"
-                  placeholder="Texto a buscar"
-                />
-                <button type="submit" class="btn btn-primary">
-                  <i class="fa fa-search"></i> Buscar
-                </button>
+          <nav>
+            <div class="row mx-md-n5">
+              <div class="col px-md-7">
+                <div class="p-3 border">
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <multiselect
+                          v-model="value"
+                          :custom-label="nombresSelect"
+                          :options="options"
+                          :searchable="true"
+                          selectLabel="seleciona"
+                          deselectLabel="quitar seleccion"
+                          selectedLabel="seleccionado"
+                          noResult="elemento no encontrado"
+                          noOptions="ingrese provedor"
+                        ></multiselect>
+                        <input
+                          type="text"
+                          id="texto"
+                          name="texto"
+                          class="form-control"
+                          placeholder="Texto a buscar"
+                        />
+                        <button type="submit" class="btn btn-primary">
+                          <i class="fa fa-search"></i> Buscar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>N° Comprobante</th>
+                        <th>cliente</th>
+                        <th>Tipo Comprobane</th>
+                        <th>Descuento</th>
+                        <th>Total</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="animated fadeIn" v-for="item in ventas" :key="item.id">
+                        <td v-text="item.num_comprobante"></td>
+                        <td v-text="item.nombre"></td>
+                        <td v-text="item.Comprobante"></td>
+                        <td v-text="item.descuento"></td>
+                        <td v-text="item.total_venta"></td>
+                        <td>
+                          <button type="button" class="btn btn-info btn-sm">
+                            <i class="icon-pencil"></i>
+                          </button>
+                          &nbsp;
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col px-md-5">
+                <div class="p-3 border bg-light">Custom column padding</div>
               </div>
             </div>
-          </div>
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>Opciones</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalNuevo"
-                  >
-                    <i class="icon-pencil"></i>
-                  </button> &nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalEliminar"
-                  >
-                    <i class="icon-trash"></i>
-                  </button>
-                </td>
-                <td>Equipos</td>
-                <td>Dispositivos electrónicos</td>
-                <td>
-                  <span class="badge badge-success">Activo</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalNuevo"
-                  >
-                    <i class="icon-pencil"></i>
-                  </button> &nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalEliminar"
-                  >
-                    <i class="icon-trash"></i>
-                  </button>
-                </td>
-                <td>Equipos</td>
-                <td>Dispositivos electrónicos</td>
-                <td>
-                  <span class="badge badge-success">Activo</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalNuevo"
-                  >
-                    <i class="icon-pencil"></i>
-                  </button> &nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalEliminar"
-                  >
-                    <i class="icon-trash"></i>
-                  </button>
-                </td>
-                <td>Equipos</td>
-                <td>Dispositivos electrónicos</td>
-                <td>
-                  <span class="badge badge-secondary">Inactivo</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalNuevo"
-                  >
-                    <i class="icon-pencil"></i>
-                  </button> &nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalEliminar"
-                  >
-                    <i class="icon-trash"></i>
-                  </button>
-                </td>
-                <td>Equipos</td>
-                <td>Dispositivos electrónicos</td>
-                <td>
-                  <span class="badge badge-secondary">Inactivo</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalNuevo"
-                  >
-                    <i class="icon-pencil"></i>
-                  </button>&nbsp;
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#modalEliminar"
-                  >
-                    <i class="icon-trash"></i>
-                  </button>
-                </td>
-                <td>Equipos</td>
-                <td>Dispositivos electrónicos</td>
-                <td>
-                  <span class="badge badge-success">Activo</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <nav></nav>
+          </nav>
         </div>
       </div>
       <!-- Fin ejemplo de tabla Listado -->
@@ -289,7 +189,8 @@ export default {
           id: 32,
           nombre: "La Gordita Estiven"
         }
-      ]
+      ],
+      ventas: []
     };
   },
   methods: {
@@ -297,17 +198,16 @@ export default {
       return `${nombre}`;
     },
 
-    prueba() {
+    getVentas_x() {
+      let meventas = this;
       axios
-        .post("/api/prueba", {
-          data: this.value.id
-        })
+        .post("/api/get_Ventas")
         .then(function(response) {
-          console.log(response.data);
+          meventas.ventas = response.data;
         })
         .catch(function(error) {
           // handle error
-          // console.log(error);
+          console.log(error);
         })
 
         .then(function() {})
@@ -315,6 +215,10 @@ export default {
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
     }
+  },
+
+  mounted() {
+    this.getVentas_x();
   }
 };
 </script>

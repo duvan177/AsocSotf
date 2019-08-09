@@ -46,7 +46,7 @@
             <table id="myTable" class="table table-hover table-responsive mt-2">
               <!--Table head-->
               <thead>
-                <tr>
+                <tr class="animated fadeIn">
                   <th>#</th>
                   <th>Proveedor</th>
 
@@ -63,7 +63,7 @@
               <!--Table head-->
               <!--Table body-->
               <tbody>
-                <tr v-for="compras in lista_compras" :key="compras.id">
+                <tr class="animated fadeIn" v-for="compras in lista_compras" :key="compras.id">
                   <th scope="row">1</th>
                   <td v-text="compras.persona[0]['nombre']"></td>
                   <td v-text="compras.ingreso[0]['num_comprobante']"></td>

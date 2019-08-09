@@ -36,7 +36,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="consul in consulta" :key="consul.id">
+                  <tr class="animated fadeIn" v-for="consul in consulta" :key="consul.id">
                     <th scope="row">{{consul.id}}</th>
                     <td v-text="consul.nombre_categoria"></td>
                     <td v-text="consul.descripcion_categoria"></td>

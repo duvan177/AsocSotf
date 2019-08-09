@@ -1875,106 +1875,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
  // register globally
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -2004,7 +1904,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }, {
         id: 32,
         nombre: "La Gordita Estiven"
-      }]
+      }],
+      ventas: []
     };
   },
   methods: {
@@ -2012,21 +1913,24 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var nombre = _ref.nombre;
       return "".concat(nombre);
     },
-    prueba: function prueba() {
+    getVentas_x: function getVentas_x() {
       var _this = this;
 
-      axios.post("/api/prueba", {
-        data: this.value.id
-      }).then(function (response) {
-        console.log(response.data);
-      })["catch"](function (error) {// handle error
-        // console.log(error);
+      var meventas = this;
+      axios.post("/api/get_Ventas").then(function (response) {
+        meventas.ventas = response.data;
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
       }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
       //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
       ["finally"](function () {
         return _this.loading = false;
       });
     }
+  },
+  mounted: function mounted() {
+    this.getVentas_x();
   }
 });
 
@@ -2876,6 +2780,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! timers */ "./node_modules/timers-browserify/main.js");
 /* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(timers__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
 //
 //
 //
@@ -74381,57 +74288,115 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c(
-                "div",
-                { staticClass: "input-group" },
-                [
-                  _c("multiselect", {
-                    attrs: {
-                      "custom-label": _vm.nombresSelect,
-                      options: _vm.options,
-                      searchable: true,
-                      selectLabel: "seleciona",
-                      deselectLabel: "quitar seleccion",
-                      selectedLabel: "seleccionado",
-                      noResult: "elemento no encontrado",
-                      noOptions: "ingrese provedor"
+          _c("nav", [
+            _c("div", { staticClass: "row mx-md-n5" }, [
+              _c("div", { staticClass: "col px-md-7" }, [
+                _c("div", { staticClass: "p-3 border" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group" },
+                        [
+                          _c("multiselect", {
+                            attrs: {
+                              "custom-label": _vm.nombresSelect,
+                              options: _vm.options,
+                              searchable: true,
+                              selectLabel: "seleciona",
+                              deselectLabel: "quitar seleccion",
+                              selectedLabel: "seleccionado",
+                              noResult: "elemento no encontrado",
+                              noOptions: "ingrese provedor"
+                            },
+                            model: {
+                              value: _vm.value,
+                              callback: function($$v) {
+                                _vm.value = $$v
+                              },
+                              expression: "value"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "texto",
+                              name: "texto",
+                              placeholder: "Texto a buscar"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    {
+                      staticClass: "table table-bordered table-striped table-sm"
                     },
-                    model: {
-                      value: _vm.value,
-                      callback: function($$v) {
-                        _vm.value = $$v
-                      },
-                      expression: "value"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "texto",
-                      name: "texto",
-                      placeholder: "Texto a buscar"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(1)
-                ],
-                1
-              )
+                    [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.ventas, function(item) {
+                          return _c(
+                            "tr",
+                            { key: item.id, staticClass: "animated fadeIn" },
+                            [
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(item.num_comprobante)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: { textContent: _vm._s(item.nombre) }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(item.Comprobante)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(item.descuento)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                domProps: {
+                                  textContent: _vm._s(item.total_venta)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm._m(3, true)
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(4)
             ])
-          ]),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _c("nav")
+          ])
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(3)
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -74465,7 +74430,7 @@ var staticRenderFns = [
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
       [
         _c("i", { staticClass: "fa fa-search" }),
-        _vm._v(" Buscar\n              ")
+        _vm._v(" Buscar\n                      ")
       ]
     )
   },
@@ -74473,225 +74438,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      { staticClass: "table table-bordered table-striped table-sm" },
-      [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("Opciones")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Nombre")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Descripción")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Estado")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("N° Comprobante")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalNuevo"
-                  }
-                },
-                [_c("i", { staticClass: "icon-pencil" })]
-              ),
-              _vm._v("  \n                "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalEliminar"
-                  }
-                },
-                [_c("i", { staticClass: "icon-trash" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Equipos")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Dispositivos electrónicos")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "badge badge-success" }, [
-                _vm._v("Activo")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalNuevo"
-                  }
-                },
-                [_c("i", { staticClass: "icon-pencil" })]
-              ),
-              _vm._v("  \n                "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalEliminar"
-                  }
-                },
-                [_c("i", { staticClass: "icon-trash" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Equipos")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Dispositivos electrónicos")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "badge badge-success" }, [
-                _vm._v("Activo")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalNuevo"
-                  }
-                },
-                [_c("i", { staticClass: "icon-pencil" })]
-              ),
-              _vm._v("  \n                "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalEliminar"
-                  }
-                },
-                [_c("i", { staticClass: "icon-trash" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Equipos")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Dispositivos electrónicos")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "badge badge-secondary" }, [
-                _vm._v("Inactivo")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalNuevo"
-                  }
-                },
-                [_c("i", { staticClass: "icon-pencil" })]
-              ),
-              _vm._v("  \n                "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalEliminar"
-                  }
-                },
-                [_c("i", { staticClass: "icon-trash" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Equipos")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Dispositivos electrónicos")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "badge badge-secondary" }, [
-                _vm._v("Inactivo")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalNuevo"
-                  }
-                },
-                [_c("i", { staticClass: "icon-pencil" })]
-              ),
-              _vm._v(" \n                "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": "#modalEliminar"
-                  }
-                },
-                [_c("i", { staticClass: "icon-trash" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Equipos")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Dispositivos electrónicos")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("span", { staticClass: "badge badge-success" }, [
-                _vm._v("Activo")
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+        _c("th", [_vm._v("cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Comprobane")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descuento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-info btn-sm", attrs: { type: "button" } },
+        [_c("i", { staticClass: "icon-pencil" })]
+      ),
+      _vm._v("\n                         \n                      ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col px-md-5" }, [
+      _c("div", { staticClass: "p-3 border bg-light" }, [
+        _vm._v("Custom column padding")
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -74869,65 +74653,71 @@ var render = function() {
             _c(
               "tbody",
               _vm._l(_vm.consulta, function(consul) {
-                return _c("tr", { key: consul.id }, [
-                  _c("th", { attrs: { scope: "row" } }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(consul.codigo) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(consul.nombre) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", { domProps: { textContent: _vm._s(consul.stock) } }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(consul.descripcion) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: { textContent: _vm._s(consul.estado_articulo) }
-                  }),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "modal",
-                          "data-target": "#articuloeditarModal"
+                return _c(
+                  "tr",
+                  { key: consul.id, staticClass: "animated fadeIn" },
+                  [
+                    _c("th", { attrs: { scope: "row" } }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.codigo) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.nombre) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.stock) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.descripcion) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.estado_articulo) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "modal",
+                            "data-target": "#articuloeditarModal"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.traerArticuloEditar(consul)
+                            }
+                          }
                         },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.traerArticuloEditar(consul)
+                        [_vm._v("Editar")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.eliminarArticulo(consul)
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Editar")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.eliminarArticulo(consul)
-                          }
-                        }
-                      },
-                      [_vm._v("Eliminar")]
-                    )
-                  ])
-                ])
+                        },
+                        [_vm._v("Eliminar")]
+                      )
+                    ])
+                  ]
+                )
               }),
               0
             )
@@ -75880,59 +75670,63 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.consulta, function(consul) {
-                    return _c("tr", { key: consul.id }, [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(_vm._s(consul.id))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: {
-                          textContent: _vm._s(consul.nombre_categoria)
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: {
-                          textContent: _vm._s(consul.descripcion_categoria)
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            staticStyle: { width: "75 px" },
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "modal",
-                              "data-target": "#articuloeditarModal"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.traerCategoriaEditar(consul)
-                              }
-                            }
-                          },
-                          [_vm._v("Editar")]
-                        ),
+                    return _c(
+                      "tr",
+                      { key: consul.id, staticClass: "animated fadeIn" },
+                      [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(consul.id))
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.eliminarCategoria(consul)
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(consul.nombre_categoria)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(consul.descripcion_categoria)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              staticStyle: { width: "75 px" },
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#articuloeditarModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.traerCategoriaEditar(consul)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Eliminar")]
-                        )
-                      ])
-                    ])
+                            },
+                            [_vm._v("Editar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.eliminarCategoria(consul)
+                                }
+                              }
+                            },
+                            [_vm._v("Eliminar")]
+                          )
+                        ])
+                      ]
+                    )
                   }),
                   0
                 )
@@ -77475,7 +77269,8 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "alert alert-warning alert-dismissible fade show",
+        staticClass:
+          "alert alert-warning alert-dismissible fade show animated pulse",
         attrs: { role: "alert" }
       },
       [
@@ -77934,63 +77729,71 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.lista_compras, function(compras) {
-                      return _c("tr", { key: compras.id }, [
-                        _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(compras.persona[0]["nombre"])
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(
-                              compras.ingreso[0]["num_comprobante"]
-                            )
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(compras.articulo[0]["nombre"])
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(compras.cantidad) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(compras.precio_comrpa)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(compras.precio_venta)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(
-                              compras.precio_comrpa * compras.cantidad
-                            )
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(compras.ingreso[0]["id_estado"])
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(compras.created_at) }
-                        })
-                      ])
+                      return _c(
+                        "tr",
+                        { key: compras.id, staticClass: "animated fadeIn" },
+                        [
+                          _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(compras.persona[0]["nombre"])
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                compras.ingreso[0]["num_comprobante"]
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(compras.articulo[0]["nombre"])
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(compras.cantidad) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(compras.precio_comrpa)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(compras.precio_venta)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                compras.precio_comrpa * compras.cantidad
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                compras.ingreso[0]["id_estado"]
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(compras.created_at)
+                            }
+                          })
+                        ]
+                      )
                     }),
                     0
                   )
@@ -78046,7 +77849,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticClass: "animated fadeIn" }, [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Proveedor")]),
@@ -78438,66 +78241,74 @@ var render = function() {
             _c(
               "tbody",
               _vm._l(_vm.consulta, function(consul) {
-                return _c("tr", { key: consul.id }, [
-                  _c("th", { attrs: { scope: "row" } }),
-                  _vm._v(" "),
-                  _c("td", { domProps: { textContent: _vm._s(consul.name) } }),
-                  _vm._v(" "),
-                  _c("td", { domProps: { textContent: _vm._s(consul.email) } }),
-                  _vm._v(" "),
-                  _c("td", { domProps: { textContent: _vm._s(consul.rol) } }),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "modal",
-                          "data-target": "#articuloeditarModal"
-                        },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.traerUsuarioEditar(consul)
+                return _c(
+                  "tr",
+                  { key: consul.id, staticClass: "animated fadeIn" },
+                  [
+                    _c("th", { attrs: { scope: "row" } }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.name) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(consul.email) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", { domProps: { textContent: _vm._s(consul.rol) } }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "modal",
+                            "data-target": "#articuloeditarModal"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.traerUsuarioEditar(consul)
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Editar")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    consul.id == _vm.id_user
-                      ? _c("section", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { type: "button", disabled: "" }
-                            },
-                            [_vm._v("Eliminar")]
-                          )
-                        ])
-                      : _c("section", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.eliminarUsuario(consul)
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      consul.id == _vm.id_user
+                        ? _c("section", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button", disabled: "" }
+                              },
+                              [_vm._v("Eliminar")]
+                            )
+                          ])
+                        : _c("section", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.eliminarUsuario(consul)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("Eliminar")]
-                          )
-                        ])
-                  ])
-                ])
+                              },
+                              [_vm._v("Eliminar")]
+                            )
+                          ])
+                    ])
+                  ]
+                )
               }),
               0
             )
