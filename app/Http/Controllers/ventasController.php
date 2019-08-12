@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;   
 use App\Venta;
 use App\User;
+use App\articulo;
 use App\detalle_venta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,10 +65,44 @@ class ventasController extends Controller
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
             
             ->get();
             return response()->json($data);
+
+        }
+
+
+        public function setVentaDetalle( Request $request){
+
+          $num_comp = $request->num_comprobante;
+
+           $id = Venta::where('num_comprobante','=',$num_comp)->first();
+
+          $detalle_id_art = detalle_venta::where('id_venta','=',$id->id)->first();
+          
+          $detalle_vent = DB::table('detalle_venta')
+          ->join('articulo','detalle_venta.id_articulo','=','articulo.id')
+          ->select('detalle_venta.*','articulo.*')
+          ->where('detalle_venta.id_venta','=', $id->id)
+          ->get();
+
+          
+          $data = detalle_venta::where('id_venta','=', $id->id)->get();
+
+         
+           for ($i=0; $i <  count($data) ; $i++) { 
+                 
+                  $data[$i]->articulo;
+       } 
+
+          
+          
+
+
+
+           return response()->json($data);
+
 
         }
 }

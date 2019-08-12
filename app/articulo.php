@@ -10,4 +10,6 @@ class articulo extends Model
     
     protected $fillable = ['id','id_categoria','codigo','nombre','stock','descripcion','estado'];
   
+    public function categoria(){}
+
 }

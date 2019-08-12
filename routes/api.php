@@ -68,6 +68,9 @@ Route::post('prueba','IngresoController@prueba');
 Route::post('insert_venta','ventasController@ingresarVenta');
 //api traer las ventas 
 Route::post('get_Ventas','ventasController@SetVentas');
+// traer detalle venta
+Route::post('get_Ventas_detalle','ventasController@setVentaDetalle');
+//
 //Gestion de usuarios
 Route::post('usuario','Controllerusuarios@getUser');
 Route::post('guardarusuario','Controllerusuarios@guardarUsuario');

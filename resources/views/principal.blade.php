@@ -13,12 +13,14 @@
      <!-- token de seguridad -->
        <!-- Icons -->
        <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-
+  
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/simple-line-icons.min.css" rel="stylesheet">
     <!-- Main styles for this application -->
+    <link href="css/mdb.css" rel="stylesheet">
      <link href="css/cargando.css" rel="stylesheet">
      <link rel="css/toastr.css" href="">
+       
 
       <link href="css/style.css" rel="stylesheet">
       <link href="css/animate.css" rel="stylesheet">
@@ -110,6 +112,9 @@
      
     <!-- Bootstrap and necessary plugins -->
     <script src="js/jquery.min.js"></script>
+     
+    
+
       <!-- Bootstrap and necessary plugins -->  
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -118,6 +123,7 @@
     <script src="js/Chart.min.js"></script>
     <script src="{{asset("js/anime.js")}}"></script>
       <script src="{{asset("js/operacionsAdd.js")}}"></script>
+      <script src="js/mdb.js"></script>
 
 
 

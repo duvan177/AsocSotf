@@ -1875,6 +1875,142 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // register globally
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -1905,10 +2041,24 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         id: 32,
         nombre: "La Gordita Estiven"
       }],
-      ventas: []
+      ventas: [],
+      cargando: false,
+      cargando_2: true,
+      numeroComprobante: 0,
+      fechaVenta: "",
+      Total_pagar_detalle: "",
+      nombreUserVenta: "",
+      // datos de consulta detallada
+      detalles: []
     };
   },
   methods: {
+    informacion: function informacion(dato, fecha, total_pagar, nombreUser) {
+      this.numeroComprobante = dato;
+      this.fechaVenta = fecha;
+      this.Total_pagar_detalle = total_pagar;
+      this.nombreUserVenta = nombreUser;
+    },
     nombresSelect: function nombresSelect(_ref) {
       var nombre = _ref.nombre;
       return "".concat(nombre);
@@ -1925,12 +2075,34 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
       //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
       ["finally"](function () {
-        return _this.loading = false;
+        return _this.cargando_2 = false;
+      });
+    },
+    getDetalle_ventas: function getDetalle_ventas(numComp) {
+      var _this2 = this;
+
+      var me_detalles = this;
+      axios.post("/api/get_Ventas_detalle", {
+        num_comprobante: numComp
+      }).then(function (response) {
+        me_detalles.detalles = response.data; //console.log(response.data);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+      //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+      ["finally"](function () {
+        return _this2.cargando_2 = false;
       });
     }
   },
   mounted: function mounted() {
     this.getVentas_x();
+  },
+  watch: {
+    numeroComprobante: function numeroComprobante(newVal, oldVal) {
+      this.getDetalle_ventas(newVal);
+    }
   }
 });
 
@@ -74336,67 +74508,341 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c(
-                    "table",
+                    "div",
                     {
-                      staticClass: "table table-bordered table-striped table-sm"
+                      staticClass: "table-wrapper-scroll-y my-custom-scrollbar"
                     },
                     [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.ventas, function(item) {
-                          return _c(
-                            "tr",
-                            { key: item.id, staticClass: "animated fadeIn" },
-                            [
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.num_comprobante)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: { textContent: _vm._s(item.nombre) }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.Comprobante)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.descuento)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.total_venta)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm._m(3, true)
-                            ]
-                          )
-                        }),
-                        0
-                      )
+                      _vm.cargando_2
+                        ? _c("section", [_vm._m(2)])
+                        : _c("section", [
+                            _c(
+                              "table",
+                              {
+                                staticClass:
+                                  "table table-hover table-striped mb-0"
+                              },
+                              [
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  _vm._l(_vm.ventas, function(item) {
+                                    return _c(
+                                      "tr",
+                                      {
+                                        key: item.id,
+                                        staticClass: "animated fadeIn"
+                                      },
+                                      [
+                                        _c("td", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              item.num_comprobante
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", {
+                                          domProps: {
+                                            textContent: _vm._s(item.nombre)
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              item.Comprobante
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", {
+                                          domProps: {
+                                            textContent: _vm._s(item.descuento)
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              item.total_venta
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-primary btn-sm",
+                                              attrs: {
+                                                type: "button",
+                                                id: item.id
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.informacion(
+                                                    item.num_comprobante,
+                                                    item.created_at,
+                                                    item.total_venta,
+                                                    item.name
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon-info"
+                                              }),
+                                              _vm._v(
+                                                " ver +\n                            "
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ]
+                            )
+                          ])
                     ]
                   )
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _c("div", { staticClass: "col px-md-5" }, [
+                _c("div", { staticClass: "p-3 border" }, [
+                  _c("div", { staticClass: "card weather-card" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card-body pb-3",
+                        staticStyle: { height: "640px" },
+                        attrs: { id: "contenido" }
+                      },
+                      [
+                        _vm.cargando
+                          ? _c("section", [_vm._m(4)])
+                          : _c("section", [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "d-flex justify-content-between animated fadeIn"
+                                },
+                                [
+                                  _c(
+                                    "h4",
+                                    {
+                                      staticClass: "card-title font-weight-bold"
+                                    },
+                                    [_vm._v("Factura")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", {
+                                    staticClass: "card-text",
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        "Fecha :" + _vm.fechaVenta
+                                      )
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "d-flex justify-content-between animated fadeIn"
+                                },
+                                [
+                                  _c("p", {
+                                    staticClass: "display-4",
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        "N° " + _vm.numeroComprobante
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "chip chip-md" }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "chip chip-md" }, [
+                                    _c("img", {
+                                      attrs: {
+                                        src: "img/user_venta.png",
+                                        alt: "Contact Person"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("h5", {
+                                      domProps: {
+                                        textContent: _vm._s(_vm.nombreUserVenta)
+                                      }
+                                    })
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "card card-cascade narrower" },
+                                [
+                                  _vm._m(6),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "px-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "table-wrapper" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "table-wrapper-scroll-y my-custom-scrollbar3"
+                                          },
+                                          [
+                                            _vm.detalles.length === 0
+                                              ? _c("section", [
+                                                  _c("img", {
+                                                    staticClass:
+                                                      "rounded mx-auto d-block animated fadeIn",
+                                                    attrs: {
+                                                      src: "img\\comprasx.png",
+                                                      alt: ""
+                                                    }
+                                                  })
+                                                ])
+                                              : _c("section", [
+                                                  _c(
+                                                    "table",
+                                                    {
+                                                      staticClass:
+                                                        "table table-hover mb-0"
+                                                    },
+                                                    [
+                                                      _vm._m(7),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "tbody",
+                                                        _vm._l(
+                                                          _vm.detalles,
+                                                          function(
+                                                            item,
+                                                            index
+                                                          ) {
+                                                            return _c(
+                                                              "tr",
+                                                              {
+                                                                key: item.id,
+                                                                staticClass:
+                                                                  "animated fadeIn"
+                                                              },
+                                                              [
+                                                                _c("td", {
+                                                                  domProps: {
+                                                                    textContent: _vm._s(
+                                                                      index + 1
+                                                                    )
+                                                                  }
+                                                                }),
+                                                                _vm._v(" "),
+                                                                _c("td", {
+                                                                  domProps: {
+                                                                    textContent: _vm._s(
+                                                                      item
+                                                                        .articulo[0][
+                                                                        "nombre"
+                                                                      ]
+                                                                    )
+                                                                  }
+                                                                }),
+                                                                _vm._v(" "),
+                                                                _c("td", {
+                                                                  domProps: {
+                                                                    textContent: _vm._s(
+                                                                      item.cantidad
+                                                                    )
+                                                                  }
+                                                                }),
+                                                                _vm._v(" "),
+                                                                _c("td", {
+                                                                  domProps: {
+                                                                    textContent: _vm._s(
+                                                                      item.precio_venta
+                                                                    )
+                                                                  }
+                                                                }),
+                                                                _vm._v(" "),
+                                                                _c("td", {
+                                                                  domProps: {
+                                                                    textContent: _vm._s(
+                                                                      item.precio_venta *
+                                                                        item.cantidad
+                                                                    )
+                                                                  }
+                                                                })
+                                                              ]
+                                                            )
+                                                          }
+                                                        ),
+                                                        0
+                                                      )
+                                                    ]
+                                                  )
+                                                ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "d-flex justify-content-between mb-4"
+                                          },
+                                          [
+                                            _c("p", [
+                                              _vm._v("3% Precipitation")
+                                            ]),
+                                            _vm._v(" "),
+                                            _vm._m(8),
+                                            _vm._v(" "),
+                                            _c("h5", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  "Total Venta: $" +
+                                                    _vm.Total_pagar_detalle
+                                                )
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
             ])
           ])
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(5)
+    _vm._m(9)
   ])
 }
 var staticRenderFns = [
@@ -74438,6 +74884,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { attrs: { id: "preloader_1" } }, [
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("N° Comprobante")]),
@@ -74458,23 +74922,75 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        { staticClass: "btn btn-info btn-sm", attrs: { type: "button" } },
-        [_c("i", { staticClass: "icon-pencil" })]
-      ),
-      _vm._v("\n                         \n                      ")
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { attrs: { id: "preloader_1" } }, [
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span")
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col px-md-5" }, [
-      _c("div", { staticClass: "p-3 border bg-light" }, [
-        _vm._v("Custom column padding")
+    return _c("div", { staticClass: "d-flex justify-content-between mb-4" }, [
+      _c("p", [_vm._v("3% Precipitation")]),
+      _vm._v(" "),
+      _c("p")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+      },
+      [
+        _c("div", [
+          _c("a", { staticClass: "white-text mx-3", attrs: { href: "" } })
+        ]),
+        _vm._v(" "),
+        _c("a", { staticClass: "white-text mx-4", attrs: { href: "" } }, [
+          _vm._v("Contenido Venta")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Articulo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor unitario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor Total")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("img", { attrs: { src: "img/venta_detalle.png", alt: "" } })
     ])
   },
   function() {
