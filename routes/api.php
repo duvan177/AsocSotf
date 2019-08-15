@@ -61,6 +61,7 @@ Route::post('setIngresosTodo','IngresoController@setIngresosTodo');
 Route::post('getTotal_Compras','IngresoController@TotalCompras');
 //buscar en los ingresos
 Route::post('Buscar_Dato','IngresoController@Buscar');
+Route::post('update_art','IngresoController@update_art_');
 //
 Route::post('actualizar_ingreso','IngresoController@idIngreso');
 Route::post('prueba','IngresoController@prueba');

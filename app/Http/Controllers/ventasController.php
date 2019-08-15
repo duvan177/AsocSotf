@@ -21,6 +21,7 @@ class ventasController extends Controller
          $num_comprobante_validar = DB::table('venta')->select('num_comprobante')->where('num_comprobante','=',$num_comprobante)->get();
 
          if (count($num_comprobante_validar)<=0){
+
         $id_cliente = $request->cliente[0]['id'];
         $num_comprobante =  $request->num_comp;
         $total_venta =  $request->total_venta;
@@ -33,40 +34,43 @@ class ventasController extends Controller
         $venta->total_venta =$total_venta;
         $venta->descuento = $descuento; 
         $venta->id_user=$id_user;
-        $venta->save();
-        //return response()->json('se guardo');  
-        
-        for ($i=0; $i< count($request->articulos) ; $i++) {  
-       $id_venta_= DB::table('venta')->select('id')->where('num_comprobante','=',$num_comprobante)->value('id');
+       $venta->save();
+        //return response()->json('se guardo');
+        for ($i=0; $i<count($request->articulos) ; $i++) {  
+      $id_venta_= DB::table('venta')->select('id')->where('num_comprobante','=',$num_comprobante)->value('id');
       
         $id_articulo = $request->articulos[$i]['datos']['id'];
         $cantidad = $request->articulos[$i]['cantidad'];
         $precio_venta = $request->articulos[$i]['datos']['precio_venta'];
-
+            $cantidad_exist = DB::table('articulo')->select('stock')->where('id','=',$id_articulo)->value('stock');
         $detalle_venta = new detalle_venta();
         $detalle_venta->id_venta=$id_venta_;
         $detalle_venta->id_articulo=$id_articulo;
         $detalle_venta->cantidad=$cantidad;
         $detalle_venta->precio_venta=$precio_venta;
-
+          
+         $articulo = articulo::find($id_articulo);
+         $articulo->stock = $cantidad_exist - $cantidad;
+         
         $detalle_venta->save();
+         $articulo->save();
+        
+        }
+        return response()->json($cantidad_exist);
+        
         }
         
-        
-         }
+
     
 }
 
-
-
         public function SetVentas(){
-
-          $data =   DB::table('venta')
+             $data =   DB::table('venta')
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
             ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
-            
+            ->orderby('venta.id','desc') 
             ->get();
             return response()->json($data);
 
@@ -88,7 +92,7 @@ class ventasController extends Controller
           ->get();
 
           
-          $data = detalle_venta::where('id_venta','=', $id->id)->get();
+          $data = detalle_venta::where('id_venta','=', $id->id)->orderby('id','desc')->get();
 
          
            for ($i=0; $i <  count($data) ; $i++) { 

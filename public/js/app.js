@@ -2004,13 +2004,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
  // register globally
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -3731,6 +3724,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           document.getElementById("opciones").options.length = 0;
         } else {
           ing.ingresos = response.data;
+          validarx.valid = false;
           console.log(response.data.length);
         }
       })["catch"](function (error) {// handle error
@@ -3759,6 +3753,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         precio_compra: this.preciocompra,
         precio_venta: this.precioventa
       }).then(function (response) {
+        console.log(response.data);
         table.tabla = false;
 
         function toastAlert() {
@@ -4233,6 +4228,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4320,7 +4333,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.allbusqueda = data;
         }
       });
-    }
+    },
+    cambiar: function cambiar() {}
   },
   computed: {},
   mounted: function mounted() {
@@ -74597,7 +74611,7 @@ var render = function() {
                                                 staticClass: "icon-info"
                                               }),
                                               _vm._v(
-                                                " ver +\n                            "
+                                                " ver +\n                             "
                                               )
                                             ]
                                           )
@@ -74852,19 +74866,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-align-justify" }),
-      _vm._v(" Categorías\n        "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#modalNuevo"
-          }
-        },
-        [_c("i", { staticClass: "icon-plus" }), _vm._v(" Nuevo\n        ")]
-      )
+      _vm._v("\nGestion de faturas\n       ")
     ])
   },
   function() {
@@ -74876,7 +74878,7 @@ var staticRenderFns = [
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
       [
         _c("i", { staticClass: "fa fa-search" }),
-        _vm._v(" Buscar\n                      ")
+        _vm._v(" Buscar\n                       ")
       ]
     )
   },
@@ -77649,7 +77651,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Numero comprovante")]
+                        [_vm._v("Numero comprobante")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -78546,15 +78548,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("main", { staticClass: "main" }, [
-    _c("div", { staticClass: "container-fluid" }, [
+  return _c("div", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-sm-6 mb-3 mb-md-0" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
         _c(
           "div",
           { staticClass: "card-body" },
-          [_c("graficos"), _vm._v(" "), _c("nav")],
+          [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v("Graficos estadisticos")
+            ]),
+            _vm._v(" "),
+            _c("graficos")
+          ],
           1
         )
       ])
@@ -78568,158 +78576,199 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-align-justify" }),
-      _vm._v(" Categorías\n        "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#modalNuevo"
-          }
-        },
-        [_c("i", { staticClass: "icon-plus" }), _vm._v(" Nuevo\n        ")]
-      )
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("div", { staticClass: "card", attrs: { id: "card_escritorio1" } }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: {
+              id: "fondo_naranja",
+              src: "img/fondo_naranja.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "card-img",
+            attrs: {
+              id: "fondo_compras",
+              src: "img/compras_escritorio.jpg",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "h5",
+              { staticClass: "card-title", attrs: { id: "titulo_escritorio" } },
+              [_vm._v("Compras")]
+            ),
+            _vm._v(" "),
+            _c(
+              "h5",
+              { staticClass: "card-title", attrs: { id: "datos_escritorio" } },
+              [_vm._v("Total generado :")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card", attrs: { id: "card_escritorio1" } }, [
+        _c("div", { staticClass: "card-body", attrs: { id: "cardx" } }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: { id: "fondo_naranja", src: "img/fondo_verde.png", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "card-img",
+            attrs: {
+              id: "fondo_compras",
+              src: "img/ventas_escritorio.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "h5",
+              { staticClass: "card-title", attrs: { id: "titulo_escritorio" } },
+              [_vm._v("Ventas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "h5",
+              { staticClass: "card-title", attrs: { id: "datos_escritorio" } },
+              [_vm._v("Total generado :")]
+            )
+          ])
+        ])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { display: "none" },
-        attrs: {
-          id: "modalNuevo",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-primary modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _vm._v("Agregar categoría")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
+    return _c("div", { staticClass: "card", attrs: { id: "card_progress" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-2" }, [
+              _c("span", { staticClass: "btn-success" }, [_vm._v("Producto")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "progress mb-3",
+                  staticStyle: { height: "8px" }
+                },
+                [
+                  _c("div", {
+                    staticClass: "progress-bar",
+                    staticStyle: { width: "25%" },
                     attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
+                      role: "progressbar",
+                      "aria-valuenow": "25",
+                      "aria-valuemin": "0",
+                      "aria-valuemax": "100"
                     }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    staticClass: "form-horizontal",
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [_vm._v("Estado")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-2" }, [_vm._v("Producto")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "progress mb-3",
+                  staticStyle: { height: "8px" }
+                },
+                [
+                  _c("div", {
+                    staticClass: "progress-bar",
+                    staticStyle: { width: "25%" },
                     attrs: {
-                      action: "",
-                      method: "post",
-                      enctype: "multipart/form-data"
+                      role: "progressbar",
+                      "aria-valuenow": "25",
+                      "aria-valuemin": "0",
+                      "aria-valuemax": "100"
                     }
-                  },
-                  [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
-                        [_vm._v("Descripción")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            id: "descripcion",
-                            name: "descripcion",
-                            placeholder: "Enter Email"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_vm._v("Guardar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [_vm._v("Estado")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-2" }, [_vm._v("Producto")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "progress mb-3",
+                  staticStyle: { height: "8px" }
+                },
+                [
+                  _c("div", {
+                    staticClass: "progress-bar",
+                    staticStyle: { width: "25%" },
+                    attrs: {
+                      role: "progressbar",
+                      "aria-valuenow": "25",
+                      "aria-valuemin": "0",
+                      "aria-valuemax": "100"
+                    }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [_vm._v("Estado")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-2" }, [_vm._v("Producto")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "progress mb-3",
+                  staticStyle: { height: "8px" }
+                },
+                [
+                  _c("div", {
+                    staticClass: "progress-bar",
+                    staticStyle: { width: "25%" },
+                    attrs: {
+                      role: "progressbar",
+                      "aria-valuenow": "25",
+                      "aria-valuemin": "0",
+                      "aria-valuemax": "100"
+                    }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [_vm._v("Estado")])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -79542,10 +79591,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "chart-container" },
+      { staticClass: "chart-container", attrs: { id: "grafico" } },
       [
         _c("line-chart", {
-          attrs: { "chart-data": _vm.datacollection, height: 300 }
+          attrs: { "chart-data": _vm.datacollection, height: 285 }
         })
       ],
       1
@@ -92873,8 +92922,8 @@ Vue.component('usuarios', __webpack_require__(/*! ./components/gestionUsuario.vu
  */
 
 var app = new Vue({
-  props: ['mensaje'],
   el: '#app',
+  props: ['dato'],
   data: {
     menu: 0
   }

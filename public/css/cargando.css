@@ -6,7 +6,7 @@
     height: 64px;
 }
 
-@media (max-width:800px) {
+@media (max-width: 800px) {
     .lds-ring {
         left: 50px;
         display: inline-block;
@@ -16,7 +16,7 @@
     }
 }
 
-@media (max-width:800px) {
+@media (max-width: 800px) {
     .lds-ring {
         left: 50px;
         display: inline-block;
@@ -222,37 +222,37 @@
 
 @-webkit-keyframes expand {
     from {
-        min-width: 50px
+        min-width: 50px;
     }
     to {
-        min-width: 350px
+        min-width: 350px;
     }
 }
 
 @keyframes expand {
     from {
-        min-width: 50px
+        min-width: 50px;
     }
     to {
-        min-width: 350px
+        min-width: 350px;
     }
 }
 
 @-webkit-keyframes stay {
     from {
-        min-width: 350px
+        min-width: 350px;
     }
     to {
-        min-width: 350px
+        min-width: 350px;
     }
 }
 
 @keyframes stay {
     from {
-        min-width: 350px
+        min-width: 350px;
     }
     to {
-        min-width: 350px
+        min-width: 350px;
     }
 }
 
@@ -298,7 +298,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 .fade-enter,
@@ -375,7 +375,7 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
-    bottom: .5em;
+    bottom: 0.5em;
 }
 
 #myInput {
@@ -431,7 +431,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     border-radius: 10px;
 }
 
-input[type=number] {
+input[type="number"] {
     border-radius: 10px;
 }
 
@@ -535,4 +535,123 @@ input[type=number] {
 .chip.chip-lg img {
     height: 52px;
     width: 52px;
+}
+
+
+/*imagenes de inicio escritorio*/
+
+#fondo_naranja {
+    height: 50px;
+}
+
+#fondo_compras {
+    width: 80px;
+    position: relative;
+    bottom: 50px;
+    left: 40%;
+    border-radius: 100%;
+}
+
+#titulo_escritorio {
+    position: relative;
+    bottom: 130px;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#datos_escritorio {
+    position: relative;
+    bottom: 80px;
+    font-size: 20px;
+    color: rgb(109, 107, 107);
+}
+
+#card_escritorio1 {
+    height: 200px;
+    border-color: #3498db;
+}
+
+#cardx {
+    border-color: #3498db;
+}
+
+#ir_venta {
+    position: relative;
+    bottom: 130px;
+    left: 20px;
+}
+
+#imagen_venta {
+    width: 70px;
+}
+
+#card_venta {
+    position: relative;
+    width: 300px;
+    bottom: 10%;
+    height: 300px;
+}
+
+#cards_escritorio {
+    position: relative;
+    height: 200px;
+    width: 700px;
+    bottom: 50%;
+}
+
+#botones_cards {
+    position: relative;
+    width: 100%;
+    height: 117px;
+}
+
+#card_escritorio2 {
+    position: relative;
+    height: 117px;
+    width: 50%;
+}
+
+#fondo_azul {
+    height: 50px;
+}
+
+.card {
+    border-radius: 1%;
+}
+
+@media (min-width: 400px) {
+    #btn_compra2 {
+        visibility: hidden;
+    }
+}
+
+#card1 {
+    background: rgb(247, 120, 17);
+    max-width: 300px;
+    max-height: 50px;
+}
+
+#card2 {
+    background: rgb(13, 182, 63);
+    max-width: 300px;
+    max-height: 50px;
+}
+
+#card_progress {
+    width: 100%;
+}
+
+#btn_ {
+    position: relative;
+}
+
+#btn1 {
+    background: rgb(247, 120, 17);
+    border-color: #ffffff;
+    color: rgb(255, 255, 255);
+}
+
+#card2,
+#card1 {
+    border-radius: 10%;
 }

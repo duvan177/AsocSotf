@@ -5,6 +5,7 @@ use App\tipo_comprobante;
 use App\serie_comprobante;
 use App\detalle_ingreso;
 use App\ingreso;
+use App\articulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -147,26 +148,24 @@ class IngresoController extends Controller
         $cantidad = $request->cantidad;
         $precio_comrpa =$request->precio_compra;
         $precio_venta =$request->precio_venta;
+       
+     
 
         $detalle_ing = new detalle_ingreso;
-         $detalle_ing->id_ingreso =$id_ingreso ;
+         $detalle_ing->id_ingreso =$id_ingreso;
          $detalle_ing->id_articulo=$id_articulo;
           $detalle_ing->cantidad=$cantidad;
           $detalle_ing->precio_comrpa=$precio_comrpa;
          $detalle_ing->precio_venta=$precio_venta;
 
-         $detalle_ing->save();
+        $detalle_ing->save();
+        
+         $cantidad_exist = articulo::find($id_articulo)->value('stock');
+         $articulo = articulo::find($id_articulo);
+         $articulo->stock = $cantidad_exist + $cantidad;
+          $articulo->save();
 
-         if ( $detalle_ing->save()) {
-                    $data = "Guardado con exito";
-
-         return response()->json($data);
-             
-         }else{
-         $data = "error al guardar contactar con servicio";
-
-         return response()->json($data);
-       }
+              
        
     }
 
@@ -223,9 +222,6 @@ class IngresoController extends Controller
     }
     public function finalizarIngreso(Request $request){
 
-
-
-
     }
     public function idIngreso(Request $request){
 
@@ -249,14 +245,16 @@ class IngresoController extends Controller
     }
 
     public function prueba(Request $request){
-
-    
-            $id = $request->data;
-
-
+          $id = $request->data;
         return response($id);
+    }
+    public function update_art_(Request $request){
+
+          
 
 
+        
+    
     }
 
     

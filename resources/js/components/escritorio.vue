@@ -1,93 +1,111 @@
 <template>
-  <main class="main">
-    <!-- Breadcrumb -->
-
-    <div class="container-fluid">
-      <!-- Ejemplo de tabla Listado -->
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i> Categorías
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-toggle="modal"
-            data-target="#modalNuevo"
-          >
-            <i class="icon-plus"></i>&nbsp;Nuevo
-          </button>
-        </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="card_escritorio1" class="card">
         <div class="card-body">
+          <img id="fondo_naranja" src="img/fondo_naranja.png" class="card-img-top" alt />
+          <img id="fondo_compras" src="img/compras_escritorio.jpg" class="card-img" alt />
+          <div class="card-body">
+            <h5 id="titulo_escritorio" class="card-title">Compras</h5>
+            <h5 id="datos_escritorio" class="card-title">Total generado :</h5>
+          </div>
+        </div>
+      </div>
+
+      <div id="card_escritorio1" class="card">
+        <div id="cardx" class="card-body">
+          <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
+          <img id="fondo_compras" src="img/ventas_escritorio.png" class="card-img" alt />
+          <div class="card-body">
+            <h5 id="titulo_escritorio" class="card-title">Ventas</h5>
+            <h5 id="datos_escritorio" class="card-title">Total generado :</h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6 mb-3 mb-md-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Graficos estadisticos</h5>
           <graficos></graficos>
-
-          <nav></nav>
         </div>
       </div>
-      <!-- Fin ejemplo de tabla Listado -->
     </div>
-    <!--Inicio del modal agregar/actualizar-->
-    <div
-      class="modal fade"
-      id="modalNuevo"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="myModalLabel"
-      style="display: none;"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-primary modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Agregar categoría</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    class="form-control"
-                    placeholder="Nombre de categoría"
-                  />
-                  <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+    
+      <div id="card_progress" class="card">
+        <div class="container">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2">
+                <span class="btn-success">Producto</span>
+              </div>
+              <div class="col-8">
+                <div class="progress mb-3" style="height: 8px;">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
-                <div class="col-md-9">
-                  <input
-                    type="email"
-                    id="descripcion"
-                    name="descripcion"
-                    class="form-control"
-                    placeholder="Enter Email"
-                  />
+              <div class="col-2">Estado</div>
+            </div>
+            <div class="row">
+              <div class="col-2">Producto</div>
+              <div class="col-8">
+                <div class="progress mb-3" style="height: 8px;">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+              <div class="col-2">Estado</div>
+            </div>
+            <div class="row">
+              <div class="col-2">Producto</div>
+              <div class="col-8">
+                <div class="progress mb-3" style="height: 8px;">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+              <div class="col-2">Estado</div>
+            </div>
+            <div class="row">
+              <div class="col-2">Producto</div>
+              <div class="col-8">
+                <div class="progress mb-3" style="height: 8px;">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+              <div class="col-2">Estado</div>
+            </div>
           </div>
         </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!--Fin del modal-->
-
-    <!-- /.modal-content -->
-
-    <!-- /.modal-dialog -->
-
-    <!-- Fin del modal Eliminar -->
-  </main>
+  </div>
 </template>
 
 <script>
@@ -197,6 +215,7 @@ export default {
       encontrado: false
     };
   },
+
   methods: {
     buscar: function() {
       this.lists.forEach(element => {
@@ -208,7 +227,8 @@ export default {
           this.allbusqueda = data;
         }
       });
-    }
+    },
+    cambiar() {}
   },
   computed: {},
 

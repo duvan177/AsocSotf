@@ -1,8 +1,8 @@
 <template>
   <div class="small">
     <h4>Reportes del Venta anual</h4>
-    <div class="chart-container">
-      <line-chart :chart-data="datacollection" :height="300"></line-chart>
+    <div id="grafico" class="chart-container">
+      <line-chart :chart-data="datacollection" :height="285"></line-chart>
     </div>
   </div>
 </template>

@@ -41,10 +41,13 @@ Vue.component('usuarios', require('./components/gestionUsuario.vue').default);
  */
 
 const app = new Vue({
-    props: ['mensaje'],
+
     el: '#app',
+    props: ['dato'],
     data: {
         menu: 0,
-    }
+    },
+
+
 
 });

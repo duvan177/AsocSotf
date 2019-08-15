@@ -487,7 +487,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Numero comprovante</label>
+                <label class="col-md-3 form-control-label" for="text-input">Numero comprobante</label>
                 <div class="col-md-9">
                   <input type="text" id="nombre" name="telf" class="form-control" v-model="numComp" />
                 </div>
@@ -808,7 +808,7 @@ export default {
             document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
-
+            validarx.valid = false;
             console.log(response.data.length);
           }
         })
@@ -840,6 +840,7 @@ export default {
           precio_venta: this.precioventa
         })
         .then(function(response) {
+          console.log(response.data);
           table.tabla = false;
           function toastAlert() {
             var x = document.getElementById("toast");

@@ -6,15 +6,8 @@
       <!-- Ejemplo de tabla Listado -->
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Categorías
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-toggle="modal"
-            data-target="#modalNuevo"
-          >
-            <i class="icon-plus"></i>&nbsp;Nuevo
-          </button>
+          <i class="fa fa-align-justify"></i>
+ Gestion de faturas
         </div>
         <div class="card-body">
           <nav>
