@@ -57,7 +57,7 @@
                   <div class="form-group col-md-2">
                     <input
                       class="form-control"
-                      style="width:100px;"
+                      style="width:150px;"
                       id="fecha"
                       type="tex"
                       v-model="fecha"
@@ -562,7 +562,7 @@ export default {
             cantidad: this.cantidad
           })
           .then(function(response) {
-            if (response.data == 404 || response.data == 1005) {
+            if (response.data == 404 || response.data == 1004) {
               //alert(response.data + " El producto no se encuentra disponible");
               that.alerta = true;
               function toastAlert() {

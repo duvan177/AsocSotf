@@ -76,6 +76,9 @@ Route::post('get_Ventas_detalle','ventasController@setVentaDetalle');
 Route::post('usuario','Controllerusuarios@getUser');
 Route::post('guardarusuario','Controllerusuarios@guardarUsuario');
 Route::post('eliminarUsuario','Controllerusuarios@deleteUser');
+// datos para el escritorio
+Route::post('datos_ventas_compras','EscritorioController@datos_real');
+
 
 
 

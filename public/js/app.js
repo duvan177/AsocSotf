@@ -4011,6 +4011,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4246,6 +4250,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4316,7 +4327,12 @@ __webpack_require__.r(__webpack_exports__);
       }],
       allbusqueda: [],
       busqueda: [],
-      encontrado: false
+      encontrado: false,
+      cargando_3: true,
+      total_compra: "",
+      total_venta: "",
+      datos_today: [],
+      tabla: false
     };
   },
   methods: {
@@ -4334,10 +4350,26 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    cambiar: function cambiar() {}
+    cambiar: function cambiar() {},
+    totales_today: function totales_today() {
+      var _this2 = this;
+
+      var med = this;
+      axios.post("/api/datos_ventas_compras").then(function (response) {
+        console.log(response.data);
+        med.datos_today = response.data;
+      })["catch"](function (error) {// handle error
+        // console.log(error);
+      }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+      //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+      ["finally"](function () {
+        return _this2.tabla = true;
+      });
+    }
   },
   computed: {},
   mounted: function mounted() {
+    this.totales_today();
     this.buscar();
   }
 });
@@ -5401,7 +5433,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           id: this.producto,
           cantidad: this.cantidad
         }).then(function (response) {
-          if (response.data == 404 || response.data == 1005) {
+          if (response.data == 404 || response.data == 1004) {
             var toastAlert = function toastAlert() {
               var x = document.getElementById("toast2");
               x.className = "show";
@@ -76686,7 +76718,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("main", { staticClass: "main" }, [
     _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card animated fadeIn" }, [
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "card-deck" }, [
@@ -78246,12 +78278,15 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.lista_compras, function(compras) {
+                    _vm._l(_vm.lista_compras, function(compras, index) {
                       return _c(
                         "tr",
                         { key: compras.id, staticClass: "animated fadeIn" },
                         [
-                          _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+                          _c("th", {
+                            attrs: { scope: "row" },
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -78548,35 +78583,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-sm-6 mb-3 mb-md-0" }, [
-      _c("div", { staticClass: "card" }, [
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Graficos estadisticos")
-            ]),
-            _vm._v(" "),
-            _c("graficos")
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(1)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
+  return _c("div", { staticClass: "row animated fadeIn" }, [
+    _c("div", { staticClass: "col-sm-6" }, [
       _c("div", { staticClass: "card", attrs: { id: "card_escritorio1" } }, [
         _c("div", { staticClass: "card-body" }, [
           _c("img", {
@@ -78604,11 +78612,15 @@ var staticRenderFns = [
               [_vm._v("Compras")]
             ),
             _vm._v(" "),
-            _c(
-              "h5",
-              { staticClass: "card-title", attrs: { id: "datos_escritorio" } },
-              [_vm._v("Total generado :")]
-            )
+            _c("h5", {
+              staticClass: "card-title",
+              attrs: { id: "datos_escritorio" },
+              domProps: {
+                textContent: _vm._s(
+                  "total generado : $" + _vm.datos_today.compras
+                )
+              }
+            })
           ])
         ])
       ]),
@@ -78636,16 +78648,41 @@ var staticRenderFns = [
               [_vm._v("Ventas")]
             ),
             _vm._v(" "),
-            _c(
-              "h5",
-              { staticClass: "card-title", attrs: { id: "datos_escritorio" } },
-              [_vm._v("Total generado :")]
-            )
+            _c("h5", {
+              staticClass: "card-title",
+              attrs: { id: "datos_escritorio" },
+              domProps: {
+                textContent: _vm._s(
+                  "total generado : $" + _vm.datos_today.ventas
+                )
+              }
+            })
           ])
         ])
       ])
-    ])
-  },
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-sm-6 mb-3 mb-md-0" }, [
+      _c("div", { staticClass: "card" }, [
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v("Graficos estadisticos")
+            ]),
+            _vm._v(" "),
+            _c("graficos")
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -79686,7 +79723,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          staticStyle: { width: "100px" },
+                          staticStyle: { width: "150px" },
                           attrs: { id: "fecha", type: "tex", readonly: "" },
                           domProps: { value: _vm.fecha },
                           on: {
@@ -92904,17 +92941,17 @@ window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('venta', __webpack_require__(/*! ./components/ventas.vue */ "./resources/js/components/ventas.vue")["default"]); //vue.component('categoria', require('./components/categoria.vue'));
+Vue.component("venta", __webpack_require__(/*! ./components/ventas.vue */ "./resources/js/components/ventas.vue")["default"]); //vue.component('categoria', require('./components/categoria.vue'));
 
-Vue.component('art', __webpack_require__(/*! ./components/articuloVista.vue */ "./resources/js/components/articuloVista.vue")["default"]);
-Vue.component('categoria', __webpack_require__(/*! ./components/categoriaVista.vue */ "./resources/js/components/categoriaVista.vue")["default"]);
-Vue.component('Boton', __webpack_require__(/*! ./components/notificacionExito.vue */ "./resources/js/components/notificacionExito.vue")["default"]);
-Vue.component('gestion-ventas', __webpack_require__(/*! ./components/GestionVentas.vue */ "./resources/js/components/GestionVentas.vue")["default"]);
-Vue.component('compa', __webpack_require__(/*! ./components/comprasArticulos.vue */ "./resources/js/components/comprasArticulos.vue")["default"]);
-Vue.component('graficos', __webpack_require__(/*! ./components/graficos.vue */ "./resources/js/components/graficos.vue")["default"]);
-Vue.component('escritorio', __webpack_require__(/*! ./components/escritorio.vue */ "./resources/js/components/escritorio.vue")["default"]);
-Vue.component('gestion-compras', __webpack_require__(/*! ./components/comprasList.vue */ "./resources/js/components/comprasList.vue")["default"]);
-Vue.component('usuarios', __webpack_require__(/*! ./components/gestionUsuario.vue */ "./resources/js/components/gestionUsuario.vue")["default"]);
+Vue.component("art", __webpack_require__(/*! ./components/articuloVista.vue */ "./resources/js/components/articuloVista.vue")["default"]);
+Vue.component("categoria", __webpack_require__(/*! ./components/categoriaVista.vue */ "./resources/js/components/categoriaVista.vue")["default"]);
+Vue.component("Boton", __webpack_require__(/*! ./components/notificacionExito.vue */ "./resources/js/components/notificacionExito.vue")["default"]);
+Vue.component("gestion-ventas", __webpack_require__(/*! ./components/GestionVentas.vue */ "./resources/js/components/GestionVentas.vue")["default"]);
+Vue.component("compa", __webpack_require__(/*! ./components/comprasArticulos.vue */ "./resources/js/components/comprasArticulos.vue")["default"]);
+Vue.component("graficos", __webpack_require__(/*! ./components/graficos.vue */ "./resources/js/components/graficos.vue")["default"]);
+Vue.component("escritorio", __webpack_require__(/*! ./components/escritorio.vue */ "./resources/js/components/escritorio.vue")["default"]);
+Vue.component("gestion-compras", __webpack_require__(/*! ./components/comprasList.vue */ "./resources/js/components/comprasList.vue")["default"]);
+Vue.component("usuarios", __webpack_require__(/*! ./components/gestionUsuario.vue */ "./resources/js/components/gestionUsuario.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -92922,10 +92959,22 @@ Vue.component('usuarios', __webpack_require__(/*! ./components/gestionUsuario.vu
  */
 
 var app = new Vue({
-  el: '#app',
-  props: ['dato'],
+  el: "#app",
+  props: ["dato"],
   data: {
-    menu: 0
+    menu: 0,
+    cargando: true
+  },
+  methods: {
+    cargando_escrt: function cargando_escrt() {
+      var me = this;
+      setTimeout(function () {
+        return me.cargando = false;
+      }, 1500);
+    }
+  },
+  mounted: function mounted() {
+    this.cargando_escrt();
   }
 });
 

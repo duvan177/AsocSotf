@@ -63,8 +63,12 @@
               <!--Table head-->
               <!--Table body-->
               <tbody>
-                <tr class="animated fadeIn" v-for="compras in lista_compras" :key="compras.id">
-                  <th scope="row">1</th>
+                <tr
+                  class="animated fadeIn"
+                  v-for="(compras,index) in lista_compras"
+                  :key="compras.id"
+                >
+                  <th scope="row" v-text="index+1"></th>
                   <td v-text="compras.persona[0]['nombre']"></td>
                   <td v-text="compras.ingreso[0]['num_comprobante']"></td>
                   <td v-text="compras.articulo[0]['nombre']"></td>

@@ -160,12 +160,12 @@ class IngresoController extends Controller
 
         $detalle_ing->save();
         
-         $cantidad_exist = articulo::find($id_articulo)->value('stock');
+         $cantidad_exist = DB::table('articulo')->select('stock')->where('id','=',$id_articulo)->value('stock');
          $articulo = articulo::find($id_articulo);
          $articulo->stock = $cantidad_exist + $cantidad;
           $articulo->save();
 
-              
+              return response()->json($cantidad_exist);
        
     }
 

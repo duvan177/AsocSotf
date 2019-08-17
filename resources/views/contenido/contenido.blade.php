@@ -4,13 +4,31 @@
 
 @section('contenido')
 
-        <template v-if="menu == 0"> 
+        <template v-if="menu == 0">
+
                  <main class="main">
     <!-- Breadcrumb -->
 
     <div class="container-fluid">
       <!-- Ejemplo de tabla Listado -->
+
+      <section v-if="cargando">
+            <div id="escritorio_" class="card" style=" ">
+        <div class="card-body">
+          <div id="preloader_2">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      </section>
+      <section v-else>
+
       
+       
       <div class="card-deck">
       <div id="card2" class="card mb-3" style="top:10px; max-width: 300px; max-height: 70px; ">
   <div  class="row no-gutters">
@@ -32,6 +50,7 @@
 </div>
 <div id="card1" class="card mb-3"  style="top:10px; max-width: 300px; max-height: 70px;">
   <div  class="row no-gutters">
+    
     <div class="col-md-4">
       <img id="imagen_venta" src="img/inventario.png" class="card-img">
              <button id="btn_compra2" type="button" class="btn btn-warning" style="bottom:-300px;"  @click="menu=7" data-toggle="button" aria-pressed="false" autocomplete="off">
@@ -50,7 +69,8 @@
 </div>
 
       </div>
-      <div id="card_escritorio" class="card ">
+      <div id="card_escritorio" class="card">
+
               
         <div class="card-body"> 
                 
@@ -68,6 +88,7 @@
 
 <!-- Card -->    
         </div>
+      </section>
 </div>
 </div>
 </main>

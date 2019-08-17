@@ -13,7 +13,7 @@ class fechaController extends Controller
       $date = Carbon::now();
  
       
-      $data = $date->format('d-m-y');    
+      $data = $date->format('Y-m-d');    
 
 return response()->json($data);
         

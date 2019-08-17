@@ -4,7 +4,7 @@
 
     <div class="container-fluid">
       <!-- Ejemplo de tabla Listado -->
-      <div class="card">
+      <div class="card animated fadeIn">
         <div class="card-header">
           <form class="form-row">
             <label class="form-group">

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row animated fadeIn">
     <div class="col-sm-6">
       <div id="card_escritorio1" class="card">
         <div class="card-body">
@@ -7,7 +7,11 @@
           <img id="fondo_compras" src="img/compras_escritorio.jpg" class="card-img" alt />
           <div class="card-body">
             <h5 id="titulo_escritorio" class="card-title">Compras</h5>
-            <h5 id="datos_escritorio" class="card-title">Total generado :</h5>
+            <h5
+              id="datos_escritorio"
+              class="card-title"
+              v-text="'total generado : $'+datos_today.compras"
+            ></h5>
           </div>
         </div>
       </div>
@@ -18,11 +22,14 @@
           <img id="fondo_compras" src="img/ventas_escritorio.png" class="card-img" alt />
           <div class="card-body">
             <h5 id="titulo_escritorio" class="card-title">Ventas</h5>
-            <h5 id="datos_escritorio" class="card-title">Total generado :</h5>
+            <h5
+              id="datos_escritorio"
+              class="card-title"
+              v-text="'total generado : $'+datos_today.ventas"
+            ></h5>
           </div>
         </div>
       </div>
-
     </div>
     <div class="col-sm-6 mb-3 mb-md-0">
       <div class="card">
@@ -32,79 +39,79 @@
         </div>
       </div>
     </div>
-    
-      <div id="card_progress" class="card">
-        <div class="container">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-2">
-                <span class="btn-success">Producto</span>
-              </div>
-              <div class="col-8">
-                <div class="progress mb-3" style="height: 8px;">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 25%;"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-2">Estado</div>
+
+    <div id="card_progress" class="card">
+      <div class="container">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2">
+              <span class="btn-success">Producto</span>
             </div>
-            <div class="row">
-              <div class="col-2">Producto</div>
-              <div class="col-8">
-                <div class="progress mb-3" style="height: 8px;">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 25%;"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
+            <div class="col-8">
+              <div class="progress mb-3" style="height: 8px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 25%;"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
               </div>
-              <div class="col-2">Estado</div>
             </div>
-            <div class="row">
-              <div class="col-2">Producto</div>
-              <div class="col-8">
-                <div class="progress mb-3" style="height: 8px;">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 25%;"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
+            <div class="col-2">Estado</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Producto</div>
+            <div class="col-8">
+              <div class="progress mb-3" style="height: 8px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 25%;"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
               </div>
-              <div class="col-2">Estado</div>
             </div>
-            <div class="row">
-              <div class="col-2">Producto</div>
-              <div class="col-8">
-                <div class="progress mb-3" style="height: 8px;">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 25%;"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
+            <div class="col-2">Estado</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Producto</div>
+            <div class="col-8">
+              <div class="progress mb-3" style="height: 8px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 25%;"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
               </div>
-              <div class="col-2">Estado</div>
             </div>
+            <div class="col-2">Estado</div>
+          </div>
+          <div class="row">
+            <div class="col-2">Producto</div>
+            <div class="col-8">
+              <div class="progress mb-3" style="height: 8px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 25%;"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+            <div class="col-2">Estado</div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -212,7 +219,12 @@ export default {
       ],
       allbusqueda: [],
       busqueda: [],
-      encontrado: false
+      encontrado: false,
+      cargando_3: true,
+      total_compra: "",
+      total_venta: "",
+      datos_today: [],
+      tabla: false
     };
   },
 
@@ -228,11 +240,30 @@ export default {
         }
       });
     },
-    cambiar() {}
+    cambiar: function() {},
+    totales_today() {
+      let med = this;
+      axios
+        .post("/api/datos_ventas_compras")
+        .then(function(response) {
+          console.log(response.data);
+          med.datos_today = response.data;
+        })
+        .catch(function(error) {
+          // handle error
+          // console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.tabla = true));
+    }
   },
   computed: {},
 
   mounted() {
+    this.totales_today();
     this.buscar();
   }
 };
