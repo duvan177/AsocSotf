@@ -69,6 +69,8 @@ Route::post('prueba','IngresoController@prueba');
 Route::post('insert_venta','ventasController@ingresarVenta');
 //api traer las ventas 
 Route::post('get_Ventas','ventasController@SetVentas');
+// consuta a una venta en detalle
+Route::post('get_Venta_','ventasController@SetVenta_');
 // traer detalle venta
 Route::post('get_Ventas_detalle','ventasController@setVentaDetalle');
 //

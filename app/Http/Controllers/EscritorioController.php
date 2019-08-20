@@ -15,21 +15,25 @@ class EscritorioController extends Controller
     public function datos_real(){
 
                 $suma = 0;
-                 $date = Carbon::now();    
-                  $day = $date->format('Y-m-d');  
+                $suma2 = 0;
+                 $date = Carbon::now();
+                  $day = $date->format('Y-m-d');
             $compras = detalle_ingreso::whereDate('created_at',$day)->get();
-            
-       
+             $ventas = Venta::whereDate('created_at',$day)->get();
+
 
             foreach ($compras as $key => $value) {
                $suma = $suma + ($value->cantidad * $value->precio_comrpa);
             }
+             foreach ($ventas as $key => $value) {
+               $suma2 = $suma2 + $value->total_venta;
+            }
 
-          $ventas = (int)Venta::sum('total_venta');
+         // $ventas = Venta::sum('total_venta')->whereDate('created_at',$day)->get();
 
-          $data2 = [ 'ventas'=>$ventas,
+          $data2 = [ 'ventas'=>$suma2,
           'compras'=>$suma];
-          
+
 
           return response()->json($data2);
 

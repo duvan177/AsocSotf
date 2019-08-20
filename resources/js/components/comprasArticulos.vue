@@ -336,7 +336,7 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Agregar categoría</h4>
+            <h4 class="modal-title">Agregar Provedor</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -588,7 +588,7 @@ export default {
 
     filtrar() {
       let arr = this.ingresosAll.filter(function(el) {
-        return el.ingreso[0]["id_estado"] === 2;
+        return el.ingreso[0]["id_estado"] == 2;
       });
 
       this.busqueda = arr;
@@ -613,6 +613,7 @@ export default {
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.tabla = false));
       this.getImgresosE();
+   
     },
     GuardarCompra() {
       axios
@@ -799,12 +800,14 @@ export default {
     getImgresosE() {
       let validarx = this;
       let ing = this;
+      let igre = this;
 
       axios
         .post("/api/get_ingresosE")
         .then(function(response) {
           if (response.data == 4004) {
             console.log("no hay registos");
+           igre.valid = true;
             document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
@@ -821,6 +824,7 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.reloads = false));
+        this.filtrar();
     },
     limpiar() {
       this.articulo = "";

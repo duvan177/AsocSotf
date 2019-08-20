@@ -63,7 +63,7 @@ $printer = new Printer($connector);
 	el salto de línea o llamar muchas
 	veces a $printer->text()
 
-
+*/
  
 # Vamos a alinear al centro lo próximo que imprimamos
 $printer->setJustification(Printer::JUSTIFY_CENTER);
@@ -73,7 +73,7 @@ try{
 }catch(Exception $e){}
 
 
-	Ahora vamos a imprimir un encabezado
+/*	Ahora vamos a imprimir un encabezado*/
 
  $printer->setJustification(Printer::JUSTIFY_CENTER);  
 $printer->text("TUTIPANDEBONO" . "\n");
@@ -82,15 +82,25 @@ $printer->text("N° factura:".$num_comprobante . "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
     $printer->text(' Vendedor:' .$name_user."\n");
- 
+   
 $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
 $printer->setJustification(Printer::JUSTIFY_LEFT);
-    $printer->text("Descripcion           UM  Total"."\n");
+    $printer->text("Descripcion         Uds    Total"."\n");
     $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
 
- */
+
+ function addSpaces($string = '', $valid_string_length = 0) {
+    if (strlen($string) < $valid_string_length) {
+        $spaces = $valid_string_length - strlen($string);
+        for ($index1 = 1; $index1 <= $spaces; $index1++) {
+            $string = $string . ' ';
+        }
+    }
+
+    return $string;
+}
 
  
    try {    
@@ -112,29 +122,37 @@ $printer->setJustification(Printer::JUSTIFY_LEFT);
          
         $detalle_venta->save();
          $articulo->save();         
+/*
 
- $printer->setJustification(Printer::JUSTIFY_RIGHT);
- $printer->text("".$nombre_producto."");
-$printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text(''.$cantidad."    ".$precio_venta * $cantidad."\n");
- 
-    /*Y a la derecha para el importe*/
-    
+    Y a la derecha para el importe*/
+$total_p = $precio_venta * $cantidad;
+$texItem = 'cod '.$id_articulo;
+
+   $line = sprintf('%-10.10s %10.0f %9.2f', $texItem, $cantidad,$total_p);
+$printer->setJustification(Printer::JUSTIFY_LEFT);  
+$printer->text('-'.$nombre_producto."\n");   
+$printer->text($line);
+$printer->text("\n"); 
    
 
         }
-          $printer->setJustification(Printer::JUSTIFY_RIGHT);
-        $printer->text("--------\n");
+        $descuento_ = number_format($descuento);
+      $total_real  = number_format($total_venta);
+      
+
+           $printer->setJustification(Printer::JUSTIFY_CENTER);
+    $printer->text("- - - - - - - - - - - - - - - -"."\n");
          $printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text(' descuento:$' . $descuento. "\n");  
+    $printer->text(' descuento: $' . $descuento_. "\n");  
      $printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text(' Total:$' . $total_venta . "\n");
+    $printer->text(' TOTAL ........$' . $total_real . "\n");
 $printer->text(""."\n");
     $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("..:Esperamos pronto tu visita:.."."\n");
-    $printer->text("....:Gracias por tu compra:...."."\n");
+    $printer->text("....:Gracias por tu compra:....  "."\n");
     $printer->text(""."\n");
     $printer->text(""."\n");
+    
 
 /*
 	Ahora vamos a imprimir los
@@ -185,6 +203,27 @@ $printer->close();
             ->orderby('venta.id','desc') 
             ->get();
             return response()->json($data);
+
+        }
+          public function SetVenta_( Request $request){
+              $num_comprob = $request->num_comp;
+             $data =   DB::table('venta')
+            ->join('persona','venta.id_cliente','=','persona.id')
+            ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
+            ->join('users','venta.id_user','=','users.id')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->where('venta.num_comprobante','LIKE',"%$num_comprob%")
+            
+            ->orderby('venta.id','desc') 
+            ->get();
+
+            if (count($data)<=0) {
+                return response()->json(404);
+            }
+            else {
+                 return response()->json($data);
+            }
+           
 
         }
 

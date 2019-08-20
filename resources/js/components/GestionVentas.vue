@@ -17,25 +17,17 @@
                   <div class="form-group row">
                     <div class="col-md-6">
                       <div class="input-group">
-                        <multiselect
-                          v-model="value"
-                          :custom-label="nombresSelect"
-                          :options="options"
-                          :searchable="true"
-                          selectLabel="seleciona"
-                          deselectLabel="quitar seleccion"
-                          selectedLabel="seleccionado"
-                          noResult="elemento no encontrado"
-                          noOptions="ingrese provedor"
-                        ></multiselect>
+                     
                         <input
                           type="text"
                           id="texto"
-                          name="texto"
+                          
                           class="form-control"
-                          placeholder="Texto a buscar"
+                          placeholder="Comprobante a buscar"
+                          v-model="venta_detalle"
+                           v-on:keyup.enter="filtrar"
                         />
-                        <button type="submit" class="btn btn-primary">
+                        <button  class="btn btn-primary" v-on:click="filtrar" >
                           <i class="fa fa-search"></i> Buscar
                         </button>
                       </div>
@@ -43,7 +35,9 @@
                   </div>
 
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <section v-if="cargando_2">
+                   
+                      <table class="table table-hover table-striped mb-0">
+                       <section v-if="cargando_2">
                       <div class="container">
                         <div id="preloader_1">
                           <span></span>
@@ -55,7 +49,6 @@
                       </div>
                     </section>
                     <section v-else>
-                      <table class="table table-hover table-striped mb-0">
                         <thead>
                           <tr>
                             <th>N° Comprobante</th>
@@ -85,8 +78,9 @@
                             </td>
                           </tr>
                         </tbody>
+                        </section>
                       </table>
-                    </section>
+                    
                   </div>
                 </div>
               </div>
@@ -327,10 +321,45 @@ export default {
       Total_pagar_detalle: "",
       nombreUserVenta: "",
       // datos de consulta detallada
-      detalles: []
+      detalles: [],
+      venta_detalle:""
     };
   },
   methods: {
+
+    filtrar(){
+      this.cargando_2 = true;
+      let meventa = this;
+      axios
+        .post("/api/get_Venta_",{
+          num_comp:this.venta_detalle
+        })
+        .then(function(response) {
+          if (response.data == 404) {
+            alert('no existe esta factura');
+          }else{
+          meventa.ventas = response.data;
+       // console.log(response.data);
+          }
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.cargando_2 = false));
+
+
+       
+    /*  this.ventas =  this.ventas.filter(function(venta){
+         return venta.num_comprobante == 1004;
+      });*/
+       
+    },
+
     informacion(dato, fecha, total_pagar, nombreUser) {
       this.numeroComprobante = dato;
       this.fechaVenta = fecha;
@@ -338,9 +367,7 @@ export default {
       this.nombreUserVenta = nombreUser;
     },
 
-    nombresSelect({ nombre }) {
-      return `${nombre}`;
-    },
+
 
     getVentas_x() {
       let meventas = this;
@@ -388,6 +415,13 @@ export default {
   watch: {
     numeroComprobante: function(newVal, oldVal) {
       this.getDetalle_ventas(newVal);
+    },
+
+    venta_detalle: function(val){
+      if (val == "") {
+       this.getVentas_x();
+        
+      }
     }
   }
 };

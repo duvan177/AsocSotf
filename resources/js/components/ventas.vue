@@ -271,9 +271,10 @@
                 </div>
 
                 <div class="row">
-                  <section v-if="consulta !=''">
+                  <section v-if="consulta !='' && validar ==false">
                     <div class="col-md-2 col-lg-2">
-                      <button
+                      <button 
+                      id="end_v"
                         class="btn btn-success btn-block animated fadeIn"
                         style="  width:150px;"
                         v-on:click="setVenta"
@@ -323,10 +324,10 @@
             style="display: none;"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-primary modal-lg" role="document">
+            <div class="modal-dialog modal-success modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">Agregar categoría</h4>
+                  <h4 class="modal-title">Agregar cliente</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                   </button>
@@ -782,6 +783,8 @@ export default {
       if (descuento > 10) {
         this.validar = true;
         return "descuento pasa el limite autorizado";
+        
+         
       } else {
         porcentaje = (descuento * totalpag) / 100;
 
