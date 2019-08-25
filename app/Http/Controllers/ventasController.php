@@ -55,7 +55,6 @@ class ventasController extends Controller
 $connector = new WindowsPrintConnector($nombre_impresora);
 $printer = new Printer($connector);
 
-
 # Vamos a alinear al centro lo próximo que imprimamos
 $printer->setJustification(Printer::JUSTIFY_CENTER);
 try{
@@ -72,7 +71,6 @@ $printer->text("N° factura:".$num_comprobante . "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
     $printer->text(' Vendedor:' .$name_user."\n");
-
 $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
 $printer->setJustification(Printer::JUSTIFY_LEFT);
@@ -128,7 +126,6 @@ $printer->text("\n");
         $descuento_ = number_format($descuento);
       $total_real  = number_format($total_venta);
 
-
            $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
          $printer->setJustification(Printer::JUSTIFY_RIGHT);
@@ -141,6 +138,7 @@ $printer->text(""."\n");
     $printer->text("....:Gracias por tu compra:....  "."\n");
     $printer->text(""."\n");
     $printer->text(""."\n");
+
 
 $printer->feed();
 
