@@ -1,35 +1,9 @@
 .lds-ring {
-    left: 600px;
+    left: 45%;
     display: inline-block;
     position: relative;
     width: 64px;
     height: 64px;
-}
-
-@media (max-width: 800px) {
-    .lds-ring {
-        left: 50px;
-        display: inline-block;
-        position: relative;
-        width: 64px;
-        height: 64px;
-    }
-}
-
-@media (max-width: 800px) {
-    .lds-ring {
-        left: 50px;
-        display: inline-block;
-        position: relative;
-        width: 64px;
-        height: 64px;
-    }
-    #provedorN {
-        display: inline-block;
-        position: relative;
-        left: 80px;
-        bottom: 30px;
-    }
 }
 
 .lds-ring div {

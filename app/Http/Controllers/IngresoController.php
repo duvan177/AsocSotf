@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class IngresoController extends Controller
 {
-    
+
 
     public function createCompra(Request $request){
 
         $id_ingreso = $request->id_ingreso;
 
-        
+
 
 
         $id_articulo = $request->articulo;
@@ -27,7 +27,7 @@ class IngresoController extends Controller
         $precio_comrpa = $request->preciocompra;
         $precio_venta = $request->precioventa;
 
-        
+
 
         $detalle_ingreso = new detalle_ingreso();
 
@@ -41,7 +41,7 @@ class IngresoController extends Controller
         $detalle_ingreso->save();
 
 
-        $data = " registrado con exito"; 
+        $data = " registrado con exito";
 
         return response()->json($verificar);
 
@@ -73,19 +73,19 @@ class IngresoController extends Controller
         ->select('num_comprobante')
         ->where('num_comprobante','=',$num_comprobante)->get();
 
-        
+
         if ($estado == 2) {
-        
+
             $data=[
                 'error'=>404,
                 'msg'=>" compra en en ejecucion con este Provedor"
             ];
-            
+
 
             return response()->json($data);
         }else {
-            
-        
+
+
         $id_proveedor = $request->id_proveedor;
         $id_tipo_comprobante = $request->id_tipo_comprobante;
         $id_serie_comprobante = $request->id_serie_comprobante;
@@ -95,30 +95,30 @@ class IngresoController extends Controller
         $ingreso = new ingreso();
 
                 $ingreso->id_proveedor=$id_proveedor;
-        
+
                 $ingreso->id_tipo_comprobante=$id_tipo_comprobante;
- 
+
                 $ingreso->id_serie_comprobante=$id_serie_comprobante;
 
                 $ingreso->num_comprobante=$num_comprobante;
-     
+
                 $ingreso->id_estado=$id_estado;
 
                 if (count($vali_comp)<=0) {
-                     $ingreso->save(); 
+                     $ingreso->save();
 
         $data = "Guardado con exito";
-        
+
         return response()->json($data);
-                   
+
                 }else{
 
         $data = 4004;
-        
+
         return response()->json($data);
         }
     }
-      
+
 
     }
 
@@ -132,10 +132,10 @@ class IngresoController extends Controller
          $cont =count($data);
          if ($cont == 0) {
 
-              return response()->json(4004);  
-            
+              return response()->json(4004);
+
          }else {
-             return response()->json($data);  
+             return response()->json($data);
          }
 
 
@@ -148,8 +148,8 @@ class IngresoController extends Controller
         $cantidad = $request->cantidad;
         $precio_comrpa =$request->precio_compra;
         $precio_venta =$request->precio_venta;
-       
-     
+
+
 
         $detalle_ing = new detalle_ingreso;
          $detalle_ing->id_ingreso =$id_ingreso;
@@ -159,14 +159,14 @@ class IngresoController extends Controller
          $detalle_ing->precio_venta=$precio_venta;
 
         $detalle_ing->save();
-        
+
          $cantidad_exist = DB::table('articulo')->select('stock')->where('id','=',$id_articulo)->value('stock');
          $articulo = articulo::find($id_articulo);
          $articulo->stock = $cantidad_exist + $cantidad;
           $articulo->save();
 
               return response()->json($cantidad_exist);
-       
+
     }
 
     public function setIngresosTodo(){
@@ -175,15 +175,15 @@ class IngresoController extends Controller
         $count = detalle_ingreso::all()->count();
 
            $data = detalle_ingreso::orderBy('id','desc')->get();
-         
 
-           for ($i=0; $i <  $count ; $i++) { 
+
+           for ($i=0; $i <  $count ; $i++) {
                 $data[$i]->ingreso->first();
-                 $data[$i]->persona;  
+                 $data[$i]->persona;
                   $data[$i]->articulo;
-                  
-               
-           }       
+
+
+           }
             return response()->json($data);
 
 
@@ -198,26 +198,26 @@ class IngresoController extends Controller
 
     public function Buscar(Request $request){
 
-        $dato =(int) $request->buscar;         
-          function Even($data) 
-            { 
-	// returns if the input integer is even 
-	            if($data%2==0) 
-	            return TRUE; 
+        $dato =(int) $request->buscar;
+          function Even($data)
+            {
+	// returns if the input integer is even
+	            if($data%2==0)
+	            return TRUE;
 	            else
-	        return FALSE; 
-            } 
+	        return FALSE;
+            }
 
         $count = detalle_ingreso::all()->count();
 
-           $data = detalle_ingreso::orderBy('id','desc')->get();      
+           $data = detalle_ingreso::orderBy('id','desc')->get();
 
-           for ($i=0; $i <  $count ; $i++) { 
+           for ($i=0; $i <  $count ; $i++) {
                 $data[$i]->ingreso;
-                 $data[$i]->persona;  
-                  $data[$i]->articulo;               
+                 $data[$i]->persona;
+                  $data[$i]->articulo;
            }
-    
+
     return response($consulta);
     }
     public function finalizarIngreso(Request $request){
@@ -231,7 +231,7 @@ class IngresoController extends Controller
         $ingreso = ingreso::where('id','=',$id)->first();
 
         if ($ingreso != ['']) {
-            
+
             $ingreso->id_estado = 1;
             $ingreso->save();
              $data = 200;
@@ -240,7 +240,7 @@ class IngresoController extends Controller
             $data = 'el ingreso no se encuentra en la base de datos';
                return response()->json($data);
 
-            
+
         }
     }
 
@@ -250,19 +250,19 @@ class IngresoController extends Controller
     }
     public function update_art_(Request $request){
 
-          
 
 
-        
-    
+
+
+
     }
 
-    
 
 
 
-      
 
 
-    
+
+
+
 }

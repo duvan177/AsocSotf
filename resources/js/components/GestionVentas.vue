@@ -7,55 +7,124 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i>
- Gestion de faturas
+          Gestion de faturas
         </div>
         <div class="card-body">
           <nav>
             <div class="row mx-md-n5">
               <div class="col px-md-7">
                 <div class="p-3 border">
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <div class="input-group">
-                        <multiselect
-                          v-model="value"
-                          :custom-label="nombresSelect"
-                          :options="options"
-                          :searchable="true"
-                          selectLabel="seleciona"
-                          deselectLabel="quitar seleccion"
-                          selectedLabel="seleccionado"
-                          noResult="elemento no encontrado"
-                          noOptions="ingrese provedor"
-                        ></multiselect>
-                        <input
-                          type="text"
-                          id="texto"
-                          name="texto"
-                          class="form-control"
-                          placeholder="Texto a buscar"
-                        />
-                        <button type="submit" class="btn btn-primary">
-                          <i class="fa fa-search"></i> Buscar
-                        </button>
+                  <div class="form-group row"></div>
+
+                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        id="pills-home-tab"
+                        data-toggle="pill"
+                        href="#pills-home"
+                        role="tab"
+                        aria-controls="pills-home"
+                        aria-selected="true"
+                      >Buscar N.Comprobante</a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        id="pills-profile-tab"
+                        data-toggle="pill"
+                        href="#pills-profile"
+                        role="tab"
+                        aria-controls="pills-profile"
+                        aria-selected="false"
+                      >Buscar por Fecha</a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        id="pills-contact-tab"
+                        data-toggle="pill"
+                        href="#pills-contact"
+                        role="tab"
+                        aria-controls="pills-contact"
+                        aria-selected="false"
+                      >ver ventas por mes</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="pills-home"
+                      role="tabpanel"
+                      aria-labelledby="pills-home-tab"
+                    >
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            id="texto"
+                            class="form-control"
+                            placeholder="Comprobante a buscar"
+                            v-model="venta_detalle"
+                            v-on:keyup.enter="filtrar"
+                          />
+                          <button class="btn btn-primary" v-on:click="filtrar">
+                            <i class="fa fa-search"></i> Buscar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="pills-profile"
+                      role="tabpanel"
+                      aria-labelledby="pills-profile-tab"
+                    >
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <input
+                            class="form-control"
+                            type="date"
+                            v-model="form.date2"
+                            format="yyyy-MM-dd"
+                          />
+                          <button class="btn btn-primary" v-on:click="filtrar_fecha">
+                            <i class="fa fa-search"></i> Fecha
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="pills-contact"
+                      role="tabpanel"
+                      aria-labelledby="pills-contact-tab"
+                    >
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <input class="form-control" type="month" v-model="fecha_consul" />
+                          <button class="btn btn-primary" v-on:click="filtrar_mes">
+                            <i class="fa fa-search"></i> Mes
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <section v-if="cargando_2">
-                      <div class="container">
-                        <div id="preloader_1">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                          <span></span>
+                    <table class="table table-hover table-striped mb-0">
+                      <section v-if="cargando_2">
+                        <div class="container">
+                          <div id="preloader_1">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                          </div>
                         </div>
-                      </div>
-                    </section>
-                    <section v-else>
-                      <table class="table table-hover table-striped mb-0">
+                      </section>
+                      <section v-else>
                         <thead>
                           <tr>
                             <th>N° Comprobante</th>
@@ -63,6 +132,7 @@
                             <th>Tipo Comprobane</th>
                             <th>Descuento</th>
                             <th>Total</th>
+                            <th>Fecha y hora</th>
                             <th>Opciones</th>
                           </tr>
                         </thead>
@@ -72,7 +142,8 @@
                             <td v-text="item.nombre"></td>
                             <td v-text="item.Comprobante"></td>
                             <td v-text="item.descuento"></td>
-                            <td v-text="item.total_venta"></td>
+                            <td v-text="item.total_venta.toLocaleString()"></td>
+                            <td v-text="item.created_at"></td>
                             <td>
                               <button
                                 v-on:click="informacion( item.num_comprobante, item.created_at,item.total_venta,item.name)"
@@ -85,8 +156,14 @@
                             </td>
                           </tr>
                         </tbody>
-                      </table>
-                    </section>
+                      </section>
+                    </table>
+                  </div>
+                  <div class="d-flex justify-content-between mb-4">
+                    <p>Resumen de las ventas generadas</p>
+                    <p></p>
+
+                    <h5 v-text="'Total Ventas: $'+ total_venta"></h5>
                   </div>
                 </div>
               </div>
@@ -282,16 +359,24 @@
 </template>
 
 <script>
+import { ToggleButton } from "vue-js-toggle-button";
 import Multiselect from "vue-multiselect";
+import Echo from "laravel-echo";
+import { EventEmitter } from "events";
+import { es } from "vuejs-datepicker/dist/locale";
+import Datepicker from "vuejs-datepicker";
+window.Pusher = require("pusher-js");
 
 // register globally
 Vue.component("multiselect", Multiselect);
+Vue.component("ToggleButton", ToggleButton);
 
 export default {
   // OR register locally
-  components: { Multiselect },
+  components: { Multiselect, Datepicker, ToggleButton },
   data() {
     return {
+      es: es,
       value: null,
       options: [
         {
@@ -327,19 +412,121 @@ export default {
       Total_pagar_detalle: "",
       nombreUserVenta: "",
       // datos de consulta detallada
-      detalles: []
+      detalles: [],
+      venta_detalle: "",
+      total_venta: "",
+      ver: true,
+      form: {
+        date2: ""
+      },
+      fecha_consul: ""
     };
   },
   methods: {
+    filtrar_mes() {
+      this.cargando_2 = true;
+      let meventa = this;
+      if (this.fecha_consul == "") {
+        alert("complete los datos");
+        this.cargando_2 = false;
+      } else {
+        axios
+          .post("/api/get_Venta_mes", {
+            fecha: this.fecha_consul
+          })
+          .then(function(response) {
+            if (response.data == 404) {
+              alert("no existe esta factura en esta fecha");
+            } else {
+              meventa.ventas = response.data;
+              console.log(response.data);
+            }
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error);
+          })
+
+          .then(function() {})
+          //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+          //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+          .finally(() => (this.cargando_2 = false));
+
+        /*  this.ventas =  this.ventas.filter(function(venta){
+         return venta.num_comprobante == 1004;
+      });*/
+      }
+    },
+    filtrar_fecha() {
+      this.cargando_2 = true;
+      let meventa = this;
+      if (this.form.date2 == "") {
+        alert("complete los datos");
+        this.cargando_2 = false;
+      } else {
+        axios
+          .post("/api/get_Venta_fecha", {
+            fecha: this.form.date2
+          })
+          .then(function(response) {
+            if (response.data == 404) {
+              alert("no existe esta factura en esta fecha");
+            } else {
+              meventa.ventas = response.data;
+              console.log(response.data);
+            }
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error);
+          })
+
+          .then(function() {})
+          //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+          //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+          .finally(() => (this.cargando_2 = false));
+
+        /*  this.ventas =  this.ventas.filter(function(venta){
+         return venta.num_comprobante == 1004;
+      });*/
+      }
+    },
+
+    filtrar() {
+      this.cargando_2 = true;
+      let meventa = this;
+      axios
+        .post("/api/get_Venta_", {
+          num_comp: this.venta_detalle
+        })
+        .then(function(response) {
+          if (response.data == 404) {
+            alert("no existe esta factura");
+          } else {
+            meventa.ventas = response.data;
+            // console.log(response.data);
+          }
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.cargando_2 = false));
+
+      /*  this.ventas =  this.ventas.filter(function(venta){
+         return venta.num_comprobante == 1004;
+      });*/
+    },
+
     informacion(dato, fecha, total_pagar, nombreUser) {
       this.numeroComprobante = dato;
       this.fechaVenta = fecha;
-      this.Total_pagar_detalle = total_pagar;
+      this.Total_pagar_detalle = total_pagar.toLocaleString();
       this.nombreUserVenta = nombreUser;
-    },
-
-    nombresSelect({ nombre }) {
-      return `${nombre}`;
     },
 
     getVentas_x() {
@@ -384,10 +571,38 @@ export default {
 
   mounted() {
     this.getVentas_x();
+    window.Echo = new Echo({
+      broadcaster: "pusher",
+      key: "ASDASD2121",
+      wsHost: window.location.hostname,
+      wsPort: 6001,
+      disableStats: true
+    });
+    window.Echo.channel("channel-notif").listen("NotificacionEvent", e => {
+      console.log(e.mensaje);
+      this.getVentas_x();
+    });
   },
   watch: {
     numeroComprobante: function(newVal, oldVal) {
       this.getDetalle_ventas(newVal);
+    },
+
+    venta_detalle: function(val) {
+      if (val == "") {
+        this.getVentas_x();
+      }
+    },
+
+    ventas: function(val) {
+      let total_venta = 0;
+      val.forEach(element => {
+        total_venta += element.total_venta;
+      });
+
+      this.total_venta = Number(total_venta).toLocaleString();
+
+      console.log(Number(total_venta).toLocaleString());
     }
   }
 };

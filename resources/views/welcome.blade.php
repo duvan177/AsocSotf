@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="shortcut icon" href="img/logobien.png">
         <title>Vents-App</title>
         <link href="css/plantilla.css" rel="stylesheet">
 
@@ -63,7 +63,7 @@
                 margin-bottom: 30px;
             }
             .color{
-                
+
                 background-image: url("https://image.jimcdn.com/app/cms/image/transf/none/path/sc77e1e58a42c514a/image/i9977c7b3a6db203a/version/1516578954/image.jpg");
                           }
         </style>
@@ -85,7 +85,7 @@
                 <div class="title m-b-md" >
                 </div>
 
-                <img class="animated fadeIn" src="img\iconoC.png"  width="500" height="500"/>
+                <img class="animated fadeIn" src="img\vents_app2.png"  width="300" height="300"/>
 
             </div>
         </div>

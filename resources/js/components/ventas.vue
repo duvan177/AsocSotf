@@ -28,7 +28,7 @@
               </section>
               <!-- fin del loading-->
               <section v-else>
-                <!-- alerta 
+                <!-- alerta
 
               <section v-if="alerta">
                 <div id="alerta" class="alert alert-danger" role="alert">
@@ -97,7 +97,7 @@
                         selectLabel="add"
                         deselectLabel="quitar"
                         selectedLabel="seleccionado"
-                        placeholder="Seleccione cliente"
+                        placeholder="otro cliente"
                         noOptions="ingrese Cliente"
                       ></multiselect>
                     </div>
@@ -136,7 +136,11 @@
                     />
                   </div>
                   <div class="form-group" style>
-                    <button type="button" class="btn btn-warning" v-on:click="addArticulo">
+                    <button
+                      type="button"
+                      class="btn btn-warning waves-effect"
+                      v-on:click="addArticulo"
+                    >
                       <i class="icon-basket-loaded"></i> Añadir
                     </button>
                   </div>
@@ -271,10 +275,11 @@
                 </div>
 
                 <div class="row">
-                  <section v-if="consulta !=''">
+                  <section v-if="consulta !='' && validar ==false">
                     <div class="col-md-2 col-lg-2">
                       <button
-                        class="btn btn-success btn-block animated fadeIn"
+                        id="end_v"
+                        class="btn btn-success btn-block waves-effect animated fadeIn"
                         style="  width:150px;"
                         v-on:click="setVenta"
                         type="button"
@@ -323,10 +328,10 @@
             style="display: none;"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-primary modal-lg" role="document">
+            <div class="modal-dialog modal-success modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">Agregar categoría</h4>
+                  <h4 class="modal-title">Agregar cliente</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                   </button>
@@ -426,6 +431,9 @@
 
 <script >
 import { parse } from "path";
+import Echo from "laravel-echo";
+import { EventEmitter } from "events";
+window.Pusher = require("pusher-js");
 
 export default {
   data() {
@@ -455,12 +463,10 @@ export default {
       fecha: "",
       descuento: "",
       clientes: [],
-      cliente: [
-        {
-          id: 33,
-          nombre: "Persona Natural"
-        }
-      ],
+      cliente: {
+        id: 33,
+        nombre: "persona natural"
+      },
       idusers: this.username,
       loading: true
     };
@@ -555,6 +561,9 @@ export default {
 
       if (cantidad == "" || producto == "") {
         alert("completar los datos");
+      }
+      if (cantidad <= 0 || producto <= 0) {
+        alert("Dato invalido, porfavor ingrese nuevamente");
       } else {
         axios
           .post("/api/ver", {
@@ -562,7 +571,11 @@ export default {
             cantidad: this.cantidad
           })
           .then(function(response) {
-            if (response.data == 404 || response.data == 1004) {
+            if (
+              response.data == 404 ||
+              response.data == 1004 ||
+              response.data == 1005
+            ) {
               //alert(response.data + " El producto no se encuentra disponible");
               that.alerta = true;
               function toastAlert() {
@@ -667,7 +680,7 @@ export default {
           descuento: this.totalpagarDesT,
           articulos: this.consulta,
           id_user: this.username,
-          cliente: this.cliente
+          cliente: this.cliente.id
         })
         .then(function(response) {
           console.log(response.data);
@@ -801,6 +814,18 @@ export default {
     this.getFecha();
     this.numero_factura();
     this.getProveedores2();
+
+    window.Echo = new Echo({
+      broadcaster: "pusher",
+      key: "ASDASD2121",
+      wsHost: window.location.hostname,
+      wsPort: 6001,
+      disableStats: true
+    });
+    window.Echo.channel("channel-notif").listen("NotificacionEvent", e => {
+      this.numero_factura();
+    });
+    console.log("Component mounted.");
   }
 };
 </script>

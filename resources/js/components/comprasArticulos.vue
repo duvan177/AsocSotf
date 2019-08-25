@@ -84,12 +84,12 @@
                 </label>
 
                 <div class="form-group col-md-6">
-                  <input
+                  <label
+                    readonly
                     type="number"
                     class="form-control"
                     placeholder="Numero Comprobante"
-                    v-model.number="NumComprobante"
-                  />
+                  >{{ingreso}}</label>
                 </div>
               </form>
 
@@ -233,88 +233,69 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">lista de compras registradas</h5>
-              <div class="form-group row">
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <select class="form-control col-md-3" id="opcion" name="opcion">
-                      <option value="nombre">Finalizado</option>
-                      <option value="descripcion">Ejecucion</option>
-                    </select>
-                    <input
-                      type="text"
-                      id="texto"
-                      name="texto"
-                      class="form-control"
-                      placeholder="Texto a buscar"
-                    />
-                    <button type="submit" class="btn btn-primary">
-                      <i class="fa fa-search"></i> Buscar
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <section v-if="busqueda.length === 0">
-                  <img src="img\comprasx.png" class="rounded mx-auto d-block animated fadeIn" alt />
-                </section>
-                <section v-else>
-                  <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Ver mas+</th>
-                        <th scope="col">Estado Compra</th>
-                        <th scope="col">Proveedor</th>
-                        <th scope="col">Numero comprobante</th>
-                        <th scope="col">Articulo</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Total Compra</th>
-                        <th scope="col">Fecha</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="ingreso in busqueda" :key="ingreso.id">
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-info btn-sm"
-                            data-toggle="modal"
-                            data-target="#modalNuevo"
-                          >
-                            <i class="icon-info"></i>
-                          </button>
-                          &nbsp;
-                        </td>
-
-                        <td>
-                          <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
-                            <span class="badge badge-warning">En Ejecucion</span>
-                          </section>
-                          <section v-if="ingreso.ingreso[0]['id_estado'] == 1">
-                            <span class="badge badge-success">Finalizado</span>
-                          </section>
-                        </td>
-
-                        <td v-text="ingreso.persona[0]['nombre']"></td>
-                        <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
-                        <td v-text="ingreso.articulo[0]['nombre']"></td>
-                        <td v-text="ingreso.cantidad"></td>
-                        <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
-                        <td v-text="ingreso.created_at"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </section>
-              </div>
-
-              <p class="card-text">
-                <small class="text-muted">Lista de compras</small>
-              </p>
             </div>
+
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+              <section v-if="busqueda.length === 0">
+                <img src="img\comprasx.png" class="rounded mx-auto d-block animated fadeIn" alt />
+              </section>
+              <section v-else>
+                <table class="table table-bordered table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ver mas+</th>
+                      <th scope="col">Estado Compra</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Numero comprobante</th>
+                      <th scope="col">Articulo</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Total Compra</th>
+                      <th scope="col">Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="ingreso in busqueda" :key="ingreso.id">
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-info btn-sm"
+                          data-toggle="modal"
+                          data-target="#modalNuevo"
+                        >
+                          <i class="icon-info"></i>
+                        </button>
+                        &nbsp;
+                      </td>
+
+                      <td>
+                        <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
+                          <span class="badge badge-warning">En Ejecucion</span>
+                        </section>
+                        <section v-if="ingreso.ingreso[0]['id_estado'] == 1">
+                          <span class="badge badge-success">Finalizado</span>
+                        </section>
+                      </td>
+
+                      <td v-text="ingreso.persona[0]['nombre']"></td>
+                      <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
+                      <td v-text="ingreso.articulo[0]['nombre']"></td>
+                      <td v-text="ingreso.cantidad"></td>
+                      <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
+                      <td v-text="ingreso.created_at"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+
+            <p class="card-text">
+              <small class="text-muted">Lista de compras</small>
+            </p>
           </div>
         </div>
       </div>
     </div>
+
     <div id="toast">
       <div id="img">
         <i class="icon-check"></i>
@@ -336,7 +317,7 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Agregar categoría</h4>
+            <h4 class="modal-title">Agregar Provedor</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -558,10 +539,10 @@ export default {
       selectProv: "",
 
       //datos modal compra
-      comprobante: "",
+      comprobante: 3,
       comprobantes: [],
       //
-      serie: "",
+      serie: 2,
       series: [],
       //
       numComp: "",
@@ -588,7 +569,7 @@ export default {
 
     filtrar() {
       let arr = this.ingresosAll.filter(function(el) {
-        return el.ingreso[0]["id_estado"] === 2;
+        return el.ingreso[0]["id_estado"] == 2;
       });
 
       this.busqueda = arr;
@@ -799,12 +780,14 @@ export default {
     getImgresosE() {
       let validarx = this;
       let ing = this;
+      let igre = this;
 
       axios
         .post("/api/get_ingresosE")
         .then(function(response) {
           if (response.data == 4004) {
             console.log("no hay registos");
+            igre.valid = true;
             document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
@@ -821,6 +804,7 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.reloads = false));
+      this.filtrar();
     },
     limpiar() {
       this.articulo = "";

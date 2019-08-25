@@ -37,7 +37,7 @@ Route::post('eliminarCategoria','CategoriaController@deleteCategoria');
 Route::post('guardarcategoria','CategoriaController@guardarCategoria');
 Route::post('editarcategoria','CategoriaController@editarCategoria');
 
-// crear personas 
+// crear personas
 
 Route::post('create_personas','personasController@create');
 Route::post('get_provedores','personasController@setProvedores');
@@ -47,7 +47,7 @@ Route::post('get_clientes','personasController@setClientes');
 Route::post('ingreso_articulo','IngresoController@createCompra');
 // tipos de comprobantes
 Route::post('get_comprobantes','IngresoController@setComprobantes');
-// tipo de series 
+// tipo de series
 Route::post('get_series','IngresoController@setSeries');
 // registro de ingreso
 Route::post('guardar_ingreso','IngresoController@createIngreso');
@@ -67,8 +67,14 @@ Route::post('actualizar_ingreso','IngresoController@idIngreso');
 Route::post('prueba','IngresoController@prueba');
 // CREAR VENTA
 Route::post('insert_venta','ventasController@ingresarVenta');
-//api traer las ventas 
+//api traer las ventas
 Route::post('get_Ventas','ventasController@SetVentas');
+// consuta a una venta en detalle
+Route::post('get_Venta_','ventasController@SetVenta_');
+// set venta por fecha
+Route::post('get_Venta_fecha','ventasController@SetVenta_fecha');
+//set ventas por mes
+Route::post('get_Venta_mes','ventasController@SetVenta_mes');
 // traer detalle venta
 Route::post('get_Ventas_detalle','ventasController@setVentaDetalle');
 //

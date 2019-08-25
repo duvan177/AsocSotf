@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class personasController extends Controller
 {
-    
+
 
 
    public function create(Request $request ){
@@ -25,7 +25,7 @@ class personasController extends Controller
 
     //insertamos en la tabla persona
 
-    
+
     $persona = new persona;
 
     $persona->id_tipo_persona=$TipoPersona;
@@ -46,7 +46,7 @@ class personasController extends Controller
    return response()->json($data);
 
 
-        
+
     }
 
     public function setProvedores(){

@@ -29,11 +29,11 @@ $articulo->estado=$estado;
 $articulo->save();
   }
   public function guardarArticulo(Request $ia){
-    
+
     $this->validate($ia,[
       'codigo'=>'required'
     ]);
-      
+
     $id_categoria=$ia->categoria;
     $codigo=$ia->codigo;
     $nombre=$ia->nombre;
@@ -49,15 +49,15 @@ $articulo->stock=$stock;
 $articulo->descripcion=$descripcion;
 $articulo->estado=$estado;
 $articulo->save();
-    
- 
+
+
   }
   public function getCategoria(){
     $categoria= DB::table('categoria')
     ->select('categoria.id','categoria.nombre_categoria')
     ->get();
-    
-   
+
+
     return response()->json($categoria);
   }
   public function getEstado(){
@@ -66,7 +66,7 @@ $articulo->save();
     ->get();
     return response()->json($estado);
   }
- 
+
   public function deleteArticulo(Request $idA){
 $id = $idA->id;
 $articulo = articulo::destroy($id);
@@ -80,7 +80,7 @@ $consulta= DB::table('articulo')
     ->join('estado','articulo.estado','=','estado.id')
    ->join('categoria','articulo.id_categoria','=','categoria.id')
     ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo','articulo.estado','articulo.id_categoria','categoria.nombre_categoria','categoria.descripcion_categoria')
-    ->get(); 
+    ->get();
       return response()->json($consulta);
 }
     public function ver(Request $idA){
@@ -89,11 +89,11 @@ $consulta= DB::table('articulo')
 
         $dato = $idA->id;
         $cant = $idA->cantidad;
-       
-        
+
+
        // VALIDAR  QUE EL PRODUCTO EXISTA
 
-        
+
         $validar = DB::table('articulo')
         ->select('codigo')
         ->where('codigo','=',$dato)->value('codigo');
@@ -105,21 +105,21 @@ $consulta= DB::table('articulo')
         $control_venta = $validar_existencia - $cant;
 
         if ($cant == '' || $control_venta < 0) {
-           
+
             $data = 1004;
             return response()->json($data);
 
         }
- 
+
                 // OPERACION CUANDO EL PRODUCTO SEA VALIDADO Y EXISTA
 
-      
+
 
         if($validar == $dato){
 
-          
-          
-            
+
+
+
 
          $idArticulo = DB::table('articulo')
         ->select('id')
@@ -133,13 +133,13 @@ $consulta= DB::table('articulo')
         ->where('id_ingreso','=',$idIngresoMax)
          ->first(); // FIN DE LA VALIDACIÓN
 
-        
-     
+
+
           if ($consulta == null ) {
-              $data = 1005; 
+              $data = 1005;
                 return response()->json($data);
           }else {
-                 
+
         $precioT = $consulta->precio_venta * $cant;
 
          // CARGO UNA VARIABLE ARRAY PARA GUARDAR EL PARÁMETRO Y A CONSULTA DEL PRODUCTO
@@ -147,8 +147,8 @@ $consulta= DB::table('articulo')
               'cantidad'=>$cant,
              'datos'=>$consulta,
             'totalPagar'=>$precioT
-             ];            
-            //EN VIO LA VARIABLE EN UN RESPONSISE CON LOS DOS OBJETOS 
+             ];
+            //EN VIO LA VARIABLE EN UN RESPONSISE CON LOS DOS OBJETOS
           return response()->json($cantidad2);
           }
 
@@ -165,14 +165,14 @@ $consulta= DB::table('articulo')
     public function getArticulos(){
 
       //$cons = articulo::all();
-      
+
       $consulta= DB::table('articulo')
           ->join('estado','articulo.estado','=','estado.id')
          ->join('categoria','articulo.id_categoria','=','categoria.id')
           ->select('articulo.id','articulo.codigo','articulo.nombre')
-          ->get(); 
+          ->get();
             return response()->json($consulta);
       }
 
-   
+
 }
