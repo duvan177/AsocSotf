@@ -12,8 +12,10 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use App\Events\NotificacionEvent;
+use Carbon\Carbon;
 use App\Venta;
 use App\User;
+
 use App\articulo;
 use App\detalle_venta;
 use Illuminate\Support\Facades\Auth;
@@ -113,7 +115,7 @@ $printer->setJustification(Printer::JUSTIFY_LEFT);
          $articulo->save();
 
 $total_p = $precio_venta * $cantidad;
-$texItem = 'cod '.$codig_art;
+$texItem = 'cod '.$id_articulo;
 
    $line = sprintf('%-10.10s %10.0f %9.2f', $texItem, $cantidad,$total_p);
 $printer->setJustification(Printer::JUSTIFY_LEFT);
@@ -159,8 +161,24 @@ $printer->close();
 
 }
 
-        public function SetVentas(){
-             $data =   DB::table('venta')
+        public function SetVentas( Request $request){
+            $ver = $request->ver;
+             $date = Carbon::now();
+                  $day = $date->format('Y-m-d');
+
+           if ($ver == true) {
+                  $data =   DB::table('venta')
+            ->join('persona','venta.id_cliente','=','persona.id')
+            ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
+            ->join('users','venta.id_user','=','users.id')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->whereDate('venta.created_at',$day)
+            ->orderby('venta.id','desc')
+            ->get();
+            return response()->json($data);
+
+           }else{
+             $data = DB::table('venta')
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
@@ -168,6 +186,7 @@ $printer->close();
             ->orderby('venta.id','desc')
             ->get();
             return response()->json($data);
+           }
 
         }
           public function SetVenta_( Request $request){
@@ -218,7 +237,6 @@ $printer->close();
             $data2 = substr($fecha,-8,4);
             $data =[ "mes"=>$data1,
             "año"=>$data2];
-
 
              // $fecha = $request->fecha;
              $data =   DB::table('venta')

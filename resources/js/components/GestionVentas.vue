@@ -26,6 +26,7 @@
                         role="tab"
                         aria-controls="pills-home"
                         aria-selected="true"
+                        v-on:click=" getVentas_x"
                       >Buscar N.Comprobante</a>
                     </li>
                     <li class="nav-item">
@@ -71,6 +72,16 @@
                           <button class="btn btn-primary" v-on:click="filtrar">
                             <i class="fa fa-search"></i> Buscar
                           </button>
+                          <div class="col-md-2">
+                            <toggle-button
+                              v-model="ver"
+                              :value="false"
+                              color="#31B404"
+                              :sync="true"
+                              :labels="{checked: 'Ver todo', unchecked: 'Ver hoy'}"
+                              :width="80"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -376,6 +387,7 @@ export default {
   components: { Multiselect, Datepicker, ToggleButton },
   data() {
     return {
+      cambio2: "",
       es: es,
       value: null,
       options: [
@@ -531,9 +543,12 @@ export default {
 
     getVentas_x() {
       let meventas = this;
+      this.cargando_2 = true;
 
       axios
-        .post("/api/get_Ventas")
+        .post("/api/get_Ventas", {
+          ver: this.ver
+        })
         .then(function(response) {
           meventas.ventas = response.data;
         })
@@ -603,6 +618,9 @@ export default {
       this.total_venta = Number(total_venta).toLocaleString();
 
       console.log(Number(total_venta).toLocaleString());
+    },
+    ver: function(val) {
+      this.getVentas_x();
     }
   }
 };

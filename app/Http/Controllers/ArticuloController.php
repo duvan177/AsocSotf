@@ -149,10 +149,6 @@ $consulta= DB::table('articulo')
 
         if($validar == $dato){
 
-
-
-
-
          $idArticulo = DB::table('articulo')
         ->select('id')
         ->where('codigo','=',$dato)->value('id');
@@ -168,7 +164,8 @@ $consulta= DB::table('articulo')
 
 
           if ($consulta == null ) {
-              $data = 1005;
+
+            $data = 1005;
                 return response()->json($data);
           }else {
 
