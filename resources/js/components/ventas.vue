@@ -123,6 +123,7 @@
                       id="codProducto"
                       v-model="producto"
                       autofocus
+                      v-on:keyup.enter="mover"
                     />
                   </div>
                   <div class="form-group col-md-2">
@@ -475,6 +476,10 @@ export default {
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    mover() {
+      document.getElementById("cantidad").focus();
+    },
+
     setarticulos() {
       let art = this;
 

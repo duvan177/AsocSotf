@@ -61,7 +61,19 @@ Route::post('setIngresosTodo','IngresoController@setIngresosTodo');
 Route::post('getTotal_Compras','IngresoController@TotalCompras');
 //buscar en los ingresos
 Route::post('Buscar_Dato','IngresoController@Buscar');
-Route::post('update_art','IngresoController@update_art_');
+// consulta todos los ingresos con join
+Route::post('todo_compras','IngresoController@todo_compras');
+//
+Route::post('todo_compras_x','IngresoController@todo_compras_detalle');
+//
+// buscar compra por numero de comprobante
+Route::post('compra_x','IngresoController@buscar_compra_x_x');
+//
+//busca compras por fecha
+//
+Route::post('compra_x_fecha','IngresoController@buscar_compra_fecha');
+//
+Route::post('compra_x_mes','IngresoController@buscar_compra_x_mes');
 //
 Route::post('actualizar_ingreso','IngresoController@idIngreso');
 Route::post('prueba','IngresoController@prueba');

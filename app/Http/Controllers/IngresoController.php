@@ -149,7 +149,12 @@ class IngresoController extends Controller
         $precio_comrpa =$request->precio_compra;
         $precio_venta =$request->precio_venta;
 
-
+         $total_exist = DB::table('ingreso')->select('total_compra')->where('id','=',$id_ingreso)->value('total_compra');
+         $total = $precio_comrpa * $cantidad;
+         $total_real = $total_exist + $total;
+        $ingreso_ = ingreso::find($id_ingreso);
+        $ingreso_->total_compra = $total_real;
+        $ingreso_->save();
 
         $detalle_ing = new detalle_ingreso;
          $detalle_ing->id_ingreso =$id_ingreso;
@@ -165,12 +170,16 @@ class IngresoController extends Controller
          $articulo->stock = $cantidad_exist + $cantidad;
           $articulo->save();
 
-              return response()->json($cantidad_exist);
+
+
+
+              return response()->json($total_real);
 
     }
 
     public function setIngresosTodo(){
         $est = 2;
+
 
         $count = detalle_ingreso::all()->count();
 
@@ -185,6 +194,8 @@ class IngresoController extends Controller
 
            }
             return response()->json($data);
+
+
 
 
     }
@@ -248,12 +259,93 @@ class IngresoController extends Controller
           $id = $request->data;
         return response($id);
     }
-    public function update_art_(Request $request){
+    public function todo_compras(){
 
+         $ingresos = DB::table('ingreso')
+         ->join('persona','persona.id','=','ingreso.id_proveedor')
+          ->join('tipo_comprobante','ingreso.id_tipo_comprobante','=','tipo_comprobante.id')
+          ->select('ingreso.id','persona.nombre','ingreso.total_compra','ingreso.created_at','ingreso.num_comprobante','tipo_comprobante.Comprobante')
+         ->get();
 
+    return response()->json($ingresos);
+    }
 
+    public function todo_compras_detalle(Request $request){
+      $id_ingreso = $request->id_ingreso;
+       $ingresos = DB::table('detalle_ingreso')
+         ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
+         ->where('id_ingreso',$id_ingreso)
+         ->get();
+    return response()->json($ingresos);
+    }
 
+    public function buscar_compra_x_x(Request $request){
 
+        $num_comp = $request->num_comp;
+
+          $ingresos = DB::table('ingreso')
+         ->join('persona','persona.id','=','ingreso.id_proveedor')
+          ->join('tipo_comprobante','ingreso.id_tipo_comprobante','=','tipo_comprobante.id')
+          ->select('ingreso.id','persona.nombre','ingreso.total_compra','ingreso.created_at','ingreso.num_comprobante','tipo_comprobante.Comprobante')
+          ->where('ingreso.num_comprobante',$num_comp)
+          ->orWhere('persona.nombre','LIKE','%'.$num_comp.'%')
+         ->get();
+
+    return response()->json($ingresos);
+
+    }
+       public function buscar_compra_fecha(Request $request){
+
+        $fecha = $request->fecha;
+
+          $ingresos = DB::table('ingreso')
+         ->join('persona','persona.id','=','ingreso.id_proveedor')
+          ->join('tipo_comprobante','ingreso.id_tipo_comprobante','=','tipo_comprobante.id')
+          ->select('ingreso.id','persona.nombre','ingreso.total_compra','ingreso.created_at','ingreso.num_comprobante','tipo_comprobante.Comprobante')
+          ->WhereDate('ingreso.created_at',$fecha)
+         ->get();
+
+    return response()->json($ingresos);
+
+    }
+      public function buscar_compra_x_fecha(Request $request){
+
+            $fecha = $request->fecha;
+          $ingresos = DB::table('ingreso')
+         ->join('persona','persona.id','=','ingreso.id_proveedor')
+          ->join('tipo_comprobante','ingreso.id_tipo_comprobante','=','tipo_comprobante.id')
+          ->select('ingreso.id','persona.nombre','ingreso.total_compra','ingreso.created_at','ingreso.num_comprobante','tipo_comprobante.Comprobante')
+          ->WhereDate('ingreso.created_at',$fecha)
+         ->get();
+          if (count($ingresos)<=0) {
+                return response()->json(404);
+            }
+            else {
+                 return response()->json($ingresos);
+            }
+    }
+      public function buscar_compra_x_mes(Request $request){
+
+           $fecha = $request->fecha;
+            $data1 = substr($fecha,-2);
+            $data2 = substr($fecha,-8,4);
+            $data =[ "mes"=>$data1,
+            "año"=>$data2];
+
+            $fecha = $request->fecha;
+          $ingresos = DB::table('ingreso')
+         ->join('persona','persona.id','=','ingreso.id_proveedor')
+          ->join('tipo_comprobante','ingreso.id_tipo_comprobante','=','tipo_comprobante.id')
+          ->select('ingreso.id','persona.nombre','ingreso.total_compra','ingreso.created_at','ingreso.num_comprobante','tipo_comprobante.Comprobante')
+           ->whereYear('ingreso.created_at',$data2 )
+            ->whereMonth('ingreso.created_at',$data1)
+         ->get();
+          if (count($ingresos)<=0) {
+                return response()->json(404);
+            }
+            else {
+                 return response()->json($ingresos);
+            }
 
     }
 

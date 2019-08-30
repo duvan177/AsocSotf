@@ -586,7 +586,7 @@ export default {
         })
         .catch(function(error) {
           // handle error
-          // console.log(error);
+          console.log(error);
         })
 
         .then(function() {})
@@ -772,10 +772,9 @@ export default {
         .finally(() => (this.loading = false));
 
       this.getImgresosE();
-      this.selectProv = "";
+
       this.comprobante = "";
       this.serie = "";
-      this.numComp = "";
     },
     getImgresosE() {
       let validarx = this;
