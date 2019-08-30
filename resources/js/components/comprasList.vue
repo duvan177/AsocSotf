@@ -112,7 +112,7 @@
                       <div class="col-md-6">
                         <div class="input-group">
                           <input class="form-control" type="month" v-model="fecha_sh_m" />
-                          <button class="btn btn-primary">
+                          <button class="btn btn-primary" v-on:click="filtrar_mes_c">
                             <i class="fa fa-search"></i> Mes
                           </button>
                         </div>
@@ -395,7 +395,8 @@ export default {
       num_comprob: "",
       total_compra_ing: "",
       fecha_sh: "",
-      fecha_sh_m: ""
+      fecha_sh_m: "",
+      fecha_hoy: ""
     };
   },
 
@@ -429,14 +430,14 @@ export default {
         this.cargando_2 = false;
       } else {
         axios
-          .post("/api/get_Venta_mes", {
+          .post("/api/compra_x_mes", {
             fecha: this.fecha_sh_m
           })
           .then(function(response) {
             if (response.data == 404) {
               alert("no existe esta factura en esta fecha");
             } else {
-              // meventa.ventas = response.data;
+              meventa.lista_compras = response.data;
               console.log(response.data);
             }
           })
@@ -614,8 +615,11 @@ export default {
   },
   watch: {
     num_comprob: function(Val) {
-      if (Val == "") {
+      if (Val == "" && this.look_all == true) {
         this.listCompras();
+      }
+      if (Val == "" && this.look_all == false) {
+        this.compra_fecha(this.fecha_hoy);
       }
     },
     cambio: function(newVal, oldVal) {
@@ -639,6 +643,7 @@ export default {
       dd = this.addZero(dd);
       mm = this.addZero(mm);
       let hoy = yyyy + "-" + mm + "-" + dd;
+      this.fecha_hoy = hoy;
       if (Val == false) {
         this.compra_fecha(hoy);
       } else {

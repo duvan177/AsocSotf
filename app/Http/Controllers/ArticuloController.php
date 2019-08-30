@@ -74,46 +74,61 @@ $articulo = articulo::destroy($id);
   }
 public function getArticulo(){
 
- $superConsulta = [];
 
-$cons = articulo::all();
+  $name = DB::table('detalle_ingreso')->distinct()->pluck('id_ingreso','id_articulo');
+  $art_c = DB::table('detalle_ingreso')->distinct()->pluck('id_articulo');
 
+  $id_art =  DB::table('articulo')->pluck('id');
+  $superConsulta =[];
+  $datos =[];
+  $array_c = [];
+  $consul_c =[];
 
-   //$consul =DB::select('select articulo.id,articulo.codigo,articulo.nombre,articulo.stock,articulo.descripcion,estado.estado_articulo,articulo.estado,articulo.id_categoria,categoria.nombre_categoria,categoria.descripcion_categoria, detalle_ingreso.precio_comrpa from articulo inner join estado on articulo.estado=estado.id inner join categoria on articulo.id_categoria=categoria.id inner join detalle_ingreso on detalle_ingreso.id_articulo=articulo.id where detalle_ingreso.precio_comrpa= (select max(precio_comrpa) from detalle_ingreso)');
-//->get();
-    //response()->json($maximo)
-//podes ir buscando con ell foreach con el where sii se remplaza
-   
+  foreach ($name as $key => $value) {
 
-  foreach ($cons as  $value) {
-  
-$idIngresoMax = detalle_ingreso::where('id_articulo','=',$value->id)->max('id_ingreso');
 $consulta= DB::table('articulo')
     ->join('estado','articulo.estado','=','estado.id')
    ->join('categoria','articulo.id_categoria','=','categoria.id')
    ->Join('detalle_ingreso','detalle_ingreso.id_articulo','=','articulo.id')
-   ->where('detalle_ingreso.id_ingreso',$idIngresoMax)
-   
-    ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo','articulo.estado','articulo.id_categoria','categoria.nombre_categoria','categoria.descripcion_categoria','detalle_ingreso.precio_comrpa','detalle_ingreso.precio_venta') 
-    ->first();
+   ->where('articulo.id',$key)
+    ->where('detalle_ingreso.id_ingreso',$value)
 
-    if($consulta!=null){
-    array_push($superConsulta,$consulta);
-  }else{
-    $consulta= DB::table('articulo')
-    ->join('estado','articulo.estado','=','estado.id')
-   ->join('categoria','articulo.id_categoria','=','categoria.id')
-   ->Join('detalle_ingreso','detalle_ingreso.id_articulo','=','articulo.id')
-   ->where('articulo.id',$value->id)
-    ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo','articulo.estado','articulo.id_categoria','categoria.nombre_categoria','categoria.descripcion_categoria') 
+    ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo'
+    ,'articulo.estado','articulo.id_categoria','categoria.nombre_categoria',
+    'categoria.descripcion_categoria','detalle_ingreso.precio_comrpa','detalle_ingreso.precio_venta')
     ->first();
     array_push($superConsulta,$consulta);
   }
-  }    
+  foreach ($art_c as $key => $value) {
+    array_push($datos,$value);
+  }
+    foreach ($id_art as $key => $value) {
+    array_push($array_c,$value);
+  }
+ $array = array_diff( $array_c,$datos );
 
-  
+   foreach ($array as $key => $value) {
 
-      return $superConsulta;
+$consulta_null= DB::table('articulo')
+    ->join('estado','articulo.estado','=','estado.id')
+   ->join('categoria','articulo.id_categoria','=','categoria.id')
+
+   ->where('articulo.id',$value)
+    ->select('articulo.id','articulo.codigo','articulo.nombre','articulo.stock','articulo.descripcion','estado.estado_articulo'
+    ,'articulo.estado','articulo.id_categoria','categoria.nombre_categoria',
+    'categoria.descripcion_categoria')
+    ->first();
+
+
+    array_push($consul_c,$consulta_null);
+  }
+
+  $items_null =['items_null_c'=>$consul_c];
+ array_push($superConsulta,$items_null);
+
+            return response()->json($superConsulta);
+
+
 }
     public function ver(Request $idA){
 

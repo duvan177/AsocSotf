@@ -1384,7 +1384,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1684,6 +1684,28 @@ module.exports = {
   extend: extend,
   trim: trim
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
 
 
 /***/ }),
@@ -2134,7 +2156,8 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       form: {
         date2: ""
       },
-      fecha_consul: ""
+      fecha_consul: "",
+      cantidad_v: ""
     };
   },
   methods: {
@@ -2227,11 +2250,13 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
          return venta.num_comprobante == 1004;
       });*/
     },
-    informacion: function informacion(dato, fecha, total_pagar, nombreUser) {
-      this.numeroComprobante = dato;
-      this.fechaVenta = fecha;
-      this.Total_pagar_detalle = total_pagar.toLocaleString();
-      this.nombreUserVenta = nombreUser;
+    informacion: function informacion(item) {
+      this.numeroComprobante = item.num_comprobante;
+      this.fechaVenta = item.created_at;
+      this.Total_pagar_detalle = item.total_venta.toLocaleString();
+      this.nombreUserVenta = item.name;
+      var x = document.getElementById("" + item.num_comprobante + "");
+      x.classList.add("active");
     },
     getVentas_x: function getVentas_x() {
       var _this4 = this;
@@ -2289,9 +2314,19 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
   watch: {
     numeroComprobante: function numeroComprobante(newVal, oldVal) {
       this.getDetalle_ventas(newVal);
+
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("active");
+      }
     },
     venta_detalle: function venta_detalle(val) {
       if (val == "") {
+        this.getVentas_x();
+      }
+    },
+    fecha_consul: function fecha_consul(Val) {
+      if (Val == "") {
         this.getVentas_x();
       }
     },
@@ -2300,8 +2335,10 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       val.forEach(function (element) {
         total_venta += element.total_venta;
       });
+      var contar = val.length;
       this.total_venta = Number(total_venta).toLocaleString();
-      console.log(Number(total_venta).toLocaleString());
+      this.cantidad_v = contar;
+      console.log(contar);
     },
     ver: function ver(val) {
       this.getVentas_x();
@@ -4802,7 +4839,8 @@ __webpack_require__.r(__webpack_exports__);
       num_comprob: "",
       total_compra_ing: "",
       fecha_sh: "",
-      fecha_sh_m: ""
+      fecha_sh_m: "",
+      fecha_hoy: ""
     };
   },
   methods: {
@@ -4838,13 +4876,13 @@ __webpack_require__.r(__webpack_exports__);
         alert("complete los datos");
         this.cargando_2 = false;
       } else {
-        axios.post("/api/get_Venta_mes", {
+        axios.post("/api/compra_x_mes", {
           fecha: this.fecha_sh_m
         }).then(function (response) {
           if (response.data == 404) {
             alert("no existe esta factura en esta fecha");
           } else {
-            // meventa.ventas = response.data;
+            meventa.lista_compras = response.data;
             console.log(response.data);
           }
         })["catch"](function (error) {
@@ -4998,8 +5036,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     num_comprob: function num_comprob(Val) {
-      if (Val == "") {
+      if (Val == "" && this.look_all == true) {
         this.listCompras();
+      }
+
+      if (Val == "" && this.look_all == false) {
+        this.compra_fecha(this.fecha_hoy);
       }
     },
     cambio: function cambio(newVal, oldVal) {
@@ -5023,6 +5065,7 @@ __webpack_require__.r(__webpack_exports__);
       dd = this.addZero(dd);
       mm = this.addZero(mm);
       var hoy = yyyy + "-" + mm + "-" + dd;
+      this.fecha_hoy = hoy;
 
       if (Val == false) {
         this.compra_fecha(hoy);
@@ -5400,7 +5443,215 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-<<<<<<< HEAD
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5748,8 +5999,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LineChart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LineChart.js */ "./resources/js/components/LineChart.js");
-=======
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
 //
 //
 //
@@ -5773,7 +6022,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 
  //import LineChartMeses from "./LineChart.js";
 
@@ -6013,355 +6261,12 @@ __webpack_require__.r(__webpack_exports__);
         datasets: [{
           label: "Ventas",
           data: [this.eneroven, this.febven, this.marven, this.abrven, this.mayven, this.junven, this.julven, this.agoven, this.septven, this.octven, this.novven, this.dicven],
-=======
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      seleccionar: "selec...",
-      consulta: [],
-      consultaFact: false,
-      loading: true,
-      nombre_usuario: "",
-      contraseña: "",
-      correo: "",
-      nombre: "",
-      apellido: "",
-      rol: 0,
-      id: 0,
-      nombre_usuario_editar: "",
-      contraseña_editar: "",
-      correo_editar: "",
-      nombre_editar: "",
-      apellido_editar: "",
-      rol_editar: 0,
-      id_user: this.username
-    };
-  },
-  props: ["username"],
-  methods: {
-    Editarusuario: function Editarusuario() {
-      var _this = this;
-
-      console.log(this.id);
-      axios.post("api/editarusuario", {
-        id: this.id,
-        nombre_usuario: this.nombre_usuario_editar,
-        contraseña: this.contraseña_editar,
-        correo: this.correo_editar,
-        nombre: this.nombre_editar,
-        apellido: this.apellido_editar,
-        rol: this.rol_editar
-      }).then(function (response) {
-        _this.addUsuario();
-      });
-    },
-    guardarUsuario: function guardarUsuario() {
-      var _this2 = this;
-
-      var iden = this.identificacion;
-      axios.post("api/guardarusuario", _defineProperty({
-        contraseña: this.contraseña,
-        correo: this.correo,
-        nombre: this.nombre,
-        apellido: this.apellido,
-        rol: this.rol
-      }, "contrase\xF1a", this.contraseña)).then(function (response) {
-        _this2.contraseña = "";
-        _this2.correo = "";
-        _this2.nombre = "";
-        _this2.apellido = "";
-        _this2.rol = 0;
-
-        _this2.addUsuario();
-      });
-    },
-    limpiar: function limpiar() {
-      this.nombre_usuario = "";
-      this.contraseña = "";
-      this.correo = "";
-      this.nombre = "";
-      this.apellido = "";
-      this.rol = 0;
-    },
-
-    /* seleccion(){
-         let categoria = this.categoria;
-          let sub = categoria.substring(0,1);
-          this.selec= sub;
-         },*/
-    addUsuario: function addUsuario() {
-      var meconsulta = this;
-      axios.post("api/usuario").then(function (response) {
-        meconsulta.consulta = response.data;
-      });
-    },
-    traerUsuarioEditar: function traerUsuarioEditar(consul) {
-      this.nombre_usuario_editar = consul.name;
-      this.contraseña_editar = consul.password;
-      this.correo_editar = consul.email;
-      this.nombre_editar = consul.nombre_user;
-      this.apellido_editar = consul.apellido_user;
-      this.rol_editar = consul.rol_user;
-      this.id = consul.id; //console.log(this.id);
-    },
-    eliminarUsuario: function eliminarUsuario(consul) {
-      var _this3 = this;
-
-      //let id = this.id;
-      console.log(consul.id);
-      axios.post("api/eliminarUsuario", {
-        id: consul.id
-      }).then(function (response) {
-        _this3.addUsuario();
-      });
-    }
-  },
-  created: function created() {},
-  mounted: function mounted() {
-    this.addUsuario();
-  } //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
-
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/graficos.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/graficos.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LineChart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LineChart.js */ "./resources/js/components/LineChart.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    LineChart: _LineChart_js__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {
-      datacollection: null
-    };
-  },
-  mounted: function mounted() {
-    this.fillData();
-  },
-  methods: {
-    fillData: function fillData() {
-      this.datacollection = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-          label: "Ventas",
-          data: [65, 59, 80, 81, 56, 55, 40],
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
           backgroundColor: ["rgba(105, 0, 132, .2)"],
           borderColor: ["rgba(200, 99, 132, .7)"],
           borderWidth: 2
         }, {
           label: "Compras",
-<<<<<<< HEAD
           data: [this.enecomp, this.febcomp, this.marcomp, this.abrcomp, this.maycomp, this.juncomp, this.julcomp, this.agocomp, this.septcomp, this.octcomp, this.novcomp, this.diccomp],
-=======
-          data: [28, 48, 40, 19, 86, 27, 90],
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
           backgroundColor: ["rgba(0, 137, 132, .2)"],
           borderColor: ["rgba(0, 10, 130, .7)"],
           borderWidth: 2
@@ -26347,7 +26252,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.small {\n  max-width: 800px;\n  /* max-height: 500px; */\n}\n", ""]);
+exports.push([module.i, "\n.small {\r\n  max-width: 800px;\r\n  /* max-height: 500px; */\n}\r\n", ""]);
 
 // exports
 
@@ -26915,28 +26820,6 @@ function unwrapListeners(arr) {
     ret[i] = arr[i].listener || arr[i];
   }
   return ret;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-buffer/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/is-buffer/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -87954,16 +87837,11 @@ var render = function() {
                                                 "btn btn-primary btn-sm",
                                               attrs: {
                                                 type: "button",
-                                                id: item.id
+                                                id: item.num_comprobante
                                               },
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.informacion(
-                                                    item.num_comprobante,
-                                                    item.created_at,
-                                                    item.total_venta,
-                                                    item.name
-                                                  )
+                                                  return _vm.informacion(item)
                                                 }
                                               }
                                             },
@@ -87992,9 +87870,15 @@ var render = function() {
                     "div",
                     { staticClass: "d-flex justify-content-between mb-4" },
                     [
-                      _c("p", [_vm._v("Resumen de las ventas generadas")]),
+                      _c("p", [_vm._v("Resumen de ventas generadas")]),
                       _vm._v(" "),
-                      _c("p"),
+                      _c("h5", {
+                        domProps: {
+                          textContent: _vm._s(
+                            "cantidad de ventas: " + _vm.cantidad_v
+                          )
+                        }
+                      }),
                       _vm._v(" "),
                       _c("h5", {
                         domProps: {
@@ -92245,7 +92129,17 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _vm._m(2)
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: { click: _vm.filtrar_mes_c }
+                                },
+                                [
+                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _vm._v(" Mes\n                        ")
+                                ]
+                              )
                             ])
                           ])
                         ]
@@ -92264,9 +92158,9 @@ var render = function() {
                         { staticClass: "table table-hover table-striped mb-0" },
                         [
                           _vm.cargando_2
-                            ? _c("section", [_vm._m(3)])
+                            ? _c("section", [_vm._m(2)])
                             : _c("section", [
-                                _vm._m(4),
+                                _vm._m(3),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -92444,16 +92338,16 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(5),
+                        _vm._m(4),
                         _vm._v(" "),
                         _vm.cargando
-                          ? _c("section", [_vm._m(6)])
+                          ? _c("section", [_vm._m(5)])
                           : _c("section", [
                               _c(
                                 "div",
                                 { staticClass: "card card-cascade narrower" },
                                 [
-                                  _vm._m(7),
+                                  _vm._m(6),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -92493,7 +92387,7 @@ var render = function() {
                                                           "table table-hover mb-0 animated fadeIn"
                                                       },
                                                       [
-                                                        _vm._m(8),
+                                                        _vm._m(7),
                                                         _vm._v(" "),
                                                         _c(
                                                           "tbody",
@@ -92585,7 +92479,7 @@ var render = function() {
                                                 _vm._v("3% Precipitation")
                                               ]),
                                               _vm._v(" "),
-                                              _vm._m(9),
+                                              _vm._m(8),
                                               _vm._v(" "),
                                               _c("h5", {
                                                 domProps: {
@@ -92615,7 +92509,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(10)
+    _vm._m(9)
   ])
 }
 var staticRenderFns = [
@@ -92694,15 +92588,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-primary" }, [
-      _c("i", { staticClass: "fa fa-search" }),
-      _vm._v(" Mes\n                        ")
-    ])
   },
   function() {
     var _vm = this
@@ -111186,7 +111071,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/felipe/Escritorio/proyecto/AsocSotf/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\AsocSotf\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })
