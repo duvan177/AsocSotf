@@ -83,6 +83,16 @@
                             />
                           </div>
                         </div>
+                        <div id="provedorN" class="form-group col-md-2" style>
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-toggle="modal"
+                            data-target="#modalNuevo"
+                          >
+                            <i class="icon-plus"></i>&nbsp;Nuevo Provedor
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -148,7 +158,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="animated fadeIn" v-for="item in ventas" :key="item.id">
+                          <tr
+                            v-bind:id="item.id"
+                            class="animated fadeIn"
+                            v-for="item in ventas"
+                            :key="item.id"
+                          >
                             <td v-text="item.num_comprobante"></td>
                             <td v-text="item.nombre"></td>
                             <td v-text="item.Comprobante"></td>
@@ -280,7 +295,7 @@
                               </div>
                               <!--Table-->
                               <div class="d-flex justify-content-between mb-4">
-                                <p>3% Precipitation</p>
+                                <h5 v-text="'cantidad articulos vendidos: '+cant_v"></h5>
                                 <p>
                                   <img src="img/venta_detalle.png" alt />
                                 </p>
@@ -432,7 +447,9 @@ export default {
         date2: ""
       },
       fecha_consul: "",
-      cantidad_v: ""
+      cantidad_v: "",
+      tr_table: "",
+      cant_v: 0
     };
   },
   methods: {
@@ -540,9 +557,12 @@ export default {
       this.fechaVenta = item.created_at;
       this.Total_pagar_detalle = item.total_venta.toLocaleString();
       this.nombreUserVenta = item.name;
+      this.tr_table = item.id;
 
       var x = document.getElementById("" + item.num_comprobante + "");
       x.classList.add("active");
+      var tr = document.getElementById("" + item.id + "");
+      tr.classList.add("table-warning");
     },
 
     getVentas_x() {
@@ -624,6 +644,7 @@ export default {
 
     ventas: function(val) {
       let total_venta = 0;
+
       val.forEach(element => {
         total_venta += element.total_venta;
       });
@@ -634,6 +655,19 @@ export default {
     },
     ver: function(val) {
       this.getVentas_x();
+    },
+    tr_table: function(newVal, oldVal) {
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("table-warning");
+      }
+    },
+    detalles: function(Val) {
+      let cant = 0;
+      Val.forEach(element => {
+        cant += element.cantidad;
+      });
+      console.log(cant);
     }
   }
 };

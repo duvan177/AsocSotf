@@ -146,7 +146,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="animated fadeIn" v-for="item in lista_compras" :key="item.id">
+                          <tr
+                            :id="item.num_comprobante"
+                            class="animated fadeIn"
+                            v-for="item in lista_compras"
+                            :key="item.id"
+                          >
                             <td v-text="item.num_comprobante"></td>
                             <td v-text="item.nombre"></td>
                             <td v-text="item.Comprobante"></td>
@@ -283,12 +288,12 @@
                               </div>
                               <!--Table-->
                               <div class="d-flex justify-content-between mb-4">
-                                <p>3% Precipitation</p>
+                                <h5 v-text="'Cantidad articulos: '+total_cant_c"></h5>
                                 <p>
                                   <img src="img/venta_detalle.png" alt />
                                 </p>
 
-                                <h5 v-text="'Total compra : '+total_compra.toLocaleString()"></h5>
+                                <h5 v-text="'Total compra : $'+total_compra.toLocaleString()"></h5>
                               </div>
                             </div>
                           </div>
@@ -396,7 +401,8 @@ export default {
       total_compra_ing: "",
       fecha_sh: "",
       fecha_sh_m: "",
-      fecha_hoy: ""
+      fecha_hoy: "",
+      total_cant_c: 0
     };
   },
 
@@ -512,9 +518,12 @@ export default {
     listCompras_detalles(item) {
       let lis = this;
       let metotal = this;
+      let mecantd = this;
 
-      this.cambio = item.id;
+      this.cambio = item;
       this.lista_info = item;
+      var tr = document.getElementById("" + item.num_comprobante + "");
+      tr.classList.add("table-warning");
 
       var x = document.getElementById("" + item.id + "");
       x.disabled = true;
@@ -526,11 +535,14 @@ export default {
         })
         .then(function(response) {
           let totalc = 0;
+          let total_ctd = 0;
           lis.lista_detalles_ = response.data;
           response.data.forEach(element => {
             totalc += element.precio_comrpa * element.cantidad;
+            total_ctd += element.cantidad;
           });
           metotal.total_compra = totalc;
+          mecantd.total_cant_c = total_ctd;
         })
         .catch(function(error) {
           console.log(error);
@@ -623,9 +635,12 @@ export default {
       }
     },
     cambio: function(newVal, oldVal) {
-      if (oldVal > 0) {
-        var x = document.getElementById("" + oldVal + "");
+      if (oldVal.id > 0) {
+        var x = document.getElementById("" + oldVal.id + "");
         x.classList.remove("active");
+
+        var tr = document.getElementById("" + oldVal.num_comprobante + "");
+        tr.classList.remove("table-warning");
       }
     },
     lista_compras: function(val) {
@@ -633,6 +648,7 @@ export default {
       val.forEach(element => {
         total += element.total_compra;
       });
+      console.log(val.length);
       this.total_compra_ing = total.toLocaleString();
     },
     look_all: function(Val) {

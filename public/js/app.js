@@ -2100,6 +2100,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2157,7 +2172,9 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
         date2: ""
       },
       fecha_consul: "",
-      cantidad_v: ""
+      cantidad_v: "",
+      tr_table: "",
+      cant_v: 0
     };
   },
   methods: {
@@ -2255,8 +2272,11 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       this.fechaVenta = item.created_at;
       this.Total_pagar_detalle = item.total_venta.toLocaleString();
       this.nombreUserVenta = item.name;
+      this.tr_table = item.id;
       var x = document.getElementById("" + item.num_comprobante + "");
       x.classList.add("active");
+      var tr = document.getElementById("" + item.id + "");
+      tr.classList.add("table-warning");
     },
     getVentas_x: function getVentas_x() {
       var _this4 = this;
@@ -2342,6 +2362,19 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
     },
     ver: function ver(val) {
       this.getVentas_x();
+    },
+    tr_table: function tr_table(newVal, oldVal) {
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("table-warning");
+      }
+    },
+    detalles: function detalles(Val) {
+      var cant = 0;
+      Val.forEach(function (element) {
+        cant += element.cantidad;
+      });
+      console.log(cant);
     }
   }
 });
@@ -4818,6 +4851,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4840,7 +4878,8 @@ __webpack_require__.r(__webpack_exports__);
       total_compra_ing: "",
       fecha_sh: "",
       fecha_sh_m: "",
-      fecha_hoy: ""
+      fecha_hoy: "",
+      total_cant_c: 0
     };
   },
   methods: {
@@ -4950,8 +4989,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var lis = this;
       var metotal = this;
-      this.cambio = item.id;
+      var mecantd = this;
+      this.cambio = item;
       this.lista_info = item;
+      var tr = document.getElementById("" + item.num_comprobante + "");
+      tr.classList.add("table-warning");
       var x = document.getElementById("" + item.id + "");
       x.disabled = true;
       x.classList.add("active");
@@ -4960,11 +5002,14 @@ __webpack_require__.r(__webpack_exports__);
         id_ingreso: item.id
       }).then(function (response) {
         var totalc = 0;
+        var total_ctd = 0;
         lis.lista_detalles_ = response.data;
         response.data.forEach(function (element) {
           totalc += element.precio_comrpa * element.cantidad;
+          total_ctd += element.cantidad;
         });
         metotal.total_compra = totalc;
+        mecantd.total_cant_c = total_ctd;
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
@@ -5045,9 +5090,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cambio: function cambio(newVal, oldVal) {
-      if (oldVal > 0) {
-        var x = document.getElementById("" + oldVal + "");
+      if (oldVal.id > 0) {
+        var x = document.getElementById("" + oldVal.id + "");
         x.classList.remove("active");
+        var tr = document.getElementById("" + oldVal.num_comprobante + "");
+        tr.classList.remove("table-warning");
       }
     },
     lista_compras: function lista_compras(val) {
@@ -5055,6 +5102,7 @@ __webpack_require__.r(__webpack_exports__);
       val.forEach(function (element) {
         total += element.total_compra;
       });
+      console.log(val.length);
       this.total_compra_ing = total.toLocaleString();
     },
     look_all: function look_all(Val) {
@@ -87649,7 +87697,9 @@ var render = function() {
                                 ],
                                 1
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(3)
                           ])
                         ]
                       ),
@@ -87773,9 +87823,9 @@ var render = function() {
                         { staticClass: "table table-hover table-striped mb-0" },
                         [
                           _vm.cargando_2
-                            ? _c("section", [_vm._m(3)])
+                            ? _c("section", [_vm._m(4)])
                             : _c("section", [
-                                _vm._m(4),
+                                _vm._m(5),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -87784,7 +87834,8 @@ var render = function() {
                                       "tr",
                                       {
                                         key: item.id,
-                                        staticClass: "animated fadeIn"
+                                        staticClass: "animated fadeIn",
+                                        attrs: { id: item.id }
                                       },
                                       [
                                         _c("td", {
@@ -87904,7 +87955,7 @@ var render = function() {
                       },
                       [
                         _vm.cargando
-                          ? _c("section", [_vm._m(5)])
+                          ? _c("section", [_vm._m(6)])
                           : _c("section", [
                               _c(
                                 "div",
@@ -87967,13 +88018,13 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _vm._m(6),
+                              _vm._m(7),
                               _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "card card-cascade narrower" },
                                 [
-                                  _vm._m(7),
+                                  _vm._m(8),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "px-4" }, [
                                     _c(
@@ -88006,7 +88057,7 @@ var render = function() {
                                                         "table table-hover mb-0"
                                                     },
                                                     [
-                                                      _vm._m(8),
+                                                      _vm._m(9),
                                                       _vm._v(" "),
                                                       _c(
                                                         "tbody",
@@ -88086,11 +88137,16 @@ var render = function() {
                                               "d-flex justify-content-between mb-4"
                                           },
                                           [
-                                            _c("p", [
-                                              _vm._v("3% Precipitation")
-                                            ]),
+                                            _c("h5", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  "cantidad articulos vendidos: " +
+                                                    _vm.cant_v
+                                                )
+                                              }
+                                            }),
                                             _vm._v(" "),
-                                            _vm._m(9),
+                                            _vm._m(10),
                                             _vm._v(" "),
                                             _c("h5", {
                                               domProps: {
@@ -88119,7 +88175,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(10)
+    _vm._m(11)
   ])
 }
 var staticRenderFns = [
@@ -88175,6 +88231,32 @@ var staticRenderFns = [
         [_vm._v("ver ventas por mes")]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "form-group col-md-2", attrs: { id: "provedorN" } },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#modalNuevo"
+            }
+          },
+          [
+            _c("i", { staticClass: "icon-plus" }),
+            _vm._v(" Nuevo Provedor\n                        ")
+          ]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -92169,7 +92251,8 @@ var render = function() {
                                       "tr",
                                       {
                                         key: item.id,
-                                        staticClass: "animated fadeIn"
+                                        staticClass: "animated fadeIn",
+                                        attrs: { id: item.num_comprobante }
                                       },
                                       [
                                         _c("td", {
@@ -92475,16 +92558,21 @@ var render = function() {
                                                 "d-flex justify-content-between mb-4"
                                             },
                                             [
-                                              _c("p", [
-                                                _vm._v("3% Precipitation")
-                                              ]),
+                                              _c("h5", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    "Cantidad articulos: " +
+                                                      _vm.total_cant_c
+                                                  )
+                                                }
+                                              }),
                                               _vm._v(" "),
                                               _vm._m(8),
                                               _vm._v(" "),
                                               _c("h5", {
                                                 domProps: {
                                                   textContent: _vm._s(
-                                                    "Total compra : " +
+                                                    "Total compra : $" +
                                                       _vm.total_compra.toLocaleString()
                                                   )
                                                 }
