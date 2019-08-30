@@ -1,10 +1,8 @@
 <template>
   <main class="main">
-    <div class="container-fluid">
+   <div class="container-fluid">
       <div class="card">
-        <div class="card-header"></div>
-
-        <div class="card-body">
+        <div class="card-header">
           <div class="form-group col-md-2">
             <button
               type="button"
@@ -14,17 +12,45 @@
               style="position:relative; rigth:100px;"
             >Crear Articulo</button>
           </div>
-          <form class="form-inline my-2 my-lg-0">
+          <form class="form-inline my-2 my-lg-0 md-2">
             <input
               class="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
+              type="text"
+              placeholder="Codigo"
+              id="busqueda" 
+               v-on:keyup="myFunction()"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+             <input
+              class="form-control mr-sm-2"
+              type="text"
+              placeholder="Nombre"
+              id="busqueda2" 
+               v-on:keyup="myFunction2()"
+              aria-label="Search"
+            />
+             <input
+              class="form-control mr-sm-2"
+              type="text"
+              placeholder="Stock"
+              id="busqueda3" 
+               v-on:keyup="myFunction3()"
+              aria-label="Search"
+            />
+             <input
+              class="form-control mr-sm-2"
+              type="text"
+              placeholder="Estado"
+              id="busqueda4" 
+               v-on:keyup="myFunction4()"
+              aria-label="Search"
+            />
           </form>
-
-          <table class="table">
+<!--v-on:keyup="myFunction()"-->
+<div class="card-body">
+          <div class="container-fluid">
+            <div class="table-responsive">
+          <table class="table table table-striped" >
             <caption>Lista Articulos</caption>
             <thead>
               <tr>
@@ -35,24 +61,33 @@
                 <th scope="col">Stock</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Alerta</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
               <tr class="animated fadeIn" v-for="consul in consulta" :key="consul.id">
-                <th scope="row"></th>
+                <td scope="row"></td>
                 <td v-text="consul.codigo"></td>
                 <td v-text="consul.nombre"></td>
-                <td v-text="consul.stock"></td>
+                <td>{{consul.stock}}</td>
                 <td v-text="consul.descripcion"></td>
                 <td v-text="consul.estado_articulo"></td>
+                <td>  <div v-if="consul.stock <=5">
+                    <img src="img/advertencia.png" height="20" style="position:relative; ">
+                  </div>
+                  <div v-else-if="consul.stock>5">
+ <img src="img/signo_acepto.png" height="20" style="position:relative; ">
+
+                  </div>
+                  </td>
                 <td>
                   <button
                     type="button"
                     class="btn btn-primary"
                     data-toggle="modal"
-                    data-target="#articuloeditarModal"
+                    data-target="#dialogoPreguntar"
                     v-on:click.prevent="traerArticuloEditar(consul)"
                   >Editar</button>
                 </td>
@@ -60,7 +95,9 @@
                   <button
                     type="button"
                     class="btn btn-danger"
-                    v-on:click.prevent="eliminarArticulo(consul)"
+                     data-toggle="modal"
+                    data-target="#dialogoEliminar"
+                    v-on:click.prevent="traerArticuloid(consul)"
                   >Eliminar</button>
                 </td>
               </tr>
@@ -69,6 +106,10 @@
         </div>
       </div>
     </div>
+        </div>
+      </div>
+   </div>
+   
     <!-- Modal de articulos -->
     <div
       class="modal fade"
@@ -140,42 +181,6 @@
                   placeholder="Nombre Articulo"
                   v-model="nombre"
                 />
-              </div>
-              <div class="form-group">
-                <label for="formGroupExampleInput">stock</label>
-
-                <div v-if="this.estado == 2 || this.estado == 3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="formGroupExampleInput"
-                    placeholder="stock"
-                    value="0"
-                    disabled
-                    v-model="stock"
-                  />
-                </div>
-                <div v-else-if="this.estado == 1">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="formGroupExampleInput"
-                    placeholder="stock"
-                    required
-                    v-model="stock"
-                  />
-                </div>
-                <div v-else>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="formGroupExampleInput"
-                    placeholder="stock"
-                    value="0"
-                    disabled
-                    v-model="stock"
-                  />
-                </div>
               </div>
               <div class="form-group">
                 <label for="formGroupExampleInput">Descripcion</label>
@@ -358,6 +363,88 @@
       </div>
     </div>
     <!-- fin del modal-->
+      <!--Alerta -->
+<div class="modal" tabindex="-1" id="error" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¡Alerta!</h5>
+        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        
+      </div>
+      <div class="modal-body">
+        <p>Se presento el siguiente error: {{error}} por favor comunicarse con el desarrollador</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin modal Alerta -->
+<!--respuesta -->
+<div class="modal" tabindex="-1" id="respuesta" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¡{{respuesta}}!</h5>
+        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        
+      </div>
+      <div class="modal-body">
+        <p>Se {{respuesta}} correctamnte</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin modal respuesta -->
+<!-- model preguntar -->
+<div class="modal" tabindex="-1" id="dialogoPreguntar" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¡Pregunta!</h5>
+        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Seguro que desea editar el articulo {{this.nombreEditar}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#articuloeditarModal">Si</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin modal preguntar -->
+<!-- model preguntar Eliminar -->
+<div class="modal" tabindex="-1" id="dialogoEliminar" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¡Pregunta!</h5>
+        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Seguro que desea eliminar el articulo {{this.nombre}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="eliminarArticulo()">Si</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin modal preguntar -->
   </main>
 </template>
 
@@ -412,7 +499,12 @@ export default {
           estadoEditar: this.estadoEditar
         })
         .then(response => {
-          this.addArticulo();
+          this.addArticulo();  
+          this.respuesta="Edito";
+          $("#respuesta").modal("show");
+        }).catch(error=>{
+   this.error=error.response;
+    $("#error").modal("show");
         });
     },
     guardarArticulo() {
@@ -444,7 +536,16 @@ export default {
           this.stock = 0;
           this.descripcion = "";
           this.estado = 0;
+         this.respuesta="Guardo";
+          $("#respuesta").modal("show");
+        }).catch(error=>{
+   this.error=error.response;
+    $("#error").modal("show");
         });
+    },
+    traerArticuloid(consul){
+this.id = consul.id,
+this.nombre = consul.nombre
     },
     limpiar() {
       this.categoria = "";
@@ -463,7 +564,10 @@ export default {
       let meconsulta = this;
       axios.post("api/articulo").then(function(response) {
         meconsulta.consulta = response.data;
-      });
+        }).catch(error=>{
+   this.error=error.response;
+    $("#error").modal("show");
+        });
     },
 
     addcategoria() {
@@ -487,15 +591,93 @@ export default {
       this.categoriaEditar = consul.id_categoria;
       this.id = consul.id;
     },
-    eliminarArticulo(consul) {
+    eliminarArticulo() {
       axios
         .post("api/eliminarArticulo", {
-          id: consul.id
+          id: this.id
         })
         .then(response => {
           this.addArticulo();
+          this.limpiar();
+        this.respuesta="Elimino";
+          $("#respuesta").modal("show");
+        }).catch(error=>{
+   this.error=error.response;
+    $("#error").modal("show");
         });
-    }
+    },
+    myFunction() {
+     var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("busqueda");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+ },
+ myFunction2() {
+     var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("busqueda2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+ },
+ myFunction3() {
+     var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("busqueda3");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+ },
+ myFunction4() {
+     var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("busqueda4");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[5];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+ }
   },
   created() {},
   mounted() {

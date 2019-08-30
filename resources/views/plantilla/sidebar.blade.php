@@ -12,11 +12,11 @@
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Productos</a>
                         <ul class="nav-dropdown-items">
-                            <li @click=" menu=1"  class="nav-item mobile-sidebar-toggler">
-                                <a class="nav-link" ><i class="icon-bag"></i> Categorias</a>
+                            <li @click="menu=1"  class="nav-item mobile-sidebar-toggler">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Categorias</a>
                             </li>
                             <li @click="menu=2"  class="nav-item mobile-sidebar-toggler">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Articulos</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Articulos</a>
                             </li>
                         </ul>
                     </li>

@@ -82,9 +82,13 @@ Route::post('get_Ventas_detalle','ventasController@setVentaDetalle');
 Route::post('usuario','Controllerusuarios@getUser');
 Route::post('guardarusuario','Controllerusuarios@guardarUsuario');
 Route::post('eliminarUsuario','Controllerusuarios@deleteUser');
+Route::post('editarusuario','Controllerusuarios@editarUsuario');
+Route::post('editarcontraseña','Controllerusuarios@editarContraseña');
 // datos para el escritorio
 Route::post('datos_ventas_compras','EscritorioController@datos_real');
-
+//Graficos
+Route::post('detalleing','Controllergrafico@detalleingGrafico');
+Route::post('detalleven','Controllergrafico@detallevenGrafico');
 
 
 

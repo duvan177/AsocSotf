@@ -18,6 +18,43 @@ class Controllerusuarios extends Controller
 
     return response()->json($usuario);
    }
+   public function editarUsuario2(Request $ia){
+    $id=$ia->id;
+    $name=$ia->nombre;
+    $rol_user=$ia->rol;
+    $contraseña=$ia->contraseña;
+    $email=$ia->correo;
+    //guardamos en la base de datos
+    $usuario = usuarios::find($id);
+    $usuario->name=$name;
+    $usuario->id_rol=$rol_user;
+    $usuario->email=$email;
+    $usuario->password=$contraseña;
+    $usuario->save();
+
+   }
+   public function editarContraseña(Request $ia){
+    $id=$ia->id;
+    $password=$ia->contraseña;
+    $contraseña= Hash::make($password);
+    $usuario = usuarios::find($id);
+    $usuario->password=$contraseña;
+    $usuario->save();
+   }
+   public function editarUsuario(Request $ia){
+    $id=$ia->id;
+    $name=$ia->nombre;
+    $rol_user=$ia->rol;
+    $email=$ia->correo;
+   //guardamos en la base de datos
+    $usuario = usuarios::find($id);
+    $usuario->name=$name;
+    $usuario->id_rol=$rol_user;
+    $usuario->email=$email;
+    $usuario->save();
+
+
+   }
    public function guardarUsuario(Request $ia){
     $this->validate($ia,[
         'nombre'=>'required'

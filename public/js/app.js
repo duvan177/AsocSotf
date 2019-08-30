@@ -1384,7 +1384,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1684,28 +1684,6 @@ module.exports = {
   extend: extend,
   trim: trim
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
 
 
 /***/ }),
@@ -2687,6 +2665,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2737,6 +2802,12 @@ __webpack_require__.r(__webpack_exports__);
         estadoEditar: this.estadoEditar
       }).then(function (response) {
         _this.addArticulo();
+
+        _this.respuesta = "Edito";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this.error = error.response;
+        $("#error").modal("show");
       });
     },
     guardarArticulo: function guardarArticulo() {
@@ -2768,7 +2839,15 @@ __webpack_require__.r(__webpack_exports__);
         _this2.stock = 0;
         _this2.descripcion = "";
         _this2.estado = 0;
+        _this2.respuesta = "Guardo";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this2.error = error.response;
+        $("#error").modal("show");
       });
+    },
+    traerArticuloid: function traerArticuloid(consul) {
+      this.id = consul.id, this.nombre = consul.nombre;
     },
     limpiar: function limpiar() {
       this.categoria = "";
@@ -2785,9 +2864,14 @@ __webpack_require__.r(__webpack_exports__);
     this.selec= sub;
     },*/
     addArticulo: function addArticulo() {
+      var _this3 = this;
+
       var meconsulta = this;
       axios.post("api/articulo").then(function (response) {
         meconsulta.consulta = response.data;
+      })["catch"](function (error) {
+        _this3.error = error.response;
+        $("#error").modal("show");
       });
     },
     addcategoria: function addcategoria() {
@@ -2811,14 +2895,106 @@ __webpack_require__.r(__webpack_exports__);
       this.categoriaEditar = consul.id_categoria;
       this.id = consul.id;
     },
-    eliminarArticulo: function eliminarArticulo(consul) {
-      var _this3 = this;
+    eliminarArticulo: function eliminarArticulo() {
+      var _this4 = this;
 
       axios.post("api/eliminarArticulo", {
-        id: consul.id
+        id: this.id
       }).then(function (response) {
-        _this3.addArticulo();
+        _this4.addArticulo();
+
+        _this4.limpiar();
+
+        _this4.respuesta = "Elimino";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this4.error = error.response;
+        $("#error").modal("show");
       });
+    },
+    myFunction: function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction2: function myFunction2() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction3: function myFunction3() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda3");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction4: function myFunction4() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda4");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     }
   },
   created: function created() {},
@@ -3052,6 +3228,99 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3066,7 +3335,10 @@ __webpack_require__.r(__webpack_exports__);
       descripcion_categoria: "",
       descripcion_categoria_Editar: "",
       nombre_categoria_Editar: "",
-      id: ""
+      id: 0,
+      nombre: "",
+      respuesta: "",
+      error: ""
     };
   },
   methods: {
@@ -3085,6 +3357,13 @@ __webpack_require__.r(__webpack_exports__);
         descripcion_categoria_Editar: this.descripcion_categoria_Editar
       }).then(function (response) {
         _this.addCategoria();
+
+        _this.respuesta = "Edito";
+        _this.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this.error = error.response;
+        $("#error").modal("show");
       });
     },
     guardarCategoria: function guardarCategoria() {
@@ -3101,11 +3380,20 @@ __webpack_require__.r(__webpack_exports__);
         _this2.descripcion_categoria = "";
 
         _this2.addCategoria();
+
+        _this2.respuesta = "guardo";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this2.error = error.response;
+        $("#error").modal("show");
       });
     },
     limpiar: function limpiar() {
       this.descripcion_categoria = "";
       this.nombre_categoria = "";
+    },
+    traerCategoriaid: function traerCategoriaid(consul) {
+      this.id = consul.id;
     },
 
     /* seleccion(){
@@ -3114,9 +3402,14 @@ __webpack_require__.r(__webpack_exports__);
     this.selec= sub;
     },*/
     addCategoria: function addCategoria() {
+      var _this3 = this;
+
       var meconsulta = this;
       axios.post("api/categoria").then(function (response) {
         meconsulta.consulta = response.data;
+      })["catch"](function (error) {
+        _this3.error = error.response;
+        $("#error").modal("show");
       });
     },
     traerCategoriaEditar: function traerCategoriaEditar(consul) {
@@ -3125,16 +3418,65 @@ __webpack_require__.r(__webpack_exports__);
       this.id = consul.id;
       console.log(this.id);
     },
-    eliminarCategoria: function eliminarCategoria(consul) {
-      var _this3 = this;
+    eliminarCategoria: function eliminarCategoria() {
+      var _this4 = this;
 
       //let id = this.id;
-      console.log(consul.id);
+      //console.log(consul.id);
       axios.post("api/eliminarCategoria", {
-        id: consul.id
+        id: this.id
       }).then(function (response) {
-        _this3.addCategoria();
+        _this4.addCategoria();
+
+        _this4.respuesta = "Elimino";
+        _this4.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this4.error = error.response;
+        $("#error").modal("show");
       });
+    },
+    myFunction: function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction2: function myFunction2() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     }
   },
   created: function created() {},
@@ -4898,6 +5240,170 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4918,29 +5424,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       nombre_editar: "",
       apellido_editar: "",
       rol_editar: 0,
-      id_user: this.username
+      id_user: this.username,
+      seleccion: 0,
+      respuesta: "",
+      error: ""
     };
   },
   props: ["username"],
   methods: {
-    Editarusuario: function Editarusuario() {
+    editarcontraseña: function editarcontraseA() {
       var _this = this;
+
+      axios.post("api/editarcontraseña", {
+        id: this.id,
+        //  nombre_usuario: this.nombre_usuario_editar,
+        contraseña: this.contraseña_editar
+      }).then(function (response) {
+        _this.respuesta = "Edito la contraseña";
+        $("#respuesta").modal("show");
+
+        _this.addUsuario();
+
+        _this.contraseña_editar = "";
+      })["catch"](function (error) {
+        _this.error = error.response;
+        $("#error").modal("show");
+      });
+    },
+    Editarusuario: function Editarusuario() {
+      var _this2 = this;
 
       console.log(this.id);
       axios.post("api/editarusuario", {
         id: this.id,
-        nombre_usuario: this.nombre_usuario_editar,
-        contraseña: this.contraseña_editar,
+        //  nombre_usuario: this.nombre_usuario_editar,
         correo: this.correo_editar,
-        nombre: this.nombre_editar,
-        apellido: this.apellido_editar,
+        nombre: this.nombre_usuario_editar,
         rol: this.rol_editar
       }).then(function (response) {
-        _this.addUsuario();
+        _this2.respuesta = "Edito";
+        $("#respuesta").modal("show");
+
+        _this2.addUsuario();
+
+        _this2.contraseña_editar = "";
+      })["catch"](function (error) {
+        _this2.error = error.response;
+        $("#error").modal("show");
       });
     },
     guardarUsuario: function guardarUsuario() {
-      var _this2 = this;
+      var _this3 = this;
 
       var iden = this.identificacion;
       axios.post("api/guardarusuario", _defineProperty({
@@ -4950,13 +5484,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         apellido: this.apellido,
         rol: this.rol
       }, "contrase\xF1a", this.contraseña)).then(function (response) {
-        _this2.contraseña = "";
-        _this2.correo = "";
-        _this2.nombre = "";
-        _this2.apellido = "";
-        _this2.rol = 0;
+        _this3.contraseña = "";
+        _this3.correo = "";
+        _this3.nombre = "";
+        _this3.apellido = "";
+        _this3.rol = 0;
 
-        _this2.addUsuario();
+        _this3.addUsuario();
+
+        _this3.respuesta = "Guardo";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this3.error = error.response;
+        $("#error").modal("show");
       });
     },
     limpiar: function limpiar() {
@@ -4977,27 +5517,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var meconsulta = this;
       axios.post("api/usuario").then(function (response) {
         meconsulta.consulta = response.data;
+        this.usuario();
       });
     },
     traerUsuarioEditar: function traerUsuarioEditar(consul) {
-      this.nombre_usuario_editar = consul.name;
-      this.contraseña_editar = consul.password;
+      this.nombre_usuario_editar = consul.name; // this.contraseña_editar = consul.password;
+
       this.correo_editar = consul.email;
       this.nombre_editar = consul.nombre_user;
       this.apellido_editar = consul.apellido_user;
-      this.rol_editar = consul.rol_user;
+      this.rol_editar = consul.id_rol;
       this.id = consul.id; //console.log(this.id);
     },
-    eliminarUsuario: function eliminarUsuario(consul) {
-      var _this3 = this;
+    eliminarUsuario: function eliminarUsuario() {
+      var _this4 = this;
 
       //let id = this.id;
-      console.log(consul.id);
+      //console.log(consul.id);
       axios.post("api/eliminarUsuario", {
-        id: consul.id
+        id: this.id
       }).then(function (response) {
-        _this3.addUsuario();
+        _this4.addUsuario();
+
+        _this4.respuesta = "ELimino";
+        $("#respuesta").modal("show");
+      })["catch"](function (error) {
+        _this4.error = error.response;
+        $("#error").modal("show");
       });
+    },
+    myFunction: function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     }
   },
   created: function created() {},
@@ -5029,32 +5597,264 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+ //import LineChartMeses from "./LineChart.js";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    LineChart: _LineChart_js__WEBPACK_IMPORTED_MODULE_0__["default"]
+    LineChart: _LineChart_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+    meses: _LineChart_js__WEBPACK_IMPORTED_MODULE_0__["default"] //LineChartMeses
+
   },
   data: function data() {
     return {
-      datacollection: null
+      datacollection: null,
+      meses1: null,
+      seleccion: 1,
+      detalleing: [],
+      detalleven: [],
+      fechaCompra: [],
+      fechaVenta: [],
+      lunesCompra: 0,
+      martesCompra: 0,
+      miercolesCompra: 0,
+      juevesCompra: 0,
+      viernesCompra: 0,
+      sabadoCompra: 0,
+      domingoCompra: 0,
+      lunesVenta: 0,
+      martesVenta: 0,
+      miercolesVenta: 0,
+      juevesVenta: 0,
+      viernesVenta: 0,
+      sabadoVenta: 0,
+      domingoVenta: 0,
+      eneroven: 0,
+      febven: 0,
+      marven: 0,
+      abrven: 0,
+      mayven: 0,
+      junven: 0,
+      julven: 0,
+      agoven: 0,
+      septven: 0,
+      octven: 0,
+      novven: 0,
+      dicven: 0,
+      enecomp: 0,
+      febcomp: 0,
+      marcomp: 0,
+      abrcomp: 0,
+      maycomp: 0,
+      juncomp: 0,
+      julcomp: 0,
+      agocomp: 0,
+      septcomp: 0,
+      octcomp: 0,
+      novcomp: 0,
+      diccomp: 0
     };
   },
   mounted: function mounted() {
-    this.fillData();
+    this.iniciar();
   },
   methods: {
+    iniciar: function iniciar() {
+      var _this = this;
+
+      this.traerCompra().then(function () {
+        for (var index = 0; index < _this.detalleing.length; index++) {
+          _this.fechaCompra[index] = _this.detalleing[index].created_at;
+        }
+
+        _this.asignarCompra();
+      });
+      this.traerVenta().then(function () {
+        for (var index = 0; index < _this.detalleven.length; index++) {
+          _this.fechaVenta[index] = _this.detalleven[index].created_at;
+        }
+
+        _this.asignarVenta();
+
+        _this.fillData();
+
+        _this.meses();
+      });
+    },
+    traerCompra: function traerCompra() {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        var meconsulta = _this2;
+        axios.post("api/detalleing").then(function (response) {
+          meconsulta.detalleing = response.data;
+          resolve();
+        });
+      });
+      this.asignar();
+    },
+    traerVenta: function traerVenta() {
+      var _this3 = this;
+
+      return new Promise(function (resolve, reject) {
+        var meconsulta2 = _this3;
+        axios.post("api/detalleven").then(function (response) {
+          meconsulta2.detalleven = response.data;
+          resolve();
+        });
+      });
+    },
+    asignarCompra: function asignarCompra() {
+      var _this4 = this;
+
+      this.fechaCompra.forEach(function (element) {
+        var fechcompra = new Date(element);
+        console.log(fechcompra.getDay());
+        var dia = fechcompra.getDay();
+
+        if (dia == 1) {
+          _this4.lunesCompra++;
+        } else if (dia == 2) {
+          _this4.martesCompra++;
+        } else if (dia == 3) {
+          _this4.miercolesCompra++;
+        } else if (dia == 4) {
+          _this4.juevesCompra++;
+        } else if (dia == 5) {
+          _this4.viernesCompra++;
+        } else if (dia == 6) {
+          _this4.sabadoCompra++;
+        } else if (dia == 0) {
+          _this4.domingoCompra++;
+        }
+
+        var mes = fechcompra.getMonth();
+        console.log(mes);
+
+        if (mes == 0) {
+          _this4.enecomp++;
+        } else if (mes == 1) {
+          _this4.febcomp++;
+        } else if (mes == 2) {
+          _this4.marcomp++;
+        } else if (mes == 3) {
+          _this4.abrcomp++;
+        } else if (mes == 4) {
+          _this4.maycomp++;
+        } else if (mes == 5) {
+          _this4.juncomp++;
+        } else if (mes == 6) {
+          _this4.julcomp++;
+        } else if (mes == 7) {
+          _this4.agocomp++;
+        } else if (mes == 8) {
+          _this4.septcomp++;
+        } else if (mes == 9) {
+          _this4.octcomp++;
+        } else if (mes == 10) {
+          _this4.novcomp++;
+        } else if (mes == 11) {
+          _this4.diccomp++;
+        }
+      });
+    },
+    asignarVenta: function asignarVenta() {
+      var _this5 = this;
+
+      this.fechaVenta.forEach(function (element) {
+        var fechventa = new Date(element);
+        console.log(fechventa.getDay());
+        var dia = fechventa.getDay();
+
+        if (dia == 1) {
+          _this5.lunesVenta++;
+        } else if (dia == 2) {
+          _this5.martesVenta++;
+        } else if (dia == 3) {
+          _this5.miercolesVenta++;
+        } else if (dia == 4) {
+          _this5.juevesVenta++;
+        } else if (dia == 5) {
+          _this5.viernesVenta++;
+        } else if (dia == 6) {
+          _this5.sabadoVenta++;
+        } else if (dia == 0) {
+          _this5.domingoVenta++;
+        }
+
+        var mes = fechventa.getMonth();
+        console.log(mes);
+
+        if (mes == 0) {
+          _this5.eneroven++;
+        } else if (mes == 1) {
+          _this5.febven++;
+        } else if (mes == 2) {
+          _this5.marven++;
+        } else if (mes == 3) {
+          _this5.abrven++;
+        } else if (mes == 4) {
+          _this5.mayven++;
+        } else if (mes == 5) {
+          _this5.junven++;
+        } else if (mes == 6) {
+          _this5.julven++;
+        } else if (mes == 7) {
+          _this5.agoven++;
+        } else if (mes == 8) {
+          _this5.septven++;
+        } else if (mes == 9) {
+          _this5.octven++;
+        } else if (mes == 10) {
+          _this5.novven++;
+        } else if (mes == 11) {
+          _this5.dicven++;
+        }
+      });
+    },
     fillData: function fillData() {
       this.datacollection = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
         datasets: [{
           label: "Ventas",
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: [this.lunesVenta, this.martesVenta, this.miercolesVenta, this.juevesVenta, this.viernesVenta, this.sabadoVenta, this.domingoVenta],
           backgroundColor: ["rgba(105, 0, 132, .2)"],
           borderColor: ["rgba(200, 99, 132, .7)"],
           borderWidth: 2
         }, {
           label: "Compras",
-          data: [28, 48, 40, 19, 86, 27, 90],
+          data: [this.lunesCompra, this.martesCompra, this.miercolesCompra, this.juevesCompra, this.viernesCompra, this.sabadoCompra, this.domingoCompra],
+          backgroundColor: ["rgba(0, 137, 132, .2)"],
+          borderColor: ["rgba(0, 10, 130, .7)"],
+          borderWidth: 2
+        }]
+      };
+    },
+    meses: function meses() {
+      this.meses1 = {
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        datasets: [{
+          label: "Ventas",
+          data: [this.eneroven, this.febven, this.marven, this.abrven, this.mayven, this.junven, this.julven, this.agoven, this.septven, this.octven, this.novven, this.dicven],
+          backgroundColor: ["rgba(105, 0, 132, .2)"],
+          borderColor: ["rgba(200, 99, 132, .7)"],
+          borderWidth: 2
+        }, {
+          label: "Compras",
+          data: [this.enecomp, this.febcomp, this.marcomp, this.abrcomp, this.maycomp, this.juncomp, this.julcomp, this.agocomp, this.septcomp, this.octcomp, this.novcomp, this.diccomp],
           backgroundColor: ["rgba(0, 137, 132, .2)"],
           borderColor: ["rgba(0, 10, 130, .7)"],
           borderWidth: 2
@@ -25036,7 +25836,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.small {\r\n  max-width: 800px;\r\n  /* max-height: 500px; */\n}\r\n", ""]);
+exports.push([module.i, "\n.small {\n  max-width: 800px;\n  /* max-height: 500px; */\n}\n", ""]);
 
 // exports
 
@@ -25604,6 +26404,28 @@ function unwrapListeners(arr) {
     ret[i] = arr[i].listener || arr[i];
   }
   return ret;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-buffer/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -87201,89 +88023,184 @@ var render = function() {
   return _c("main", { staticClass: "main" }, [
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card-header" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm._m(1),
+          _c("form", { staticClass: "form-inline my-2 my-lg-0 md-2" }, [
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "text",
+                placeholder: "Codigo",
+                id: "busqueda",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction()
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "text",
+                placeholder: "Nombre",
+                id: "busqueda2",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction2()
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "text",
+                placeholder: "Stock",
+                id: "busqueda3",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction3()
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "text",
+                placeholder: "Estado",
+                id: "busqueda4",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction4()
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _c("table", { staticClass: "table" }, [
-            _c("caption", [_vm._v("Lista Articulos")]),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.consulta, function(consul) {
-                return _c(
-                  "tr",
-                  { key: consul.id, staticClass: "animated fadeIn" },
-                  [
-                    _c("th", { attrs: { scope: "row" } }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.codigo) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.nombre) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.stock) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.descripcion) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.estado_articulo) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "modal",
-                            "data-target": "#articuloeditarModal"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.traerArticuloEditar(consul)
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "table-responsive" }, [
+                _c("table", { staticClass: "table table table-striped" }, [
+                  _c("caption", [_vm._v("Lista Articulos")]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    { attrs: { id: "myTable" } },
+                    _vm._l(_vm.consulta, function(consul) {
+                      return _c(
+                        "tr",
+                        { key: consul.id, staticClass: "animated fadeIn" },
+                        [
+                          _c("td", { attrs: { scope: "row" } }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(consul.codigo) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(consul.nombre) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(consul.stock))]),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(consul.descripcion)
                             }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.eliminarArticulo(consul)
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(consul.estado_articulo)
                             }
-                          }
-                        },
-                        [_vm._v("Eliminar")]
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            consul.stock <= 5
+                              ? _c("div", [
+                                  _c("img", {
+                                    staticStyle: { position: "relative" },
+                                    attrs: {
+                                      src: "img/advertencia.png",
+                                      height: "20"
+                                    }
+                                  })
+                                ])
+                              : consul.stock > 5
+                              ? _c("div", [
+                                  _c("img", {
+                                    staticStyle: { position: "relative" },
+                                    attrs: {
+                                      src: "img/signo_acepto.png",
+                                      height: "20"
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#dialogoPreguntar"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.traerArticuloEditar(consul)
+                                  }
+                                }
+                              },
+                              [_vm._v("Editar")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#dialogoEliminar"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.traerArticuloid(consul)
+                                  }
+                                }
+                              },
+                              [_vm._v("Eliminar")]
+                            )
+                          ])
+                        ]
                       )
-                    ])
-                  ]
-                )
-              }),
-              0
-            )
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -87425,9 +88342,9 @@ var render = function() {
                           })
                         }),
                         _vm._v(
-                          "\n                " +
+                          "\n                  " +
                             _vm._s(_vm.categoria) +
-                            "\n              "
+                            "\n                "
                         )
                       ],
                       2
@@ -87523,101 +88440,6 @@ var render = function() {
                         }
                       }
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
-                      _vm._v("stock")
-                    ]),
-                    _vm._v(" "),
-                    this.estado == 2 || this.estado == 3
-                      ? _c("div", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.stock,
-                                expression: "stock"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "formGroupExampleInput",
-                              placeholder: "stock",
-                              value: "0",
-                              disabled: ""
-                            },
-                            domProps: { value: _vm.stock },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.stock = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      : this.estado == 1
-                      ? _c("div", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.stock,
-                                expression: "stock"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "formGroupExampleInput",
-                              placeholder: "stock",
-                              required: ""
-                            },
-                            domProps: { value: _vm.stock },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.stock = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      : _c("div", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.stock,
-                                expression: "stock"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "formGroupExampleInput",
-                              placeholder: "stock",
-                              value: "0",
-                              disabled: ""
-                            },
-                            domProps: { value: _vm.stock },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.stock = $event.target.value
-                              }
-                            }
-                          })
-                        ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
@@ -87735,7 +88557,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("form", [
                 _c("div", { staticClass: "modal-body" }, [
@@ -88102,6 +88924,271 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "error", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Se presento el siguiente error: " +
+                      _vm._s(_vm.error) +
+                      " por favor comunicarse con el desarrollador"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "respuesta", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡" + _vm._s(_vm.respuesta) + "!")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v("Se " + _vm._s(_vm.respuesta) + " correctamnte")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoPreguntar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡Pregunta!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea editar el articulo " +
+                      _vm._s(this.nombreEditar)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-dismiss": "modal",
+                      "data-target": "#articuloeditarModal"
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoEliminar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡Pregunta!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea eliminar el articulo " +
+                      _vm._s(this.nombre)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.eliminarArticulo()
+                      }
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -88130,26 +89217,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: { type: "search", placeholder: "Search", "aria-label": "Search" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success my-2 my-sm-0",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Search")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
@@ -88163,6 +89230,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Alerta")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
         _vm._v(" "),
@@ -88194,6 +89263,14 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("¡Alerta!")])
+    ])
   }
 ]
 render._withStripped = true
@@ -88220,80 +89297,125 @@ var render = function() {
   return _c("main", { staticClass: "main" }, [
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "card-header" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "search",
+                placeholder: "Nombre Categoria",
+                id: "busqueda",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction()
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "search",
+                placeholder: "Descripcion Categoria",
+                id: "busqueda2",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction2()
+                }
+              }
+            })
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table table-striped" }, [
-                _c("caption", [_vm._v("Lista de Categoria")]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.consulta, function(consul) {
-                    return _c(
-                      "tr",
-                      { key: consul.id, staticClass: "animated fadeIn" },
-                      [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(consul.id))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(consul.nombre_categoria)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(consul.descripcion_categoria)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              staticStyle: { width: "75 px" },
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "modal",
-                                "data-target": "#articuloeditarModal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.traerCategoriaEditar(consul)
-                                }
-                              }
-                            },
-                            [_vm._v("Editar")]
-                          ),
+              _c(
+                "table",
+                {
+                  staticClass: "table table table-striped",
+                  attrs: { id: "myTable" }
+                },
+                [
+                  _c("caption", [_vm._v("Lista de Categoria")]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.consulta, function(consul) {
+                      return _c(
+                        "tr",
+                        { key: consul.id, staticClass: "animated fadeIn" },
+                        [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(consul.id))
+                          ]),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.eliminarCategoria(consul)
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(consul.nombre_categoria)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(consul.descripcion_categoria)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                staticStyle: { width: "75 px" },
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#dialogoPreguntar"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.traerCategoriaEditar(consul)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("Eliminar")]
-                          )
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ])
+                              },
+                              [_vm._v("Editar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "modal",
+                                  "data-target": "#dialogoEliminar"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.traerCategoriaid(consul)
+                                  }
+                                }
+                              },
+                              [_vm._v("Eliminar")]
+                            )
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -88532,7 +89654,7 @@ var render = function() {
                       }
                     })
                   ]),
-                  _vm._v("\n            " + _vm._s(this.id) + "\n            "),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "formGroupExampleInput" } }, [
                       _vm._v("Descripcion Categoria")
@@ -88620,6 +89742,272 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "error", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Se presento el siguiente error: " +
+                      _vm._s(_vm.error) +
+                      " por favor comunicarse con el desarrollador"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "respuesta", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡" + _vm._s(_vm.respuesta) + "!")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Se " +
+                      _vm._s(_vm.respuesta) +
+                      " correctamnte" +
+                      _vm._s(_vm.respuesta2)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoPreguntar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [_vm._v("Pregunta")]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea editar la categoria " +
+                      _vm._s(this.nombre)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-dismiss": "modal",
+                      "data-target": "#articuloeditarModal"
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoEliminar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [_vm._v("Pregunta")]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea eliminar la empresa " +
+                      _vm._s(this.nombre_categoria_Editar)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.eliminarCategoria()
+                      }
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -88628,42 +90016,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "form-group col-md-2" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success",
-            staticStyle: { position: "relative", rigth: "100px" },
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#articuloModal"
-            }
-          },
-          [_vm._v("Crear Categoria")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-        _c("input", {
-          staticClass: "form-control mr-sm-2",
+    return _c("div", { staticClass: "form-group col-md-2" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success",
+          staticStyle: { position: "relative", rigth: "100px" },
           attrs: {
-            type: "search",
-            placeholder: "Search",
-            "aria-label": "Search"
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#articuloModal"
           }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-outline-success my-2 my-sm-0",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Search")]
-        )
-      ])
+        },
+        [_vm._v("Crear Categoria")]
+      )
     ])
   },
   function() {
@@ -88705,6 +90071,14 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("¡Alerta!")])
     ])
   }
 ]
@@ -90788,85 +92162,144 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("table", { staticClass: "table" }, [
-            _c("caption", [_vm._v("Lista de usuarios")]),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.consulta, function(consul) {
-                return _c(
-                  "tr",
-                  { key: consul.id, staticClass: "animated fadeIn" },
+          _c("form", { staticClass: "form-inline my-2 my-lg-0 md-2" }, [
+            _c("input", {
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "text",
+                placeholder: "Nombre de usuario",
+                id: "busqueda",
+                "aria-label": "Search"
+              },
+              on: {
+                keyup: function($event) {
+                  return _vm.myFunction()
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table table-striped",
+                    attrs: { id: "myTable" }
+                  },
                   [
-                    _c("th", { attrs: { scope: "row" } }),
+                    _c("caption", [_vm._v("Lista de usuarios")]),
                     _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.name) }
-                    }),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(consul.email) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", { domProps: { textContent: _vm._s(consul.rol) } }),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "modal",
-                            "data-target": "#articuloeditarModal"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.traerUsuarioEditar(consul)
-                            }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      consul.id == _vm.id_user
-                        ? _c("section", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "button", disabled: "" }
-                              },
-                              [_vm._v("Eliminar")]
-                            )
-                          ])
-                        : _c("section", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.eliminarUsuario(consul)
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.consulta, function(consul) {
+                        return _c(
+                          "tr",
+                          { key: consul.id, staticClass: "animated fadeIn" },
+                          [
+                            _c("th", { attrs: { scope: "row" } }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(consul.name) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(consul.email) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(consul.rol) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#dialogoPreguntar"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.traerUsuarioEditar(consul)
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Eliminar")]
-                            )
-                          ])
-                    ])
+                                },
+                                [_vm._v("Editar")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#dialogoPreguntarContraseña"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.traerUsuarioEditar(consul)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Editar Contraseña")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              consul.id == _vm.id_user
+                                ? _c("section", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        attrs: { type: "button", disabled: "" }
+                                      },
+                                      [_vm._v("Eliminar")]
+                                    )
+                                  ])
+                                : _c("section", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        attrs: {
+                                          type: "button",
+                                          "data-toggle": "modal",
+                                          "data-target": "#dialogoEliminar"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.traerUsuarioEditar(
+                                              consul
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Eliminar")]
+                                    )
+                                  ])
+                            ])
+                          ]
+                        )
+                      }),
+                      0
+                    )
                   ]
                 )
-              }),
-              0
-            )
+              ])
+            ])
           ])
         ])
       ])
@@ -91115,7 +92548,7 @@ var render = function() {
                   _vm.rol == 0
                     ? _c("div", [
                         _vm._v(
-                          "\n              FALTAN CAMPOS POR LLENAR\n              "
+                          "\n                FALTAN CAMPOS POR LLENAR\n                "
                         ),
                         _c(
                           "button",
@@ -91214,7 +92647,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "exampleModalLabel" }
                   },
-                  [_vm._v("Crear Categoria")]
+                  [_vm._v("Editar Categoria")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -91242,38 +92675,6 @@ var render = function() {
               _vm._v(" "),
               _c("form", [
                 _c("div", { staticClass: "modal-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
-                      _vm._v("Contraseña")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.contraseña_editar,
-                          expression: "contraseña_editar"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        id: "formGroupExampleInput",
-                        placeholder: "Contraseña"
-                      },
-                      domProps: { value: _vm.contraseña_editar },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.contraseña_editar = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "formGroupExampleInput" } }, [
                       _vm._v("Correo")
@@ -91308,7 +92709,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "formGroupExampleInput" } }, [
-                      _vm._v("Nombre")
+                      _vm._v("Nombre Y Apellido")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -91316,55 +92717,23 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nombre_editar,
-                          expression: "nombre_editar"
+                          value: _vm.nombre_usuario_editar,
+                          expression: "nombre_usuario_editar"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: {
                         type: "text",
                         id: "formGroupExampleInput",
-                        placeholder: "Nombre"
+                        placeholder: "Nombre y Apellido"
                       },
-                      domProps: { value: _vm.nombre_editar },
+                      domProps: { value: _vm.nombre_usuario_editar },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.nombre_editar = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
-                      _vm._v("Apellido")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.apellido_editar,
-                          expression: "apellido_editar"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "formGroupExampleInput",
-                        placeholder: "apellido"
-                      },
-                      domProps: { value: _vm.apellido_editar },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.apellido_editar = $event.target.value
+                          _vm.nombre_usuario_editar = $event.target.value
                         }
                       }
                     })
@@ -91412,15 +92781,11 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Operaciones")
+                          _vm._v("Admin")
                         ]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Inspector")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [
-                          _vm._v("Administrador")
+                          _vm._v("Vendedor")
                         ])
                       ]
                     )
@@ -91430,14 +92795,13 @@ var render = function() {
                 _c("div", { staticClass: "modal-footer" }, [
                   _vm.nombre_usuario_editar == "" ||
                   _vm.nombre_editar == "" ||
-                  _vm.contraseña_editar == "" ||
                   _vm.correo_editar == "" ||
                   _vm.nombre_editar == "" ||
                   _vm.apellido_editar == "" ||
                   _vm.rol_editar == 0
                     ? _c("div", [
                         _vm._v(
-                          "\n              FALTAN CAMPOS POR LLENAR\n              "
+                          "\n                FALTAN CAMPOS POR LLENAR\n                "
                         ),
                         _c(
                           "button",
@@ -91468,7 +92832,6 @@ var render = function() {
                       ])
                     : _vm.nombre_usuario_editar != "" &&
                       _vm.nombre_editar != "" &&
-                      _vm.contraseña_editar != "" &&
                       _vm.correo_editar != "" &&
                       _vm.nombre_editar != "" &&
                       _vm.apellido_editar != "" &&
@@ -91505,6 +92868,460 @@ var render = function() {
                       ])
                     : _vm._e()
                 ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoEliminar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡Pregunta!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea eliminar el usuario " +
+                      _vm._s(this.nombre_usuario_editar) +
+                      "?"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.eliminarUsuario()
+                      }
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "dialogoPreguntar", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡Pregunta!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea editar el usuario " +
+                      _vm._s(this.nombre_usuario_editar) +
+                      ".\n\n        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-dismiss": "modal",
+                      "data-target": "#articuloeditarModal"
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: {
+          tabindex: "-1",
+          id: "dialogoPreguntarContraseña",
+          role: "dialog"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡Pregunta!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v(
+                    "Seguro que desea editar la contraseña del usuario " +
+                      _vm._s(this.nombre_usuario_editar) +
+                      ".\n\n        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("No")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-dismiss": "modal",
+                      "data-target": "#editarContraseña"
+                    }
+                  },
+                  [_vm._v("Si")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "respuesta", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("¡" + _vm._s(_vm.respuesta) + "!")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("p", [
+                  _vm._v("Se " + _vm._s(_vm.respuesta) + " correctamnte")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "error", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "collapse", attrs: { id: "collapseExample" } },
+                  [
+                    _c("div", { staticClass: "card card-body" }, [
+                      _vm._v("\n    " + _vm._s(_vm.error) + "\n  ")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", id: "editarContraseña", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v(
+                    "¡Editar contraseña a " +
+                      _vm._s(_vm.nombre_usuario_editar) +
+                      "!"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                    _vm._v("Contraseña")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contraseña_editar,
+                        expression: "contraseña_editar"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "password",
+                      id: "formGroupExampleInput",
+                      placeholder: "Contraseña"
+                    },
+                    domProps: { value: _vm.contraseña_editar },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.contraseña_editar = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.editarcontraseña()
+                      }
+                    }
+                  },
+                  [_vm._v("Ok")]
+                )
               ])
             ])
           ]
@@ -91550,8 +93367,42 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contraseña")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Eliminar")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("¡Alerta!")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "Se presento un error revisa lo que escribiste o comunicate con el desarrollador\n          "
+      ),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            "data-toggle": "collapse",
+            href: "#collapseExample",
+            role: "button",
+            "aria-expanded": "false",
+            "aria-controls": "collapseExample"
+          }
+        },
+        [_vm._v("\n    Informacion del error\n  ")]
+      )
     ])
   }
 ]
@@ -91580,15 +93431,65 @@ var render = function() {
     _c("h4", [_vm._v("Reportes del Venta anual")]),
     _vm._v(" "),
     _c(
-      "div",
-      { staticClass: "chart-container", attrs: { id: "grafico" } },
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.seleccion,
+            expression: "seleccion"
+          }
+        ],
+        staticClass: "browser-default custom-select",
+        on: {
+          change: function($event) {
+            var $$selectedVal = Array.prototype.filter
+              .call($event.target.options, function(o) {
+                return o.selected
+              })
+              .map(function(o) {
+                var val = "_value" in o ? o._value : o.value
+                return val
+              })
+            _vm.seleccion = $event.target.multiple
+              ? $$selectedVal
+              : $$selectedVal[0]
+          }
+        }
+      },
       [
-        _c("line-chart", {
-          attrs: { "chart-data": _vm.datacollection, height: 285 }
-        })
-      ],
-      1
-    )
+        _c("option", { attrs: { value: "1" } }, [_vm._v("Semanal")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "2" } }, [_vm._v("Mensual")])
+      ]
+    ),
+    _vm._v(" "),
+    _vm.seleccion == 1
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "chart-container", attrs: { id: "grafico" } },
+            [
+              _c("line-chart", {
+                attrs: { "chart-data": _vm.datacollection, height: 285 }
+              })
+            ],
+            1
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.seleccion == 2
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "chart-container", attrs: { id: "grafico" } },
+            [_c("meses", { attrs: { "chart-data": _vm.meses1, height: 285 } })],
+            1
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -108203,7 +110104,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\AsocSotf\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/felipe/Escritorio/proyecto/AsocSotf/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })
