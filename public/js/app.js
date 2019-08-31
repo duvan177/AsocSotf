@@ -1384,7 +1384,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1688,6 +1688,28 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GestionVentas.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GestionVentas.vue?vue&type=script&lang=js& ***!
@@ -1707,6 +1729,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuejs-datepicker/dist/locale */ "./node_modules/vuejs-datepicker/dist/locale/index.js");
 /* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2134,7 +2171,10 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       form: {
         date2: ""
       },
-      fecha_consul: ""
+      fecha_consul: "",
+      cantidad_v: "",
+      tr_table: "",
+      cant_v: 0
     };
   },
   methods: {
@@ -2227,11 +2267,16 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
          return venta.num_comprobante == 1004;
       });*/
     },
-    informacion: function informacion(dato, fecha, total_pagar, nombreUser) {
-      this.numeroComprobante = dato;
-      this.fechaVenta = fecha;
-      this.Total_pagar_detalle = total_pagar.toLocaleString();
-      this.nombreUserVenta = nombreUser;
+    informacion: function informacion(item) {
+      this.numeroComprobante = item.num_comprobante;
+      this.fechaVenta = item.created_at;
+      this.Total_pagar_detalle = item.total_venta.toLocaleString();
+      this.nombreUserVenta = item.name;
+      this.tr_table = item.id;
+      var x = document.getElementById("" + item.num_comprobante + "");
+      x.classList.add("active");
+      var tr = document.getElementById("" + item.id + "");
+      tr.classList.add("table-warning");
     },
     getVentas_x: function getVentas_x() {
       var _this4 = this;
@@ -2289,9 +2334,19 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
   watch: {
     numeroComprobante: function numeroComprobante(newVal, oldVal) {
       this.getDetalle_ventas(newVal);
+
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("active");
+      }
     },
     venta_detalle: function venta_detalle(val) {
       if (val == "") {
+        this.getVentas_x();
+      }
+    },
+    fecha_consul: function fecha_consul(Val) {
+      if (Val == "") {
         this.getVentas_x();
       }
     },
@@ -2300,11 +2355,26 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       val.forEach(function (element) {
         total_venta += element.total_venta;
       });
+      var contar = val.length;
       this.total_venta = Number(total_venta).toLocaleString();
-      console.log(Number(total_venta).toLocaleString());
+      this.cantidad_v = contar;
+      console.log(contar);
     },
     ver: function ver(val) {
       this.getVentas_x();
+    },
+    tr_table: function tr_table(newVal, oldVal) {
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("table-warning");
+      }
+    },
+    detalles: function detalles(Val) {
+      var cant = 0;
+      Val.forEach(function (element) {
+        cant += element.cantidad;
+      });
+      console.log(cant);
     }
   }
 });
@@ -4781,6 +4851,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4802,7 +4877,9 @@ __webpack_require__.r(__webpack_exports__);
       num_comprob: "",
       total_compra_ing: "",
       fecha_sh: "",
-      fecha_sh_m: ""
+      fecha_sh_m: "",
+      fecha_hoy: "",
+      total_cant_c: 0
     };
   },
   methods: {
@@ -4838,13 +4915,13 @@ __webpack_require__.r(__webpack_exports__);
         alert("complete los datos");
         this.cargando_2 = false;
       } else {
-        axios.post("/api/get_Venta_mes", {
+        axios.post("/api/compra_x_mes", {
           fecha: this.fecha_sh_m
         }).then(function (response) {
           if (response.data == 404) {
             alert("no existe esta factura en esta fecha");
           } else {
-            // meventa.ventas = response.data;
+            meventa.lista_compras = response.data;
             console.log(response.data);
           }
         })["catch"](function (error) {
@@ -4912,8 +4989,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var lis = this;
       var metotal = this;
-      this.cambio = item.id;
+      var mecantd = this;
+      this.cambio = item;
       this.lista_info = item;
+      var tr = document.getElementById("" + item.num_comprobante + "");
+      tr.classList.add("table-warning");
       var x = document.getElementById("" + item.id + "");
       x.disabled = true;
       x.classList.add("active");
@@ -4922,11 +5002,14 @@ __webpack_require__.r(__webpack_exports__);
         id_ingreso: item.id
       }).then(function (response) {
         var totalc = 0;
+        var total_ctd = 0;
         lis.lista_detalles_ = response.data;
         response.data.forEach(function (element) {
           totalc += element.precio_comrpa * element.cantidad;
+          total_ctd += element.cantidad;
         });
         metotal.total_compra = totalc;
+        mecantd.total_cant_c = total_ctd;
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {}) //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
@@ -4998,14 +5081,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     num_comprob: function num_comprob(Val) {
-      if (Val == "") {
+      if (Val == "" && this.look_all == true) {
         this.listCompras();
+      }
+
+      if (Val == "" && this.look_all == false) {
+        this.compra_fecha(this.fecha_hoy);
       }
     },
     cambio: function cambio(newVal, oldVal) {
-      if (oldVal > 0) {
-        var x = document.getElementById("" + oldVal + "");
+      if (oldVal.id > 0) {
+        var x = document.getElementById("" + oldVal.id + "");
         x.classList.remove("active");
+        var tr = document.getElementById("" + oldVal.num_comprobante + "");
+        tr.classList.remove("table-warning");
       }
     },
     lista_compras: function lista_compras(val) {
@@ -5013,6 +5102,7 @@ __webpack_require__.r(__webpack_exports__);
       val.forEach(function (element) {
         total += element.total_compra;
       });
+      console.log(val.length);
       this.total_compra_ing = total.toLocaleString();
     },
     look_all: function look_all(Val) {
@@ -5023,6 +5113,7 @@ __webpack_require__.r(__webpack_exports__);
       dd = this.addZero(dd);
       mm = this.addZero(mm);
       var hoy = yyyy + "-" + mm + "-" + dd;
+      this.fecha_hoy = hoy;
 
       if (Val == false) {
         this.compra_fecha(hoy);
@@ -26209,7 +26300,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.small {\n  max-width: 800px;\n  /* max-height: 500px; */\n}\n", ""]);
+exports.push([module.i, "\n.small {\r\n  max-width: 800px;\r\n  /* max-height: 500px; */\n}\r\n", ""]);
 
 // exports
 
@@ -26777,28 +26868,6 @@ function unwrapListeners(arr) {
     ret[i] = arr[i].listener || arr[i];
   }
   return ret;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-buffer/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/is-buffer/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -87628,7 +87697,9 @@ var render = function() {
                                 ],
                                 1
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(3)
                           ])
                         ]
                       ),
@@ -87752,9 +87823,9 @@ var render = function() {
                         { staticClass: "table table-hover table-striped mb-0" },
                         [
                           _vm.cargando_2
-                            ? _c("section", [_vm._m(3)])
+                            ? _c("section", [_vm._m(4)])
                             : _c("section", [
-                                _vm._m(4),
+                                _vm._m(5),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -87763,7 +87834,8 @@ var render = function() {
                                       "tr",
                                       {
                                         key: item.id,
-                                        staticClass: "animated fadeIn"
+                                        staticClass: "animated fadeIn",
+                                        attrs: { id: item.id }
                                       },
                                       [
                                         _c("td", {
@@ -87816,16 +87888,11 @@ var render = function() {
                                                 "btn btn-primary btn-sm",
                                               attrs: {
                                                 type: "button",
-                                                id: item.id
+                                                id: item.num_comprobante
                                               },
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.informacion(
-                                                    item.num_comprobante,
-                                                    item.created_at,
-                                                    item.total_venta,
-                                                    item.name
-                                                  )
+                                                  return _vm.informacion(item)
                                                 }
                                               }
                                             },
@@ -87854,9 +87921,15 @@ var render = function() {
                     "div",
                     { staticClass: "d-flex justify-content-between mb-4" },
                     [
-                      _c("p", [_vm._v("Resumen de las ventas generadas")]),
+                      _c("p", [_vm._v("Resumen de ventas generadas")]),
                       _vm._v(" "),
-                      _c("p"),
+                      _c("h5", {
+                        domProps: {
+                          textContent: _vm._s(
+                            "cantidad de ventas: " + _vm.cantidad_v
+                          )
+                        }
+                      }),
                       _vm._v(" "),
                       _c("h5", {
                         domProps: {
@@ -87882,7 +87955,7 @@ var render = function() {
                       },
                       [
                         _vm.cargando
-                          ? _c("section", [_vm._m(5)])
+                          ? _c("section", [_vm._m(6)])
                           : _c("section", [
                               _c(
                                 "div",
@@ -87945,13 +88018,13 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _vm._m(6),
+                              _vm._m(7),
                               _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "card card-cascade narrower" },
                                 [
-                                  _vm._m(7),
+                                  _vm._m(8),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "px-4" }, [
                                     _c(
@@ -87984,7 +88057,7 @@ var render = function() {
                                                         "table table-hover mb-0"
                                                     },
                                                     [
-                                                      _vm._m(8),
+                                                      _vm._m(9),
                                                       _vm._v(" "),
                                                       _c(
                                                         "tbody",
@@ -88064,11 +88137,16 @@ var render = function() {
                                               "d-flex justify-content-between mb-4"
                                           },
                                           [
-                                            _c("p", [
-                                              _vm._v("3% Precipitation")
-                                            ]),
+                                            _c("h5", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  "cantidad articulos vendidos: " +
+                                                    _vm.cant_v
+                                                )
+                                              }
+                                            }),
                                             _vm._v(" "),
-                                            _vm._m(9),
+                                            _vm._m(10),
                                             _vm._v(" "),
                                             _c("h5", {
                                               domProps: {
@@ -88097,7 +88175,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(10)
+    _vm._m(11)
   ])
 }
 var staticRenderFns = [
@@ -88153,6 +88231,32 @@ var staticRenderFns = [
         [_vm._v("ver ventas por mes")]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "form-group col-md-2", attrs: { id: "provedorN" } },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#modalNuevo"
+            }
+          },
+          [
+            _c("i", { staticClass: "icon-plus" }),
+            _vm._v(" Nuevo Provedor\n                        ")
+          ]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -92107,7 +92211,17 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _vm._m(2)
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: { click: _vm.filtrar_mes_c }
+                                },
+                                [
+                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _vm._v(" Mes\n                        ")
+                                ]
+                              )
                             ])
                           ])
                         ]
@@ -92126,9 +92240,9 @@ var render = function() {
                         { staticClass: "table table-hover table-striped mb-0" },
                         [
                           _vm.cargando_2
-                            ? _c("section", [_vm._m(3)])
+                            ? _c("section", [_vm._m(2)])
                             : _c("section", [
-                                _vm._m(4),
+                                _vm._m(3),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -92137,7 +92251,8 @@ var render = function() {
                                       "tr",
                                       {
                                         key: item.id,
-                                        staticClass: "animated fadeIn"
+                                        staticClass: "animated fadeIn",
+                                        attrs: { id: item.num_comprobante }
                                       },
                                       [
                                         _c("td", {
@@ -92306,16 +92421,16 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(5),
+                        _vm._m(4),
                         _vm._v(" "),
                         _vm.cargando
-                          ? _c("section", [_vm._m(6)])
+                          ? _c("section", [_vm._m(5)])
                           : _c("section", [
                               _c(
                                 "div",
                                 { staticClass: "card card-cascade narrower" },
                                 [
-                                  _vm._m(7),
+                                  _vm._m(6),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -92355,7 +92470,7 @@ var render = function() {
                                                           "table table-hover mb-0 animated fadeIn"
                                                       },
                                                       [
-                                                        _vm._m(8),
+                                                        _vm._m(7),
                                                         _vm._v(" "),
                                                         _c(
                                                           "tbody",
@@ -92443,16 +92558,21 @@ var render = function() {
                                                 "d-flex justify-content-between mb-4"
                                             },
                                             [
-                                              _c("p", [
-                                                _vm._v("3% Precipitation")
-                                              ]),
+                                              _c("h5", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    "Cantidad articulos: " +
+                                                      _vm.total_cant_c
+                                                  )
+                                                }
+                                              }),
                                               _vm._v(" "),
-                                              _vm._m(9),
+                                              _vm._m(8),
                                               _vm._v(" "),
                                               _c("h5", {
                                                 domProps: {
                                                   textContent: _vm._s(
-                                                    "Total compra : " +
+                                                    "Total compra : $" +
                                                       _vm.total_compra.toLocaleString()
                                                   )
                                                 }
@@ -92477,7 +92597,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(10)
+    _vm._m(9)
   ])
 }
 var staticRenderFns = [
@@ -92556,15 +92676,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-primary" }, [
-      _c("i", { staticClass: "fa fa-search" }),
-      _vm._v(" Mes\n                        ")
-    ])
   },
   function() {
     var _vm = this
@@ -111048,7 +111159,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/felipe/Escritorio/proyecto/AsocSotf/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\AsocSotf\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

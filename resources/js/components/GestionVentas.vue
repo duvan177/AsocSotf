@@ -83,6 +83,16 @@
                             />
                           </div>
                         </div>
+                        <div id="provedorN" class="form-group col-md-2" style>
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-toggle="modal"
+                            data-target="#modalNuevo"
+                          >
+                            <i class="icon-plus"></i>&nbsp;Nuevo Provedor
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -148,7 +158,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="animated fadeIn" v-for="item in ventas" :key="item.id">
+                          <tr
+                            v-bind:id="item.id"
+                            class="animated fadeIn"
+                            v-for="item in ventas"
+                            :key="item.id"
+                          >
                             <td v-text="item.num_comprobante"></td>
                             <td v-text="item.nombre"></td>
                             <td v-text="item.Comprobante"></td>
@@ -157,9 +172,9 @@
                             <td v-text="item.created_at"></td>
                             <td>
                               <button
-                                v-on:click="informacion( item.num_comprobante, item.created_at,item.total_venta,item.name)"
+                                v-on:click="informacion(item)"
                                 type="button"
-                                :id="item.id"
+                                :id="item.num_comprobante"
                                 class="btn btn-primary btn-sm"
                               >
                                 <i class="icon-info"></i> ver +
@@ -171,8 +186,8 @@
                     </table>
                   </div>
                   <div class="d-flex justify-content-between mb-4">
-                    <p>Resumen de las ventas generadas</p>
-                    <p></p>
+                    <p>Resumen de ventas generadas</p>
+                    <h5 v-text="'cantidad de ventas: '+cantidad_v"></h5>
 
                     <h5 v-text="'Total Ventas: $'+ total_venta"></h5>
                   </div>
@@ -280,7 +295,7 @@
                               </div>
                               <!--Table-->
                               <div class="d-flex justify-content-between mb-4">
-                                <p>3% Precipitation</p>
+                                <h5 v-text="'cantidad articulos vendidos: '+cant_v"></h5>
                                 <p>
                                   <img src="img/venta_detalle.png" alt />
                                 </p>
@@ -431,7 +446,10 @@ export default {
       form: {
         date2: ""
       },
-      fecha_consul: ""
+      fecha_consul: "",
+      cantidad_v: "",
+      tr_table: "",
+      cant_v: 0
     };
   },
   methods: {
@@ -534,11 +552,17 @@ export default {
       });*/
     },
 
-    informacion(dato, fecha, total_pagar, nombreUser) {
-      this.numeroComprobante = dato;
-      this.fechaVenta = fecha;
-      this.Total_pagar_detalle = total_pagar.toLocaleString();
-      this.nombreUserVenta = nombreUser;
+    informacion(item) {
+      this.numeroComprobante = item.num_comprobante;
+      this.fechaVenta = item.created_at;
+      this.Total_pagar_detalle = item.total_venta.toLocaleString();
+      this.nombreUserVenta = item.name;
+      this.tr_table = item.id;
+
+      var x = document.getElementById("" + item.num_comprobante + "");
+      x.classList.add("active");
+      var tr = document.getElementById("" + item.id + "");
+      tr.classList.add("table-warning");
     },
 
     getVentas_x() {
@@ -601,6 +625,10 @@ export default {
   watch: {
     numeroComprobante: function(newVal, oldVal) {
       this.getDetalle_ventas(newVal);
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("active");
+      }
     },
 
     venta_detalle: function(val) {
@@ -608,19 +636,38 @@ export default {
         this.getVentas_x();
       }
     },
+    fecha_consul: function(Val) {
+      if (Val == "") {
+        this.getVentas_x();
+      }
+    },
 
     ventas: function(val) {
       let total_venta = 0;
+
       val.forEach(element => {
         total_venta += element.total_venta;
       });
-
+      let contar = val.length;
       this.total_venta = Number(total_venta).toLocaleString();
-
-      console.log(Number(total_venta).toLocaleString());
+      this.cantidad_v = contar;
+      console.log(contar);
     },
     ver: function(val) {
       this.getVentas_x();
+    },
+    tr_table: function(newVal, oldVal) {
+      if (oldVal > 0) {
+        var x = document.getElementById("" + oldVal + "");
+        x.classList.remove("table-warning");
+      }
+    },
+    detalles: function(Val) {
+      let cant = 0;
+      Val.forEach(element => {
+        cant += element.cantidad;
+      });
+      console.log(cant);
     }
   }
 };

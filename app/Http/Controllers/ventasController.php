@@ -171,7 +171,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
             ->whereDate('venta.created_at',$day)
             ->orderby('venta.id','desc')
             ->get();
@@ -182,7 +182,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
             ->orderby('venta.id','desc')
             ->get();
             return response()->json($data);
@@ -195,7 +195,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
             ->where('venta.num_comprobante','LIKE',"%$num_comprob%")
 
             ->orderby('venta.id','desc')
@@ -286,6 +286,11 @@ $printer->close();
 
 
         }
+
+
+
+
+
 
 
 }
