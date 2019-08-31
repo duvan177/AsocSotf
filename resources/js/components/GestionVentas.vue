@@ -84,13 +84,8 @@
                           </div>
                         </div>
                         <div id="provedorN" class="form-group col-md-2" style>
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-toggle="modal"
-                            data-target="#modalNuevo"
-                          >
-                            <i class="icon-plus"></i>&nbsp;Nuevo Provedor
+                          <button type="button" class="btn btn-secondary" v-on:click="modal_">
+                            <i class="icon-plus"></i>&nbsp;Modal
                           </button>
                         </div>
                       </div>
@@ -451,8 +446,12 @@ export default {
       tr_table: "",
       cant_v: 0
     };
-  },
+  },    
   methods: {
+    modal_() {
+      var x = document.getElementById("modalNuevo");
+      x.modal("show");
+    },
     filtrar_mes() {
       this.cargando_2 = true;
       let meventa = this;

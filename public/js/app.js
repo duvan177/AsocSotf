@@ -2110,11 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -2178,6 +2173,10 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
     };
   },
   methods: {
+    modal_: function modal_() {
+      var x = document.getElementById("modalNuevo");
+      x.modal("show");
+    },
     filtrar_mes: function filtrar_mes() {
       var _this = this;
 
@@ -87699,7 +87698,27 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _vm._m(3)
+                            _c(
+                              "div",
+                              {
+                                staticClass: "form-group col-md-2",
+                                attrs: { id: "provedorN" }
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    attrs: { type: "button" },
+                                    on: { click: _vm.modal_ }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "icon-plus" }),
+                                    _vm._v(" Modal\n                        ")
+                                  ]
+                                )
+                              ]
+                            )
                           ])
                         ]
                       ),
@@ -87823,9 +87842,9 @@ var render = function() {
                         { staticClass: "table table-hover table-striped mb-0" },
                         [
                           _vm.cargando_2
-                            ? _c("section", [_vm._m(4)])
+                            ? _c("section", [_vm._m(3)])
                             : _c("section", [
-                                _vm._m(5),
+                                _vm._m(4),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -87955,7 +87974,7 @@ var render = function() {
                       },
                       [
                         _vm.cargando
-                          ? _c("section", [_vm._m(6)])
+                          ? _c("section", [_vm._m(5)])
                           : _c("section", [
                               _c(
                                 "div",
@@ -88018,13 +88037,13 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _vm._m(7),
+                              _vm._m(6),
                               _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "card card-cascade narrower" },
                                 [
-                                  _vm._m(8),
+                                  _vm._m(7),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "px-4" }, [
                                     _c(
@@ -88057,7 +88076,7 @@ var render = function() {
                                                         "table table-hover mb-0"
                                                     },
                                                     [
-                                                      _vm._m(9),
+                                                      _vm._m(8),
                                                       _vm._v(" "),
                                                       _c(
                                                         "tbody",
@@ -88146,7 +88165,7 @@ var render = function() {
                                               }
                                             }),
                                             _vm._v(" "),
-                                            _vm._m(10),
+                                            _vm._m(9),
                                             _vm._v(" "),
                                             _c("h5", {
                                               domProps: {
@@ -88175,7 +88194,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(11)
+    _vm._m(10)
   ])
 }
 var staticRenderFns = [
@@ -88231,32 +88250,6 @@ var staticRenderFns = [
         [_vm._v("ver ventas por mes")]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "form-group col-md-2", attrs: { id: "provedorN" } },
-      [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-secondary",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#modalNuevo"
-            }
-          },
-          [
-            _c("i", { staticClass: "icon-plus" }),
-            _vm._v(" Nuevo Provedor\n                        ")
-          ]
-        )
-      ]
-    )
   },
   function() {
     var _vm = this
