@@ -97,14 +97,14 @@
 
         <template v-if="menu == 1">
 
-                <categoria></categoria>
+                <categoria :username={{Auth::user()->id}}></categoria>
 
         <!--GESTION -->
         </template>
 
         <template v-if="menu == 2">
 
-        <art></art>
+        <art :username={{Auth::user()->id}}></art>
 
         </template>
         <template v-if="menu == 3">

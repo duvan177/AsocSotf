@@ -101,7 +101,8 @@ Route::post('datos_ventas_compras','EscritorioController@datos_real');
 //Graficos
 Route::post('detalleing','Controllergrafico@detalleingGrafico');
 Route::post('detalleven','Controllergrafico@detallevenGrafico');
-
+//permisos
+Route::post('getDataPermise','controllerPermisospantalla@getDataPermise');
 
 
 
