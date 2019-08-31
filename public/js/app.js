@@ -5400,7 +5400,215 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-<<<<<<< HEAD
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5748,8 +5956,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LineChart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LineChart.js */ "./resources/js/components/LineChart.js");
-=======
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
 //
 //
 //
@@ -5773,7 +5979,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 
  //import LineChartMeses from "./LineChart.js";
 
@@ -6013,355 +6218,12 @@ __webpack_require__.r(__webpack_exports__);
         datasets: [{
           label: "Ventas",
           data: [this.eneroven, this.febven, this.marven, this.abrven, this.mayven, this.junven, this.julven, this.agoven, this.septven, this.octven, this.novven, this.dicven],
-=======
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      seleccionar: "selec...",
-      consulta: [],
-      consultaFact: false,
-      loading: true,
-      nombre_usuario: "",
-      contraseña: "",
-      correo: "",
-      nombre: "",
-      apellido: "",
-      rol: 0,
-      id: 0,
-      nombre_usuario_editar: "",
-      contraseña_editar: "",
-      correo_editar: "",
-      nombre_editar: "",
-      apellido_editar: "",
-      rol_editar: 0,
-      id_user: this.username
-    };
-  },
-  props: ["username"],
-  methods: {
-    Editarusuario: function Editarusuario() {
-      var _this = this;
-
-      console.log(this.id);
-      axios.post("api/editarusuario", {
-        id: this.id,
-        nombre_usuario: this.nombre_usuario_editar,
-        contraseña: this.contraseña_editar,
-        correo: this.correo_editar,
-        nombre: this.nombre_editar,
-        apellido: this.apellido_editar,
-        rol: this.rol_editar
-      }).then(function (response) {
-        _this.addUsuario();
-      });
-    },
-    guardarUsuario: function guardarUsuario() {
-      var _this2 = this;
-
-      var iden = this.identificacion;
-      axios.post("api/guardarusuario", _defineProperty({
-        contraseña: this.contraseña,
-        correo: this.correo,
-        nombre: this.nombre,
-        apellido: this.apellido,
-        rol: this.rol
-      }, "contrase\xF1a", this.contraseña)).then(function (response) {
-        _this2.contraseña = "";
-        _this2.correo = "";
-        _this2.nombre = "";
-        _this2.apellido = "";
-        _this2.rol = 0;
-
-        _this2.addUsuario();
-      });
-    },
-    limpiar: function limpiar() {
-      this.nombre_usuario = "";
-      this.contraseña = "";
-      this.correo = "";
-      this.nombre = "";
-      this.apellido = "";
-      this.rol = 0;
-    },
-
-    /* seleccion(){
-         let categoria = this.categoria;
-          let sub = categoria.substring(0,1);
-          this.selec= sub;
-         },*/
-    addUsuario: function addUsuario() {
-      var meconsulta = this;
-      axios.post("api/usuario").then(function (response) {
-        meconsulta.consulta = response.data;
-      });
-    },
-    traerUsuarioEditar: function traerUsuarioEditar(consul) {
-      this.nombre_usuario_editar = consul.name;
-      this.contraseña_editar = consul.password;
-      this.correo_editar = consul.email;
-      this.nombre_editar = consul.nombre_user;
-      this.apellido_editar = consul.apellido_user;
-      this.rol_editar = consul.rol_user;
-      this.id = consul.id; //console.log(this.id);
-    },
-    eliminarUsuario: function eliminarUsuario(consul) {
-      var _this3 = this;
-
-      //let id = this.id;
-      console.log(consul.id);
-      axios.post("api/eliminarUsuario", {
-        id: consul.id
-      }).then(function (response) {
-        _this3.addUsuario();
-      });
-    }
-  },
-  created: function created() {},
-  mounted: function mounted() {
-    this.addUsuario();
-  } //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
-
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/graficos.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/graficos.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LineChart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LineChart.js */ "./resources/js/components/LineChart.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    LineChart: _LineChart_js__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {
-      datacollection: null
-    };
-  },
-  mounted: function mounted() {
-    this.fillData();
-  },
-  methods: {
-    fillData: function fillData() {
-      this.datacollection = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-          label: "Ventas",
-          data: [65, 59, 80, 81, 56, 55, 40],
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
           backgroundColor: ["rgba(105, 0, 132, .2)"],
           borderColor: ["rgba(200, 99, 132, .7)"],
           borderWidth: 2
         }, {
           label: "Compras",
-<<<<<<< HEAD
           data: [this.enecomp, this.febcomp, this.marcomp, this.abrcomp, this.maycomp, this.juncomp, this.julcomp, this.agocomp, this.septcomp, this.octcomp, this.novcomp, this.diccomp],
-=======
-          data: [28, 48, 40, 19, 86, 27, 90],
->>>>>>> e3222469459f16a483b0a83c687184f1517dba75
           backgroundColor: ["rgba(0, 137, 132, .2)"],
           borderColor: ["rgba(0, 10, 130, .7)"],
           borderWidth: 2
