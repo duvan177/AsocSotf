@@ -1384,7 +1384,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1684,28 +1684,6 @@ module.exports = {
   extend: extend,
   trim: trim
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
 
 
 /***/ }),
@@ -2840,6 +2818,289 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2850,6 +3111,8 @@ __webpack_require__.r(__webpack_exports__);
       num: [],
       consulcat: [],
       consulest: [],
+      articulosPre: [],
+      articulosSin: [],
       codigo: "",
       nombre: "",
       stock: 0,
@@ -2864,12 +3127,38 @@ __webpack_require__.r(__webpack_exports__);
       selecEditar: 0,
       estadoEditar: 0,
       categoriaEditar: "",
-      id: 0
+      id: 0,
+      respuesta: "",
+      error: "",
+      userid: this.username,
+      rol: 0,
+      rol2: []
     };
   },
+  props: ["username"],
   methods: {
-    EditarArticulo: function EditarArticulo() {
+    asignarId: function asignarId() {
       var _this = this;
+
+      var consultaCate = this;
+      console.log(this.username);
+      axios.post("api/getDataPermise", {
+        id: this.userid
+      }).then(function (response) {
+        consultaCate.rol2 = response.data;
+        console.log(consultaCate.rol2[0].id_rol);
+        var rol = consultaCate.rol2[0].id_rol; //console.log(this.rol);
+
+        _this.prueba(rol);
+      });
+      console.log("si");
+    },
+    prueba: function prueba(rol) {
+      this.rol = rol;
+      console.log(this.rol);
+    },
+    EditarArticulo: function EditarArticulo() {
+      var _this2 = this;
 
       var consulta2 = this;
       var codigoEditar = this.codigoEditar;
@@ -2889,17 +3178,17 @@ __webpack_require__.r(__webpack_exports__);
         descripcionEditar: this.descripcionEditar,
         estadoEditar: this.estadoEditar
       }).then(function (response) {
-        _this.addArticulo();
+        _this2.addArticulo();
 
-        _this.respuesta = "Edito";
+        _this2.respuesta = "Edito";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this.error = error.response;
+        _this2.error = error.response;
         $("#error").modal("show");
       });
     },
     guardarArticulo: function guardarArticulo() {
-      var _this2 = this;
+      var _this3 = this;
 
       var consulta2 = this;
       var codigo = this.codigo;
@@ -2919,18 +3208,18 @@ __webpack_require__.r(__webpack_exports__);
         descripcion: this.descripcion,
         estado: this.estado
       }).then(function (response) {
-        _this2.addArticulo();
+        _this3.addArticulo();
 
-        _this2.categoria = "";
-        _this2.codigo = "";
-        _this2.nombre = "";
-        _this2.stock = 0;
-        _this2.descripcion = "";
-        _this2.estado = 0;
-        _this2.respuesta = "Guardo";
+        _this3.categoria = "";
+        _this3.codigo = "";
+        _this3.nombre = "";
+        _this3.stock = 0;
+        _this3.descripcion = "";
+        _this3.estado = 0;
+        _this3.respuesta = "Guardo";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this2.error = error.response;
+        _this3.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -2952,13 +3241,25 @@ __webpack_require__.r(__webpack_exports__);
     this.selec= sub;
     },*/
     addArticulo: function addArticulo() {
-      var _this3 = this;
+      var _this4 = this;
 
       var meconsulta = this;
       axios.post("api/articulo").then(function (response) {
         meconsulta.consulta = response.data;
+
+        for (var index = 0; index < meconsulta.consulta.length; index++) {
+          if (meconsulta.consulta[index].items_null_c == null) {
+            console.log("entro");
+            meconsulta.articulosPre[index] = meconsulta.consulta[index];
+          } else {
+            meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
+          }
+        }
+
+        console.log(meconsulta.articulosSin);
+        console.log(meconsulta.articulosPre); //console.log(meconsulta.consulta[6].items_null_c);
       })["catch"](function (error) {
-        _this3.error = error.response;
+        _this4.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -2971,7 +3272,7 @@ __webpack_require__.r(__webpack_exports__);
     addestado: function addestado() {
       var consultaEstad = this;
       axios.post("api/estado").then(function (response) {
-        consultaEstad.consulest = response.data;
+        consultaEstad.consulest = response.data; // console.log(consultaEstad.consulest);
       });
     },
     traerArticuloEditar: function traerArticuloEditar(consul) {
@@ -2984,19 +3285,19 @@ __webpack_require__.r(__webpack_exports__);
       this.id = consul.id;
     },
     eliminarArticulo: function eliminarArticulo() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.post("api/eliminarArticulo", {
         id: this.id
       }).then(function (response) {
-        _this4.addArticulo();
+        _this5.addArticulo();
 
-        _this4.limpiar();
+        _this5.limpiar();
 
-        _this4.respuesta = "Elimino";
+        _this5.respuesta = "Elimino";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this4.error = error.response;
+        _this5.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -3071,6 +3372,90 @@ __webpack_require__.r(__webpack_exports__);
       tr = table.getElementsByTagName("tr");
 
       for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[7];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction5: function myFunction5() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda5");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction6: function myFunction6() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda6");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction7: function myFunction7() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda7");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    },
+    myFunction8: function myFunction8() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda8");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[5];
 
         if (td) {
@@ -3087,6 +3472,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   mounted: function mounted() {
+    this.asignarId();
     this.addArticulo();
     this.addcategoria();
     this.addestado();
@@ -3409,6 +3795,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3426,12 +3879,36 @@ __webpack_require__.r(__webpack_exports__);
       id: 0,
       nombre: "",
       respuesta: "",
-      error: ""
+      error: "",
+      userid: this.username,
+      rol: 0,
+      rol2: []
     };
   },
+  props: ["username"],
   methods: {
-    EditarCategoria: function EditarCategoria() {
+    asignarId: function asignarId() {
       var _this = this;
+
+      var consultaCate = this;
+      console.log(this.username);
+      axios.post("api/getDataPermise", {
+        id: this.userid
+      }).then(function (response) {
+        consultaCate.rol2 = response.data;
+        console.log(consultaCate.rol2[0].id_rol);
+        var rol = consultaCate.rol2[0].id_rol; //console.log(this.rol);
+
+        _this.prueba(rol);
+      });
+      console.log("si");
+    },
+    prueba: function prueba(rol) {
+      this.rol = rol;
+      console.log(this.rol);
+    },
+    EditarCategoria: function EditarCategoria() {
+      var _this2 = this;
 
       var consulta2 = this;
       var nombre_categoria_Editar = this.nombre_categoria_Editar;
@@ -3444,18 +3921,18 @@ __webpack_require__.r(__webpack_exports__);
         nombre_categoria_Editar: this.nombre_categoria_Editar,
         descripcion_categoria_Editar: this.descripcion_categoria_Editar
       }).then(function (response) {
-        _this.addCategoria();
+        _this2.addCategoria();
 
-        _this.respuesta = "Edito";
-        _this.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
+        _this2.respuesta = "Edito";
+        _this2.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this.error = error.response;
+        _this2.error = error.response;
         $("#error").modal("show");
       });
     },
     guardarCategoria: function guardarCategoria() {
-      var _this2 = this;
+      var _this3 = this;
 
       var consulta2 = this;
       var nombre_categoria = this.nombre_categoria;
@@ -3464,15 +3941,15 @@ __webpack_require__.r(__webpack_exports__);
         nombre_categoria: this.nombre_categoria,
         descripcion_categoria: this.descripcion_categoria
       }).then(function (response) {
-        _this2.nombre_categoria = "";
-        _this2.descripcion_categoria = "";
+        _this3.nombre_categoria = "";
+        _this3.descripcion_categoria = "";
 
-        _this2.addCategoria();
+        _this3.addCategoria();
 
-        _this2.respuesta = "guardo";
+        _this3.respuesta = "guardo";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this2.error = error.response;
+        _this3.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -3490,13 +3967,13 @@ __webpack_require__.r(__webpack_exports__);
     this.selec= sub;
     },*/
     addCategoria: function addCategoria() {
-      var _this3 = this;
+      var _this4 = this;
 
       var meconsulta = this;
       axios.post("api/categoria").then(function (response) {
         meconsulta.consulta = response.data;
       })["catch"](function (error) {
-        _this3.error = error.response;
+        _this4.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -3507,20 +3984,20 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.id);
     },
     eliminarCategoria: function eliminarCategoria() {
-      var _this4 = this;
+      var _this5 = this;
 
       //let id = this.id;
       //console.log(consul.id);
       axios.post("api/eliminarCategoria", {
         id: this.id
       }).then(function (response) {
-        _this4.addCategoria();
+        _this5.addCategoria();
 
-        _this4.respuesta = "Elimino";
-        _this4.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
+        _this5.respuesta = "Elimino";
+        _this5.respuesta2 = ", recuerde que al editar o eliminar una categoria" + " puede afectar un articulo o varios";
         $("#respuesta").modal("show");
       })["catch"](function (error) {
-        _this4.error = error.response;
+        _this5.error = error.response;
         $("#error").modal("show");
       });
     },
@@ -3569,6 +4046,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   mounted: function mounted() {
+    this.asignarId();
     this.addCategoria();
   } //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
 
@@ -26300,7 +26778,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.small {\r\n  max-width: 800px;\r\n  /* max-height: 500px; */\n}\r\n", ""]);
+exports.push([module.i, "\n.small {\n  max-width: 800px;\n  /* max-height: 500px; */\n}\n", ""]);
 
 // exports
 
@@ -26868,6 +27346,28 @@ function unwrapListeners(arr) {
     ret[i] = arr[i].listener || arr[i];
   }
   return ret;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-buffer/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -88537,178 +89037,546 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("form", { staticClass: "form-inline my-2 my-lg-0 md-2" }, [
-            _c("input", {
-              staticClass: "form-control mr-sm-2",
-              attrs: {
-                type: "text",
-                placeholder: "Codigo",
-                id: "busqueda",
-                "aria-label": "Search"
-              },
-              on: {
-                keyup: function($event) {
-                  return _vm.myFunction()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control mr-sm-2",
-              attrs: {
-                type: "text",
-                placeholder: "Nombre",
-                id: "busqueda2",
-                "aria-label": "Search"
-              },
-              on: {
-                keyup: function($event) {
-                  return _vm.myFunction2()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control mr-sm-2",
-              attrs: {
-                type: "text",
-                placeholder: "Stock",
-                id: "busqueda3",
-                "aria-label": "Search"
-              },
-              on: {
-                keyup: function($event) {
-                  return _vm.myFunction3()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control mr-sm-2",
-              attrs: {
-                type: "text",
-                placeholder: "Estado",
-                id: "busqueda4",
-                "aria-label": "Search"
-              },
-              on: {
-                keyup: function($event) {
-                  return _vm.myFunction4()
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "container-fluid" }, [
-              _c("div", { staticClass: "table-responsive" }, [
-                _c("table", { staticClass: "table table table-striped" }, [
-                  _c("caption", [_vm._v("Lista Articulos")]),
+          _c("form", [
+            _c("div", { staticClass: "form-inline my-2 my-lg-0 md-4" }, [
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("input", {
+                    staticClass: "form-control mr-sm-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Codigo",
+                      id: "busqueda",
+                      "aria-label": "Search"
+                    },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.myFunction()
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _c("input", {
+                    staticClass: "form-control mr-sm-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Nombre",
+                      id: "busqueda2",
+                      "aria-label": "Search"
+                    },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.myFunction2()
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _c(
-                    "tbody",
-                    { attrs: { id: "myTable" } },
-                    _vm._l(_vm.consulta, function(consul) {
-                      return _c(
-                        "tr",
-                        { key: consul.id, staticClass: "animated fadeIn" },
-                        [
-                          _c("td", { attrs: { scope: "row" } }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(consul.codigo) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(consul.nombre) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(consul.stock))]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(consul.descripcion)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(consul.estado_articulo)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            consul.stock <= 5
-                              ? _c("div", [
-                                  _c("img", {
-                                    staticStyle: { position: "relative" },
-                                    attrs: {
-                                      src: "img/advertencia.png",
-                                      height: "20"
-                                    }
-                                  })
-                                ])
-                              : consul.stock > 5
-                              ? _c("div", [
-                                  _c("img", {
-                                    staticStyle: { position: "relative" },
-                                    attrs: {
-                                      src: "img/signo_acepto.png",
-                                      height: "20"
-                                    }
-                                  })
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
+                  _c("input", {
+                    staticClass: "form-control mr-sm-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Stock",
+                      id: "busqueda3",
+                      "aria-label": "Search"
+                    },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.myFunction3()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control mr-sm-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Estado",
+                      id: "busqueda4",
+                      "aria-label": "Search"
+                    },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.myFunction4()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "container-fluid" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table table table-striped",
+                            attrs: { id: "myTable" }
+                          },
+                          [
+                            _c("caption", [_vm._v("Lista Articulos Precio")]),
+                            _vm._v(" "),
+                            _vm._m(1),
+                            _vm._v(" "),
                             _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#dialogoPreguntar"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.traerArticuloEditar(consul)
-                                  }
-                                }
-                              },
-                              [_vm._v("Editar")]
+                              "tbody",
+                              _vm._l(_vm.articulosPre, function(consul) {
+                                return _c(
+                                  "tr",
+                                  {
+                                    key: consul.id,
+                                    staticClass: "animated fadeIn"
+                                  },
+                                  [
+                                    _c("td", { attrs: { scope: "row" } }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.codigo)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.nombre)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(consul.stock))]),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.descripcion)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          consul.precio_comrpa
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.precio_venta)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      consul.stock == 0
+                                        ? _c("div", [
+                                            _vm._v(
+                                              "\n   " +
+                                                _vm._s(consul.estado_articulo) +
+                                                " - Agotado\n   "
+                                            )
+                                          ])
+                                        : consul.stock > 0
+                                        ? _c("div", [
+                                            _vm._v(
+                                              "\n" +
+                                                _vm._s(consul.estado_articulo) +
+                                                "\n\n"
+                                            )
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      consul.stock <= 5 && consul.stock > 0
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/advertencia.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : consul.stock > 5
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/signo_acepto.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : consul.stock == 0
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/advertencia1.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.rol == 1
+                                      ? _c("div", [
+                                          _c("td", [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "form-group col-md-4"
+                                              },
+                                              [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    attrs: {
+                                                      type: "button",
+                                                      "data-toggle": "modal",
+                                                      "data-target":
+                                                        "#dialogoPreguntar"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.preventDefault()
+                                                        return _vm.traerArticuloEditar(
+                                                          consul
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Editar")]
+                                                ),
+                                                _vm._v(
+                                                  " \n                   "
+                                                ),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-danger",
+                                                    staticStyle: {
+                                                      position: "relative",
+                                                      rigth: "200px"
+                                                    },
+                                                    attrs: {
+                                                      type: "button",
+                                                      "data-toggle": "modal",
+                                                      "data-target":
+                                                        "#dialogoEliminar"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.preventDefault()
+                                                        return _vm.traerArticuloid(
+                                                          consul
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Eliminar")]
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ])
+                                      : _vm.rol == 2
+                                      ? _c("div", [
+                                          _c("td", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                attrs: {
+                                                  type: "button",
+                                                  "data-toggle": "modal",
+                                                  "data-target": "#dialogoVer"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.traerArticuloEditar(
+                                                      consul
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Ver")]
+                                            )
+                                          ])
+                                        ])
+                                      : _vm._e()
+                                  ]
+                                )
+                              }),
+                              0
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#dialogoEliminar"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.traerArticuloid(consul)
-                                  }
-                                }
-                              },
-                              [_vm._v("Eliminar")]
-                            )
-                          ])
-                        ]
-                      )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("input", {
+                      staticClass: "form-control mr-sm-2",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Codigo",
+                        id: "busqueda5",
+                        "aria-label": "Search"
+                      },
+                      on: {
+                        keyup: function($event) {
+                          return _vm.myFunction5()
+                        }
+                      }
                     }),
-                    0
-                  )
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control mr-sm-2",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Nombre",
+                        id: "busqueda6",
+                        "aria-label": "Search"
+                      },
+                      on: {
+                        keyup: function($event) {
+                          return _vm.myFunction6()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control mr-sm-2",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Stock",
+                        id: "busqueda7",
+                        "aria-label": "Search"
+                      },
+                      on: {
+                        keyup: function($event) {
+                          return _vm.myFunction7()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control mr-sm-2",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Estado",
+                        id: "busqueda8",
+                        "aria-label": "Search"
+                      },
+                      on: {
+                        keyup: function($event) {
+                          return _vm.myFunction8()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "container-fluid" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table table table-striped",
+                            attrs: { id: "myTable2" }
+                          },
+                          [
+                            _c("caption", [_vm._v("Lista Articulos")]),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.articulosSin, function(consul) {
+                                return _c(
+                                  "tr",
+                                  {
+                                    key: consul.id,
+                                    staticClass: "animated fadeIn"
+                                  },
+                                  [
+                                    _c("td", { attrs: { scope: "row" } }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.codigo)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.nombre)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(consul.stock))]),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(consul.descripcion)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      consul.stock == 0
+                                        ? _c("div", [
+                                            _vm._v(
+                                              "\n   " +
+                                                _vm._s(consul.estado_articulo) +
+                                                " - Agotado\n   "
+                                            )
+                                          ])
+                                        : consul.stock > 0
+                                        ? _c("div", [
+                                            _vm._v(
+                                              "\n" +
+                                                _vm._s(consul.estado_articulo) +
+                                                "\n\n"
+                                            )
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      consul.stock <= 5 && consul.stock > 0
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/advertencia.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : consul.stock > 5
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/signo_acepto.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : consul.stock == 0
+                                        ? _c("div", [
+                                            _c("img", {
+                                              staticStyle: {
+                                                position: "relative"
+                                              },
+                                              attrs: {
+                                                src: "img/advertencia1.png",
+                                                height: "20"
+                                              }
+                                            })
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.rol == 1
+                                      ? _c("div", [
+                                          _c("td", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                attrs: {
+                                                  type: "button",
+                                                  "data-toggle": "modal",
+                                                  "data-target":
+                                                    "#dialogoPreguntar"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.traerArticuloEditar(
+                                                      consul
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Editar")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-danger",
+                                                attrs: {
+                                                  type: "button",
+                                                  "data-toggle": "modal",
+                                                  "data-target":
+                                                    "#dialogoEliminar"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.traerArticuloid(
+                                                      consul
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Eliminar")]
+                                            )
+                                          ])
+                                        ])
+                                      : _vm.rol == 2
+                                      ? _c("div", [
+                                          _c("td", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                attrs: {
+                                                  type: "button",
+                                                  "data-toggle": "modal",
+                                                  "data-target": "#dialogoVer"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.traerArticuloEditar(
+                                                      consul
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Ver")]
+                                            )
+                                          ])
+                                        ])
+                                      : _vm._e()
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
                 ])
               ])
             ])
@@ -88911,11 +89779,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Inactivo")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [
-                          _vm._v("Agotado")
+                          _vm._v("des-habilitado")
                         ])
                       ]
                     )
@@ -89068,7 +89932,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c("form", [
                 _c("div", { staticClass: "modal-body" }, [
@@ -89208,11 +90072,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Inactivo")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [
-                          _vm._v("Agotado")
+                          _vm._v("des-habilitado")
                         ])
                       ]
                     )
@@ -89440,6 +90300,343 @@ var render = function() {
     _c(
       "div",
       {
+        staticClass: "modal fade",
+        attrs: {
+          id: "dialogoVer",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("codigo")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.codigoEditar,
+                          expression: "codigoEditar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        disabled: "",
+                        type: "number",
+                        id: "formGroupExampleInput",
+                        placeholder: "codigo"
+                      },
+                      domProps: { value: _vm.codigoEditar },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.codigoEditar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Categoria")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoriaEditar,
+                            expression: "categoriaEditar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "", id: "categoria", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.categoriaEditar = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { disabled: "", value: "0" } }, [
+                          _vm._v("selecionar")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.consulcat, function(consul1) {
+                          return _c("option", {
+                            key: consul1.id,
+                            domProps: {
+                              value: consul1.id,
+                              textContent: _vm._s(consul1.nombre_categoria)
+                            }
+                          })
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Estado")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.estadoEditar,
+                            expression: "estadoEditar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          disabled: "",
+                          id: "exampleFormControlSelect1",
+                          required: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.estadoEditar = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { disabled: "", value: "0" } }, [
+                          _vm._v("seleccionar")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Activado")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("des-habilitado")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("Nombre Articulo")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombreEditar,
+                          expression: "nombreEditar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        disabled: "",
+                        type: "text",
+                        id: "formGroupExampleInput",
+                        placeholder: "Nombre Articulo"
+                      },
+                      domProps: { value: _vm.nombreEditar },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.nombreEditar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("stock")
+                    ]),
+                    _vm._v(" "),
+                    this.estadoEditar == 2 || this.estadoEditar == 3
+                      ? _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.stockEditar,
+                                expression: "stockEditar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "formGroupExampleInput",
+                              placeholder: "stock",
+                              value: "0",
+                              disabled: ""
+                            },
+                            domProps: { value: _vm.stockEditar },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.stockEditar = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      : this.estadoEditar == 1
+                      ? _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.stockEditar,
+                                expression: "stockEditar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              disabled: "",
+                              type: "number",
+                              id: "formGroupExampleInput",
+                              placeholder: "stock",
+                              required: ""
+                            },
+                            domProps: { value: _vm.stockEditar },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.stockEditar = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      : _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.stockEditar,
+                                expression: "stockEditar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "formGroupExampleInput",
+                              placeholder: "stock",
+                              value: "0",
+                              disabled: ""
+                            },
+                            domProps: { value: _vm.stockEditar },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.stockEditar = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("Descripcion")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.descripcionEditar,
+                          expression: "descripcionEditar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        disabled: "",
+                        type: "text",
+                        id: "formGroupExampleInput",
+                        placeholder: "Descripcion"
+                      },
+                      domProps: { value: _vm.descripcionEditar },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.descripcionEditar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
         staticClass: "modal",
         attrs: { tabindex: "-1", id: "error", role: "dialog" }
       },
@@ -89449,7 +90646,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [
@@ -89740,13 +90937,39 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Precio compra")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Precio Venta")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Alerta")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción  ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Eliminar")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Codigo")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Stock")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Alerta")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción")])
       ])
     ])
   },
@@ -89772,6 +90995,46 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Editar Articulo")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
       )
     ])
   },
@@ -89881,45 +91144,76 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                staticStyle: { width: "75 px" },
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#dialogoPreguntar"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.traerCategoriaEditar(consul)
-                                  }
-                                }
-                              },
-                              [_vm._v("Editar")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#dialogoEliminar"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.traerCategoriaid(consul)
-                                  }
-                                }
-                              },
-                              [_vm._v("Eliminar")]
-                            )
-                          ])
+                          _vm.rol == 1
+                            ? _c("div", [
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      staticStyle: { width: "75 px" },
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "modal",
+                                        "data-target": "#dialogoPreguntar"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.traerCategoriaEditar(
+                                            consul
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Editar")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "modal",
+                                        "data-target": "#dialogoEliminar"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.traerCategoriaid(consul)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Eliminar")]
+                                  )
+                                ])
+                              ])
+                            : _vm.rol == 2
+                            ? _c("div", [
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "modal",
+                                        "data-target": "#dialogoVer"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.traerCategoriaEditar(
+                                            consul
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Ver")]
+                                  )
+                                ])
+                              ])
+                            : _vm._e()
                         ]
                       )
                     }),
@@ -90258,6 +91552,103 @@ var render = function() {
     _c(
       "div",
       {
+        staticClass: "modal fade",
+        attrs: {
+          id: "dialogoVer",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("Nombre Categoria")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombre_categoria_Editar,
+                          expression: "nombre_categoria_Editar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        disabled: "",
+                        type: "text",
+                        id: "formGroupExampleInput",
+                        placeholder: "Nombre Articulo"
+                      },
+                      domProps: { value: _vm.nombre_categoria_Editar },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.nombre_categoria_Editar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "formGroupExampleInput" } }, [
+                      _vm._v("Descripcion Categoria")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.descripcion_categoria_Editar,
+                          expression: "descripcion_categoria_Editar"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        disabled: "",
+                        type: "text",
+                        id: "formGroupExampleInput",
+                        placeholder: "Descripcion"
+                      },
+                      domProps: { value: _vm.descripcion_categoria_Editar },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.descripcion_categoria_Editar = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
         staticClass: "modal",
         attrs: { tabindex: "-1", id: "error", role: "dialog" }
       },
@@ -90267,7 +91658,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [
@@ -90555,7 +91946,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción")])
       ])
     ])
   },
@@ -90581,6 +91972,46 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Editar Categoria")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
       )
     ])
   },
@@ -111159,7 +112590,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\AsocSotf\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/felipe/Escritorio/proyecto/AsocSotf/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -30,7 +30,7 @@
     <link href="css/plantilla.css" rel="stylesheet">
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden" onload="asignarId(username={{Auth::user()->id}})">
 <div id="app">
     <header class="app-header navbar">
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
@@ -128,7 +128,31 @@
 
        <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("js/plantilla.js")}}"></script>
+    <script>
+        let contenedor=[];
+            function asignarId(user){
+                var id_user = user;
+                var contenedor = [];
+                         axios.post("api/getDataPermise", {id: id_user}).then(response =>{
+                             console.log(response.data);
+                             contenedor=response.data;
+                         var numero=contenedor[0].id_rol;
+                         if(numero==2){
+                            document.getElementById("Usuarios").style.display = "none";
+                            var maestro= document.getElementById("Usuarios"); 
+                         padre = maestro.parentNode;
+        padre.removeChild(maestro);
+       
 
+                         }
+                         });  
+                         /*var nombre= document.getElementById("Maestro"); 
+                         padre = nombre.parentNode;
+		padre.removeChild(nombre);  */                    
+                         console.log(contenedor);
+                    }
+                    
+                    </script>
 
 </body>
 

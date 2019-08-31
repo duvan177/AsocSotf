@@ -41,7 +41,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripcion</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Acción</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -49,6 +49,7 @@
                     <th scope="row">{{consul.id}}</th>
                     <td v-text="consul.nombre_categoria"></td>
                     <td v-text="consul.descripcion_categoria"></td>
+                    <div v-if="rol==1">
                     <td>
                       <button
                         type="button"
@@ -67,6 +68,19 @@
                         v-on:click.prevent="traerCategoriaid(consul)"
                       >Eliminar</button>
                     </td>
+                    </div>
+                    <div v-else-if="rol==2">
+ <td>
+                   
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#dialogoVer"
+                    v-on:click.prevent="traerCategoriaEditar(consul)"
+                  >Ver</button>
+                </td>
+</div>
                   </tr>
                 </tbody>
               </table>
@@ -217,6 +231,59 @@
       </div>
     </div>
     <!-- fin del modal-->
+
+
+ <!-- Modal de editar articulos -->
+    <div
+      class="modal fade"
+      id="dialogoVer"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="formGroupExampleInput">Nombre Categoria</label>
+                <input disabled
+                  type="text"
+                  class="form-control"
+                  id="formGroupExampleInput"
+                  placeholder="Nombre Articulo"
+                  v-model="nombre_categoria_Editar"
+                />
+              </div>
+           
+              <div class="form-group">
+                <label for="formGroupExampleInput">Descripcion Categoria</label>
+                <input disabled
+                  type="text"
+                  class="form-control"
+                  id="formGroupExampleInput"
+                  v-model="descripcion_categoria_Editar"
+                  placeholder="Descripcion"
+                />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+               
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- fin del modal-->
+
     <!--Alerta -->
 <div class="modal" tabindex="-1" id="error" role="dialog">
   <div class="modal-dialog" role="document">
@@ -320,12 +387,30 @@ export default {
       id: 0,
       nombre:"",
       respuesta:"",
-      error:""
-
+      error:"",
+userid: this.username,
+      rol:0,
+      rol2:[]
     };
   },
-
+props:["username"],
   methods: {
+    asignarId(){
+      var consultaCate=this;
+      console.log(this.username);
+     axios.post("api/getDataPermise", {id: this.userid}).then(response=>{
+       consultaCate.rol2 = response.data;
+console.log(consultaCate.rol2[0].id_rol);
+var rol=consultaCate.rol2[0].id_rol;
+//console.log(this.rol);
+this.prueba(rol);
+     });
+     console.log("si");
+},prueba(rol){
+
+this.rol = rol;
+console.log(this.rol);
+},
     EditarCategoria() {
       let consulta2 = this;
       let nombre_categoria_Editar = this.nombre_categoria_Editar;
@@ -456,6 +541,7 @@ this.id=consul.id;
   },
   created() {},
   mounted() {
+    this.asignarId();
     this.addCategoria();
   }
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
