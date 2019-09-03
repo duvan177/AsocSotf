@@ -83,11 +83,6 @@
                             />
                           </div>
                         </div>
-                        <div id="provedorN" class="form-group col-md-2" style>
-                          <button type="button" class="btn btn-secondary" v-on:click="modal_">
-                            <i class="icon-plus"></i>&nbsp;Modal
-                          </button>
-                        </div>
                       </div>
                     </div>
                     <div
@@ -148,6 +143,7 @@
                             <th>Tipo Comprobane</th>
                             <th>Descuento</th>
                             <th>Total</th>
+                            <th>Rentabilidad</th>
                             <th>Fecha y hora</th>
                             <th>Opciones</th>
                           </tr>
@@ -162,8 +158,9 @@
                             <td v-text="item.num_comprobante"></td>
                             <td v-text="item.nombre"></td>
                             <td v-text="item.Comprobante"></td>
-                            <td v-text="item.descuento"></td>
+                            <td v-text="item.descuento.toLocaleString()"></td>
                             <td v-text="item.total_venta.toLocaleString()"></td>
+                            <td class="teal-text" v-text="'+ '+item.rentabilidad.toLocaleString()"></td>
                             <td v-text="item.created_at"></td>
                             <td>
                               <button
@@ -278,7 +275,7 @@
                                         :key="item.id"
                                       >
                                         <td v-text="index +1"></td>
-                                        <td v-text="item.articulo[0]['nombre']"></td>
+                                        <td v-text="item.nombre"></td>
                                         <td v-text="item.cantidad"></td>
                                         <td v-text="item.precio_venta"></td>
                                         <td v-text="item.precio_venta * item.cantidad"></td>
@@ -385,6 +382,7 @@ import Multiselect from "vue-multiselect";
 import Echo from "laravel-echo";
 import { EventEmitter } from "events";
 import { es } from "vuejs-datepicker/dist/locale";
+import { Carousel, Slide } from "vue-carousel";
 import Datepicker from "vuejs-datepicker";
 window.Pusher = require("pusher-js");
 
@@ -394,7 +392,7 @@ Vue.component("ToggleButton", ToggleButton);
 
 export default {
   // OR register locally
-  components: { Multiselect, Datepicker, ToggleButton },
+  components: { Multiselect, Datepicker, ToggleButton, Carousel, Slide },
   data() {
     return {
       cambio2: "",
@@ -442,11 +440,11 @@ export default {
         date2: ""
       },
       fecha_consul: "",
-      cantidad_v: "",
+      cantidad_v: 0,
       tr_table: "",
       cant_v: 0
     };
-  },    
+  },
   methods: {
     modal_() {
       var x = document.getElementById("modalNuevo");
@@ -593,7 +591,7 @@ export default {
         })
         .then(function(response) {
           me_detalles.detalles = response.data;
-          //console.log(response.data);
+          console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -614,7 +612,8 @@ export default {
       key: "ASDASD2121",
       wsHost: window.location.hostname,
       wsPort: 6001,
-      disableStats: true
+      disableStats: true,
+      enabledTransports: ["ws", "wss"]
     });
     window.Echo.channel("channel-notif").listen("NotificacionEvent", e => {
       console.log(e.mensaje);
@@ -667,6 +666,7 @@ export default {
         cant += element.cantidad;
       });
       console.log(cant);
+      this.cant_v = cant;
     }
   }
 };

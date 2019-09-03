@@ -678,6 +678,15 @@ export default {
     },
 
     setVenta() {
+      let tp_v = 0;
+      let tp_c = 0;
+      let rent_d = 0;
+      this.consulta.forEach(element => {
+        tp_v += element.datos.precio_venta * element.cantidad;
+        tp_c += element.datos.precio_comrpa * element.cantidad;
+      });
+      rent_d = tp_v - tp_c;
+
       axios
         .post("/api/insert_venta", {
           num_comp: this.num,
@@ -685,7 +694,8 @@ export default {
           descuento: this.totalpagarDesT,
           articulos: this.consulta,
           id_user: this.username,
-          cliente: this.cliente.id
+          cliente: this.cliente.id,
+          rentabilidad_: rent_d
         })
         .then(function(response) {
           console.log(response.data);

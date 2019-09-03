@@ -171,7 +171,7 @@ $consulta_null= DB::table('articulo')
 
          $consulta = DB::table('detalle_ingreso')
          ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
-         ->select('articulo.nombre','detalle_ingreso.precio_venta','articulo.id','articulo.codigo','articulo.stock')
+         ->select('articulo.nombre','detalle_ingreso.precio_venta','detalle_ingreso.precio_comrpa','articulo.id','articulo.codigo','articulo.stock')
          ->where('articulo.id','=',$idArticulo)
         ->where('id_ingreso','=',$idIngresoMax)
          ->first(); // FIN DE LA VALIDACIÓN

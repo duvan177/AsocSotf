@@ -30,6 +30,41 @@
           </div>
         </div>
       </div>
+
+      <!-- datos para el carousel -->
+      <carousel>
+        <slide>
+          <div class="card-body">
+            <h5 class="card-title">Articulo</h5>
+            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+            <h5 class="card-title" v-text="' stock : 4'"></h5>
+            <span class="badge badge-warning">
+              <h5 class="card-title" v-text="' estado : bajo'"></h5>
+            </span>
+          </div>
+        </slide>
+        <slide>
+          <div class="card-body">
+            <h5 class="card-title">Articulo</h5>
+            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+            <h5 class="card-title" v-text="' stock : 13'"></h5>
+            <span class="badge badge-warning">
+              <h5 class="card-title" v-text="' estado : bajo'"></h5>
+            </span>
+          </div>
+        </slide>
+        <slide>
+          <div class="card-body">
+            <h5 class="card-title">Articulo</h5>
+            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+            <h5 class="card-title" v-text="' stock : 0'"></h5>
+            <span class="badge badge-danger">
+              <h5 class="card-title" v-text="' estado : agotado'"></h5>
+            </span>
+          </div>
+        </slide>
+      </carousel>
+      <!-- fin -->
     </div>
     <div class="col-sm-6 mb-3 mb-md-0">
       <div class="card">
@@ -39,87 +74,16 @@
         </div>
       </div>
     </div>
-
-    <div id="card_progress" class="card">
-      <div class="container">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-2">
-              <span class="btn-success">Producto</span>
-            </div>
-            <div class="col-8">
-              <div class="progress mb-3" style="height: 8px;">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 25%;"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <div class="col-2">Estado</div>
-          </div>
-          <div class="row">
-            <div class="col-2">Producto</div>
-            <div class="col-8">
-              <div class="progress mb-3" style="height: 8px;">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 25%;"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <div class="col-2">Estado</div>
-          </div>
-          <div class="row">
-            <div class="col-2">Producto</div>
-            <div class="col-8">
-              <div class="progress mb-3" style="height: 8px;">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 25%;"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <div class="col-2">Estado</div>
-          </div>
-          <div class="row">
-            <div class="col-2">Producto</div>
-            <div class="col-8">
-              <div class="progress mb-3" style="height: 8px;">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 25%;"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <div class="col-2">Estado</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import Echo from "laravel-echo";
 import { EventEmitter } from "events";
+import { Carousel, Slide } from "vue-carousel";
 window.Pusher = require("pusher-js");
 export default {
+  components: { Carousel, Slide },
   data() {
     return {
       lists: [

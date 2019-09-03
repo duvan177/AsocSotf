@@ -5,10 +5,30 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
+<img class="card-img-top" src="img\error.png" alt="Card image cap">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+
+                    <!-- Card -->
+<div class="card">
+
+  <!-- Card image -->
+
+
+  <!-- Card content -->
+
+
+    <!-- Title -->
+
+    <!-- Text -->
+    <p class="card-text">Contenido no permitido</p>
+    <!-- Button -->
+    <a  class="btn btn-primary"  href="{{ route('login') }}"> Iniciar Session</a>
+
+
+</div>
+<!-- Card -->
+                 <!--   <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -68,7 +88,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>-->
                 </div>
             </div>
         </div>

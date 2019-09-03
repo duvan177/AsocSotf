@@ -13,7 +13,7 @@ class detalle_ingreso extends Model
         public function persona()
 {
        return $this->hasManyThrough('App\persona','App\ingreso','id','id','id_ingreso','id_proveedor');
-    
+
 }
 public function Ingreso(){
     return $this->hasMany('App\ingreso','id');

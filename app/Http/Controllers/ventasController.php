@@ -15,7 +15,7 @@ use App\Events\NotificacionEvent;
 use Carbon\Carbon;
 use App\Venta;
 use App\User;
-
+use App\detalle_ingreso;
 use App\articulo;
 use App\detalle_venta;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +29,7 @@ class ventasController extends Controller
 
        event(new NotificacionEvent('nueva venta registrada'));
 
+
           $id_userv =  $request->id_user;
         $num_comprobante =  $request->num_comp;
          $num_comprobante_validar = DB::table('venta')->select('num_comprobante')->where('num_comprobante','=',$num_comprobante)->get();
@@ -41,6 +42,8 @@ class ventasController extends Controller
         $total_venta =  $request->total_venta;
         $descuento = $request->descuento;
         $id_user =  $request->id_user;
+        $rentabilidad_ = $request->rentabilidad_;
+
 
         $venta = new Venta;
         $venta->id_cliente = $id_cliente;
@@ -48,6 +51,7 @@ class ventasController extends Controller
         $venta->total_venta =$total_venta;
         $venta->descuento = $descuento;
         $venta->id_user=$id_user;
+        $venta->rentabilidad = $rentabilidad_;
        $venta->save();
         //return response()->json('se guardo');
 
@@ -101,12 +105,21 @@ $printer->setJustification(Printer::JUSTIFY_LEFT);
         $codig_art = $request->articulos[$i]['datos']['codigo'];
         $cantidad = $request->articulos[$i]['cantidad'];
         $precio_venta = $request->articulos[$i]['datos']['precio_venta'];
+         $precio_compra = $request->articulos[$i]['datos']['precio_comrpa'];
             $cantidad_exist = DB::table('articulo')->select('stock')->where('id','=',$id_articulo)->value('stock');
+
+            $rent_1 = $cantidad * $precio_venta;
+            $rent_2 = $cantidad * $precio_compra;
+
+            $rentabilidad = $rent_1 - $rent_2;
+
         $detalle_venta = new detalle_venta();
         $detalle_venta->id_venta=$id_venta_;
         $detalle_venta->id_articulo=$id_articulo;
         $detalle_venta->cantidad=$cantidad;
         $detalle_venta->precio_venta=$precio_venta;
+        $detalle_venta->precio_compra=$precio_compra;
+        $detalle_venta->rentabilidad=$rentabilidad;
 
          $articulo = articulo::find($id_articulo);
          $articulo->stock = $cantidad_exist - $cantidad;
@@ -151,6 +164,8 @@ $printer->pulse();
 $printer->close();
 
 
+
+
          return response()->json($id_userv);
     } catch (Exception $e) {
         $message = "Couldn't print to this printer: " . $e->getMessage() . "\n";
@@ -171,7 +186,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.rentabilidad','venta.descuento','venta.created_at','users.name')
             ->whereDate('venta.created_at',$day)
             ->orderby('venta.id','desc')
             ->get();
@@ -182,7 +197,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.rentabilidad','venta.descuento','venta.created_at','users.name')
             ->orderby('venta.id','desc')
             ->get();
             return response()->json($data);
@@ -195,7 +210,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.id','venta.num_comprobante','venta.total_venta','venta.rentabilidad','venta.descuento','venta.created_at','users.name')
             ->where('venta.num_comprobante','LIKE',"%$num_comprob%")
 
             ->orderby('venta.id','desc')
@@ -217,7 +232,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.rentabilidad','venta.descuento','venta.created_at','users.name')
             ->whereDate('venta.created_at',$fecha )
 
             ->orderby('venta.id','desc')
@@ -243,7 +258,7 @@ $printer->close();
             ->join('persona','venta.id_cliente','=','persona.id')
             ->join('tipo_comprobante','venta.id_tipo_comprobante','=','tipo_comprobante.id')
             ->join('users','venta.id_user','=','users.id')
-            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.descuento','venta.created_at','users.name')
+            ->select('tipo_comprobante.Comprobante','persona.nombre','venta.num_comprobante','venta.total_venta','venta.rentabilidad','venta.descuento','venta.created_at','users.name')
             ->whereYear('venta.created_at',$data2 )
             ->whereMonth('venta.created_at',$data1)
             ->orderby('venta.id','desc')
@@ -262,26 +277,38 @@ $printer->close();
 
         public function setVentaDetalle( Request $request){
 
+
           $num_comp = $request->num_comprobante;
 
            $id = Venta::where('num_comprobante','=',$num_comp)->first();
 
           $detalle_id_art = detalle_venta::where('id_venta','=',$id->id)->first();
 
-          $detalle_vent = DB::table('detalle_venta')
+                  $detalle_vent = DB::table('detalle_venta')
           ->join('articulo','detalle_venta.id_articulo','=','articulo.id')
           ->select('detalle_venta.*','articulo.*')
           ->where('detalle_venta.id_venta','=', $id->id)
           ->get();
 
 
-          $data = detalle_venta::where('id_venta','=', $id->id)->orderby('id','desc')->get();
+
+          $data = detalle_venta::where('id_venta','=', $id->id)
+          ->orderby('id','desc')->get();
 
 
-           for ($i=0; $i <  count($data) ; $i++) {
+           foreach ($data as $key => $value) {
 
-                  $data[$i]->articulo;
+
+                  $data[$key]->articulo;
+                  //$data[$key]->detalle_ingreso;
+
+
+
+
        }
+
+
+
            return response()->json($data);
 
 

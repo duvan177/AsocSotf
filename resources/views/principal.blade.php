@@ -9,7 +9,7 @@
     <meta name="author" content="AsocSoft">
     <meta name="keyword" content="SISVENTI">
     <link rel="shortcut icon" href="img\logobien.png">
-    <title>  Vents-app</title>
+    <title> Vents-app</title>
      <!-- token de seguridad -->
        <!-- Icons -->
        <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
@@ -36,7 +36,7 @@
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"></a>
+        <a  class="navbar-nav">  <img src="img\top_.png" ></a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -139,19 +139,19 @@
                          var numero=contenedor[0].id_rol;
                          if(numero==2){
                             document.getElementById("Usuarios").style.display = "none";
-                            var maestro= document.getElementById("Usuarios"); 
+                            var maestro= document.getElementById("Usuarios");
                          padre = maestro.parentNode;
         padre.removeChild(maestro);
-       
+
 
                          }
-                         });  
-                         /*var nombre= document.getElementById("Maestro"); 
+                         });
+                         /*var nombre= document.getElementById("Maestro");
                          padre = nombre.parentNode;
-		padre.removeChild(nombre);  */                    
+		padre.removeChild(nombre);  */
                          console.log(contenedor);
                     }
-                    
+
                     </script>
 
 </body>

@@ -704,3 +704,11 @@ input[type="search"] {
 #card1 {
     border-radius: 10%;
 }
+
+#car_l {
+    height: 500px;
+}
+
+#car_l_b {
+    height: 400px;
+}

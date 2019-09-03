@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="img/logobien.png">
         <title>Vents-App</title>
+
         <link href="css/plantilla.css" rel="stylesheet">
 
         <!-- Fonts -->
@@ -66,6 +67,21 @@
 
                 background-image: url("https://image.jimcdn.com/app/cms/image/transf/none/path/sc77e1e58a42c514a/image/i9977c7b3a6db203a/version/1516578954/image.jpg");
                           }
+
+            @media (max-width: 500px) {
+    #img_e {
+       width: 350px;
+       height: 300px;
+    }
+}
+             @media (min-width: 500px) {
+    #img_e {
+       width: 450px;
+       height: 400px;
+    }
+}
+
+
         </style>
     </head>
     <body class="color">
@@ -73,7 +89,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/Contenido ') }}">Escritorio</a>
                     @else
                         <a href="{{ route('login') }}">Iniciar Sesion</a>
                     @endauth
@@ -85,7 +101,7 @@
                 <div class="title m-b-md" >
                 </div>
 
-                <img class="animated fadeIn" src="img\vents_app2.png"  width="300" height="300"/>
+                <img id="img_e" class="animated fadeIn" src="img\vents_app3.png" />
 
             </div>
         </div>
