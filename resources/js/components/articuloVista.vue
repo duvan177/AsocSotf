@@ -3,7 +3,7 @@
    <div class="container-fluid">
       <div class="card">
         <div class="card-header">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-4">
             <button
               type="button"
               class="btn btn-success"
@@ -11,6 +11,9 @@
               data-target="#articuloModal"
               style="position:relative; rigth:100px;"
             >Crear Articulo</button>
+            <div class="alert alert-secondary" role="alert">
+  Total rentabilidad: {{totalRentabilidad}}
+</div>
           </div>
           <form >
             <div class="form-inline my-2 my-lg-0 md-4">
@@ -66,8 +69,8 @@
                 <th scope="col">Descripcion</th>  
                 <th scope="col">Precio compra</th>
                 <th scope="col">Precio Venta</th>
+                <th scope="col">Rentabilidad</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Alerta</th>
                 <th scope="col">Acción  </th>
                 
               </tr>
@@ -81,15 +84,7 @@
                 <td v-text="consul.descripcion"></td>
                 <td v-text="consul.precio_comrpa"></td>
                   <td v-text="consul.precio_venta"></td>
-                <td >
-<div v-if="consul.stock==0">
-   {{consul.estado_articulo}} - Agotado
-   </div><div v-else-if="consul.stock>0">
-{{consul.estado_articulo}}
-
-</div>
-
-                </td>
+                  <td v-text="consul.precio_venta-consul.precio_comrpa"> </td>
                 <td>  <div v-if="consul.stock <=5&&consul.stock >0">
                     <img src="img/advertencia.png" height="20" style="position:relative; ">
                   </div>
@@ -191,7 +186,6 @@
                 <th scope="col">Stock</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Alerta</th>
                 <th scope="col">Acción</th>
               </tr>
             </thead>
@@ -202,15 +196,6 @@
                 <td v-text="consul.nombre"></td>
                 <td>{{consul.stock}}</td>
                 <td v-text="consul.descripcion"></td>
-                <td>
-
-                  <div v-if="consul.stock==0">
-   {{consul.estado_articulo}} - Agotado
-   </div><div v-else-if="consul.stock>0">
-{{consul.estado_articulo}}
-
-</div>
-                </td>
                 <td>  <div v-if="consul.stock <=5 && consul.stock>0">
                     <img src="img/advertencia.png" height="20" style="position:relative; ">
                   </div>
@@ -763,7 +748,8 @@ export default {
       error:"",
       userid: this.username,
       rol:0,
-      rol2:[]
+      rol2:[],
+      totalRentabilidad:0
     };
   },
 props:["username"],
@@ -873,8 +859,9 @@ this.nombre = consul.nombre
         for (let index = 0; index < meconsulta.consulta.length; index++) {
           
           if(meconsulta.consulta[index].items_null_c==null){
-console.log("entro");
+console.log(meconsulta.consulta[index].precio_venta);
 meconsulta.articulosPre[index] = meconsulta.consulta[index];
+meconsulta.totalRentabilidad=meconsulta.consulta[index].precio_venta+meconsulta.consulta[index].precio_comrpa;
           }else{
 
 meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;

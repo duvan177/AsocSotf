@@ -7,8 +7,14 @@
   <option value="2">Mensual</option>
 </select>
 <div v-if="seleccion==1">
+ 
     <div id="grafico" class="chart-container">
+     
       <line-chart :chart-data="datacollection" :height="285"></line-chart>
+       <div class="custom" >
+ Selecione Lunes<input type="date"> 
+
+  </div>
     </div>
   </div>
   <div v-if="seleccion==2">
@@ -129,11 +135,18 @@ axios.post("api/detalleven").then(function(response) {
        
     },
     asignarCompra(){
-
+var dato = new Date();
+if(1==dato.getDay(dato.getDate())){
+var lunActua = dato.getDate();
+var lun = dato.getDate() + 7;
+}
 this.fechaCompra.forEach(element => {
   let fechcompra = new Date(element);
-console.log(fechcompra.getDay());
+//console.log(lun);
 var dia = fechcompra.getDay();
+var diadeBd = fechcompra.getDate(element);
+console.log(diadeBd);
+if(diadeBd>=lunActua&&diadeBd<lun){
 if(dia==1){
   this.lunesCompra++;
 }else if(dia==2){
@@ -148,9 +161,9 @@ this.viernesCompra++;
 this.sabadoCompra++;
 }else if(dia==0){
   this.domingoCompra++;
-} 
+} }
 var mes = fechcompra.getMonth();
-console.log(mes);
+//console.log(mes);
 if(mes==0){
   this.enecomp++;
 }else if(mes==1){
@@ -181,12 +194,19 @@ this.juncomp++;
     },
     asignarVenta(){
 
-
+var dato = new Date();
+if(1==dato.getDay(dato.getDate())){
+var lunActua = dato.getDate();
+var lun = dato.getDate() + 7;
+}
 
 this.fechaVenta.forEach(element => {
   let fechventa = new Date(element);
-console.log(fechventa.getDay());
+//console.log(fechventa.getDay());
 var dia = fechventa.getDay();
+var diadeBd = fechventa.getDate(element);
+console.log(diadeBd);
+if(diadeBd>=lunActua&&diadeBd<lun){
 if(dia==1){
   this.lunesVenta++;
 }else if(dia==2){
@@ -201,10 +221,10 @@ this.viernesVenta++;
 this.sabadoVenta++;
 }else if(dia==0){
   this.domingoVenta++;
-}
+}}
 
 var mes = fechventa.getMonth();
-console.log(mes);
+//console.log(mes);
 if(mes==0){
   this.eneroven++;
 }else if(mes==1){
