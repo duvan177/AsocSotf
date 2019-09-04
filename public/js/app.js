@@ -2109,6 +2109,149 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2171,7 +2314,9 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
       fecha_consul: "",
       cantidad_v: 0,
       tr_table: "",
-      cant_v: 0
+      cant_v: 0,
+      renta_bld: 0,
+      rent_2: 0
     };
   },
   methods: {
@@ -2271,9 +2416,10 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
     informacion: function informacion(item) {
       this.numeroComprobante = item.num_comprobante;
       this.fechaVenta = item.created_at;
-      this.Total_pagar_detalle = item.total_venta.toLocaleString();
+      this.Total_pagar_detalle = item.total_venta.toLocaleString("de-DE");
       this.nombreUserVenta = item.name;
       this.tr_table = item.id;
+      this.rent_2 = item.rentabilidad.toLocaleString("de-DE");
       var x = document.getElementById("" + item.num_comprobante + "");
       x.classList.add("active");
       var tr = document.getElementById("" + item.id + "");
@@ -2355,13 +2501,16 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
     },
     ventas: function ventas(val) {
       var total_venta = 0;
+      var rent = 0;
       val.forEach(function (element) {
         total_venta += element.total_venta;
+        rent += element.rentabilidad;
       });
       var contar = val.length;
-      this.total_venta = Number(total_venta).toLocaleString();
+      this.total_venta = Number(total_venta).toLocaleString("de-DE");
       this.cantidad_v = contar;
-      console.log(contar);
+      this.renta_bld = rent.toLocaleString("de-DE");
+      console.log(rent);
     },
     ver: function ver(val) {
       this.getVentas_x();
@@ -2394,6 +2543,136 @@ Vue.component("ToggleButton", vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__[
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5725,9 +6004,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -6520,7 +6796,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LineChart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LineChart.js */ "./resources/js/components/LineChart.js");
-//
 //
 //
 //
@@ -26782,7 +27057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.small {\r\n  max-width: 800px;\r\n  /* max-height: 500px; */\n}\r\n", ""]);
+exports.push([module.i, "\n.small {\n  max-width: 800px;\n  /* max-height: 500px; */\n}\n", ""]);
 
 // exports
 
@@ -88115,6 +88390,47 @@ var render = function() {
                         },
                         [
                           _c("div", { staticClass: "col-md-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.venta_detalle,
+                                  expression: "venta_detalle"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "texto2",
+                                placeholder: "Comprobante a buscar"
+                              },
+                              domProps: { value: _vm.venta_detalle },
+                              on: {
+                                keyup: function($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.filtrar($event)
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.venta_detalle = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
                             _c("div", { staticClass: "input-group" }, [
                               _c("input", {
                                 directives: [
@@ -88171,7 +88487,10 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-md-2" },
+                                {
+                                  staticClass: "col-md-2",
+                                  attrs: { id: "check" }
+                                },
                                 [
                                   _c("toggle-button", {
                                     attrs: {
@@ -88359,7 +88678,9 @@ var render = function() {
                                         _c("td", {
                                           domProps: {
                                             textContent: _vm._s(
-                                              item.descuento.toLocaleString()
+                                              item.descuento.toLocaleString(
+                                                "de-DE"
+                                              )
                                             )
                                           }
                                         }),
@@ -88367,7 +88688,9 @@ var render = function() {
                                         _c("td", {
                                           domProps: {
                                             textContent: _vm._s(
-                                              item.total_venta.toLocaleString()
+                                              item.total_venta.toLocaleString(
+                                                "de-DE"
+                                              )
                                             )
                                           }
                                         }),
@@ -88377,7 +88700,9 @@ var render = function() {
                                           domProps: {
                                             textContent: _vm._s(
                                               "+ " +
-                                                item.rentabilidad.toLocaleString()
+                                                item.rentabilidad.toLocaleString(
+                                                  "de-DE"
+                                                )
                                             )
                                           }
                                         }),
@@ -88388,7 +88713,7 @@ var render = function() {
                                           }
                                         }),
                                         _vm._v(" "),
-                                        _c("td", [
+                                        _c("td", { attrs: { id: "btn_t1" } }, [
                                           _c(
                                             "button",
                                             {
@@ -88413,6 +88738,35 @@ var render = function() {
                                               )
                                             ]
                                           )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", { attrs: { id: "btn_t2" } }, [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-primary btn-sm",
+                                              attrs: {
+                                                type: "button",
+                                                id: item.num_comprobante,
+                                                "data-toggle": "modal",
+                                                "data-target": "#modalNuevo"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.informacion(item)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "icon-plus"
+                                              }),
+                                              _vm._v(
+                                                " ver +\n                            "
+                                              )
+                                            ]
+                                          )
                                         ])
                                       ]
                                     )
@@ -88427,19 +88781,17 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "d-flex justify-content-between mb-4" },
+                    { staticClass: "d-flex justify-content-between mb-2" },
                     [
-                      _c("p", [_vm._v("Resumen de ventas generadas")]),
-                      _vm._v(" "),
-                      _c("h5", {
+                      _c("h6", {
                         domProps: {
                           textContent: _vm._s(
-                            "cantidad de ventas: " + _vm.cantidad_v
+                            "cantd. Ventas: " + _vm.cantidad_v
                           )
                         }
                       }),
                       _vm._v(" "),
-                      _c("h5", {
+                      _c("h6", {
                         domProps: {
                           textContent: _vm._s(
                             "Total Ventas: $" + _vm.total_venta
@@ -88447,240 +88799,619 @@ var render = function() {
                         }
                       })
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "d-flex justify-content-between mb-2" },
+                    [
+                      _c("h5"),
+                      _vm._v(" "),
+                      _c("h6", {
+                        staticClass: "teal-text",
+                        domProps: {
+                          textContent: _vm._s(
+                            "Rentabilidad total: + $" + _vm.renta_bld
+                          )
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("h5")
+                    ]
                   )
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col px-md-5" }, [
-                _c("div", { staticClass: "p-3 border" }, [
-                  _c("div", { staticClass: "card weather-card" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card-body pb-3",
-                        staticStyle: { height: "640px" },
-                        attrs: { id: "contenido" }
-                      },
-                      [
-                        _vm.cargando
-                          ? _c("section", [_vm._m(5)])
-                          : _c("section", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "d-flex justify-content-between animated fadeIn"
-                                },
-                                [
-                                  _c(
-                                    "h4",
-                                    {
-                                      staticClass: "card-title font-weight-bold"
-                                    },
-                                    [_vm._v("Factura")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", {
-                                    staticClass: "card-text",
-                                    domProps: {
-                                      textContent: _vm._s(
-                                        "Fecha :" + _vm.fechaVenta
-                                      )
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "d-flex justify-content-between animated fadeIn"
-                                },
-                                [
-                                  _c("p", {
-                                    staticClass: "display-4",
-                                    domProps: {
-                                      textContent: _vm._s(
-                                        "N° " + _vm.numeroComprobante
-                                      )
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "chip chip-md" }),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "chip chip-md" }, [
-                                    _c("img", {
-                                      attrs: {
-                                        src: "img/user_venta.png",
-                                        alt: "Contact Person"
+              _c(
+                "div",
+                { staticClass: "col px-md-5", attrs: { id: "vents_f" } },
+                [
+                  _c("div", { staticClass: "p-3 border" }, [
+                    _c("div", { staticClass: "card weather-card" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "card-body pb-3",
+                          staticStyle: { height: "640px" },
+                          attrs: { id: "contenido" }
+                        },
+                        [
+                          _vm.cargando
+                            ? _c("section", [_vm._m(5)])
+                            : _c("section", [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "d-flex justify-content-between animated fadeIn"
+                                  },
+                                  [
+                                    _c(
+                                      "h4",
+                                      {
+                                        staticClass:
+                                          "card-title font-weight-bold"
+                                      },
+                                      [_vm._v("Factura")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("p", {
+                                      staticClass: "card-text",
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          "Fecha :" + _vm.fechaVenta
+                                        )
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "d-flex justify-content-between animated fadeIn"
+                                  },
+                                  [
+                                    _c("p", {
+                                      staticClass: "display-4",
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          "N° " + _vm.numeroComprobante
+                                        )
                                       }
                                     }),
                                     _vm._v(" "),
-                                    _c("h5", {
-                                      domProps: {
-                                        textContent: _vm._s(_vm.nombreUserVenta)
-                                      }
-                                    })
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _vm._m(6),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "card card-cascade narrower" },
-                                [
-                                  _vm._m(7),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "px-4" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "table-wrapper" },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "table-wrapper-scroll-y my-custom-scrollbar3"
-                                          },
-                                          [
-                                            _vm.detalles.length === 0
-                                              ? _c("section", [
-                                                  _c("img", {
-                                                    staticClass:
-                                                      "rounded mx-auto d-block animated fadeIn",
-                                                    attrs: {
-                                                      src: "img\\comprasx.png",
-                                                      alt: ""
-                                                    }
-                                                  })
-                                                ])
-                                              : _c("section", [
-                                                  _c(
-                                                    "table",
-                                                    {
+                                    _c("div", { staticClass: "chip chip-md" }),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "chip chip-md" }, [
+                                      _c("img", {
+                                        attrs: {
+                                          src: "img/user_venta.png",
+                                          alt: "Contact Person"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("h6", {
+                                        domProps: {
+                                          textContent: _vm._s(
+                                            _vm.nombreUserVenta
+                                          )
+                                        }
+                                      })
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "d-flex justify-content-between mb-2"
+                                  },
+                                  [
+                                    _c("label", [
+                                      _vm._v(
+                                        "\n                          Rentabilidad total :\n                          "
+                                      ),
+                                      _c("h6", {
+                                        staticClass: "teal-text",
+                                        domProps: {
+                                          textContent: _vm._s(
+                                            "+" +
+                                              _vm.rent_2.toLocaleString("de-DE")
+                                          )
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p"),
+                                    _vm._v(" "),
+                                    _c("p")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "card card-cascade narrower" },
+                                  [
+                                    _vm._m(6),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "px-4" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "table-wrapper" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "table-wrapper-scroll-y my-custom-scrollbar3"
+                                            },
+                                            [
+                                              _vm.detalles.length === 0
+                                                ? _c("section", [
+                                                    _c("img", {
                                                       staticClass:
-                                                        "table table-hover mb-0"
-                                                    },
-                                                    [
-                                                      _vm._m(8),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "tbody",
-                                                        _vm._l(
-                                                          _vm.detalles,
-                                                          function(
-                                                            item,
-                                                            index
-                                                          ) {
-                                                            return _c(
-                                                              "tr",
-                                                              {
-                                                                key: item.id,
-                                                                staticClass:
-                                                                  "animated fadeIn"
-                                                              },
-                                                              [
-                                                                _c("td", {
-                                                                  domProps: {
-                                                                    textContent: _vm._s(
-                                                                      index + 1
-                                                                    )
-                                                                  }
-                                                                }),
-                                                                _vm._v(" "),
-                                                                _c("td", {
-                                                                  domProps: {
-                                                                    textContent: _vm._s(
-                                                                      item.nombre
-                                                                    )
-                                                                  }
-                                                                }),
-                                                                _vm._v(" "),
-                                                                _c("td", {
-                                                                  domProps: {
-                                                                    textContent: _vm._s(
-                                                                      item.cantidad
-                                                                    )
-                                                                  }
-                                                                }),
-                                                                _vm._v(" "),
-                                                                _c("td", {
-                                                                  domProps: {
-                                                                    textContent: _vm._s(
-                                                                      item.precio_venta
-                                                                    )
-                                                                  }
-                                                                }),
-                                                                _vm._v(" "),
-                                                                _c("td", {
-                                                                  domProps: {
-                                                                    textContent: _vm._s(
-                                                                      item.precio_venta *
+                                                        "rounded mx-auto d-block animated fadeIn",
+                                                      attrs: {
+                                                        src:
+                                                          "img\\comprasx.png",
+                                                        alt: ""
+                                                      }
+                                                    })
+                                                  ])
+                                                : _c("section", [
+                                                    _c(
+                                                      "table",
+                                                      {
+                                                        staticClass:
+                                                          "table table-hover mb-0"
+                                                      },
+                                                      [
+                                                        _vm._m(7),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "tbody",
+                                                          _vm._l(
+                                                            _vm.detalles,
+                                                            function(
+                                                              item,
+                                                              index
+                                                            ) {
+                                                              return _c(
+                                                                "tr",
+                                                                {
+                                                                  key: item.id,
+                                                                  staticClass:
+                                                                    "animated fadeIn"
+                                                                },
+                                                                [
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        index +
+                                                                          1
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        item.nombre
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
                                                                         item.cantidad
-                                                                    )
-                                                                  }
-                                                                })
-                                                              ]
-                                                            )
-                                                          }
-                                                        ),
-                                                        0
-                                                      )
-                                                    ]
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        item.precio_venta.toLocaleString(
+                                                                          "de-DE"
+                                                                        )
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        (
+                                                                          item.precio_venta *
+                                                                          item.cantidad
+                                                                        ).toLocaleString(
+                                                                          "de-DE"
+                                                                        )
+                                                                      )
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  _c("td", {
+                                                                    staticClass:
+                                                                      "teal-text",
+                                                                    domProps: {
+                                                                      textContent: _vm._s(
+                                                                        "+ " +
+                                                                          item.rentabilidad.toLocaleString(
+                                                                            "de-DE"
+                                                                          )
+                                                                      )
+                                                                    }
+                                                                  })
+                                                                ]
+                                                              )
+                                                            }
+                                                          ),
+                                                          0
+                                                        )
+                                                      ]
+                                                    )
+                                                  ])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "d-flex justify-content-between mb-4"
+                                            },
+                                            [
+                                              _c("h6", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    "cantidad articulos vendidos: " +
+                                                      _vm.cant_v
                                                   )
-                                                ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "d-flex justify-content-between mb-4"
-                                          },
-                                          [
-                                            _c("h5", {
-                                              domProps: {
-                                                textContent: _vm._s(
-                                                  "cantidad articulos vendidos: " +
-                                                    _vm.cant_v
-                                                )
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _vm._m(9),
-                                            _vm._v(" "),
-                                            _c("h5", {
-                                              domProps: {
-                                                textContent: _vm._s(
-                                                  "Total Venta: $" +
-                                                    _vm.Total_pagar_detalle
-                                                )
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]
-                              )
-                            ])
-                      ]
-                    )
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _vm._m(8),
+                                              _vm._v(" "),
+                                              _c("h6", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    "Total Venta: $" +
+                                                      _vm.Total_pagar_detalle
+                                                  )
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                        ]
+                      )
+                    ])
                   ])
-                ])
-              ])
+                ]
+              )
             ])
           ])
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(10)
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        staticStyle: { display: "none" },
+        attrs: {
+          id: "modalNuevo",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "myModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-primary modal-lg",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "p-3 border" }, [
+                _c("div", { staticClass: "card weather-card" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card-body pb-3",
+                      staticStyle: { height: "640px" },
+                      attrs: { id: "contenido" }
+                    },
+                    [
+                      _vm.cargando
+                        ? _c("section", [_vm._m(9)])
+                        : _c("section", [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-flex justify-content-between animated fadeIn"
+                              },
+                              [
+                                _c(
+                                  "h4",
+                                  {
+                                    staticClass: "card-title font-weight-bold"
+                                  },
+                                  [_vm._v("Factura")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", {
+                                  staticClass: "card-text",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      "Fecha :" + _vm.fechaVenta
+                                    )
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-flex justify-content-between animated fadeIn"
+                              },
+                              [
+                                _c("p", {
+                                  staticClass: "display-4",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      "N° " + _vm.numeroComprobante
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "chip chip-md" }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "chip chip-md" }, [
+                                  _c("img", {
+                                    attrs: {
+                                      src: "img/user_venta.png",
+                                      alt: "Contact Person"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("h6", {
+                                    domProps: {
+                                      textContent: _vm._s(_vm.nombreUserVenta)
+                                    }
+                                  })
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-flex justify-content-between mb-2"
+                              },
+                              [
+                                _c("label", [
+                                  _vm._v(
+                                    "\n                    Rentabilidad total :\n                    "
+                                  ),
+                                  _c("h6", {
+                                    staticClass: "teal-text",
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        "+" + _vm.rent_2.toLocaleString("de-DE")
+                                      )
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p"),
+                                _vm._v(" "),
+                                _c("p")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card card-cascade narrower" },
+                              [
+                                _vm._m(10),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "px-4" }, [
+                                  _c("div", { staticClass: "table-wrapper" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "table-wrapper-scroll-y my-custom-scrollbar3"
+                                      },
+                                      [
+                                        _vm.detalles.length === 0
+                                          ? _c("section", [
+                                              _c("img", {
+                                                staticClass:
+                                                  "rounded mx-auto d-block animated fadeIn",
+                                                attrs: {
+                                                  src: "img\\comprasx.png",
+                                                  alt: ""
+                                                }
+                                              })
+                                            ])
+                                          : _c("section", [
+                                              _c(
+                                                "table",
+                                                {
+                                                  staticClass:
+                                                    "table table-hover mb-0"
+                                                },
+                                                [
+                                                  _vm._m(11),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "tbody",
+                                                    _vm._l(
+                                                      _vm.detalles,
+                                                      function(item, index) {
+                                                        return _c(
+                                                          "tr",
+                                                          {
+                                                            key: item.id,
+                                                            staticClass:
+                                                              "animated fadeIn"
+                                                          },
+                                                          [
+                                                            _c("td", {
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  index + 1
+                                                                )
+                                                              }
+                                                            }),
+                                                            _vm._v(" "),
+                                                            _c("td", {
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  item.nombre
+                                                                )
+                                                              }
+                                                            }),
+                                                            _vm._v(" "),
+                                                            _c("td", {
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  item.cantidad
+                                                                )
+                                                              }
+                                                            }),
+                                                            _vm._v(" "),
+                                                            _c("td", {
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  item.precio_venta.toLocaleString(
+                                                                    "de-DE"
+                                                                  )
+                                                                )
+                                                              }
+                                                            }),
+                                                            _vm._v(" "),
+                                                            _c("td", {
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  (
+                                                                    item.precio_venta *
+                                                                    item.cantidad
+                                                                  ).toLocaleString(
+                                                                    "de-DE"
+                                                                  )
+                                                                )
+                                                              }
+                                                            }),
+                                                            _vm._v(" "),
+                                                            _c("td", {
+                                                              staticClass:
+                                                                "teal-text",
+                                                              domProps: {
+                                                                textContent: _vm._s(
+                                                                  "+ " +
+                                                                    item.rentabilidad.toLocaleString(
+                                                                      "de-DE"
+                                                                    )
+                                                                )
+                                                              }
+                                                            })
+                                                          ]
+                                                        )
+                                                      }
+                                                    ),
+                                                    0
+                                                  )
+                                                ]
+                                              )
+                                            ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "d-flex justify-content-between mb-4"
+                                      },
+                                      [
+                                        _c("h6", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              "cantidad articulos vendidos: " +
+                                                _vm.cant_v
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._m(12),
+                                        _vm._v(" "),
+                                        _c("h6", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              "Total Venta: $" +
+                                                _vm.Total_pagar_detalle
+                                            )
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(13)
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -88801,10 +89532,67 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex justify-content-between mb-4" }, [
-      _c("p", [_vm._v("3% Precipitation")]),
-      _vm._v(" "),
-      _c("p")
+    return _c(
+      "div",
+      {
+        staticClass:
+          "view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+      },
+      [
+        _c("div", [
+          _c("a", { staticClass: "white-text mx-3", attrs: { href: "" } })
+        ]),
+        _vm._v(" "),
+        _c("a", { staticClass: "white-text mx-4", attrs: { href: "" } }, [
+          _vm._v("Contenido Venta")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Articulo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor unitario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Rentabilidad")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("img", { attrs: { src: "img/venta_detalle.png", alt: "" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { attrs: { id: "preloader_1" } }, [
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span"),
+        _vm._v(" "),
+        _c("span")
+      ])
     ])
   },
   function() {
@@ -88842,7 +89630,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Valor unitario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Valor Total")])
+        _c("th", [_vm._v("Valor Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Rentabilidad")])
       ])
     ])
   },
@@ -88858,137 +89648,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { display: "none" },
-        attrs: {
-          id: "modalNuevo",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-primary modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _vm._v("Agregar categoría")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    staticClass: "form-horizontal",
-                    attrs: {
-                      action: "",
-                      method: "post",
-                      enctype: "multipart/form-data"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
-                        [_vm._v("Descripción")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            id: "descripcion",
-                            name: "descripcion",
-                            placeholder: "Enter Email"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_vm._v("Guardar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -89014,554 +89683,675 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("main", { staticClass: "main" }, [
     _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("form", [
-            _c("div", { staticClass: "form-inline my-2 my-lg-0 md-4" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("input", {
-                    staticClass: "form-control mr-sm-2",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Codigo",
-                      id: "busqueda",
-                      "aria-label": "Search"
-                    },
-                    on: {
-                      keyup: function($event) {
-                        return _vm.myFunction()
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control mr-sm-2",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Nombre",
-                      id: "busqueda2",
-                      "aria-label": "Search"
-                    },
-                    on: {
-                      keyup: function($event) {
-                        return _vm.myFunction2()
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control mr-sm-2",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Stock",
-                      id: "busqueda3",
-                      "aria-label": "Search"
-                    },
-                    on: {
-                      keyup: function($event) {
-                        return _vm.myFunction3()
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control mr-sm-2",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Estado",
-                      id: "busqueda4",
-                      "aria-label": "Search"
-                    },
-                    on: {
-                      keyup: function($event) {
-                        return _vm.myFunction4()
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "container-fluid" }, [
-                      _c("div", { staticClass: "table-responsive" }, [
-                        _c(
-                          "table",
-                          {
-                            staticClass: "table table table-striped",
-                            attrs: { id: "myTable" }
-                          },
-                          [
-                            _c("caption", [_vm._v("Lista Articulos Precio")]),
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "tab-pane fade show active",
+                  attrs: {
+                    id: "pills-home",
+                    role: "tabpanel",
+                    "aria-labelledby": "pills-home-tab"
+                  }
+                },
+                [
+                  _c("form", [
+                    _c(
+                      "div",
+                      { staticClass: "form-inline my-2 my-lg-0 md-7" },
+                      [
+                        _c("div", { staticClass: "card" }, [
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Codigo",
+                                id: "busqueda",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction()
+                                }
+                              }
+                            }),
                             _vm._v(" "),
-                            _vm._m(1),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Nombre",
+                                id: "busqueda2",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction2()
+                                }
+                              }
+                            }),
                             _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.articulosPre, function(consul) {
-                                return _c(
-                                  "tr",
-                                  {
-                                    key: consul.id,
-                                    staticClass: "animated fadeIn"
-                                  },
-                                  [
-                                    _c("td", { attrs: { scope: "row" } }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.codigo)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.nombre)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(consul.stock))]),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.descripcion)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          consul.precio_comrpa
-                                        )
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.precio_venta)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      consul.stock == 0
-                                        ? _c("div", [
-                                            _vm._v(
-                                              "\n   " +
-                                                _vm._s(consul.estado_articulo) +
-                                                " - Agotado\n   "
-                                            )
-                                          ])
-                                        : consul.stock > 0
-                                        ? _c("div", [
-                                            _vm._v(
-                                              "\n" +
-                                                _vm._s(consul.estado_articulo) +
-                                                "\n\n"
-                                            )
-                                          ])
-                                        : _vm._e()
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      consul.stock <= 5 && consul.stock > 0
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/advertencia.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : consul.stock > 5
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/signo_acepto.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : consul.stock == 0
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/advertencia1.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : _vm._e()
-                                    ]),
-                                    _vm._v(" "),
-                                    _vm.rol == 1
-                                      ? _c("div", [
-                                          _c("td", [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "form-group col-md-4"
-                                              },
-                                              [
-                                                _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-primary",
-                                                    attrs: {
-                                                      type: "button",
-                                                      "data-toggle": "modal",
-                                                      "data-target":
-                                                        "#dialogoPreguntar"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        $event.preventDefault()
-                                                        return _vm.traerArticuloEditar(
-                                                          consul
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("Editar")]
-                                                ),
-                                                _vm._v(
-                                                  " \n                   "
-                                                ),
-                                                _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-danger",
-                                                    staticStyle: {
-                                                      position: "relative",
-                                                      rigth: "200px"
-                                                    },
-                                                    attrs: {
-                                                      type: "button",
-                                                      "data-toggle": "modal",
-                                                      "data-target":
-                                                        "#dialogoEliminar"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        $event.preventDefault()
-                                                        return _vm.traerArticuloid(
-                                                          consul
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("Eliminar")]
-                                                )
-                                              ]
-                                            )
-                                          ])
-                                        ])
-                                      : _vm.rol == 2
-                                      ? _c("div", [
-                                          _c("td", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-primary",
-                                                attrs: {
-                                                  type: "button",
-                                                  "data-toggle": "modal",
-                                                  "data-target": "#dialogoVer"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.traerArticuloEditar(
-                                                      consul
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Ver")]
-                                            )
-                                          ])
-                                        ])
-                                      : _vm._e()
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          ]
-                        )
-                      ])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("input", {
-                      staticClass: "form-control mr-sm-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Codigo",
-                        id: "busqueda5",
-                        "aria-label": "Search"
-                      },
-                      on: {
-                        keyup: function($event) {
-                          return _vm.myFunction5()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control mr-sm-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Nombre",
-                        id: "busqueda6",
-                        "aria-label": "Search"
-                      },
-                      on: {
-                        keyup: function($event) {
-                          return _vm.myFunction6()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control mr-sm-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Stock",
-                        id: "busqueda7",
-                        "aria-label": "Search"
-                      },
-                      on: {
-                        keyup: function($event) {
-                          return _vm.myFunction7()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control mr-sm-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Estado",
-                        id: "busqueda8",
-                        "aria-label": "Search"
-                      },
-                      on: {
-                        keyup: function($event) {
-                          return _vm.myFunction8()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "container-fluid" }, [
-                      _c("div", { staticClass: "table-responsive" }, [
-                        _c(
-                          "table",
-                          {
-                            staticClass: "table table table-striped",
-                            attrs: { id: "myTable2" }
-                          },
-                          [
-                            _c("caption", [_vm._v("Lista Articulos")]),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Stock",
+                                id: "busqueda3",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction3()
+                                }
+                              }
+                            }),
                             _vm._v(" "),
-                            _vm._m(2),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Estado",
+                                id: "busqueda4",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction4()
+                                }
+                              }
+                            }),
                             _vm._v(" "),
                             _c(
-                              "tbody",
-                              _vm._l(_vm.articulosSin, function(consul) {
-                                return _c(
-                                  "tr",
+                              "div",
+                              {
+                                staticClass:
+                                  "table-wrapper-scroll-y my-custom-scrollbar"
+                              },
+                              [
+                                _c(
+                                  "table",
                                   {
-                                    key: consul.id,
-                                    staticClass: "animated fadeIn"
+                                    staticClass:
+                                      "table table-hover table-striped mb-0",
+                                    attrs: { width: "100%", id: "myTable" }
                                   },
                                   [
-                                    _c("td", { attrs: { scope: "row" } }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.codigo)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.nombre)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(consul.stock))]),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(consul.descripcion)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      consul.stock == 0
-                                        ? _c("div", [
-                                            _vm._v(
-                                              "\n   " +
-                                                _vm._s(consul.estado_articulo) +
-                                                " - Agotado\n   "
-                                            )
-                                          ])
-                                        : consul.stock > 0
-                                        ? _c("div", [
-                                            _vm._v(
-                                              "\n" +
-                                                _vm._s(consul.estado_articulo) +
-                                                "\n\n"
-                                            )
-                                          ])
-                                        : _vm._e()
+                                    _c("caption", [
+                                      _vm._v("Lista Articulos Precio")
                                     ]),
                                     _vm._v(" "),
-                                    _c("td", [
-                                      consul.stock <= 5 && consul.stock > 0
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/advertencia.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : consul.stock > 5
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/signo_acepto.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : consul.stock == 0
-                                        ? _c("div", [
-                                            _c("img", {
-                                              staticStyle: {
-                                                position: "relative"
-                                              },
-                                              attrs: {
-                                                src: "img/advertencia1.png",
-                                                height: "20"
-                                              }
-                                            })
-                                          ])
-                                        : _vm._e()
-                                    ]),
+                                    _vm._m(2),
                                     _vm._v(" "),
-                                    _vm.rol == 1
-                                      ? _c("div", [
-                                          _c("td", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-primary",
-                                                attrs: {
-                                                  type: "button",
-                                                  "data-toggle": "modal",
-                                                  "data-target":
-                                                    "#dialogoPreguntar"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.traerArticuloEditar(
-                                                      consul
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Editar")]
-                                            ),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.articulosPre, function(
+                                        consul
+                                      ) {
+                                        return _c(
+                                          "tr",
+                                          {
+                                            key: consul.id,
+                                            staticClass: "animated fadeIn"
+                                          },
+                                          [
+                                            _c("td", {
+                                              attrs: { scope: "row" }
+                                            }),
                                             _vm._v(" "),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-danger",
-                                                attrs: {
-                                                  type: "button",
-                                                  "data-toggle": "modal",
-                                                  "data-target":
-                                                    "#dialogoEliminar"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.traerArticuloid(
-                                                      consul
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.codigo
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.nombre
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(_vm._s(consul.stock))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.descripcion
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.precio_comrpa
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.precio_venta
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              consul.stock == 0
+                                                ? _c("div", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        consul.estado_articulo
+                                                      ) + " - Agotado"
                                                     )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Eliminar")]
-                                            )
-                                          ])
-                                        ])
-                                      : _vm.rol == 2
-                                      ? _c("div", [
-                                          _c("td", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-primary",
-                                                attrs: {
-                                                  type: "button",
-                                                  "data-toggle": "modal",
-                                                  "data-target": "#dialogoVer"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.traerArticuloEditar(
-                                                      consul
+                                                  ])
+                                                : consul.stock > 0
+                                                ? _c("div", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        consul.estado_articulo
+                                                      )
                                                     )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Ver")]
-                                            )
-                                          ])
-                                        ])
-                                      : _vm._e()
+                                                  ])
+                                                : _vm._e()
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              consul.stock <= 5 &&
+                                              consul.stock > 0
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/advertencia.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : consul.stock > 5
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/signo_acepto.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : consul.stock == 0
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/advertencia1.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : _vm._e()
+                                            ]),
+                                            _vm._v(" "),
+                                            _vm.rol == 1
+                                              ? _c("div", [
+                                                  _c("td", [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "form-group col-md-6"
+                                                      },
+                                                      [
+                                                        _c("form", [
+                                                          _c(
+                                                            "button",
+                                                            {
+                                                              staticClass:
+                                                                "btn btn-primary",
+                                                              attrs: {
+                                                                type: "button",
+                                                                "data-toggle":
+                                                                  "modal",
+                                                                "data-target":
+                                                                  "#dialogoPreguntar"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  $event.preventDefault()
+                                                                  return _vm.traerArticuloEditar(
+                                                                    consul
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [_vm._v("Editar")]
+                                                          ),
+                                                          _vm._v(
+                                                            "\n                                     \n                                  "
+                                                          )
+                                                        ])
+                                                      ]
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-danger",
+                                                        staticStyle: {
+                                                          position: "relative",
+                                                          rigth: "200px"
+                                                        },
+                                                        attrs: {
+                                                          type: "button",
+                                                          "data-toggle":
+                                                            "modal",
+                                                          "data-target":
+                                                            "#dialogoEliminar"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.traerArticuloid(
+                                                              consul
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Eliminar")]
+                                                    )
+                                                  ])
+                                                ])
+                                              : _vm.rol == 2
+                                              ? _c("div", [
+                                                  _c("td", [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-primary",
+                                                        attrs: {
+                                                          type: "button",
+                                                          "data-toggle":
+                                                            "modal",
+                                                          "data-target":
+                                                            "#dialogoVer"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.traerArticuloEditar(
+                                                              consul
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Ver")]
+                                                    )
+                                                  ])
+                                                ])
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    )
                                   ]
                                 )
-                              }),
-                              0
+                              ]
                             )
-                          ]
-                        )
-                      ])
-                    ])
+                          ])
+                        ])
+                      ]
+                    )
                   ])
-                ])
-              ])
-            ])
-          ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "tab-pane fade",
+                  attrs: {
+                    id: "pills-profile",
+                    role: "tabpanel",
+                    "aria-labelledby": "pills-profile-tab"
+                  }
+                },
+                [
+                  _c("form", [
+                    _c(
+                      "div",
+                      { staticClass: "form-inline my-2 my-lg-0 md-4" },
+                      [
+                        _c("div", { staticClass: "card" }, [
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Codigo",
+                                id: "busqueda5",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction5()
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Nombre",
+                                id: "busqueda6",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction6()
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Stock",
+                                id: "busqueda7",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction7()
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control mr-sm-2",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Estado",
+                                id: "busqueda8",
+                                "aria-label": "Search"
+                              },
+                              on: {
+                                keyup: function($event) {
+                                  return _vm.myFunction8()
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "table-wrapper-scroll-y my-custom-scrollbar"
+                              },
+                              [
+                                _c(
+                                  "table",
+                                  {
+                                    staticClass:
+                                      "table table-hover table-striped mb-0",
+                                    attrs: { id: "myTable2" }
+                                  },
+                                  [
+                                    _c("caption", [_vm._v("Lista Articulos")]),
+                                    _vm._v(" "),
+                                    _vm._m(3),
+                                    _vm._v(" "),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.articulosSin, function(
+                                        consul
+                                      ) {
+                                        return _c(
+                                          "tr",
+                                          {
+                                            key: consul.id,
+                                            staticClass: "animated fadeIn"
+                                          },
+                                          [
+                                            _c("td", {
+                                              attrs: { scope: "row" }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.codigo
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.nombre
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(_vm._s(consul.stock))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  consul.descripcion
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              consul.stock == 0
+                                                ? _c("div", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        consul.estado_articulo
+                                                      ) + " - Agotado"
+                                                    )
+                                                  ])
+                                                : consul.stock > 0
+                                                ? _c("div", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        consul.estado_articulo
+                                                      )
+                                                    )
+                                                  ])
+                                                : _vm._e()
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              consul.stock <= 5 &&
+                                              consul.stock > 0
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/advertencia.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : consul.stock > 5
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/signo_acepto.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : consul.stock == 0
+                                                ? _c("div", [
+                                                    _c("img", {
+                                                      staticStyle: {
+                                                        position: "relative"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "img/advertencia1.png",
+                                                        height: "20"
+                                                      }
+                                                    })
+                                                  ])
+                                                : _vm._e()
+                                            ]),
+                                            _vm._v(" "),
+                                            _vm.rol == 1
+                                              ? _c("div", [
+                                                  _c("td", [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-primary",
+                                                        attrs: {
+                                                          type: "button",
+                                                          "data-toggle":
+                                                            "modal",
+                                                          "data-target":
+                                                            "#dialogoPreguntar"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.traerArticuloEditar(
+                                                              consul
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Editar")]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-danger",
+                                                        attrs: {
+                                                          type: "button",
+                                                          "data-toggle":
+                                                            "modal",
+                                                          "data-target":
+                                                            "#dialogoEliminar"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.traerArticuloid(
+                                                              consul
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Eliminar")]
+                                                    )
+                                                  ])
+                                                ])
+                                              : _vm.rol == 2
+                                              ? _c("div", [
+                                                  _c("td", [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "btn btn-primary",
+                                                        attrs: {
+                                                          type: "button",
+                                                          "data-toggle":
+                                                            "modal",
+                                                          "data-target":
+                                                            "#dialogoVer"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.traerArticuloEditar(
+                                                              consul
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Ver")]
+                                                    )
+                                                  ])
+                                                ])
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(4)
+            ]
+          )
         ])
       ])
     ]),
@@ -89702,9 +90492,9 @@ var render = function() {
                           })
                         }),
                         _vm._v(
-                          "\n                  " +
+                          "\n                " +
                             _vm._s(_vm.categoria) +
-                            "\n                "
+                            "\n              "
                         )
                       ],
                       2
@@ -89913,7 +90703,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(5),
               _vm._v(" "),
               _c("form", [
                 _c("div", { staticClass: "modal-body" }, [
@@ -90296,7 +91086,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(6),
               _vm._v(" "),
               _c("form", [
                 _c("div", { staticClass: "modal-body" }, [
@@ -90606,7 +91396,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(7)
                 ])
               ])
             ])
@@ -90627,7 +91417,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
+              _vm._m(8),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [
@@ -90886,21 +91676,72 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-success",
-          staticStyle: { position: "relative", rigth: "100px" },
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#articuloModal"
-          }
-        },
-        [_vm._v("Crear Articulo")]
-      )
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "form-group col-md-2" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success",
+            staticStyle: { position: "relative", rigth: "100px" },
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#articuloModal"
+            }
+          },
+          [_vm._v("Crear Articulo")]
+        )
+      ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      {
+        staticClass: "nav nav-pills mb-3",
+        attrs: { id: "pills-tab", role: "tablist" }
+      },
+      [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link active",
+              attrs: {
+                id: "pills-home-tab",
+                "data-toggle": "pill",
+                href: "#pills-home",
+                role: "tab",
+                "aria-controls": "pills-home",
+                "aria-selected": "true"
+              }
+            },
+            [_vm._v("Articulos Activos")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "pills-profile-tab",
+                "data-toggle": "pill",
+                href: "#pills-profile",
+                role: "tab",
+                "aria-controls": "pills-profile",
+                "aria-selected": "false"
+              }
+            },
+            [_vm._v("Articulos sin existencia física")]
+          )
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -90926,7 +91767,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Alerta")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción  ")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción")])
       ])
     ])
   },
@@ -90953,6 +91794,27 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Acción")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "tab-pane fade",
+        attrs: {
+          id: "pills-contact",
+          role: "tabpanel",
+          "aria-labelledby": "pills-contact-tab"
+        }
+      },
+      [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "input-group" })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -94389,7 +95251,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(
-                "h5",
+                "h6",
                 {
                   staticClass: "card-title",
                   attrs: { id: "titulo_escritorio" }
@@ -94397,15 +95259,49 @@ var render = function() {
                 [_vm._v("Compras")]
               ),
               _vm._v(" "),
-              _c("h5", {
-                staticClass: "card-title",
-                attrs: { id: "datos_escritorio" },
-                domProps: {
-                  textContent: _vm._s(
-                    "total generado : $" + _vm.datos_today.compras
-                  )
-                }
-              })
+              _c(
+                "div",
+                {
+                  staticClass: "d-flex justify-content-between mb-6",
+                  attrs: { id: "datos_escritorio" }
+                },
+                [
+                  _c("h6", {
+                    staticClass: "text-danger",
+                    domProps: {
+                      textContent: _vm._s(
+                        "total generado : $" + _vm.datos_today.compras
+                      )
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("h6", {
+                    domProps: { textContent: _vm._s("Total Venta: $") }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "d-flex justify-content-between mb-6",
+                  attrs: { id: "datos_escritorio" }
+                },
+                [
+                  _c("h6", {
+                    staticClass: "card-title",
+                    domProps: {
+                      textContent: _vm._s(
+                        "total generado : $" + _vm.datos_today.compras
+                      )
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("h6", {
+                    domProps: { textContent: _vm._s("Total Venta: $") }
+                  })
+                ]
+              )
             ])
           ])
         ]),
@@ -94432,108 +95328,134 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(
-                "h5",
+                "h6",
                 {
                   staticClass: "card-title",
-                  attrs: { id: "titulo_escritorio" }
+                  attrs: { id: "titulo_escritorio2" }
                 },
                 [_vm._v("Ventas")]
               ),
               _vm._v(" "),
-              _c("h5", {
-                staticClass: "card-title",
-                attrs: { id: "datos_escritorio" },
-                domProps: {
-                  textContent: _vm._s(
-                    "total generado : $" + _vm.datos_today.ventas
-                  )
-                }
-              })
+              _c(
+                "div",
+                {
+                  staticClass: "d-flex justify-content-between mb-6",
+                  attrs: { id: "datos_escritorio" }
+                },
+                [
+                  _c("h6", {
+                    domProps: {
+                      textContent: _vm._s(
+                        "total generado : $" + _vm.datos_today.ventas
+                      )
+                    }
+                  })
+                ]
+              )
             ])
           ])
         ]),
         _vm._v(" "),
         _c(
           "carousel",
+          {
+            attrs: {
+              touchDrag: true,
+              autoplay: true,
+              centerMode: true,
+              scrollPerPage: true
+            }
+          },
           [
             _c("slide", [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Articulo")]),
-                _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: {
+                  textContent: _vm._s(
+                    "total stock : $" + _vm.datos_today.ventas
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: { textContent: _vm._s(" stock : 4") }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge badge-warning" }, [
                 _c("h5", {
                   staticClass: "card-title",
-                  domProps: {
-                    textContent: _vm._s(
-                      "total stock : $" + _vm.datos_today.ventas
-                    )
-                  }
-                }),
-                _vm._v(" "),
-                _c("h5", {
-                  staticClass: "card-title",
-                  domProps: { textContent: _vm._s(" stock : 4") }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "badge badge-warning" }, [
-                  _c("h5", {
-                    staticClass: "card-title",
-                    domProps: { textContent: _vm._s(" estado : bajo") }
-                  })
-                ])
+                  domProps: { textContent: _vm._s(" estado : bajo") }
+                })
               ])
             ]),
             _vm._v(" "),
             _c("slide", [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Articulo")]),
-                _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: {
+                  textContent: _vm._s(
+                    "total stock : $" + _vm.datos_today.ventas
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: { textContent: _vm._s(" stock : 4") }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge badge-warning" }, [
                 _c("h5", {
                   staticClass: "card-title",
-                  domProps: {
-                    textContent: _vm._s(
-                      "total stock : $" + _vm.datos_today.ventas
-                    )
-                  }
-                }),
-                _vm._v(" "),
-                _c("h5", {
-                  staticClass: "card-title",
-                  domProps: { textContent: _vm._s(" stock : 13") }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "badge badge-warning" }, [
-                  _c("h5", {
-                    staticClass: "card-title",
-                    domProps: { textContent: _vm._s(" estado : bajo") }
-                  })
-                ])
+                  domProps: { textContent: _vm._s(" estado : bajo") }
+                })
               ])
             ]),
             _vm._v(" "),
             _c("slide", [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Articulo")]),
-                _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: {
+                  textContent: _vm._s(
+                    "total stock : $" + _vm.datos_today.ventas
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: { textContent: _vm._s(" stock : 13") }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge badge-warning" }, [
                 _c("h5", {
                   staticClass: "card-title",
-                  domProps: {
-                    textContent: _vm._s(
-                      "total stock : $" + _vm.datos_today.ventas
-                    )
-                  }
-                }),
-                _vm._v(" "),
+                  domProps: { textContent: _vm._s(" estado : bajo") }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("slide", [
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: {
+                  textContent: _vm._s(
+                    "total stock : $" + _vm.datos_today.ventas
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("h5", {
+                staticClass: "card-title",
+                domProps: { textContent: _vm._s(" stock : 0") }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge badge-danger" }, [
                 _c("h5", {
                   staticClass: "card-title",
-                  domProps: { textContent: _vm._s(" stock : 0") }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "badge badge-danger" }, [
-                  _c("h5", {
-                    staticClass: "card-title",
-                    domProps: { textContent: _vm._s(" estado : agotado") }
-                  })
-                ])
+                  domProps: { textContent: _vm._s(" estado : agotado") }
+                })
               ])
             ])
           ],
@@ -94543,22 +95465,18 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "col-sm-6 mb-3 mb-md-0" }, [
-      _c("div", { staticClass: "card" }, [
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Graficos estadisticos")
-            ]),
-            _vm._v(" "),
-            _c("graficos")
-          ],
-          1
-        )
-      ])
-    ])
+    _c(
+      "div",
+      { staticClass: "col-sm-6 mb-3 mb-md-0" },
+      [
+        _c("h5", { staticClass: "card-title" }, [
+          _vm._v("Graficos estadisticos")
+        ]),
+        _vm._v(" "),
+        _c("graficos")
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -95855,7 +96773,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "small" }, [
-    _c("h4", [_vm._v("Reportes del Venta anual")]),
+    _c("h5", [_vm._v("Reportes del Venta vs Compras")]),
     _vm._v(" "),
     _c(
       "select",

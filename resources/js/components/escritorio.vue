@@ -6,12 +6,15 @@
           <img id="fondo_naranja" src="img/fondo_naranja.png" class="card-img-top" alt />
           <img id="fondo_compras" src="img/compras_escritorio.jpg" class="card-img" alt />
           <div class="card-body">
-            <h5 id="titulo_escritorio" class="card-title">Compras</h5>
-            <h5
-              id="datos_escritorio"
-              class="card-title"
-              v-text="'total generado : $'+datos_today.compras"
-            ></h5>
+            <h6 id="titulo_escritorio" class="card-title">Compras</h6>
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
+              <h6 class="text-danger" v-text="'total generado : $'+datos_today.compras"></h6>
+              <h6 v-text="'Total Venta: $'"></h6>
+            </div>
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
+              <h6 class="card-title" v-text="'total generado : $'+datos_today.compras"></h6>
+              <h6 v-text="'Total Venta: $'"></h6>
+            </div>
           </div>
         </div>
       </div>
@@ -21,58 +24,52 @@
           <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
           <img id="fondo_compras" src="img/ventas_escritorio.png" class="card-img" alt />
           <div class="card-body">
-            <h5 id="titulo_escritorio" class="card-title">Ventas</h5>
-            <h5
-              id="datos_escritorio"
-              class="card-title"
-              v-text="'total generado : $'+datos_today.ventas"
-            ></h5>
+            <h6 id="titulo_escritorio2" class="card-title">Ventas</h6>
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
+              <h6 v-text="'total generado : $'+datos_today.ventas"></h6>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- datos para el carousel -->
-      <carousel>
+
+      <carousel :touchDrag="true" :autoplay="true" :centerMode="true" :scrollPerPage="true">
         <slide>
-          <div class="card-body">
-            <h5 class="card-title">Articulo</h5>
-            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
-            <h5 class="card-title" v-text="' stock : 4'"></h5>
-            <span class="badge badge-warning">
-              <h5 class="card-title" v-text="' estado : bajo'"></h5>
-            </span>
-          </div>
+          <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+          <h5 class="card-title" v-text="' stock : 4'"></h5>
+          <span class="badge badge-warning">
+            <h5 class="card-title" v-text="' estado : bajo'"></h5>
+          </span>
         </slide>
         <slide>
-          <div class="card-body">
-            <h5 class="card-title">Articulo</h5>
-            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
-            <h5 class="card-title" v-text="' stock : 13'"></h5>
-            <span class="badge badge-warning">
-              <h5 class="card-title" v-text="' estado : bajo'"></h5>
-            </span>
-          </div>
+          <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+          <h5 class="card-title" v-text="' stock : 4'"></h5>
+          <span class="badge badge-warning">
+            <h5 class="card-title" v-text="' estado : bajo'"></h5>
+          </span>
         </slide>
         <slide>
-          <div class="card-body">
-            <h5 class="card-title">Articulo</h5>
-            <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
-            <h5 class="card-title" v-text="' stock : 0'"></h5>
-            <span class="badge badge-danger">
-              <h5 class="card-title" v-text="' estado : agotado'"></h5>
-            </span>
-          </div>
+          <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+          <h5 class="card-title" v-text="' stock : 13'"></h5>
+          <span class="badge badge-warning">
+            <h5 class="card-title" v-text="' estado : bajo'"></h5>
+          </span>
+        </slide>
+        <slide>
+          <h5 class="card-title" v-text="'total stock : $'+datos_today.ventas"></h5>
+          <h5 class="card-title" v-text="' stock : 0'"></h5>
+          <span class="badge badge-danger">
+            <h5 class="card-title" v-text="' estado : agotado'"></h5>
+          </span>
         </slide>
       </carousel>
+
       <!-- fin -->
     </div>
     <div class="col-sm-6 mb-3 mb-md-0">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Graficos estadisticos</h5>
-          <graficos></graficos>
-        </div>
-      </div>
+      <h5 class="card-title">Graficos estadisticos</h5>
+      <graficos></graficos>
     </div>
   </div>
 </template>

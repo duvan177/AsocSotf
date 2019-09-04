@@ -320,6 +320,7 @@
 .my-custom-scrollbar {
     position: relative;
     height: 600px;
+    width: 100%;
     overflow: auto;
 }
 
@@ -593,31 +594,29 @@ input[type="search"] {
     height: 50px;
 }
 
-#fondo_compras {
-    width: 80px;
-    position: relative;
-    bottom: 50px;
-    left: 40%;
-    border-radius: 100%;
-}
-
 #titulo_escritorio {
     position: relative;
     bottom: 130px;
-    color: #ffffff;
+    color: #e45919;
+    font-size: 20px;
+}
+
+#titulo_escritorio2 {
+    position: relative;
+    bottom: 130px;
+    color: #24a11f;
     font-size: 20px;
 }
 
 #datos_escritorio {
     position: relative;
-    bottom: 80px;
+    bottom: 100px;
     font-size: 20px;
     color: rgb(109, 107, 107);
 }
 
 #card_escritorio1 {
     height: 200px;
-    border-color: #3498db;
 }
 
 #cardx {
@@ -711,4 +710,64 @@ input[type="search"] {
 
 #car_l_b {
     height: 400px;
+}
+
+.example-slide {
+    align-items: center;
+    background-color: #666;
+    color: #999;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    min-height: 10rem;
+}
+
+@media (max-width: 480px) {
+    #card2,
+    #card1,
+    #esc_,
+    #vents_f,
+    #texto,
+    #btn_t1 {
+        display: none;
+    }
+    #fondo_compras {
+        width: 50px;
+        position: relative;
+        bottom: 50px;
+        left: 50%;
+        border-radius: 100%;
+    }
+    #titulo_escritorio2 {
+        position: relative;
+        bottom: 100px;
+        color: #24a11f;
+        font-size: 20px;
+        right: 15px;
+    }
+    #titulo_escritorio {
+        position: relative;
+        bottom: 100px;
+        color: #24a11f;
+        font-size: 20px;
+        right: 15px;
+    }
+}
+
+@media (min-width: 480px) {
+    #texto2,
+    #btn_t2 {
+        display: none;
+    }
+    #fondo_compras {
+        width: 80px;
+        position: relative;
+        bottom: 50px;
+        left: 40%;
+        border-radius: 100%;
+    }
+}
+
+#check {
+    top: 15px;
 }

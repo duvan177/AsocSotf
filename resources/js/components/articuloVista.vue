@@ -1,275 +1,355 @@
 <template>
   <main class="main">
-   <div class="container-fluid">
-      <div class="card">
-        <div class="card-header">
-          <div class="form-group col-md-2">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-toggle="modal"
-              data-target="#articuloModal"
-              style="position:relative; rigth:100px;"
-            >Crear Articulo</button>
+    <!-- Breadcrumb -->
+
+    <div class="container-fluid">
+      <!-- Ejemplo de tabla Listado -->
+
+      <div class="row">
+        <div class="card">
+          <div class="card-header">
+            <div class="form-group col-md-2">
+              <button
+                type="button"
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#articuloModal"
+                style="position:relative; rigth:100px;"
+              >Crear Articulo</button>
+            </div>
           </div>
-          <form >
-            <div class="form-inline my-2 my-lg-0 md-4">
-            <div class="card">
-  <div class="card-header">
-            <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Codigo"
-              id="busqueda" 
-               v-on:keyup="myFunction()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Nombre"
-              id="busqueda2" 
-               v-on:keyup="myFunction2()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Stock"
-              id="busqueda3" 
-               v-on:keyup="myFunction3()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Estado"
-              id="busqueda4" 
-               v-on:keyup="myFunction4()"
-              aria-label="Search"
-            />
-          
-<!--v-on:keyup="myFunction()"-->
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="pills-home-tab"
+                data-toggle="pill"
+                href="#pills-home"
+                role="tab"
+                aria-controls="pills-home"
+                aria-selected="true"
+              >Articulos Activos</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="pills-profile-tab"
+                data-toggle="pill"
+                href="#pills-profile"
+                role="tab"
+                aria-controls="pills-profile"
+                aria-selected="false"
+              >Articulos sin existencia física</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-home"
+              role="tabpanel"
+              aria-labelledby="pills-home-tab"
+            >
+              <form>
+                <div class="form-inline my-2 my-lg-0 md-7">
+                  <div class="card">
+                    <div class="card-body">
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Codigo"
+                        id="busqueda"
+                        v-on:keyup="myFunction()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Nombre"
+                        id="busqueda2"
+                        v-on:keyup="myFunction2()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Stock"
+                        id="busqueda3"
+                        v-on:keyup="myFunction3()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Estado"
+                        id="busqueda4"
+                        v-on:keyup="myFunction4()"
+                        aria-label="Search"
+                      />
 
-<div class="card-body">
-          <div class="container-fluid">
-            <div class="table-responsive">
-          <table class="table table table-striped" id="myTable" >
-            <caption>Lista Articulos Precio</caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
+                      <!--v-on:keyup="myFunction()"-->
 
-                <th scope="col">Codigo</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Descripcion</th>  
-                <th scope="col">Precio compra</th>
-                <th scope="col">Precio Venta</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Alerta</th>
-                <th scope="col">Acción  </th>
-                
-              </tr>
-            </thead>
-            <tbody >
-              <tr class="animated fadeIn" v-for="consul in articulosPre" :key="consul.id">
-                <td scope="row"></td>
-                <td v-text="consul.codigo"></td>
-                <td v-text="consul.nombre"></td>
-                <td>{{consul.stock}}</td>
-                <td v-text="consul.descripcion"></td>
-                <td v-text="consul.precio_comrpa"></td>
-                  <td v-text="consul.precio_venta"></td>
-                <td >
-<div v-if="consul.stock==0">
-   {{consul.estado_articulo}} - Agotado
-   </div><div v-else-if="consul.stock>0">
-{{consul.estado_articulo}}
+                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table
+                          class="table table-hover table-striped mb-0"
+                          width="100%"
+                          id="myTable"
+                        >
+                          <caption>Lista Articulos Precio</caption>
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
 
-</div>
-
-                </td>
-                <td>  <div v-if="consul.stock <=5&&consul.stock >0">
-                    <img src="img/advertencia.png" height="20" style="position:relative; ">
+                              <th scope="col">Codigo</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Stock</th>
+                              <th scope="col">Descripcion</th>
+                              <th scope="col">Precio compra</th>
+                              <th scope="col">Precio Venta</th>
+                              <th scope="col">Estado</th>
+                              <th scope="col">Alerta</th>
+                              <th scope="col">Acción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              class="animated fadeIn"
+                              v-for="consul in articulosPre"
+                              :key="consul.id"
+                            >
+                              <td scope="row"></td>
+                              <td v-text="consul.codigo"></td>
+                              <td v-text="consul.nombre"></td>
+                              <td>{{consul.stock}}</td>
+                              <td v-text="consul.descripcion"></td>
+                              <td v-text="consul.precio_comrpa"></td>
+                              <td v-text="consul.precio_venta"></td>
+                              <td>
+                                <div v-if="consul.stock==0">{{consul.estado_articulo}} - Agotado</div>
+                                <div v-else-if="consul.stock>0">{{consul.estado_articulo}}</div>
+                              </td>
+                              <td>
+                                <div v-if="consul.stock <=5&&consul.stock >0">
+                                  <img
+                                    src="img/advertencia.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                                <div v-else-if="consul.stock>5">
+                                  <img
+                                    src="img/signo_acepto.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                                <div v-else-if="consul.stock ==0">
+                                  <img
+                                    src="img/advertencia1.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                              </td>
+                              <div v-if="rol==1">
+                                <td>
+                                  <div class="form-group col-md-6">
+                                    <form>
+                                      <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        data-toggle="modal"
+                                        data-target="#dialogoPreguntar"
+                                        v-on:click.prevent="traerArticuloEditar(consul)"
+                                      >Editar</button>
+                                      &nbsp;
+                                    </form>
+                                  </div>
+                                </td>
+                                <td>
+                                  <button
+                                    type="button"
+                                    style="position:relative; rigth:200px;"
+                                    class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#dialogoEliminar"
+                                    v-on:click.prevent="traerArticuloid(consul)"
+                                  >Eliminar</button>
+                                </td>
+                              </div>
+                              <div v-else-if="rol==2">
+                                <td>
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#dialogoVer"
+                                    v-on:click.prevent="traerArticuloEditar(consul)"
+                                  >Ver</button>
+                                </td>
+                              </div>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  <div v-else-if="consul.stock>5">
- <img src="img/signo_acepto.png" height="20" style="position:relative; ">
+                </div>
+              </form>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-profile"
+              role="tabpanel"
+              aria-labelledby="pills-profile-tab"
+            >
+              <form>
+                <div class="form-inline my-2 my-lg-0 md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Codigo"
+                        id="busqueda5"
+                        v-on:keyup="myFunction5()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Nombre"
+                        id="busqueda6"
+                        v-on:keyup="myFunction6()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Stock"
+                        id="busqueda7"
+                        v-on:keyup="myFunction7()"
+                        aria-label="Search"
+                      />
+                      <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Estado"
+                        id="busqueda8"
+                        v-on:keyup="myFunction8()"
+                        aria-label="Search"
+                      />
 
+                      <!--v-on:keyup="myFunction()"-->
+
+                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-hover table-striped mb-0" id="myTable2">
+                          <caption>Lista Articulos</caption>
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+
+                              <th scope="col">Codigo</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Stock</th>
+                              <th scope="col">Descripcion</th>
+                              <th scope="col">Estado</th>
+                              <th scope="col">Alerta</th>
+                              <th scope="col">Acción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              class="animated fadeIn"
+                              v-for="consul in articulosSin"
+                              :key="consul.id"
+                            >
+                              <td scope="row"></td>
+                              <td v-text="consul.codigo"></td>
+                              <td v-text="consul.nombre"></td>
+                              <td>{{consul.stock}}</td>
+                              <td v-text="consul.descripcion"></td>
+                              <td>
+                                <div v-if="consul.stock==0">{{consul.estado_articulo}} - Agotado</div>
+                                <div v-else-if="consul.stock>0">{{consul.estado_articulo}}</div>
+                              </td>
+                              <td>
+                                <div v-if="consul.stock <=5 && consul.stock>0">
+                                  <img
+                                    src="img/advertencia.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                                <div v-else-if="consul.stock>5">
+                                  <img
+                                    src="img/signo_acepto.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                                <div v-else-if="consul.stock ==0">
+                                  <img
+                                    src="img/advertencia1.png"
+                                    height="20"
+                                    style="position:relative; "
+                                  />
+                                </div>
+                              </td>
+                              <div v-if="rol==1">
+                                <td>
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#dialogoPreguntar"
+                                    v-on:click.prevent="traerArticuloEditar(consul)"
+                                  >Editar</button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#dialogoEliminar"
+                                    v-on:click.prevent="traerArticuloid(consul)"
+                                  >Eliminar</button>
+                                </td>
+                              </div>
+                              <div v-else-if="rol==2">
+                                <td>
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#dialogoVer"
+                                    v-on:click.prevent="traerArticuloEditar(consul)"
+                                  >Ver</button>
+                                </td>
+                              </div>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  <div v-else-if="consul.stock ==0">
-                  <img src="img/advertencia1.png" height="20" style="position:relative; ">
-                  </div>
-                  </td>
-<div v-if="rol==1">
-                <td >
-                   <div class="form-group col-md-4">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#dialogoPreguntar"
-                    v-on:click.prevent="traerArticuloEditar(consul)"
-                  >Editar</button>&nbsp;
-                   <button
-                    type="button"
-                    style="position:relative; rigth:200px;"
-                    class="btn btn-danger"
-                     data-toggle="modal"
-                    data-target="#dialogoEliminar"
-                    v-on:click.prevent="traerArticuloid(consul)"
-                  >Eliminar</button>
-                   </div>
-                </td>
-</div>
-<div v-else-if="rol==2">
- <td>
-                   
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#dialogoVer"
-                    v-on:click.prevent="traerArticuloEditar(consul)"
-                  >Ver</button>
-                </td>
-</div>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </form>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-contact"
+              role="tabpanel"
+              aria-labelledby="pills-contact-tab"
+            >
+              <div class="col-md-6">
+                <div class="input-group"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Fin ejemplo de tabla Listado -->
     </div>
-  </div>
-</div>
-    <!--inicia el otro -->
-     <div class="card">
-  <div class="card-header">
-    <div class="card-body">
-      <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Codigo"
-              id="busqueda5" 
-               v-on:keyup="myFunction5()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Nombre"
-              id="busqueda6" 
-               v-on:keyup="myFunction6()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Stock"
-              id="busqueda7" 
-               v-on:keyup="myFunction7()"
-              aria-label="Search"
-            />
-             <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Estado"
-              id="busqueda8" 
-               v-on:keyup="myFunction8()"
-              aria-label="Search"
-            />
-          <div class="container-fluid">
-            <div class="table-responsive">
-          <table class="table table table-striped" id="myTable2" >
-            <caption>Lista Articulos</caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
 
-                <th scope="col">Codigo</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Alerta</th>
-                <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody >
-              <tr class="animated fadeIn" v-for="consul in articulosSin" :key="consul.id">
-                <td scope="row"></td>
-                <td v-text="consul.codigo"></td>
-                <td v-text="consul.nombre"></td>
-                <td>{{consul.stock}}</td>
-                <td v-text="consul.descripcion"></td>
-                <td>
-
-                  <div v-if="consul.stock==0">
-   {{consul.estado_articulo}} - Agotado
-   </div><div v-else-if="consul.stock>0">
-{{consul.estado_articulo}}
-
-</div>
-                </td>
-                <td>  <div v-if="consul.stock <=5 && consul.stock>0">
-                    <img src="img/advertencia.png" height="20" style="position:relative; ">
-                  </div>
-                  <div v-else-if="consul.stock>5">
- <img src="img/signo_acepto.png" height="20" style="position:relative; ">
-
-                  </div>
-                  <div v-else-if="consul.stock ==0">
-                  <img src="img/advertencia1.png" height="20" style="position:relative; ">
-                  </div>
-                  </td>
-                <div v-if="rol==1">
-                <td>
-                   
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#dialogoPreguntar"
-                    v-on:click.prevent="traerArticuloEditar(consul)"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                     data-toggle="modal"
-                    data-target="#dialogoEliminar"
-                    v-on:click.prevent="traerArticuloid(consul)"
-                  >Eliminar</button>
-                </td>
-              
-</div>
-<div v-else-if="rol==2">
- <td>
-                   
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#dialogoVer"
-                    v-on:click.prevent="traerArticuloEditar(consul)"
-                  >Ver</button>
-                </td>
-</div>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-     </div>
-     </div>
-    </form>
-        
-        </div>
-      </div>
-   </div>
-   
-   
     <!-- Modal de articulos -->
     <div
       class="modal fade"
@@ -524,8 +604,7 @@
     </div>
     <!-- fin del modal-->
 
-
-     <!-- Modal de editar articulos -->
+    <!-- Modal de editar articulos -->
     <div
       class="modal fade"
       id="dialogoVer"
@@ -546,7 +625,8 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="formGroupExampleInput">codigo</label>
-                <input disabled
+                <input
+                  disabled
                   type="number"
                   class="form-control"
                   v-model="codigoEditar"
@@ -556,7 +636,13 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Categoria</label>
-                <select disabled class="form-control" id="categoria" v-model="categoriaEditar" required>
+                <select
+                  disabled
+                  class="form-control"
+                  id="categoria"
+                  v-model="categoriaEditar"
+                  required
+                >
                   <option disabled value="0">selecionar</option>
                   <option
                     v-for="consul1 in consulcat"
@@ -568,7 +654,8 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Estado</label>
-                <select disabled
+                <select
+                  disabled
                   class="form-control"
                   id="exampleFormControlSelect1"
                   v-model="estadoEditar"
@@ -582,7 +669,8 @@
               </div>
               <div class="form-group">
                 <label for="formGroupExampleInput">Nombre Articulo</label>
-                <input disabled
+                <input
+                  disabled
                   type="text"
                   class="form-control"
                   id="formGroupExampleInput"
@@ -605,7 +693,8 @@
                   />
                 </div>
                 <div v-else-if="this.estadoEditar == 1">
-                  <input disabled
+                  <input
+                    disabled
                     type="number"
                     class="form-control"
                     id="formGroupExampleInput"
@@ -628,7 +717,8 @@
               </div>
               <div class="form-group">
                 <label for="formGroupExampleInput">Descripcion</label>
-                <input disabled
+                <input
+                  disabled
                   type="text"
                   class="form-control"
                   id="formGroupExampleInput"
@@ -638,7 +728,6 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                
               </div>
             </div>
           </form>
@@ -646,88 +735,129 @@
       </div>
     </div>
     <!-- fin del modal-->
-      <!--Alerta -->
-<div class="modal" tabindex="-1" id="error" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡Alerta!</h5>
-        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        
-      </div>
-      <div class="modal-body">
-        <p>Se presento el siguiente error: {{error}} por favor comunicarse con el desarrollador</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--fin modal Alerta -->
-<!--respuesta -->
-<div class="modal" tabindex="-1" id="respuesta" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡{{respuesta}}!</h5>
-        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        
-      </div>
-      <div class="modal-body">
-        <p>Se {{respuesta}} correctamnte</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
+    <!--Alerta -->
+    <div class="modal" tabindex="-1" id="error" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡Alerta!</h5>
+            <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+          </div>
+          <div class="modal-body">
+            <p>Se presento el siguiente error: {{error}} por favor comunicarse con el desarrollador</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >Ok</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!--fin modal respuesta -->
-<!-- model preguntar -->
-<div class="modal" tabindex="-1" id="dialogoPreguntar" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡Pregunta!</h5>
-        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Seguro que desea editar el articulo {{this.nombreEditar}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#articuloeditarModal">Si</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--fin modal preguntar -->
-<!-- model preguntar Eliminar -->
-<div class="modal" tabindex="-1" id="dialogoEliminar" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡Pregunta!</h5>
-        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Seguro que desea eliminar el articulo {{this.nombre}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="eliminarArticulo()">Si</button>
+    <!--fin modal Alerta -->
+    <!--respuesta -->
+    <div class="modal" tabindex="-1" id="respuesta" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡{{respuesta}}!</h5>
+            <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+          </div>
+          <div class="modal-body">
+            <p>Se {{respuesta}} correctamnte</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >Ok</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!--fin modal preguntar -->
+    <!--fin modal respuesta -->
+    <!-- model preguntar -->
+    <div class="modal" tabindex="-1" id="dialogoPreguntar" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡Pregunta!</h5>
+            <button
+              type="button"
+              class="close"
+              v-on:click.prevent="limpiar()"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Seguro que desea editar el articulo {{this.nombreEditar}}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >No</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-dismiss="modal"
+              data-target="#articuloeditarModal"
+            >Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin modal preguntar -->
+    <!-- model preguntar Eliminar -->
+    <div class="modal" tabindex="-1" id="dialogoEliminar" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡Pregunta!</h5>
+            <button
+              type="button"
+              class="close"
+              v-on:click.prevent="limpiar()"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Seguro que desea eliminar el articulo {{this.nombre}}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >No</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              v-on:click.prevent="eliminarArticulo()"
+            >Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin modal preguntar -->
   </main>
 </template>
 
@@ -742,8 +872,8 @@ export default {
       num: [],
       consulcat: [],
       consulest: [],
-      articulosPre:[],
-      articulosSin:[],
+      articulosPre: [],
+      articulosSin: [],
       codigo: "",
       nombre: "",
       stock: 0,
@@ -759,31 +889,31 @@ export default {
       estadoEditar: 0,
       categoriaEditar: "",
       id: 0,
-      respuesta:"",
-      error:"",
+      respuesta: "",
+      error: "",
       userid: this.username,
-      rol:0,
-      rol2:[]
+      rol: 0,
+      rol2: []
     };
   },
-props:["username"],
+  props: ["username"],
   methods: {
-    asignarId(){
-      var consultaCate=this;
+    asignarId() {
+      var consultaCate = this;
       console.log(this.username);
-     axios.post("api/getDataPermise", {id: this.userid}).then(response=>{
-       consultaCate.rol2 = response.data;
-console.log(consultaCate.rol2[0].id_rol);
-var rol=consultaCate.rol2[0].id_rol;
-//console.log(this.rol);
-this.prueba(rol);
-     });
-     console.log("si");
-},prueba(rol){
-
-this.rol = rol;
-console.log(this.rol);
-},
+      axios.post("api/getDataPermise", { id: this.userid }).then(response => {
+        consultaCate.rol2 = response.data;
+        console.log(consultaCate.rol2[0].id_rol);
+        var rol = consultaCate.rol2[0].id_rol;
+        //console.log(this.rol);
+        this.prueba(rol);
+      });
+      console.log("si");
+    },
+    prueba(rol) {
+      this.rol = rol;
+      console.log(this.rol);
+    },
     EditarArticulo() {
       let consulta2 = this;
       let codigoEditar = this.codigoEditar;
@@ -805,12 +935,13 @@ console.log(this.rol);
           estadoEditar: this.estadoEditar
         })
         .then(response => {
-          this.addArticulo();  
-          this.respuesta="Edito";
+          this.addArticulo();
+          this.respuesta = "Edito";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
     guardarArticulo() {
@@ -842,16 +973,16 @@ console.log(this.rol);
           this.stock = 0;
           this.descripcion = "";
           this.estado = 0;
-         this.respuesta="Guardo";
+          this.respuesta = "Guardo";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
-    traerArticuloid(consul){
-this.id = consul.id,
-this.nombre = consul.nombre
+    traerArticuloid(consul) {
+      (this.id = consul.id), (this.nombre = consul.nombre);
     },
     limpiar() {
       this.categoria = "";
@@ -868,25 +999,25 @@ this.nombre = consul.nombre
    },*/
     addArticulo() {
       let meconsulta = this;
-      axios.post("api/articulo").then(function(response) {
-        meconsulta.consulta = response.data;
-        for (let index = 0; index < meconsulta.consulta.length; index++) {
-          
-          if(meconsulta.consulta[index].items_null_c==null){
-console.log("entro");
-meconsulta.articulosPre[index] = meconsulta.consulta[index];
-          }else{
-
-meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
+      axios
+        .post("api/articulo")
+        .then(function(response) {
+          meconsulta.consulta = response.data;
+          for (let index = 0; index < meconsulta.consulta.length; index++) {
+            if (meconsulta.consulta[index].items_null_c == null) {
+              console.log("entro");
+              meconsulta.articulosPre[index] = meconsulta.consulta[index];
+            } else {
+              meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
+            }
           }
-          
-        }
-        console.log(meconsulta.articulosSin);
-        console.log(meconsulta.articulosPre);
-        //console.log(meconsulta.consulta[6].items_null_c);
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+          console.log(meconsulta.articulosSin);
+          console.log(meconsulta.articulosPre);
+          //console.log(meconsulta.consulta[6].items_null_c);
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
 
@@ -902,7 +1033,6 @@ meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
         consultaEstad.consulest = response.data;
         // console.log(consultaEstad.consulest);
       });
-     
     },
     traerArticuloEditar(consul) {
       this.codigoEditar = consul.codigo;
@@ -921,158 +1051,159 @@ meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
         .then(response => {
           this.addArticulo();
           this.limpiar();
-        this.respuesta="Elimino";
+          this.respuesta = "Elimino";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
     myFunction() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction2() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda2");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction2() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction3() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda3");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction3() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda3");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction4() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda4");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[7];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction4() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda4");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[7];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
+    },
 
- myFunction5() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda5");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    myFunction5() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda5");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction6() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda6");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction6() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda6");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction7() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda7");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction7() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda7");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction8() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda8");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction8() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda8");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- }
+    }
   },
   created() {},
   mounted() {
@@ -1080,7 +1211,6 @@ meconsulta.articulosSin = meconsulta.consulta[index].items_null_c;
     this.addArticulo();
     this.addcategoria();
     this.addestado();
-    
   }
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
 };

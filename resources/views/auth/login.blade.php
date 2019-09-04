@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card animated fadeInDown">
                  <img class="card-img-top" src="img\login.png" alt="Card image cap">
 
                 <div class="card-body">

@@ -12,29 +12,31 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-     <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<link href="css/mdb.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/simple-line-icons.min.css" rel="stylesheet">
+
+<link href="{{ asset('css/mdb.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
     <!-- Main styles for this application -->
 
-     <link href="css/cargando.css" rel="stylesheet">
-     <link rel="css/toastr.css" href="">
+     <link href="{{ asset('css/cargando.css')}}" rel="stylesheet">
 
 
-      <link href="css/style.css" rel="stylesheet">
-      <link href="css/animate.css" rel="stylesheet">
+      <link href="{{ asset('css/animate.css')}}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+.color{
 
+                background-image: url("https://image.jimcdn.com/app/cms/image/transf/none/path/sc77e1e58a42c514a/image/i9977c7b3a6db203a/version/1516578954/image.jpg");
+                          }
     </style>
 </head>
-<body>
+<body class="color">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

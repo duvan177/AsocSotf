@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/contenido', function () {
     return view('contenido/contenido');
-});
+})->middleware('auth');
 
-Auth::routes();
+
+Auth::routes(['register' => false]);
 
 
 Route::get('/', function() {
@@ -31,9 +32,9 @@ Route::get('/', function() {
 
 Route::get('/home', function () {
     return view('contenido/contenido');
-});
+})->middleware('auth');
 
 
-Auth::routes();
+
 
 //Route::get('/home', 'HomeController@index')->name('home');
