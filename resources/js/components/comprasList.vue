@@ -59,6 +59,13 @@
                       aria-labelledby="pills-home-tab"
                     >
                       <div class="col-md-6">
+                        <input
+                          v-model="num_comprob"
+                          type="text"
+                          id="texto2"
+                          class="form-control"
+                          placeholder="Comprobante a buscar"
+                        />
                         <div class="input-group">
                           <input
                             v-model="num_comprob"
@@ -70,7 +77,7 @@
                           <button class="btn btn-primary" v-on:click=" buscar_comprobant">
                             <i class="fa fa-search"></i> Buscar
                           </button>
-                          <div class="col-md-2">
+                          <div id="check" class="col-md-2">
                             <toggle-button
                               v-model="look_all"
                               :value="false"
@@ -90,8 +97,16 @@
                       aria-labelledby="pills-profile-tab"
                     >
                       <div class="col-md-6">
+                        <input
+                          id="texto2"
+                          class="form-control"
+                          type="date"
+                          format="yyyy-MM-dd"
+                          v-model="fecha_sh"
+                        />
                         <div class="input-group">
                           <input
+                            id="texto"
                             class="form-control"
                             type="date"
                             format="yyyy-MM-dd"
@@ -110,8 +125,9 @@
                       aria-labelledby="pills-contact-tab"
                     >
                       <div class="col-md-6">
+                        <input id="texto2" class="form-control" type="month" v-model="fecha_sh_m" />
                         <div class="input-group">
-                          <input class="form-control" type="month" v-model="fecha_sh_m" />
+                          <input id="texto" class="form-control" type="month" v-model="fecha_sh_m" />
                           <button class="btn btn-primary" v-on:click="filtrar_mes_c">
                             <i class="fa fa-search"></i> Mes
                           </button>
@@ -158,12 +174,24 @@
 
                             <td v-text="item.total_compra.toLocaleString()"></td>
                             <td v-text="item.created_at"></td>
-                            <td>
+                            <td id="btn_t1">
                               <button
                                 v-on:click="listCompras_detalles(item)"
                                 type="button"
                                 :id="item.id"
                                 class="btn btn-primary btn-sm"
+                              >
+                                <i class="icon-info"></i> ver +
+                              </button>
+                            </td>
+                            <td id="btn_t2">
+                              <button
+                                v-on:click="listCompras_detalles(item)"
+                                type="button"
+                                :id="item.id"
+                                class="btn btn-primary btn-sm"
+                                data-toggle="modal"
+                                data-target="#modalNuevo"
                               >
                                 <i class="icon-info"></i> ver +
                               </button>
@@ -181,7 +209,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col px-md-5">
+              <div id="vents_f" class="col px-md-5">
                 <div class="p-3 border">
                   <!-- Card -->
                   <div class="card weather-card">
@@ -324,43 +352,135 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Agregar categoría</h4>
+            <h5></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div class="modal-body">
-            <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    class="form-control"
-                    placeholder="Nombre de categoría"
-                  />
-                  <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+            <!-- Card -->
+            <div class="card weather-card">
+              <!-- cargando  -->
+
+              <!-- end cargando  -->
+
+              <!-- Card content -->
+              <div id="contenido" class="card-body pb-3" style="	height:640px">
+                <!-- Title -->
+                <div class="d-flex justify-content-between animated fadeIn">
+                  <h4 class="card-title font-weight-bold">Compra</h4>
+                  <!-- Text -->
+                  <p class="card-text" v-text="'Fecha: '+ lista_info.created_at"></p>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
-                <div class="col-md-9">
-                  <input
-                    type="email"
-                    id="descripcion"
-                    name="descripcion"
-                    class="form-control"
-                    placeholder="Enter Email"
-                  />
+
+                <div class="d-flex justify-content-between animated fadeIn">
+                  <h2 v-text="'N° '+ lista_info.num_comprobante"></h2>
+
+                  <div class="chip chip-md"></div>
+                  <div class="chip chip-md">
+                    <img src="img/user_venta.png" alt="Contact Person" />
+                    <h5 v-text="'Proveedor : '+ lista_info.nombre"></h5>
+                  </div>
                 </div>
+                <div class="d-flex justify-content-between mb-4">
+                  <p>3% Precipitation</p>
+                  <p></p>
+                </div>
+                <!--Card image-->
+                <!-- Table with panel -->
+                <section v-if="cargando">
+                  <div class="container">
+                    <div id="preloader_1">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                </section>
+                <section v-else>
+                  <div class="card card-cascade narrower">
+                    <!--Card image-->
+                    <div
+                      class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <a href class="white-text mx-3"></a>
+                      </div>
+
+                      <a href class="white-text mx-4">Contenido Compra</a>
+                    </div>
+                    <!--/Card image-->
+
+                    <div class="px-4 animated fadeIn">
+                      <div class="table-wrapper animated fadeIn">
+                        <!--Table-->
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar3">
+                          <section v-if="lista_info.length === 0">
+                            <img
+                              src="img\comprasx.png"
+                              class="rounded mx-auto d-block animated fadeIn"
+                              alt
+                            />
+                          </section>
+                          <section v-else>
+                            <table class="table table-hover mb-0 animated fadeIn">
+                              <!--Table head-->
+
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Articulo</th>
+                                  <th>cantidad</th>
+                                  <th>Precio compra</th>
+                                  <th>Precio venta</th>
+                                  <th>Total</th>
+                                </tr>
+                              </thead>
+                              <!--Table head-->
+
+                              <!--Table body-->
+                              <tbody>
+                                <tr
+                                  class="animated fadeIn"
+                                  v-for="(item,index) in lista_detalles_"
+                                  :key="item.id"
+                                >
+                                  <td v-text="index + 1"></td>
+                                  <td v-text="item.nombre"></td>
+                                  <td v-text="item.cantidad"></td>
+                                  <td v-text="item.precio_comrpa.toLocaleString()"></td>
+                                  <td v-text="item.precio_venta.toLocaleString()"></td>
+                                  <td
+                                    v-text="(item.cantidad * item.precio_comrpa).toLocaleString()"
+                                  ></td>
+                                </tr>
+                              </tbody>
+                              <!--Table body-->
+                            </table>
+                          </section>
+                        </div>
+                        <!--Table-->
+                        <div class="d-flex justify-content-between mb-4">
+                          <h5 v-text="'Cantidad articulos: '+total_cant_c"></h5>
+                          <p>
+                            <img src="img/venta_detalle.png" alt />
+                          </p>
+
+                          <h5 v-text="'Total compra : $'+total_compra.toLocaleString()"></h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!-- Table with panel -->
               </div>
-            </form>
+            </div>
+            <!-- Card -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -637,10 +757,13 @@ export default {
     cambio: function(newVal, oldVal) {
       if (oldVal.id > 0) {
         var x = document.getElementById("" + oldVal.id + "");
-        x.classList.remove("active");
 
         var tr = document.getElementById("" + oldVal.num_comprobante + "");
-        tr.classList.remove("table-warning");
+        if (x == null) {
+        } else {
+          x.classList.remove("active");
+          tr.classList.remove("table-warning");
+        }
       }
     },
     lista_compras: function(val) {

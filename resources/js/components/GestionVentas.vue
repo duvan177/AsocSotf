@@ -702,10 +702,10 @@ export default {
       this.tr_table = item.id;
       this.rent_2 = item.rentabilidad.toLocaleString("de-DE");
 
-      var x = document.getElementById("" + item.num_comprobante + "");
-      x.classList.add("active");
       var tr = document.getElementById("" + item.id + "");
       tr.classList.add("table-warning");
+      var x = document.getElementById("" + item.num_comprobante + "");
+      x.classList.add("active");
     },
 
     getVentas_x() {
@@ -771,7 +771,10 @@ export default {
       this.getDetalle_ventas(newVal);
       if (oldVal > 0) {
         var x = document.getElementById("" + oldVal + "");
-        x.classList.remove("active");
+        if (x == null) {
+        } else {
+          x.classList.remove("active");
+        }
       }
     },
 
@@ -805,8 +808,14 @@ export default {
     },
     tr_table: function(newVal, oldVal) {
       if (oldVal > 0) {
-        var x = document.getElementById("" + oldVal + "");
-        x.classList.remove("table-warning");
+        try {
+          var x = document.getElementById("" + oldVal + "");
+          console.log();
+          if (x == null) {
+          } else {
+            x.classList.remove("table-warning");
+          }
+        } catch (error) {}
       }
     },
     detalles: function(Val) {

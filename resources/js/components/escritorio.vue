@@ -1,10 +1,10 @@
 <template>
-  <div class="row animated fadeIn">
+  <div id="card_esc" class="row animated fadeIn">
     <div class="col-sm-6">
       <div id="card_escritorio1" class="card">
         <div class="card-body">
-          <img id="fondo_naranja" src="img/fondo_naranja.png" class="card-img-top" alt />
-          <img id="fondo_compras" src="img/compras_escritorio.jpg" class="card-img" alt />
+          <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
+          <img id="fondo_compras" src="img/compras_escritorio.png" class="card-img" alt />
           <div class="card-body">
             <h6 id="titulo_escritorio" class="card-title">Compras</h6>
             <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
@@ -188,7 +188,8 @@ export default {
       total_compra: "",
       total_venta: "",
       datos_today: [],
-      tabla: false
+      tabla: false,
+      btn_f_: false
     };
   },
 
@@ -243,6 +244,8 @@ export default {
     console.log("Component mounted.");
   },
 
-  watch: {}
+  watch: {
+    validar2: function(Val) {}
+  }
 };
 </script>

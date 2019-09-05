@@ -70,14 +70,14 @@
 
             @media (max-width: 500px) {
     #img_e {
-       width: 350px;
-       height: 300px;
+       width: 250px;
+       height: 200px;
     }
 }
              @media (min-width: 500px) {
     #img_e {
-       width: 450px;
-       height: 400px;
+       width: 350px;
+       height: 300px;
     }
 }
 
