@@ -484,7 +484,7 @@ export default {
       let art = this;
 
       axios
-        .post("/api/create_personas", {
+        .post("api/create_personas", {
           nombre: this.nombrePro,
           TipoPersona: 4,
           NumDocument: this.documento,
@@ -528,7 +528,7 @@ export default {
     getProveedores2() {
       let prove = this;
       axios
-        .post("/api/get_clientes")
+        .post("api/get_clientes")
         .then(function(response) {
           prove.clientes = response.data;
           //  console.log(datos);
@@ -571,7 +571,7 @@ export default {
         alert("Dato invalido, porfavor ingrese nuevamente");
       } else {
         axios
-          .post("/api/ver", {
+          .post("api/ver", {
             id: this.producto,
             cantidad: this.cantidad
           })
@@ -628,7 +628,7 @@ export default {
     getFecha() {
       let fecha = this;
       axios
-        .post("/api/fecha")
+        .post("api/fecha")
         .then(function(response) {
           fecha.fecha = response.data;
           //  console.log(datos);
@@ -646,7 +646,7 @@ export default {
       let num = this;
 
       axios
-        .post("/api/NumeroFactura")
+        .post("api/NumeroFactura")
         .then(function(response) {
           if (response.data == 404) {
             num.num = 1000;
@@ -688,7 +688,7 @@ export default {
       rent_d = tp_v - tp_c;
 
       axios
-        .post("/api/insert_venta", {
+        .post("api/insert_venta", {
           num_comp: this.num,
           total_venta: this.totalPD,
           descuento: this.totalpagarDesT,

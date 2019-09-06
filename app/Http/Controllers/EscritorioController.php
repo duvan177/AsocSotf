@@ -17,18 +17,27 @@ class EscritorioController extends Controller
                 $suma = 0;
                 $suma2 = 0;
                 $renta_ = 0;
+                $cant_art_c = 0;
+                   $cant_art_v = 0;
+
                  $date = Carbon::now();
                   $day = $date->format('Y-m-d');
             $compras = detalle_ingreso::whereDate('created_at',$day)->get();
              $ventas = Venta::whereDate('created_at',$day)->get();
+             $v_art = detalle_venta::whereDate('created_at',$day)->get();
 
 
             foreach ($compras as $key => $value) {
                $suma +=$value->cantidad * $value->precio_comrpa;
+               $cant_art_c += $value->cantidad;
+
             }
              foreach ($ventas as $key => $value) {
                $suma2+= $value->total_venta;
                $renta_ += $value->rentabilidad;
+            }
+            foreach ($v_art as $key => $value) {
+                $cant_art_v += $value->cantidad;
             }
 
          // $ventas = Venta::sum('total_venta')->whereDate('created_at',$day)->get();
@@ -39,7 +48,9 @@ class EscritorioController extends Controller
 
           $data2 = [ 'ventas'=>$sum2,
           'compras'=>$sum1,
-         'renta_d'=>$renta_];
+         'renta_d'=>$renta_,
+        'cantidad_c'=>$cant_art_c,
+    'cantidad_v'=>$cant_art_v];
 
 
           return response()->json($data2);

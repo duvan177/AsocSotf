@@ -17,16 +17,16 @@
               class="form-control mr-sm-2"
               type="search"
               placeholder="Nombre Categoria"
-              id="busqueda" 
-               v-on:keyup="myFunction()"
+              id="busqueda"
+              v-on:keyup="myFunction()"
               aria-label="Search"
             />
             <input
               class="form-control mr-sm-2"
               type="search"
               placeholder="Descripcion Categoria"
-              id="busqueda2" 
-               v-on:keyup="myFunction2()"
+              id="busqueda2"
+              v-on:keyup="myFunction2()"
               aria-label="Search"
             />
           </form>
@@ -50,37 +50,36 @@
                     <td v-text="consul.nombre_categoria"></td>
                     <td v-text="consul.descripcion_categoria"></td>
                     <div v-if="rol==1">
-                    <td>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#dialogoPreguntar"
-                        style="width:75 px"
-                        v-on:click="traerCategoriaEditar(consul)"
-                      >Editar</button>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#dialogoPreguntar"
+                          style="width:75 px"
+                          v-on:click="traerCategoriaEditar(consul)"
+                        >Editar</button>
 
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                         data-toggle="modal"
-                         data-target="#dialogoEliminar"
-                        v-on:click.prevent="traerCategoriaid(consul)"
-                      >Eliminar</button>
-                    </td>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          data-toggle="modal"
+                          data-target="#dialogoEliminar"
+                          v-on:click.prevent="traerCategoriaid(consul)"
+                        >Eliminar</button>
+                      </td>
                     </div>
                     <div v-else-if="rol==2">
- <td>
-                   
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#dialogoVer"
-                    v-on:click.prevent="traerCategoriaEditar(consul)"
-                  >Ver</button>
-                </td>
-</div>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#dialogoVer"
+                          v-on:click.prevent="traerCategoriaEditar(consul)"
+                        >Ver</button>
+                      </td>
+                    </div>
                   </tr>
                 </tbody>
               </table>
@@ -195,7 +194,7 @@
                   v-model="nombre_categoria_Editar"
                 />
               </div>
-           
+
               <div class="form-group">
                 <label for="formGroupExampleInput">Descripcion Categoria</label>
                 <input
@@ -232,8 +231,7 @@
     </div>
     <!-- fin del modal-->
 
-
- <!-- Modal de editar articulos -->
+    <!-- Modal de editar articulos -->
     <div
       class="modal fade"
       id="dialogoVer"
@@ -254,7 +252,8 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="formGroupExampleInput">Nombre Categoria</label>
-                <input disabled
+                <input
+                  disabled
                   type="text"
                   class="form-control"
                   id="formGroupExampleInput"
@@ -262,10 +261,11 @@
                   v-model="nombre_categoria_Editar"
                 />
               </div>
-           
+
               <div class="form-group">
                 <label for="formGroupExampleInput">Descripcion Categoria</label>
-                <input disabled
+                <input
+                  disabled
                   type="text"
                   class="form-control"
                   id="formGroupExampleInput"
@@ -275,7 +275,6 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-               
               </div>
             </div>
           </form>
@@ -285,87 +284,128 @@
     <!-- fin del modal-->
 
     <!--Alerta -->
-<div class="modal" tabindex="-1" id="error" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡Alerta!</h5>
-        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        
-      </div>
-      <div class="modal-body">
-        <p>Se presento el siguiente error: {{error}} por favor comunicarse con el desarrollador</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--fin modal Alerta -->
-<!--respuesta -->
-<div class="modal" tabindex="-1" id="respuesta" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">¡{{respuesta}}!</h5>
-        <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-        
-      </div>
-      <div class="modal-body">
-        <p>Se {{respuesta}} correctamnte{{respuesta2}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="limpiar()">Ok</button>
+    <div class="modal" tabindex="-1" id="error" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡Alerta!</h5>
+            <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+          </div>
+          <div class="modal-body">
+            <p>Se presento el siguiente error: {{error}} por favor comunicarse con el desarrollador</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >Ok</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!--fin modal respuesta -->
-<!-- model preguntar -->
-<div class="modal" tabindex="-1" id="dialogoPreguntar" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pregunta</h5>
-        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Seguro que desea editar la categoria {{this.nombre}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#articuloeditarModal">Si</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--fin modal preguntar -->
-<!-- model preguntar Eliminar -->
-<div class="modal" tabindex="-1" id="dialogoEliminar" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pregunta</h5>
-        <button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Seguro que desea eliminar la empresa {{this.nombre_categoria_Editar}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click.prevent="limpiar()">No</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click.prevent="eliminarCategoria()">Si</button>
+    <!--fin modal Alerta -->
+    <!--respuesta -->
+    <div class="modal" tabindex="-1" id="respuesta" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¡{{respuesta}}!</h5>
+            <!--<button type="button" class="close" v-on:click.prevent="limpiar()" data-dismiss="modal" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+          </div>
+          <div class="modal-body">
+            <p>Se {{respuesta}} correctamnte{{respuesta2}}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >Ok</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!--fin modal preguntar -->
+    <!--fin modal respuesta -->
+    <!-- model preguntar -->
+    <div class="modal" tabindex="-1" id="dialogoPreguntar" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pregunta</h5>
+            <button
+              type="button"
+              class="close"
+              v-on:click.prevent="limpiar()"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Seguro que desea editar la categoria {{this.nombre}}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >No</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-dismiss="modal"
+              data-target="#articuloeditarModal"
+            >Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin modal preguntar -->
+    <!-- model preguntar Eliminar -->
+    <div class="modal" tabindex="-1" id="dialogoEliminar" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pregunta</h5>
+            <button
+              type="button"
+              class="close"
+              v-on:click.prevent="limpiar()"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Seguro que desea eliminar la empresa {{this.nombre_categoria_Editar}}</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              v-on:click.prevent="limpiar()"
+            >No</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              v-on:click.prevent="eliminarCategoria()"
+            >Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin modal preguntar -->
   </main>
 </template>
 
@@ -385,32 +425,32 @@ export default {
       descripcion_categoria_Editar: "",
       nombre_categoria_Editar: "",
       id: 0,
-      nombre:"",
-      respuesta:"",
-      error:"",
-userid: this.username,
-      rol:0,
-      rol2:[]
+      nombre: "",
+      respuesta: "",
+      error: "",
+      userid: this.username,
+      rol: 0,
+      rol2: []
     };
   },
-props:["username"],
+  props: ["username"],
   methods: {
-    asignarId(){
-      var consultaCate=this;
+    asignarId() {
+      var consultaCate = this;
       console.log(this.username);
-     axios.post("api/getDataPermise", {id: this.userid}).then(response=>{
-       consultaCate.rol2 = response.data;
-console.log(consultaCate.rol2[0].id_rol);
-var rol=consultaCate.rol2[0].id_rol;
-//console.log(this.rol);
-this.prueba(rol);
-     });
-     console.log("si");
-},prueba(rol){
-
-this.rol = rol;
-console.log(this.rol);
-},
+      axios.post("api/getDataPermise", { id: this.userid }).then(response => {
+        consultaCate.rol2 = response.data;
+        console.log(consultaCate.rol2[0].id_rol);
+        var rol = consultaCate.rol2[0].id_rol;
+        //console.log(this.rol);
+        this.prueba(rol);
+      });
+      console.log("si");
+    },
+    prueba(rol) {
+      this.rol = rol;
+      console.log(this.rol);
+    },
     EditarCategoria() {
       let consulta2 = this;
       let nombre_categoria_Editar = this.nombre_categoria_Editar;
@@ -426,13 +466,15 @@ console.log(this.rol);
         })
         .then(response => {
           this.addCategoria();
-            this.respuesta="Edito";
-            this.respuesta2=", recuerde que al editar o eliminar una categoria"
-            + " puede afectar un articulo o varios";
+          this.respuesta = "Edito";
+          this.respuesta2 =
+            ", recuerde que al editar o eliminar una categoria" +
+            " puede afectar un articulo o varios";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
     guardarCategoria() {
@@ -444,25 +486,25 @@ console.log(this.rol);
         .post("api/guardarcategoria", {
           nombre_categoria: this.nombre_categoria,
           descripcion_categoria: this.descripcion_categoria
-          
         })
         .then(response => {
           this.nombre_categoria = "";
           this.descripcion_categoria = "";
           this.addCategoria();
-           this.respuesta="guardo";
+          this.respuesta = "guardo";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
     limpiar() {
       this.descripcion_categoria = "";
       this.nombre_categoria = "";
     },
-    traerCategoriaid(consul){
-this.id=consul.id;
+    traerCategoriaid(consul) {
+      this.id = consul.id;
     },
     /* seleccion(){
    let categoria = this.categoria;
@@ -471,11 +513,14 @@ this.id=consul.id;
    },*/
     addCategoria() {
       let meconsulta = this;
-      axios.post("api/categoria").then(function(response) {
-        meconsulta.consulta = response.data;   
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+      axios
+        .post("api/categoria")
+        .then(function(response) {
+          meconsulta.consulta = response.data;
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
     traerCategoriaEditar(consul) {
@@ -493,51 +538,53 @@ this.id=consul.id;
         })
         .then(response => {
           this.addCategoria();
-           this.respuesta="Elimino";
-           this.respuesta2=", recuerde que al editar o eliminar una categoria"
-            + " puede afectar un articulo o varios";
+          this.respuesta = "Elimino";
+          this.respuesta2 =
+            ", recuerde que al editar o eliminar una categoria" +
+            " puede afectar un articulo o varios";
           $("#respuesta").modal("show");
-        }).catch(error=>{
-   this.error=error.response;
-    $("#error").modal("show");
+        })
+        .catch(error => {
+          this.error = error.response;
+          $("#error").modal("show");
         });
     },
-     myFunction() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- },
- myFunction2() {
-     var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("busqueda2");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    },
+    myFunction2() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("busqueda2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
- }
+    }
   },
   created() {},
   mounted() {

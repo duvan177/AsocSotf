@@ -578,7 +578,7 @@ export default {
     },
     finalizarCompra() {
       axios
-        .post("/api/actualizar_ingreso", {
+        .post("api/actualizar_ingreso", {
           id: this.ingreso.id
         })
         .then(function(response) {
@@ -597,7 +597,7 @@ export default {
     },
     GuardarCompra() {
       axios
-        .post("/api/get_provedores")
+        .post("api/get_provedores")
         .then(function(response) {
           prov.provedores = response.data;
         })
@@ -616,7 +616,7 @@ export default {
       let art = this;
 
       axios
-        .post("/api/create_personas", {
+        .post("api/create_personas", {
           nombre: this.nombrePro,
           TipoPersona: 3,
           NumDocument: this.documento,
@@ -658,7 +658,7 @@ export default {
       let prov = this;
 
       axios
-        .post("/api/get_provedores")
+        .post("api/get_provedores")
         .then(function(response) {
           prov.provedores = response.data;
         })
@@ -676,7 +676,7 @@ export default {
       let Atr = this;
 
       axios
-        .post("/api/articulos")
+        .post("api/articulos")
         .then(function(response) {
           Atr.articulos = response.data;
         })
@@ -694,7 +694,7 @@ export default {
       let comp = this;
 
       axios
-        .post("/api/get_comprobantes")
+        .post("api/get_comprobantes")
         .then(function(response) {
           comp.comprobantes = response.data;
           // console.log(response.data);
@@ -713,7 +713,7 @@ export default {
       let ser = this;
 
       axios
-        .post("/api/get_series")
+        .post("api/get_series")
         .then(function(response) {
           ser.series = response.data;
           // console.log(response.data);
@@ -730,7 +730,7 @@ export default {
     },
     guardaringreso() {
       axios
-        .post("/api/guardar_ingreso", {
+        .post("api/guardar_ingreso", {
           id_proveedor: this.selectProv,
           id_tipo_comprobante: this.comprobante,
           id_serie_comprobante: this.serie,
@@ -782,7 +782,7 @@ export default {
       let igre = this;
 
       axios
-        .post("/api/get_ingresosE")
+        .post("api/get_ingresosE")
         .then(function(response) {
           if (response.data == 4004) {
             console.log("no hay registos");
@@ -815,7 +815,7 @@ export default {
       let reld = this;
       let table = this;
       axios
-        .post("/api/RegistIngreso", {
+        .post("api/RegistIngreso", {
           id_ingreso: this.ingreso.id,
           articulo: this.articulo.id,
           cantidad: this.cantidad,
@@ -853,7 +853,7 @@ export default {
       let ingAll = this;
 
       axios
-        .post("/api/setIngresosTodo")
+        .post("api/setIngresosTodo")
         .then(function(response) {
           ingAll.ingresosAll = response.data;
         })

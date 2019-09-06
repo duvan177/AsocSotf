@@ -1,19 +1,28 @@
 <template>
-  <div class="row animated fadeIn">
+  <div id="card_esc" class="row animated fadeIn">
     <div class="col-sm-6">
       <div id="card_escritorio1" class="card">
         <div class="card-body">
-          <img id="fondo_naranja" src="img/fondo_naranja.png" class="card-img-top" alt />
-          <img id="fondo_compras" src="img/compras_escritorio.jpg" class="card-img" alt />
+          <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
+          <img id="fondo_compras" src="img/compras_escritorio.png" class="card-img" alt />
           <div class="card-body">
             <h6 id="titulo_escritorio" class="card-title">Compras</h6>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
-              <h6 class="text-danger" v-text="'total generado : $'+datos_today.compras"></h6>
-              <h6 v-text="'Total Venta: $'"></h6>
+
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
+              <h6>
+                <a v-text="'total generado: '"></a>
+                <a class="text-danger" v-text="datos_today.compras"></a>
+              </h6>
+              <h6>
+                <a v-text="'Cand. articulos'"></a>
+                <a v-text="datos_today.cantidad_c"></a>
+              </h6>
+              <h6></h6>
             </div>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
               <h6 class="card-title" v-text="'total generado : $'+datos_today.compras"></h6>
-              <h6 v-text="'Total Venta: $'"></h6>
+              <h6></h6>
+              <graficos2 style="bottom:30px;"></graficos2>
             </div>
           </div>
         </div>
@@ -25,8 +34,25 @@
           <img id="fondo_compras" src="img/ventas_escritorio.png" class="card-img" alt />
           <div class="card-body">
             <h6 id="titulo_escritorio2" class="card-title">Ventas</h6>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-6">
-              <h6 v-text="'total generado : $'+datos_today.ventas"></h6>
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
+              <h6>
+                <a v-text="'total generado :'"></a>
+                <a class="teal-text" v-text="'+$'+datos_today.ventas"></a>
+              </h6>
+              <h6>
+                <a v-text="'Cand. articulos :'"></a>
+                <a v-text="datos_today.cantidad_v"></a>
+              </h6>
+
+              <h6></h6>
+            </div>
+            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
+              <h6>
+                <a v-text="'Rentabilidad:'"></a>
+                <a class="teal-text" v-text=" '+$'+datos_today.renta_d"></a>
+              </h6>
+
+              <graficos2 style="bottom:30px;"></graficos2>
             </div>
           </div>
         </div>
@@ -83,104 +109,6 @@ export default {
   components: { Carousel, Slide },
   data() {
     return {
-      lists: [
-        {
-          id: 12,
-          id_ingreso: 12,
-
-          ingreso: [
-            {
-              id: 12,
-              id_proveedor: 30,
-              id_estado: 2
-            }
-          ],
-          persona: [
-            {
-              id: 30,
-              id_tipo_persona: 3
-            }
-          ],
-          articulo: [
-            {
-              id: 44,
-              id_categoria: 4
-            }
-          ]
-        },
-        {
-          id: 21,
-          id_ingreso: 12,
-
-          ingreso: [
-            {
-              id: 12,
-              id_proveedor: 30,
-              id_estado: 1
-            }
-          ],
-          persona: [
-            {
-              id: 40,
-              id_tipo_persona: 37
-            }
-          ],
-          articulo: [
-            {
-              id: 99,
-              id_categoria: 78
-            }
-          ]
-        },
-        {
-          id: 21,
-          id_ingreso: 31,
-
-          ingreso: [
-            {
-              id: 31,
-              id_proveedor: 30,
-              id_estado: 2
-            }
-          ],
-          persona: [
-            {
-              id: 40,
-              id_tipo_persona: 37
-            }
-          ],
-          articulo: [
-            {
-              id: 99,
-              id_categoria: 78
-            }
-          ]
-        },
-        {
-          id: 11,
-          id_ingreso: 11,
-
-          ingreso: [
-            {
-              id: 30,
-              id_proveedor: 30,
-              id_estado: 2
-            }
-          ],
-          persona: [
-            {
-              id: 30,
-              id_tipo_persona: 37
-            }
-          ],
-          articulo: [
-            {
-              id: 99,
-              id_categoria: 78
-            }
-          ]
-        }
-      ],
       allbusqueda: [],
       busqueda: [],
       encontrado: false,
@@ -188,27 +116,17 @@ export default {
       total_compra: "",
       total_venta: "",
       datos_today: [],
-      tabla: false
+
+      btn_f_: false
     };
   },
 
   methods: {
-    buscar: function() {
-      this.lists.forEach(element => {
-        let data = element;
-        let dato = element.ingreso[0];
-
-        if (dato.id_estado == 12) {
-          this.busqueda.push(dato);
-          this.allbusqueda = data;
-        }
-      });
-    },
     cambiar: function() {},
     totales_today() {
       let med = this;
       axios
-        .post("/api/datos_ventas_compras")
+        .post("api/datos_ventas_compras")
         .then(function(response) {
           console.log(response.data);
           med.datos_today = response.data;
@@ -228,7 +146,7 @@ export default {
 
   mounted() {
     this.totales_today();
-    this.buscar();
+
     window.Echo = new Echo({
       broadcaster: "pusher",
       key: "ASDASD2121",
@@ -243,6 +161,8 @@ export default {
     console.log("Component mounted.");
   },
 
-  watch: {}
+  watch: {
+    validar2: function(Val) {}
+  }
 };
 </script>

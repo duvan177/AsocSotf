@@ -748,7 +748,7 @@ input[type="search"] {
     #titulo_escritorio {
         position: relative;
         bottom: 100px;
-        color: #24a11f;
+        color: #e45919;
         font-size: 20px;
         right: 15px;
     }
@@ -756,11 +756,16 @@ input[type="search"] {
 
 @media (min-width: 480px) {
     #texto2,
-    #btn_t2 {
+    #btn_t2,
+    #btn_f,
+    #btn_vt,
+    #btn_cp,
+    #btn_cps,
+    #btn_hm {
         display: none;
     }
     #fondo_compras {
-        width: 80px;
+        width: 90px;
         position: relative;
         bottom: 50px;
         left: 40%;
@@ -770,4 +775,27 @@ input[type="search"] {
 
 #check {
     top: 15px;
+}
+
+#btn_cp,
+#btn_cps,
+#btn_vt,
+#btn_f,
+#btn_hm {
+    display: scroll;
+    position: fixed;
+    top: 90%;
+    right: 16px;
+}
+
+#text {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    display: scroll;
+    position: fixed;
+    top: 90%;
+    right: 25px;
+}
+
+.oscurecer {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }

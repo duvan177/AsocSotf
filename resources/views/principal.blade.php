@@ -92,7 +92,7 @@
         </ul>
     </header>
 
-    <div class="app-body">
+    <div id="prin_" class="app-body">
 
 
     @include('plantilla.sidebar')
@@ -100,7 +100,23 @@
 
 
         @yield('contenido')
+        <a id="btn_hm" class="flotante5" @click="menu=0">
+      <img src="img\home_.png" border="0" />
+    </a>
 
+<a id="btn_cps" class="flotante4" @click="menu=8">
+      <img src="img\compas_.png" border="0" />
+    </a>
+                 <a id="btn_vt" class="flotante3" @click="menu=2" >
+      <img src="img\stock.png" border="0" />
+    </a>
+  <a id="btn_cp" class="flotante2" @click="menu=5" >
+      <img src="img\recibo.png" border="0" />
+    </a>
+
+    <a  id="btn_f" class="flotante" @click="rote(validar2)" >
+      <img src="img\menu_esc.png" border="0" />
+    </a>
 
         <!-- /Fin del contenido principal -->
     </div>
@@ -110,11 +126,12 @@
     <script src="{{asset("js/jquery.min.js")}}"></script>
 
 
-     <script src="{{asset("js/mdb.js")}}"></script>
+
       <!-- Bootstrap and necessary plugins -->
     <script src="{{asset("js/popper.min.js")}}"></script>
     <script src="{{asset("js/bootstrap.min.js")}}"></script>
     <script src="{{asset("js/pace.min.js")}}"></script>
+     <script src="{{asset("js/mdb.js")}}"></script>
      <!-- Plugins and scripts required by all views -->
     <script src="{{asset("js/Chart.min.js")}}"></script>
     <script src="{{asset("js/anime.js")}}"></script>

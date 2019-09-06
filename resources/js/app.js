@@ -32,6 +32,7 @@ Vue.component(
 );
 Vue.component("compa", require("./components/comprasArticulos.vue").default);
 Vue.component("graficos", require("./components/graficos.vue").default);
+Vue.component("graficos2", require("./components/graficos2.vue").default);
 Vue.component("escritorio", require("./components/escritorio.vue").default);
 Vue.component(
     "gestion-compras",
@@ -49,7 +50,8 @@ const app = new Vue({
     props: ["dato"],
     data: {
         menu: 0,
-        cargando: true
+        cargando: true,
+        validar2: true
     },
     methods: {
         cargando_escrt() {
@@ -57,9 +59,85 @@ const app = new Vue({
             setTimeout(function() {
                 return (me.cargando = false);
             }, 1500);
+        },
+
+        rote: function(dat) {
+            var btn_f = document.getElementsByClassName("flotante");
+            var btn_cp = document.getElementsByClassName("flotante2");
+            var btn_vt = document.getElementsByClassName("flotante3");
+            var btn_cps = document.getElementsByClassName("flotante4");
+            var btn_hm = document.getElementsByClassName("flotante5");
+            if (dat == true) {
+                this.validar2 = false;
+
+                anime({
+                    targets: btn_f,
+                    rotate: {
+                        value: 90,
+                        duration: 0,
+                        easing: "easeInOutSine"
+                    }
+                });
+                anime({
+                    targets: btn_cp,
+                    top: "80%",
+                    duration: 0
+                });
+                anime({
+                    targets: btn_vt,
+                    top: "70%",
+                    duration: 0
+                });
+                anime({
+                    targets: btn_cps,
+                    top: "60%",
+                    duration: 0
+                });
+                anime({
+                    targets: btn_hm,
+                    top: "50%",
+                    duration: 0
+                });
+            }
+            if (dat == false) {
+                this.validar2 = true;
+
+                anime({
+                    targets: btn_f,
+                    rotate: {
+                        value: 0,
+                        duration: 0,
+                        easing: "easeInOutSine"
+                    }
+                });
+                anime({
+                    targets: [btn_vt, btn_cp, btn_cps, btn_hm],
+                    top: "90%",
+                    duration: 0
+                });
+            }
         }
     },
     mounted() {
         this.cargando_escrt();
+    },
+    watch: {
+        menu: function(Val) {
+            this.validar2 = true;
+
+            anime({
+                targets: btn_f,
+                rotate: {
+                    value: 0,
+                    duration: 0,
+                    easing: "easeInOutSine"
+                }
+            });
+            anime({
+                targets: [btn_vt, btn_cp, btn_cps, btn_hm],
+                top: "90%",
+                duration: 0
+            });
+        }
     }
 });

@@ -62,7 +62,7 @@
                     >
                       <div class="col-md-6">
                         <input
-                          type="text"
+                          type="number"
                           id="texto2"
                           class="form-control"
                           placeholder="Comprobante a buscar"
@@ -71,7 +71,7 @@
                         />
                         <div class="input-group">
                           <input
-                            type="text"
+                            type="number"
                             id="texto"
                             class="form-control"
                             placeholder="Comprobante a buscar"
@@ -367,138 +367,143 @@
     >
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
-          <div class="p-3 border">
+          <div class="modal-header">
+            <h5></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="p-2 border">
             <!-- Card -->
-            <div class="card weather-card">
-              <!-- cargando  -->
 
-              <!-- end cargando  -->
+            <!-- cargando  -->
 
-              <!-- Card content -->
-              <div id="contenido" class="card-body pb-3" style="	height:640px">
-                <section v-if="cargando">
-                  <div class="container">
-                    <div id="preloader_1">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
-                </section>
-                <section v-else>
-                  <!-- Title -->
-                  <div class="d-flex justify-content-between animated fadeIn">
-                    <h4 class="card-title font-weight-bold">Factura</h4>
-                    <!-- Text -->
-                    <p class="card-text" v-text=" 'Fecha :'+fechaVenta"></p>
-                  </div>
+            <!-- end cargando  -->
 
-                  <div class="d-flex justify-content-between animated fadeIn">
-                    <p class="display-4" v-text="'N° '+numeroComprobante"></p>
+            <!-- Card content -->
 
-                    <div class="chip chip-md"></div>
-                    <div class="chip chip-md">
-                      <img src="img/user_venta.png" alt="Contact Person" />
-                      <h6 v-text="nombreUserVenta"></h6>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-between mb-2">
-                    <label>
-                      Rentabilidad total :
-                      <h6 class="teal-text" v-text="'+' +rent_2.toLocaleString('de-DE')"></h6>
-                    </label>
-
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                  <!--Card image-->
-                  <!-- Table with panel -->
-                  <div class="card card-cascade narrower">
-                    <!--Card image-->
-                    <div
-                      class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
-                    >
-                      <div>
-                        <a href class="white-text mx-3"></a>
-                      </div>
-
-                      <a href class="white-text mx-4">Contenido Venta</a>
-                    </div>
-                    <!--/Card image-->
-
-                    <div class="px-4">
-                      <div class="table-wrapper">
-                        <!--Table-->
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar3">
-                          <section v-if="detalles.length === 0">
-                            <img
-                              src="img\comprasx.png"
-                              class="rounded mx-auto d-block animated fadeIn"
-                              alt
-                            />
-                          </section>
-                          <section v-else>
-                            <table class="table table-hover mb-0">
-                              <!--Table head-->
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Articulo</th>
-                                  <th>cantidad</th>
-                                  <th>Valor unitario</th>
-                                  <th>Valor Total</th>
-                                  <th>Rentabilidad</th>
-                                </tr>
-                              </thead>
-                              <!--Table head-->
-
-                              <!--Table body-->
-                              <tbody>
-                                <tr
-                                  class="animated fadeIn"
-                                  v-for="(item,index) in detalles"
-                                  :key="item.id"
-                                >
-                                  <td v-text="index +1"></td>
-                                  <td v-text="item.nombre"></td>
-                                  <td v-text="item.cantidad"></td>
-                                  <td v-text="item.precio_venta.toLocaleString('de-DE')"></td>
-                                  <td
-                                    v-text="(item.precio_venta * item.cantidad).toLocaleString('de-DE')"
-                                  ></td>
-                                  <td
-                                    class="teal-text"
-                                    v-text="'+ '+item.rentabilidad.toLocaleString('de-DE')"
-                                  ></td>
-                                </tr>
-                              </tbody>
-                              <!--Table body-->
-                            </table>
-                          </section>
-                        </div>
-                        <!--Table-->
-                        <div class="d-flex justify-content-between mb-4">
-                          <h6 v-text="'cantidad articulos vendidos: '+cant_v"></h6>
-                          <p>
-                            <img src="img/venta_detalle.png" alt />
-                          </p>
-
-                          <h6 v-text="'Total Venta: $'+Total_pagar_detalle"></h6>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Table with panel -->
-                </section>
+            <section v-if="cargando">
+              <div class="container">
+                <div id="preloader_1">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
-            </div>
+            </section>
+            <section v-else>
+              <!-- Title -->
+              <div class="d-flex justify-content-between animated fadeIn">
+                <h4 class="card-title font-weight-bold">Factura</h4>
+                <!-- Text -->
+                <p class="card-text" v-text=" 'Fecha :'+fechaVenta"></p>
+              </div>
+
+              <div class="d-flex justify-content-between animated fadeIn">
+                <p class="display-4" v-text="'N° '+numeroComprobante"></p>
+
+                <div class="chip chip-md"></div>
+                <div class="chip chip-md">
+                  <img src="img/user_venta.png" alt="Contact Person" />
+                  <h6 v-text="nombreUserVenta"></h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <label>
+                  Rentabilidad total :
+                  <h6 class="teal-text" v-text="'+' +rent_2.toLocaleString('de-DE')"></h6>
+                </label>
+
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+              </div>
+              <!--Card image-->
+              <!-- Table with panel -->
+
+              <!--Card image-->
+              <div
+                class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <a href class="white-text mx-3"></a>
+                </div>
+
+                <a href class="white-text mx-4">Contenido Venta</a>
+              </div>
+              <!--/Card image-->
+
+              <div class="px-4">
+                <div class="table-wrapper">
+                  <!--Table-->
+                  <div class="table-wrapper-scroll-y my-custom-scrollbar3">
+                    <section v-if="detalles.length === 0">
+                      <img
+                        src="img\comprasx.png"
+                        class="rounded mx-auto d-block animated fadeIn"
+                        alt
+                      />
+                    </section>
+                    <section v-else>
+                      <table class="table table-hover mb-0">
+                        <!--Table head-->
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Articulo</th>
+                            <th>cantidad</th>
+                            <th>Valor unitario</th>
+                            <th>Valor Total</th>
+                            <th>Rentabilidad</th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+
+                        <!--Table body-->
+                        <tbody>
+                          <tr
+                            class="animated fadeIn"
+                            v-for="(item,index) in detalles"
+                            :key="item.id"
+                          >
+                            <td v-text="index +1"></td>
+                            <td v-text="item.nombre"></td>
+                            <td v-text="item.cantidad"></td>
+                            <td v-text="item.precio_venta.toLocaleString('de-DE')"></td>
+                            <td
+                              v-text="(item.precio_venta * item.cantidad).toLocaleString('de-DE')"
+                            ></td>
+                            <td
+                              class="teal-text"
+                              v-text="'+ '+item.rentabilidad.toLocaleString('de-DE')"
+                            ></td>
+                          </tr>
+                        </tbody>
+                        <!--Table body-->
+                      </table>
+                    </section>
+                  </div>
+                  <!--Table-->
+                  <div class="d-flex justify-content-between mb-6">
+                    <h6 v-text="'cant. articulos vendidos: '+cant_v"></h6>
+                    <p>
+                      <img src="img/venta_detalle.png" alt />
+                    </p>
+
+                    <h6 v-text="'Total Venta: $'+Total_pagar_detalle"></h6>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Table with panel -->
+            </section>
+
             <!-- Card -->
           </div>
           <div class="modal-footer">
@@ -603,7 +608,7 @@ export default {
         this.cargando_2 = false;
       } else {
         axios
-          .post("/api/get_Venta_mes", {
+          .post("api/get_Venta_mes", {
             fecha: this.fecha_consul
           })
           .then(function(response) {
@@ -637,7 +642,7 @@ export default {
         this.cargando_2 = false;
       } else {
         axios
-          .post("/api/get_Venta_fecha", {
+          .post("api/get_Venta_fecha", {
             fecha: this.form.date2
           })
           .then(function(response) {
@@ -668,10 +673,10 @@ export default {
       this.cargando_2 = true;
       let meventa = this;
       axios
-        .post("/api/get_Venta_", {
+        .post("api/get_Venta_", {
           num_comp: this.venta_detalle
         })
-        .then(function(response) {
+        .then(response => {
           if (response.data == 404) {
             alert("no existe esta factura");
           } else {
@@ -681,7 +686,7 @@ export default {
         })
         .catch(function(error) {
           // handle error
-          console.log(error);
+          alert(error);
         })
 
         .then(function() {})
@@ -702,10 +707,10 @@ export default {
       this.tr_table = item.id;
       this.rent_2 = item.rentabilidad.toLocaleString("de-DE");
 
-      var x = document.getElementById("" + item.num_comprobante + "");
-      x.classList.add("active");
       var tr = document.getElementById("" + item.id + "");
       tr.classList.add("table-warning");
+      var x = document.getElementById("" + item.num_comprobante + "");
+      x.classList.add("active");
     },
 
     getVentas_x() {
@@ -713,10 +718,10 @@ export default {
       this.cargando_2 = true;
 
       axios
-        .post("/api/get_Ventas", {
+        .post("api/get_Ventas", {
           ver: this.ver
         })
-        .then(function(response) {
+        .then(response => {
           meventas.ventas = response.data;
         })
         .catch(function(error) {
@@ -732,7 +737,7 @@ export default {
     getDetalle_ventas(numComp) {
       let me_detalles = this;
       axios
-        .post("/api/get_Ventas_detalle", {
+        .post("api/get_Ventas_detalle", {
           num_comprobante: numComp
         })
         .then(function(response) {
@@ -771,7 +776,10 @@ export default {
       this.getDetalle_ventas(newVal);
       if (oldVal > 0) {
         var x = document.getElementById("" + oldVal + "");
-        x.classList.remove("active");
+        if (x == null) {
+        } else {
+          x.classList.remove("active");
+        }
       }
     },
 
@@ -805,8 +813,14 @@ export default {
     },
     tr_table: function(newVal, oldVal) {
       if (oldVal > 0) {
-        var x = document.getElementById("" + oldVal + "");
-        x.classList.remove("table-warning");
+        try {
+          var x = document.getElementById("" + oldVal + "");
+          console.log();
+          if (x == null) {
+          } else {
+            x.classList.remove("table-warning");
+          }
+        } catch (error) {}
       }
     },
     detalles: function(Val) {
