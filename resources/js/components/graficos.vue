@@ -122,10 +122,18 @@ export default {
       });
     },
     asignarCompra() {
+      var nota = new Date();
+if(nota.getDay()==1){
+var diaLu = nota.getDate();
+var proximoLunes = diaLu + 7;
+console.log("entro");
+}
+
       this.fechaCompra.forEach(element => {
         let fechcompra = new Date(element);
         console.log(fechcompra.getDay());
         var dia = fechcompra.getDay();
+        var comparar = fechcompra.getDate(element);
         if (dia == 1) {
           this.lunesCompra++;
         } else if (dia == 2) {
