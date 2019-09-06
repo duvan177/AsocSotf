@@ -124,7 +124,7 @@ export default {
     asignarCompra() {
       this.fechaCompra.forEach(element => {
         let fechcompra = new Date(element);
-        console.log(fechcompra.getDay());
+        // console.log(fechcompra.getDay());
         var dia = fechcompra.getDay();
         if (dia == 1) {
           this.lunesCompra++;
@@ -142,7 +142,7 @@ export default {
           this.domingoCompra++;
         }
         var mes = fechcompra.getMonth();
-        console.log(mes);
+        //  console.log(mes);
         if (mes == 0) {
           this.enecomp++;
         } else if (mes == 1) {
@@ -173,7 +173,7 @@ export default {
     asignarVenta() {
       this.fechaVenta.forEach(element => {
         let fechventa = new Date(element);
-        console.log(fechventa.getDay());
+        //    console.log(fechventa.getDay());
         var dia = fechventa.getDay();
         if (dia == 1) {
           this.lunesVenta++;
@@ -192,7 +192,7 @@ export default {
         }
 
         var mes = fechventa.getMonth();
-        console.log(mes);
+        //console.log(mes);
         if (mes == 0) {
           this.eneroven++;
         } else if (mes == 1) {

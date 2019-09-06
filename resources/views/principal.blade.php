@@ -92,7 +92,7 @@
         </ul>
     </header>
 
-    <div class="app-body">
+    <div id="prin_" class="app-body">
 
 
     @include('plantilla.sidebar')
@@ -126,11 +126,12 @@
     <script src="{{asset("js/jquery.min.js")}}"></script>
 
 
-     <script src="{{asset("js/mdb.js")}}"></script>
+
       <!-- Bootstrap and necessary plugins -->
     <script src="{{asset("js/popper.min.js")}}"></script>
     <script src="{{asset("js/bootstrap.min.js")}}"></script>
     <script src="{{asset("js/pace.min.js")}}"></script>
+     <script src="{{asset("js/mdb.js")}}"></script>
      <!-- Plugins and scripts required by all views -->
     <script src="{{asset("js/Chart.min.js")}}"></script>
     <script src="{{asset("js/anime.js")}}"></script>

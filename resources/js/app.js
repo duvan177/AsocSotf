@@ -32,6 +32,7 @@ Vue.component(
 );
 Vue.component("compa", require("./components/comprasArticulos.vue").default);
 Vue.component("graficos", require("./components/graficos.vue").default);
+Vue.component("graficos2", require("./components/graficos2.vue").default);
 Vue.component("escritorio", require("./components/escritorio.vue").default);
 Vue.component(
     "gestion-compras",

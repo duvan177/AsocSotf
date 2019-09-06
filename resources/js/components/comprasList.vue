@@ -556,7 +556,7 @@ export default {
         this.cargando_2 = false;
       } else {
         axios
-          .post("/api/compra_x_mes", {
+          .post("api/compra_x_mes", {
             fecha: this.fecha_sh_m
           })
           .then(function(response) {
@@ -590,7 +590,7 @@ export default {
         this.cargando_2 = false;
       } else {
         axios
-          .post("/api/compra_x_fecha", {
+          .post("api/compra_x_fecha", {
             fecha: this.fecha_sh
           })
           .then(function(response) {
@@ -621,7 +621,7 @@ export default {
       let me_total = this;
       this.cargando_2 = true;
       axios
-        .post("/api/todo_compras")
+        .post("api/todo_compras")
         .then(function(response) {
           lis.lista_compras = response.data;
         })
@@ -650,7 +650,7 @@ export default {
       x.classList.add("active");
       this.cargando = true;
       axios
-        .post("/api/todo_compras_x", {
+        .post("api/todo_compras_x", {
           id_ingreso: item.id
         })
         .then(function(response) {
@@ -678,7 +678,7 @@ export default {
       let mecompra = this;
       this.cargando_2 = true;
       axios
-        .post("/api/compra_x_fecha", {
+        .post("api/compra_x_fecha", {
           fecha: date
         })
         .then(function(response) {
@@ -698,7 +698,7 @@ export default {
       let mecompra = this;
 
       axios
-        .post("/api/compra_x", {
+        .post("api/compra_x", {
           num_comp: this.num_comprob
         })
         .then(function(response) {
