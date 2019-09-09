@@ -1,30 +1,41 @@
-  <template>
-  <div>
-    <apexchart width="200" type="donut" :options="options" :series="series"></apexchart>
+<template>
+  <div id="small2">
+    <pie-chart :data="chartData" :options="chartOptions"></pie-chart>
   </div>
 </template>
 
 <script>
-import VueApexCharts from "vue-apexcharts";
-
-//import LineChartMeses from "./LineChart.js";
-Vue.component("apexchart", VueApexCharts);
+import PieChart from "./PieChart.js";
 export default {
+  name: "App",
   components: {
-    //LineChartMeses
+    PieChart
   },
   data() {
     return {
-      options: {},
-      series: [44, 55, 41]
+      chartOptions: {
+        hoverBorderWidth: 20
+      },
+      chartData: {
+        hoverBackgroundColor: "red",
+
+        labels: ["Green", "Red", "Blue"],
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [1, 10, 5]
+          }
+        ]
+      }
     };
   }
 };
 </script>
 
 <style lang="css">
-.small {
-  max-width: 800px;
+#small2 {
+  max-width: 200px;
   /* max-height: 500px; */
 }
 </style>

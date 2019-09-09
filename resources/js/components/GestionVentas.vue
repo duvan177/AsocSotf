@@ -314,7 +314,7 @@
                                         :key="item.id"
                                       >
                                         <td v-text="index +1"></td>
-                                        <td v-text="item.nombre"></td>
+                                        <td v-text="item['articulo'][0]['nombre']"></td>
                                         <td v-text="item.cantidad"></td>
                                         <td v-text="item.precio_venta.toLocaleString('de-DE')"></td>
                                         <td
@@ -473,7 +473,7 @@
                             :key="item.id"
                           >
                             <td v-text="index +1"></td>
-                            <td v-text="item.nombre"></td>
+                             <td v-text="item['articulo'][0]['nombre']"></td>
                             <td v-text="item.cantidad"></td>
                             <td v-text="item.precio_venta.toLocaleString('de-DE')"></td>
                             <td
@@ -742,7 +742,7 @@ export default {
         })
         .then(function(response) {
           me_detalles.detalles = response.data;
-          console.log(response.data);
+          console.log(response.data[0]['articulo'][0]['nombre']);
         })
         .catch(function(error) {
           // handle error

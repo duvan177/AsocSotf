@@ -98,6 +98,8 @@ Route::post('editarusuario','Controllerusuarios@editarUsuario');
 Route::post('editarcontraseña','Controllerusuarios@editarContraseña');
 // datos para el escritorio
 Route::post('datos_ventas_compras','EscritorioController@datos_real');
+Route::post('base_dia','EscritorioController@Base');
+Route::post('save_base_dia','EscritorioController@save_base');
 //Graficos
 Route::post('detalleing','Controllergrafico@detalleingGrafico');
 Route::post('detalleven','Controllergrafico@detallevenGrafico');

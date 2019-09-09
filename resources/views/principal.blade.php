@@ -52,7 +52,7 @@
 
 
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item d-md-down-none"  style="">
+            <li class="nav-item d-md-down-none">
                 <a class="nav-link" data-toggle="dropdown">
                     <i class="icon-bell"></i>
                     <span class="badge badge-pill badge-danger">5</span>
@@ -101,21 +101,21 @@
 
         @yield('contenido')
         <a id="btn_hm" class="flotante5" @click="menu=0">
-      <img src="img\home_.png" border="0" />
+      <img  id="opt2" src="img\home_2.png" border="0" />
     </a>
 
 <a id="btn_cps" class="flotante4" @click="menu=8">
-      <img src="img\compas_.png" border="0" />
+      <img id="opt2" src="img\compras_2.png" border="0" />
     </a>
                  <a id="btn_vt" class="flotante3" @click="menu=2" >
-      <img src="img\stock.png" border="0" />
+      <img id="opt2" src="img\stock2.png" border="0" />
     </a>
   <a id="btn_cp" class="flotante2" @click="menu=5" >
-      <img src="img\recibo.png" border="0" />
+      <img id="opt2" src="img\recibo.png" border="0" />
     </a>
 
     <a  id="btn_f" class="flotante" @click="rote(validar2)" >
-      <img src="img\menu_esc.png" border="0" />
+      <img id="opt2" src="img\menu_esc.png" border="0" />
     </a>
 
         <!-- /Fin del contenido principal -->

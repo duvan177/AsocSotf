@@ -26,6 +26,7 @@
     "dependencies": {
         "animejs": "^3.1.0",
         "apexcharts": "^3.8.5",
+        "bootstrap-select": "^1.13.10",
         "chart.js": "^2.8.0",
         "laravel-echo": "^1.5.4",
         "pusher-js": "^5.0.0",

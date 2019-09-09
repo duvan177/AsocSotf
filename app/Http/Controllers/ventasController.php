@@ -15,6 +15,7 @@ use App\Events\NotificacionEvent;
 use Carbon\Carbon;
 use App\Venta;
 use App\User;
+use App\base_dia;
 use App\detalle_ingreso;
 use App\articulo;
 use App\detalle_venta;
@@ -138,8 +139,20 @@ $printer->text("\n");
 
 
         }
-        $descuento_ = number_format($descuento);
-      $total_real  = number_format($total_venta);
+
+      $date = Carbon::now();
+      $day = $date->format('Y-m-d');
+        $base_act = base_dia::select('base_final')->whereDate('created_at',$day)->value('base_final');
+        $base_next = (int) $base_act + $total_venta;
+        $base_ = base_dia::whereDate('created_at',$day)->first();
+        $base_->base_final = $base_next;
+        $base_->save();
+
+       $descuento_ = number_format($descuento);
+       $total_real  = number_format($total_venta);
+
+
+
 
            $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
@@ -166,7 +179,7 @@ $printer->close();
 
 
 
-         return response()->json($id_userv);
+         return response()->json($base_next);
     } catch (Exception $e) {
         $message = "Couldn't print to this printer: " . $e->getMessage() . "\n";
          return response()->json('NO SE PUDO IMPIMIR');

@@ -78,20 +78,7 @@
                 </div>
               </form>
 
-              <form class="form-row">
-                <label class="form-group col-md-2">
-                  <img src="img\comprobante.png" />Numero comprobante
-                </label>
 
-                <div class="form-group col-md-6">
-                  <label
-                    readonly
-                    type="number"
-                    class="form-control"
-                    placeholder="Numero Comprobante"
-                  >{{ingreso}}</label>
-                </div>
-              </form>
 
               <p class="card-text">
                 <small class="text-muted">compra de producto</small>

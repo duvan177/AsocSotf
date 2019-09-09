@@ -502,7 +502,7 @@ export default {
             }, 3000);
           }
           toastAlert();
-          console.log(response.data);
+        //console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -670,7 +670,7 @@ export default {
       for (let index = 0; index < 10; index++) {
         setTimeout(function() {}, 2000);
 
-        console.log(index);
+       // console.log(index);
       }
     },
     validarCamp: function(num) {
