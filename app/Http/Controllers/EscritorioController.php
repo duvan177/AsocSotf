@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\detalle_venta;
 use App\detalle_ingreso;
 use App\Venta;
+use App\base_dia;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,8 @@ class EscritorioController extends Controller
                 $cant_art_v += $value->cantidad;
             }
 
+
+
          // $ventas = Venta::sum('total_venta')->whereDate('created_at',$day)->get();
 
          $sum1 = number_format($suma);
@@ -54,6 +57,45 @@ class EscritorioController extends Controller
 
 
           return response()->json($data2);
+
+    }
+
+    public function Base(){
+        $date = Carbon::now();
+        $day = $date->format('Y-m-d');
+        $base = base_dia::select('base','base_final')->whereDate('created_at',$day)->first();
+        if (count($base)<=0) {
+
+            return response()->json(501);
+        }
+        else {
+
+
+            $data = [ 'base_'=>$base, 'exit'=>808];
+
+
+            return response()->json($data);
+        }
+    }
+    public function save_base(Request $request){
+
+        $base = $request->base;
+
+        $base_dia = new base_dia();
+        $base_dia->base = $base;
+        $base_dia->base_final = $base;
+        $base_dia->save();
+
+        if ($base_dia->save()) {
+            $date = Carbon::now();
+            $day = $date->format('Y-m-d');
+            $base_d = base_dia::whereDate('created_at',$day)->first();
+            $datos_ = ['base_'=>$base_d, 'exit'=>201];;
+
+            return response()->json($datos_);
+        }else {
+            return response()->json('error en guardar');
+        }
 
     }
 }
