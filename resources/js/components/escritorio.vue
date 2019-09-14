@@ -1,207 +1,290 @@
 <template>
+  <div class="container-fluid">
+    <div id="card_esc" class="row animated fadeIn">
+      <div class="col-sm-6">
+        <v-card class="mx-auto" :height="300">
+            <v-card-title></v-card-title>
+          <v-card-text :height="200">
 
- <div class="container-fluid">
-  <div id="card_esc" class="row animated fadeIn">
+              <div class="d-flex justify-content-between mb-4">
+                <h6></h6>
 
-    <div class="col-sm-6">
-        <div  class="card">
-               <div class="card-body">
+                <label for>
+                  <h4>Ventas de hoy</h4>
+                  <v-progress-circular
+                    :rotate="-90"
+                    :size="120"
+                    :width="15"
+                    :value="dat_p"
+                    color="#1A237E"
+                  >
+                    <h4>{{ dat_p }}%</h4>
+                  </v-progress-circular>
+                  <h6>Avance  %</h6>
+                </label>
 
+                <h6></h6>
+              </div>
+               <div  class="d-flex justify-content-around mb-4">
+                <Label style="bottom:30px;" id="">
+                  <h6 id="text_e" class="text-muted">Base inicial</h6>
+                  <h5 id="text_e2" v-text="'$'+base_ini.toLocaleString()"></h5>
+                </Label>
+                <label id="">
+                  <h6 id="text_e" class="text-muted">Base actual</h6>
+                  <h5 id="text_e2" class="teal-text" v-text=" '+$'+base_end.toLocaleString()"></h5>
+                </label>
+              </div>
+          </v-card-text>
+          <v-card-actions></v-card-actions>
+        </v-card>
 
-    <div class="d-flex justify-content-between mb-4">
-          <Label> <h6 >Base del Dia</h6> <h4 class="teal-text" v-text="'$'+base_d_.toLocaleString()"></h4></Label>
-            <label for=""> base</label>
-            <label > Estado</label>
-    </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <v-card class="mx-auto" :height="240">
+                <div
+                  class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <a href class="white-text mx-3"></a>
+                  </div>
 
+                  <h5 href class="white-text mx-4">Ventas</h5>
+                </div>
 
-    </div>
+                <v-card-text>
+                  <div class="d-flex justify-content-between mb-4">
+                    <h6>
+                      <a v-text="'total generado :'"></a>
+                      <a class="teal-text" v-text="'+$'+datos_today.ventas"></a>
+                    </h6>
+                    <h6>
+                      <a v-text="'Cand. articulos :'"></a>
+                      <a v-text="datos_today.cantidad_v"></a>
+                    </h6>
 
-
-</div>
-      <div id="card_escritorio1" class="card">
-        <div class="card-body">
-          <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
-          <img id="fondo_compras" src="img/compras_escritorio.png" class="card-img" alt />
-          <div class="card-body">
-            <h6 id="titulo_escritorio" class="card-title">Compras</h6>
-
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
-              <h6>
-                <a v-text="'total generado: '"></a>
-                <a class="text-danger" v-text="datos_today.compras"></a>
-              </h6>
-              <h6>
-                <a v-text="'Cand. articulos'"></a>
-                <a v-text="datos_today.cantidad_c"></a>
-              </h6>
-              <h6></h6>
+                    <h6></h6>
+                  </div>
+                  <div class="d-flex justify-content-between mb-4">
+                    <h6>
+                      <a v-text="'Rentabilidad:'"></a>
+                      <a class="teal-text" v-text=" '+$'+datos_today.renta_d"></a>
+                    </h6>
+                    <v-progress-circular
+                      :rotate="-90"
+                      :size="80"
+                      :width="10"
+                      :value="porc_t"
+                      color="#1A237E"
+                    >
+                      <h6>{{ porc_t }}%</h6>
+                    </v-progress-circular>
+                    <h5></h5>
+                  </div>
+                </v-card-text>
+              </v-card>
             </div>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
-              <h6 class="card-title" v-text="'total generado : $'+datos_today.compras"></h6>
-              <h6></h6>
+            <div class="col-sm-6 mb-3 mb-md-0">
+              <v-card class="mx-auto" :height="240">
+                <div
+                  class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <a href class="white-text mx-3"></a>
+                  </div>
+
+                  <h5 href class="white-text mx-4">Compras</h5>
+                </div>
+
+                <v-card-text>
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-4">
+                      <h6>
+                        <a v-text="'total generado: '"></a>
+                        <a class="text-danger" v-text="'$'+datos_today.compras"></a>
+                      </h6>
+                      <h6></h6>
+                      <h6>
+                        <a v-text="'Cand. articulos'"></a>
+                        <a style="color:#232323;" v-text="datos_today.cantidad_c"></a>
+                      </h6>
+                      <h6></h6>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                      <h6 class="card-title" v-text="'total generado : $'+datos_today.compras"></h6>
+                      <h6></h6>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="card_escritorio1" class="card">
-        <div id="cardx" class="card-body">
-          <img id="fondo_naranja" src="img/fondo_verde.png" class="card-img-top" alt />
-          <img id="fondo_compras" src="img/ventas_escritorio.png" class="card-img" alt />
-          <div class="card-body">
-            <h6 id="titulo_escritorio2" class="card-title">Ventas</h6>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
-              <h6>
-                <a v-text="'total generado :'"></a>
-                <a class="teal-text" v-text="'+$'+datos_today.ventas"></a>
-              </h6>
-              <h6>
-                <a v-text="'Cand. articulos :'"></a>
-                <a v-text="datos_today.cantidad_v"></a>
-              </h6>
+        <!-- datos para el carousel -->
 
-              <h6></h6>
-            </div>
-            <div id="datos_escritorio" class="d-flex justify-content-between mb-4">
-              <h6>
-                <a v-text="'Rentabilidad:'"></a>
-                <a class="teal-text" v-text=" '+$'+datos_today.renta_d"></a>
-              </h6>
-            </div>
-          </div>
+        <div class>
+          <v-card class="mx-auto">
+            <v-card-text>
+              <v-card-title id="text_pr" class="blue darken-4">
+                <h5 style="color:#FFFFFF">Articulos con prioridad</h5>
+              </v-card-title>
+              <div class="d-flex justify-content-between mb-4">
+                <h4></h4>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <v-text-field v-model="dato_sh" label="buscar articulo etc"></v-text-field>
+                </div>
+                <h4></h4>
+                <h4></h4>
+              </div>
+
+              <carousel
+                :perPageCustom="[[768, 3]]"
+                :perPage="1"
+                :minSwipeDistance="2"
+                :touchDrag="true"
+                :autoplay="true"
+                :centerMode="true"
+                :scrollPerPage="true"
+              >
+                <slide class="card-body" v-for="art in articulosPre" :key="art.id">
+                  <v-card class="mx-auto" :min-width="210" :height="180">
+                    <v-card-text>
+                      <h6 class="card-title">Articulo</h6>
+                      <h5 class="text-muted" v-text="art.nombre"></h5>
+                      <h5 class="card-title" v-text="' stock :'+art.stock"></h5>
+                      <section v-if="art.estado_articulo == 'Estable'">
+                        <span class="d-flex justify-content-between mb-4">
+                          <h5 class="card-title">Estable</h5>
+                          <img id="img_e" src="img\activo.png" />
+                          <h1>
+                            <h1></h1>
+                          </h1>
+                        </span>
+                      </section>
+                      <section v-if="art.estado_articulo == 'Bajo'">
+                        <span class="d-flex justify-content-between mb-4">
+                          <h5 class="card-title">Bajo</h5>
+                          <img id="img_e" src="img\alerta_.png" />
+                          <h1></h1>
+                        </span>
+                      </section>
+                    </v-card-text>
+                  </v-card>
+                </slide>
+              </carousel>
+            </v-card-text>
+          </v-card>
         </div>
       </div>
 
-      <!-- datos para el carousel -->
-        <div class="d-flex justify-content-between mb-4">
-            <h4></h4>
-             <div class="col-md-4">
-
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>Estable</option>
-        <option>Bajo</option>
-        <option>Agotado</option>
-        <option>inactivo</option>
-
-      </select>
-      </div>
-          <div class="col-md-4">
-
-      <input type="text" class="form-control" id="inputPassword" placeholder="buscar">
-
-          </div>
-          <h4></h4><h4></h4>
-    </div>
-
-      <carousel  :touchDrag="true" :autoplay="true" :centerMode="true" :scrollPerPage="true">
-
-        <slide  v-for="art in articulosPre" :key="art.id">
-          <h6 class="card-title"> Articulo</h6>
-          <h5  class="text-muted" v-text="art.nombre"></h5>
-          <h5 class="card-title" v-text="' stock :'+art.stock"></h5>
-          <section v-if="art.estado_articulo == 'Activo'">
-            <span class="d-flex justify-content-between mb-4">
-              <h5 class="card-title">Estable</h5>
-              <img id="img_e" src="img\activo.png" />
-              <h1>
-                <h1></h1>
-              </h1>
-            </span>
-          </section>
-          <section v-if="art.estado_articulo == 'Agotado'">
-           <span class="d-flex justify-content-between mb-4">
-              <h5 class="card-title">Bajo</h5>
-              <img id="img_e" src="img\alerta_.png" />
-              <h1>
-              </h1>
-            </span>
-          </section>
-        </slide>
-      </carousel>
-
-      <!-- fin -->
-    </div>
-
-    <div class="col-sm-6 mb-3 mb-md-0">
-      <div class="d-flex justify-content-between mb-4">
+      <div class="col-sm-6 mb-3 mb-md-0">
         <h1></h1>
-        <graficos2></graficos2>
-        <graficos2></graficos2>
+
+        <v-card class="mx-auto scroll">
+            <v-card-title>Rotación de articulos</v-card-title>
+            <graficos2></graficos2>
+
+        </v-card>
+
         <h1></h1>
+
+        <h5 class="card-title">Graficos estadisticos</h5>
+        <graficos></graficos>
       </div>
-      <h5 class="card-title">Graficos estadisticos</h5>
-      <graficos></graficos>
-
     </div>
-
-
-  </div>
     <!--Inicio del modal agregar/actualizar-->
-            <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Ingresar Base del dia</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Valor total de la base</label>
-                                    <div class="col-md-9">
-                                        <input type="number" id="nombre"  class="form-control" v-model="base_d" placeholder="">
-                                        <span class="help-block">(*) ingrese valor</span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button"  class="btn btn-primary" data-dismiss="modal" v-on:click="save_base">Guardar</button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
+    <div
+      class="modal fade"
+      id="modalNuevo"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      style="display: none;"
+      aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
+    >
+      <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Ingresar Base del dia</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Valor total de la base</label>
+                <div class="col-md-9">
+                  <input
+                    type="number"
+                    id="nombre"
+                    class="form-control"
+                    v-model="base_d"
+                    placeholder="0"
+                  />
+                  <span class="help-block">(*) ingrese valor</span>
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
-              <!--Inicio del modal agregar/actualizar-->
-            <div class="modal fade" id="save" tabindex="-1" role="dialog"  style="display: none;" >
-                <div class="modal-dialog modal-primary modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h4>Se ha guardado correctamente</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
+              </div>
+            </form>
+            <h3 id="base_text" color="#2F4AAF" class="card-title">{{'$'+result}}</h3>
+          </div>
+          <div class="modal-footer align-items-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              v-on:click="save_base"
+            >Guardar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!--Inicio del modal agregar/actualizar-->
+    <div class="modal fade" id="save" tabindex="-1" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>Se ha guardado correctamente</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </div>
-
 </template>
 
 <script>
 import Echo from "laravel-echo";
+import Vue from "vue";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import colors from "vuetify/lib/util/colors";
+
+Vue.use(Vuetify);
 import { EventEmitter } from "events";
 import { Carousel, Slide } from "vue-carousel";
 import { filter } from "minimatch";
+import { parse } from "path";
 window.Pusher = require("pusher-js");
 export default {
-  components: { Carousel, Slide },
+  components: { Carousel, Slide, Vuetify },
   data() {
     return {
       allbusqueda: [],
@@ -217,8 +300,16 @@ export default {
       articulosPre: [],
       articulosSin: [],
       btn_f_: false,
-      base_d:0,
-      base_d_:0
+      base_d: "",
+      base_ini: 0,
+      base_end: 0,
+      aument_: 0,
+      teal: "c100",
+      dat: "",
+      dat_p: 0,
+      value: 23,
+      dato_sh: "",
+      porc_t: 0
     };
   },
 
@@ -254,7 +345,7 @@ export default {
         })
         .catch(error => {
           this.error = error.response;
-          $("#error").modal("show",{backdrop: 'static', keyboard: false});
+          $("#error").modal("show", { backdrop: "static", keyboard: false });
         });
     },
     cambiar: function() {},
@@ -263,8 +354,19 @@ export default {
       axios
         .post("api/datos_ventas_compras")
         .then(function(response) {
-          console.log(response.data);
+          let dat = 0;
+          let rent = 0;
+          let vent = 0;
+          let total_ = 0;
+
+          // console.log(response.data);
           med.datos_today = response.data;
+
+          rent = parseInt(response.data.renta_d);
+          vent = parseInt(response.data.ventas);
+
+          total_ = (rent * 100) / vent;
+          med.porc_t = Math.round(total_);
         })
         .catch(function(error) {
           // handle error
@@ -276,20 +378,19 @@ export default {
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.tabla = true));
     },
-       base_() {
+    base_() {
       let med = this;
       axios
         .post("api/base_dia")
         .then(function(response) {
           console.log(response.data);
           if (response.data == 501) {
-                $("#modalNuevo").modal("show");
+            $("#modalNuevo").modal("show");
+          } else {
+            med.base_ini = response.data.base_.base;
+            med.base_end = response.data.base_.base_final;
           }
-          else{
-              med.base_d_ = response.data.base_.base
-          }
-
-  })
+        })
         .catch(function(error) {
           // handle error
           // console.log(error);
@@ -299,24 +400,22 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.tabla = true));
-
     },
-       save_base() {
-
-           let me = this;
+    save_base() {
+      let me = this;
 
       axios
-        .post("api/save_base_dia",{
-            base:this.base_d
+        .post("api/save_base_dia", {
+          base: this.base_d
         })
         .then(function(response) {
           console.log(response.data);
           if (response.data.exit == 201) {
-                me.base_d_ = response.data.base_.base
-                $("#save").modal("show");
+            me.base_ini = response.data.base_.base;
+            me.base_end = response.data.base_.base_final;
+            $("#save").modal("show");
           }
-
-  })
+        })
         .catch(function(error) {
           // handle error
           // console.log(error);
@@ -326,13 +425,18 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.tabla = true));
-
     }
   },
-  computed: {},
+  computed: {
+    result: function() {
+      let n = 0;
+      n = this.base_d;
+      return n === "" ? n : Number(n).toLocaleString();
+    }
+  },
 
   mounted() {
-     this.base_()
+    this.base_();
     this.addArticulo();
     this.totales_today();
 
@@ -353,7 +457,23 @@ export default {
   },
 
   watch: {
-    validar2: function(Val) {}
+    validar2: function(Val) {},
+    base_end: function(Val) {
+      let result = 0;
+      let rest = 0;
+      let prtj = 0;
+      let total_p = 0;
+
+      let base_i = this.base_ini;
+      rest = Val - base_i;
+      prtj = rest / base_i;
+      total_p = prtj * 100;
+      let total_r = Math.round(total_p);
+      this.dat = "p" + total_r;
+      this.dat_p = total_r;
+
+      console.log(total_r);
+    }
   }
 };
 </script>

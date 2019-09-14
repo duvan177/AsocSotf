@@ -100,6 +100,7 @@ Route::post('editarcontraseña','Controllerusuarios@editarContraseña');
 Route::post('datos_ventas_compras','EscritorioController@datos_real');
 Route::post('base_dia','EscritorioController@Base');
 Route::post('save_base_dia','EscritorioController@save_base');
+Route::post('learn_m','EscritorioController@repeti2');
 //Graficos
 Route::post('detalleing','Controllergrafico@detalleingGrafico');
 Route::post('detalleven','Controllergrafico@detallevenGrafico');

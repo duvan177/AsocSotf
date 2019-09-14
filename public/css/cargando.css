@@ -596,14 +596,14 @@ input[type="search"] {
 
 #titulo_escritorio {
     position: relative;
-    bottom: 130px;
+    bottom: 120px;
     color: #e45919;
     font-size: 20px;
 }
 
 #titulo_escritorio2 {
     position: relative;
-    bottom: 130px;
+    bottom: 100px;
     color: #24a11f;
     font-size: 20px;
 }
@@ -728,13 +728,13 @@ input[type="search"] {
     #esc_,
     #vents_f,
     #texto,
-    #btn_t1 {
+    #btn_t1,
+    #text_es_2 {
         display: none;
     }
     #fondo_compras {
-        width: 50px;
+        width: 40px;
         position: relative;
-        bottom: 50px;
         left: 50%;
         border-radius: 100%;
     }
@@ -752,6 +752,12 @@ input[type="search"] {
         font-size: 20px;
         right: 15px;
     }
+    #text_e {
+        font-size: 10px;
+    }
+    #text_e2 {
+        font-size: 15px;
+    }
 }
 
 @media (min-width: 480px) {
@@ -761,15 +767,28 @@ input[type="search"] {
     #btn_vt,
     #btn_cp,
     #btn_cps,
-    #btn_hm {
+    #btn_hm,
+    #test_es_3 {
         display: none;
     }
     #fondo_compras {
-        width: 90px;
+        bottom: 40px;
+        width: 60px;
         position: relative;
-        bottom: 50px;
-        left: 40%;
+        left: 70%;
         border-radius: 100%;
+    }
+    #text_e {
+        font-size: 15px;
+    }
+    #text_e2 {
+        font-size: 25px;
+    }
+    #text_pr {
+        font-size: 10px;
+    }
+    #text_es_2 {
+        bottom: 50px;
     }
 }
 
@@ -810,4 +829,97 @@ input[type="search"] {
     right: 40px;
     width: 20px;
     height: 20px;
+}
+
+#graf {
+    right: 60px;
+    width: 60px;
+}
+
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+.progress {
+    width: 150px;
+    height: 150px;
+    background: none;
+    position: relative;
+}
+
+.progress::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 6px solid #eee;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.progress>span {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.progress .progress-left {
+    left: 0;
+}
+
+.progress .progress-bar {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-width: 6px;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+}
+
+.progress .progress-left .progress-bar {
+    left: 100%;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+    border-left: 0;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+}
+
+.progress .progress-right {
+    right: 0;
+}
+
+.progress .progress-right .progress-bar {
+    left: -100%;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+    border-right: 0;
+    -webkit-transform-origin: center right;
+    transform-origin: center right;
+}
+
+.progress .progress-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#base_text {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+}
+
+.scroll {
+    overflow-y: auto;
 }

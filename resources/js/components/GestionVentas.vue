@@ -201,7 +201,10 @@
                       </section>
                     </table>
                   </div>
+                      <v-card>
+                          <v-card-text>
                   <div class="d-flex justify-content-between mb-2">
+
                     <h6 v-text="'cantd. Ventas: '+cantidad_v"></h6>
 
                     <h6 v-text="'Total Ventas: $'+ total_venta"></h6>
@@ -211,6 +214,8 @@
                     <h6 class="teal-text" v-text="'Rentabilidad total: + $'+ renta_bld"></h6>
                     <h5></h5>
                   </div>
+                  </v-card-text>
+                      </v-card>
                 </div>
               </div>
               <div id="vents_f" class="col px-md-5">
@@ -331,6 +336,8 @@
                                 </section>
                               </div>
                               <!--Table-->
+                              <v-card class="mx-auto">
+                                  <v-card-text>
                               <div class="d-flex justify-content-between mb-4">
                                 <h6 v-text="'cantidad articulos vendidos: '+cant_v"></h6>
                                 <p>
@@ -339,6 +346,8 @@
 
                                 <h6 v-text="'Total Venta: $'+Total_pagar_detalle"></h6>
                               </div>
+                              </v-card-text>
+                              </v-card>
                             </div>
                           </div>
                         </div>
@@ -490,6 +499,7 @@
                     </section>
                   </div>
                   <!--Table-->
+
                   <div class="d-flex justify-content-between mb-6">
                     <h6 v-text="'cant. articulos vendidos: '+cant_v"></h6>
                     <p>
@@ -525,6 +535,12 @@
 </template>
 
 <script>
+import Vue from "vue";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import colors from "vuetify/lib/util/colors";
+
+
 import { ToggleButton } from "vue-js-toggle-button";
 import Multiselect from "vue-multiselect";
 import Echo from "laravel-echo";
@@ -535,6 +551,7 @@ import Datepicker from "vuejs-datepicker";
 window.Pusher = require("pusher-js");
 
 // register globally
+Vue.use(Vuetify);
 Vue.component("multiselect", Multiselect);
 Vue.component("ToggleButton", ToggleButton);
 

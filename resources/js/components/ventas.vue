@@ -101,6 +101,7 @@
                         noOptions="ingrese Cliente"
                       ></multiselect>
                     </div>
+
                     <div class="form-group" style>
                       <button
                         data-toggle="modal"
@@ -115,17 +116,40 @@
                 </div>
                 <!--fin de numero de factua-->
                 <div class="form-row">
-                  <div class="form-group col-md-2">
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="Codigo del producto"
-                      id="codProducto"
-                      v-model="producto"
-                      autofocus
-                      v-on:keyup.enter="mover"
-                    />
+                  <div class="form-group" style>
+                    <button id="btn_s" v-on:click="busc_a" type="button" class="btn btn-info">
+                      <img src="img/buscar.png" alt />
+                    </button>
                   </div>
+                  <section v-if="cod_tex">
+                    <div class="form-group col-md-2">
+                      <input
+                        type="number"
+                        class="form-control animated fadeIn"
+                        placeholder="Codigo del producto"
+                        id="codProducto"
+                        v-model="producto"
+                        autofocus
+                        v-on:keyup.enter="mover"
+                        v-on:keyup.space="setVenta"
+                      />
+                    </div>
+                  </section>
+                  <section v-else>
+                    <multiselect
+                      class="animated fadeIn"
+                      style="width:200px"
+                      v-model="articulo_bsc"
+                      :options="articulos_bsc"
+                      :custom-label="nombresSelect"
+                      :searchable="true"
+                      selectLabel="add"
+                      deselectLabel="quitar"
+                      placeholder="buscar articulo"
+                      noOptions="ingrese articulo"
+                    ></multiselect>
+                  </section>
+
                   <div class="form-group col-md-2">
                     <input
                       type="number"
@@ -136,18 +160,13 @@
                       v-model="cantidad"
                     />
                   </div>
-                  <div class="form-group" style>
+                  <div class="form-group col-md-2" style>
                     <button
                       type="button"
                       class="btn btn-warning waves-effect"
                       v-on:click="addArticulo"
                     >
                       <i class="icon-basket-loaded"></i> Añadir
-                    </button>
-                  </div>
-                  <div class="form-group col-md-4" style>
-                    <button type="button" class="btn btn-info">
-                      <img src="img/buscar.png" alt />
                     </button>
                   </div>
                 </div>
@@ -283,6 +302,7 @@
                         class="btn btn-success btn-block waves-effect animated fadeIn"
                         style="  width:150px;"
                         v-on:click="setVenta"
+                        v-on:keyup.space="setVenta"
                         type="button"
                       >
                         <h6>Finalizar</h6>
@@ -434,6 +454,7 @@
 import { parse } from "path";
 import Echo from "laravel-echo";
 import { EventEmitter } from "events";
+import { timeout } from "q";
 window.Pusher = require("pusher-js");
 
 export default {
@@ -447,7 +468,9 @@ export default {
       direccion: "",
       telefono: "",
       email: "",
+      cod_tex: true,
       //
+      articulos_b: "",
       recibido: 0,
       validar: false,
       totalPD: "",
@@ -469,13 +492,53 @@ export default {
         nombre: "persona natural"
       },
       idusers: this.username,
-      loading: true
+      loading: true,
+      traer: false,
+      articulos_bsc: [],
+      articulo_bsc: []
     };
   },
   props: ["username"],
 
   //FUNCION DONDE CARGAR LOS METOS UTLIZADOS PARA ESTE COMPONENTE
   methods: {
+    articulos_b_() {
+      let art = this;
+
+      axios
+        .post("api/articulos")
+        .then(function(response) {
+          console.log(response.datos);
+          art.articulos_bsc = response.data;
+        })
+        .catch(function(error) {
+          // handle error
+          // console.log(error);
+        })
+
+        .then(function() {})
+        //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+        //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+        .finally(() => (this.traer = false));
+    },
+
+    busc_a() {
+      let x = document.getElementById("btn_s");
+
+      //  alert(this.cod_tex);
+      if (this.cod_tex == true) {
+        this.cod_tex = false;
+
+        x.classList.remove("btn-info");
+        x.classList.add("btn-danger");
+      } else {
+        this.cod_tex = true;
+        x.classList.remove("btn-danger");
+        x.classList.add("btn-info");
+
+        //document.getElementById("codProducto").focus();
+      }
+    },
     mover() {
       document.getElementById("cantidad").focus();
     },
@@ -502,7 +565,7 @@ export default {
             }, 3000);
           }
           toastAlert();
-        //console.log(response.data);
+          //console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -611,7 +674,7 @@ export default {
             // always executed
           });
         //AL FINAL DE LA PETICION Y CARGAR LA TABLA ME DEJARA EN LIMPIO LOS CAMPOS PARA NUEVOS DATOS
-
+        this.articulo_bsc = "";
         this.producto = "";
         this.cantidad = "";
       }
@@ -670,7 +733,7 @@ export default {
       for (let index = 0; index < 10; index++) {
         setTimeout(function() {}, 2000);
 
-       // console.log(index);
+        // console.log(index);
       }
     },
     validarCamp: function(num) {
@@ -687,6 +750,8 @@ export default {
       });
       rent_d = tp_v - tp_c;
 
+      if (this.consulta.length > 0) {
+
       axios
         .post("api/insert_venta", {
           num_comp: this.num,
@@ -698,7 +763,7 @@ export default {
           rentabilidad_: rent_d
         })
         .then(function(response) {
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch(function(error) {
           // handle error
@@ -709,12 +774,26 @@ export default {
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
+
+          console.log('es mayor');
+          this.launch_toast();
+      }
+      else{
+          alert('Porfavor registre un articulo');
+          console.log(this.consulta.length);
+
+      }
+
       this.numero_factura();
-      this.launch_toast();
+
       this.totalPD = "";
       this.totalpagarDesT = "";
       this.consulta = [];
+      this.articulo_bsc = [];
     }
+  },
+  destroyed: function() {
+    //return confirm('desea salir');
   },
 
   computed: {
@@ -823,8 +902,23 @@ export default {
   },
 
   created() {},
+  watch: {
+    cod_tex: function(Val) {
+      if (Val == true) {
+        setTimeout(() => {
+          document.getElementById("codProducto").focus();
+        }, 500);
+      }
+    },
+
+    articulo_bsc: function(Val) {
+      this.producto = Val.codigo;
+      document.getElementById("cantidad").focus();
+    }
+  },
   //METODOS QUE SE CARGARAN CUANDO EL COMPONENTE SEA INVOCADO. IMPORTANTE PARA ALGUNOS DATOS QUE SE NECESITEN EN LA VISTA.
   mounted() {
+    this.articulos_b_();
     this.pruebaId();
     this.getFecha();
     this.numero_factura();

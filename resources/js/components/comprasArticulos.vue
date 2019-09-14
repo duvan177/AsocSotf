@@ -85,6 +85,10 @@
               </p>
             </div>
 
+
+
+
+
             <!--nueva compra  v-if="ingreso !=''"-->
             <section>
               <div id="cardPrueba2" class="card-body fantasma">
@@ -495,9 +499,15 @@ border-radius: 34px 40px 40px 40px;"
 </template>
 
 <script>
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import colors from 'vuetify/lib/util/colors';
+
+Vue.use(Vuetify)
 import Multiselect from "vue-multiselect";
 import { setTimeout } from "timers";
 Vue.component("multiselect", Multiselect);
+
 
 export default {
   components: {
@@ -505,6 +515,8 @@ export default {
   },
   data() {
     return {
+
+        dialog: false,
       value: "",
       //
       NumComprobante: "",

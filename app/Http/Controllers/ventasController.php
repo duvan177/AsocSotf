@@ -124,9 +124,22 @@ $printer->setJustification(Printer::JUSTIFY_LEFT);
 
          $articulo = articulo::find($id_articulo);
          $articulo->stock = $cantidad_exist - $cantidad;
-
-        $detalle_venta->save();
+         $detalle_venta->save();
          $articulo->save();
+
+
+         $articulo2 = articulo::find($id_articulo);
+        $stock_art = $articulo2->stock;
+        $limit = $articulo2->limite;
+         if ($stock_art <= $limit  ) {
+            $articulo2->estado = 4;
+         }
+         if ($stock_art = 0 ) {
+            $articulo2->estado = 3;
+         }
+         $articulo2->save();
+
+
 
 $total_p = $precio_venta * $cantidad;
 $texItem = 'cod '.$id_articulo;

@@ -46,6 +46,7 @@ Vue.component("usuarios", require("./components/gestionUsuario.vue").default);
  */
 
 const app = new Vue({
+
     el: "#app",
     props: ["dato"],
     data: {
@@ -124,6 +125,8 @@ const app = new Vue({
     watch: {
         menu: function(Val) {
             this.validar2 = true;
+
+
 
             anime({
                 targets: btn_f,

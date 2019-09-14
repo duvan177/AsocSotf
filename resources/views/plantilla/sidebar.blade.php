@@ -15,7 +15,7 @@
                             <li @click="menu=1"  class="nav-item mobile-sidebar-toggler">
                                 <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Categorias</a>
                             </li>
-                            <li @click="menu=2"  class="nav-item mobile-sidebar-toggler">
+                            <li @click="menu=2"   class="nav-item mobile-sidebar-toggler">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Articulos</a>
                             </li>
                         </ul>
@@ -27,7 +27,7 @@
                             <li @click="menu=5"  class="nav-item mobile-sidebar-toggler">
                                 <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Facturas</a>
                             </li>
-                            <li @click="menu=6"  class="nav-item mobile-sidebar-toggler">
+                            <li @click="menu=6" class="nav-item mobile-sidebar-toggler">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Nueva venta</a>
                             </li>
                         </ul>

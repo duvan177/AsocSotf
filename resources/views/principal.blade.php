@@ -12,6 +12,7 @@
     <title> Vents-app</title>
      <!-- token de seguridad -->
        <!-- Icons -->
+       <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
        <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <link href="css/mdb.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -20,14 +21,17 @@
 
      <link href="css/cargando.css" rel="stylesheet">
      <link rel="css/toastr.css" href="">
+     <link rel="stylesheet" href="css/circle.css">
+     <link rel="stylesheet" href="css/jQuery-plugin-progressbar.css">
 
 
-      <link href="css/style.css" rel="stylesheet">
+
       <link href="css/animate.css" rel="stylesheet">
       <meta name="csrf-token" content="{{csrf_token()}}">
     <meta name="user-id" content="{{ Auth::user()->name}}">
     <!-- Icons -->
     <link href="css/plantilla.css" rel="stylesheet">
+
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden" onload="asignarId(username={{Auth::user()->id}})">
@@ -136,6 +140,7 @@
     <script src="{{asset("js/Chart.min.js")}}"></script>
     <script src="{{asset("js/anime.js")}}"></script>
       <script src="{{asset("js/operacionsAdd.js")}}"></script>
+      <script src="{{asset("js/jQuery-plugin-progressbar.js")}}"></script>
 
 
 

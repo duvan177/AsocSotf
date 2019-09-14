@@ -5,6 +5,7 @@ use App\detalle_venta;
 use App\detalle_ingreso;
 use App\Venta;
 use App\base_dia;
+use App\articulo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,8 +47,8 @@ class EscritorioController extends Controller
          // $ventas = Venta::sum('total_venta')->whereDate('created_at',$day)->get();
 
          $sum1 = number_format($suma);
-          $sum2 = number_format($suma2);
-          $renta_ = \number_format($renta_);
+          $sum2 = $suma2;
+          $renta_ = $renta_;
 
           $data2 = [ 'ventas'=>$sum2,
           'compras'=>$sum1,
@@ -96,6 +97,37 @@ class EscritorioController extends Controller
         }else {
             return response()->json('error en guardar');
         }
+
+    }
+
+    public function Repeti2(){
+
+        $articulos = articulo::select('id','nombre')->get();
+        $detalle_v = detalle_venta::select('id_articulo')->get();
+        $secuencia_art = [];
+        $art_vent = [];
+        $id_art=[];
+        foreach ($detalle_v as $key => $value) {
+            array_push($art_vent,$value->id_articulo);
+        }
+        $newArray =  array_unique($art_vent);
+
+        foreach ($newArray as $key => $value) {
+            array_push($id_art,$value);
+        }
+        foreach ($id_art as $key => $value) {
+            $nom_arti_ = articulo::select('nombre')->where('id',$value)->value('nombre');
+            $detalle = (int) detalle_venta::where('id_articulo','=',$value)->sum('cantidad');
+            array_push($secuencia_art,[ 'name'=>$nom_arti_,'pv'=>$detalle]);
+        }
+
+
+
+
+
+        return response()->json($secuencia_art);
+
+
 
     }
 }

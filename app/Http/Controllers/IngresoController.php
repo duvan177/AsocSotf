@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\NotificacionEvent;
 use App\tipo_comprobante;
 use App\serie_comprobante;
 use App\detalle_ingreso;
 use App\ingreso;
+use App\base_dia;
 use App\articulo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -151,10 +154,25 @@ class IngresoController extends Controller
 
          $total_exist = DB::table('ingreso')->select('total_compra')->where('id','=',$id_ingreso)->value('total_compra');
          $total = $precio_comrpa * $cantidad;
+
+         // ingreso para restar a la base
+/*
+
+      $date = Carbon::now();
+      $day = $date->format('Y-m-d');
+        $base_act = base_dia::select('base_final')->whereDate('created_at',$day)->value('base_final');
+        $base_next = (int) $base_act - $total;
+        $base_ = base_dia::whereDate('created_at',$day)->first();
+        $base_->base_final = $base_next;
+        $base_->save();*/
+         // end base dia
+
          $total_real = $total_exist + $total;
         $ingreso_ = ingreso::find($id_ingreso);
         $ingreso_->total_compra = $total_real;
+
         $ingreso_->save();
+
 
         $detalle_ing = new detalle_ingreso;
          $detalle_ing->id_ingreso =$id_ingreso;
@@ -162,17 +180,19 @@ class IngresoController extends Controller
           $detalle_ing->cantidad=$cantidad;
           $detalle_ing->precio_comrpa=$precio_comrpa;
          $detalle_ing->precio_venta=$precio_venta;
-
         $detalle_ing->save();
 
          $cantidad_exist = DB::table('articulo')->select('stock')->where('id','=',$id_articulo)->value('stock');
          $articulo = articulo::find($id_articulo);
-         $articulo->stock = $cantidad_exist + $cantidad;
+         $cant_ex = $cantidad_exist + $cantidad;
+         $limt = $articulo->limite;
+         $articulo->stock = $cant_ex;
+
+         if ($cant_ex >  $limt) {
+            $articulo->estado = 5;
+         }
+
           $articulo->save();
-
-
-
-
               return response()->json($total_real);
 
     }
@@ -241,10 +261,27 @@ class IngresoController extends Controller
 
         $ingreso = ingreso::where('id','=',$id)->first();
 
+
         if ($ingreso != ['']) {
+
+           $total_i = $ingreso->total_compra;
+
+         // ingreso para restar a la base
+      $date = Carbon::now();
+      $day = $date->format('Y-m-d');
+        $base_act = base_dia::select('base_final')->whereDate('created_at',$day)->value('base_final');
+        $base_next = (int) $base_act - $total_i;
+        $base_ = base_dia::whereDate('created_at',$day)->first();
+        $base_->base_final = $base_next;
+        $base_->save();
+         // end base dia
+
 
             $ingreso->id_estado = 1;
             $ingreso->save();
+            event(new NotificacionEvent('nueva venta registrada'));
+
+
              $data = 200;
                return response()->json($data);
         }else {
