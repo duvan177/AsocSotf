@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-
 class ventasController extends Controller
 {
    public function ingresarVenta(Request $request){
@@ -86,16 +85,6 @@ $printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->text("- - - - - - - - - - - - - - - -"."\n");
 
 
- function addSpaces($string = '', $valid_string_length = 0) {
-    if (strlen($string) < $valid_string_length) {
-        $spaces = $valid_string_length - strlen($string);
-        for ($index1 = 1; $index1 <= $spaces; $index1++) {
-            $string = $string . ' ';
-        }
-    }
-
-    return $string;
-}
 
 
    try {

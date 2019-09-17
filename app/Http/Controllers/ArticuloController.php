@@ -218,5 +218,37 @@ $consulta_null= DB::table('articulo')
             return response()->json($consulta);
       }
 
+      public function ver_art(Request $request){
+
+        $dato = (int) $request->id;
+        $idArticulo = DB::table('articulo')
+        ->select('id')
+        ->where('codigo','=',$dato)->value('id');
+
+
+        $idIngresoMax = detalle_ingreso::where('id_articulo','=',$idArticulo)->max('id_ingreso');
+
+
+         $consulta = DB::table('detalle_ingreso')
+         ->join('articulo','detalle_ingreso.id_articulo','=','articulo.id')
+         ->select('articulo.nombre','detalle_ingreso.precio_venta','detalle_ingreso.precio_comrpa','articulo.id','articulo.codigo','articulo.stock')
+         ->where('articulo.id','=',$idArticulo)
+        ->where('id_ingreso','=',$idIngresoMax)
+         ->first(); // FIN DE LA VALIDACIÓN
+          if ($consulta == null ) {
+
+            $data = 1005;
+                return response()->json($data);
+          }else {
+
+            //EN VIO LA VARIABLE EN UN RESPONSISE CON LOS DOS OBJETOS
+          return response()->json($consulta);
+
+
+
+
+    }
+ }
+
 
 }

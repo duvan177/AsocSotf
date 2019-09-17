@@ -18,7 +18,7 @@ Route::middleware(['auth:api','cors'])->get('/user', function (Request $request)
     return $request->user();
 });
 */
-
+Route::post('ver_datos_x','ArticuloController@ver_art');
 
 Route::post('fecha','fechaController@traer_fecha');
 Route::post('NumeroFactura','fechaController@NumeroFactura');
@@ -101,6 +101,7 @@ Route::post('datos_ventas_compras','EscritorioController@datos_real');
 Route::post('base_dia','EscritorioController@Base');
 Route::post('save_base_dia','EscritorioController@save_base');
 Route::post('learn_m','EscritorioController@repeti2');
+
 //Graficos
 Route::post('detalleing','Controllergrafico@detalleingGrafico');
 Route::post('detalleven','Controllergrafico@detallevenGrafico');

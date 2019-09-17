@@ -1,11 +1,9 @@
 <template>
 
-    <la-cartesian  narrow :bound="[1]" :data="values" :width="900" :height="230">
+    <la-cartesian  autoresize   narrow  :bound="[0]" :data="values" :width="900" :height="230">
     <la-bar animated prop="pv"></la-bar>
-
-    <la-x-axis id="graf_2" prop="name"></la-x-axis>
+    <la-x-axis prop="name"></la-x-axis>
       <la-y-axis></la-y-axis>
-
     <la-tooltip></la-tooltip>
   </la-cartesian>
 
@@ -18,8 +16,6 @@ window.Pusher = require("pusher-js");
 import { Laue } from 'laue';
 Vue.use(Laue);
 export default {
-
-
      props: ["dato"],
 
   components: {

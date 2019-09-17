@@ -78,16 +78,10 @@
                 </div>
               </form>
 
-
-
               <p class="card-text">
                 <small class="text-muted">compra de producto</small>
               </p>
             </div>
-
-
-
-
 
             <!--nueva compra  v-if="ingreso !=''"-->
             <section>
@@ -102,7 +96,7 @@
                     <img src="img\producto.png" alt /> Artículo
                   </label>
 
-                  <div class="form-group col-md-6" style>
+                  <div class="form-group col-md-5" style>
                     <multiselect
                       id="opciones"
                       v-model="articulo"
@@ -117,6 +111,17 @@
                       placeholder="seleccione articulo"
                     ></multiselect>
                   </div>
+
+                  <div class="form-group col-md-2">
+                    <vue-numeric
+                      class="form-control"
+                      currency="%"
+
+                      v-model="iva_"
+                    ></vue-numeric>
+
+                  </div>
+                  <label >Iva</label>
                 </form>
 
                 <form class="form-row">
@@ -134,35 +139,48 @@
                       required
                     />
                   </div>
+                  <label class="form-group col-md-2">
+                    <img src="img\cart.png" alt /> Total compra
+                  </label>
+
+                  <div class="form-group col-md-3">
+                    <vue-numeric
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="precio_total_"
+                    ></vue-numeric>
+                  </div>
                 </form>
 
                 <form class="form-row">
                   <label class="form-group col-md-2">
-                    <img src="img\compra.png" alt />precio compra
+                    <img src="img\compra.png" alt />precio compra un
                   </label>
 
                   <div class="form-group col-md-3">
-                    <input
-                      type="number"
+
+                    <vue-numeric
+                    :read-only="true"
+                       style="size:30px;"
                       class="form-control"
-                      placeholder="$00.00"
-                      v-model.number="preciocompra"
-                    />
+                      currency="$"
+                      separator=","
+                      v-model="preciocompra"
+                    ></vue-numeric>
                   </div>
 
                   <label class="form-group col-md-2">
-                    <img src="img\venta.png" alt />precio venta
+                    <img src="img\venta.png" alt />precio venta un
                   </label>
 
                   <div class="form-group col-md-3" style>
-                    <input
-                      type="number"
+                    <vue-numeric
                       class="form-control"
-                      placeholder="$00.00"
-                      v-model.number="precioventa"
-                      id
-                      required
-                    />
+                      currency="$"
+                      separator=","
+                      v-model="precioventa"
+                    ></vue-numeric>
                   </div>
                 </form>
 
@@ -499,24 +517,24 @@ border-radius: 34px 40px 40px 40px;"
 </template>
 
 <script>
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import colors from 'vuetify/lib/util/colors';
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import colors from "vuetify/lib/util/colors";
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 import Multiselect from "vue-multiselect";
 import { setTimeout } from "timers";
+import VueNumeric from "vue-numeric";
 Vue.component("multiselect", Multiselect);
-
 
 export default {
   components: {
-    Multiselect
+    Multiselect,
+    VueNumeric
   },
   data() {
     return {
-
-        dialog: false,
+      dialog: false,
       value: "",
       //
       NumComprobante: "",
@@ -554,7 +572,11 @@ export default {
       allbusqueda: [],
       tabla: true,
       reloads: true,
-      valid: true
+      valid: true,
+
+      //formulario
+      precio_total_: "",
+      iva_:19
     };
   },
 
@@ -809,10 +831,12 @@ export default {
       this.cantidad = "";
       this.preciocompra = "";
       this.precioventa = "";
+      this.precio_total_ ="";
     },
     RegistrarIngreso() {
       let reld = this;
       let table = this;
+
       axios
         .post("api/RegistIngreso", {
           id_ingreso: this.ingreso.id,
@@ -847,6 +871,7 @@ export default {
       this.cantidad = "";
       this.preciocompra = "";
       this.precioventa = "";
+        this.precio_total_ ="";
     },
     getIngreso_all() {
       let ingAll = this;
@@ -866,6 +891,26 @@ export default {
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => ((this.tabla = true), (this.reloads = false)));
       this.getImgresosE();
+    },
+
+    detalle_p_c(dato) {
+      let det_ = this;
+
+      axios
+        .post("api/ver_datos_x", {
+          id: dato.codigo
+        })
+        .then(function(response) {
+          det_.precioventa = response.data.precio_venta;
+
+          console.log(response.data);
+        })
+        .catch(function(error) {})
+
+        .then(function() {});
+      //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
+      //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
+      //.finally(() => (this.dat));
     }
   },
 
@@ -878,6 +923,22 @@ export default {
     this.getImgresosE();
   },
   watch: {
+    precio_total_: function(Val) {
+      let n = 0;
+      let n2 = 0;
+
+      if (Val > 0) {
+        n = Val / this.cantidad;
+        n2 = n.toFixed(0);
+
+        this.preciocompra = n2;
+      }
+    },
+
+    articulo: function(Val) {
+      this.detalle_p_c(Val);
+    },
+
     ingreso: function(val) {
       if (val != "") {
         function mostrar() {}

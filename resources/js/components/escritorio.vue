@@ -453,6 +453,7 @@ export default {
       this.totales_today();
       this.base_();
     });
+
     console.log("Component mounted.");
   },
 

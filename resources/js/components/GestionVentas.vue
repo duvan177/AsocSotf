@@ -775,6 +775,7 @@ export default {
 
   mounted() {
     this.getVentas_x();
+
     window.Echo = new Echo({
       broadcaster: "pusher",
       key: "ASDASD2121",
@@ -787,6 +788,7 @@ export default {
       console.log(e.mensaje);
       this.getVentas_x();
     });
+
   },
   watch: {
     numeroComprobante: function(newVal, oldVal) {
