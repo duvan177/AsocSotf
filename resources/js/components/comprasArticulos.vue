@@ -81,14 +81,46 @@
               <p class="card-text">
                 <small class="text-muted">compra de producto</small>
               </p>
+
+     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="pills-home-tab"
+              data-toggle="pill"
+              href="#pills-home"
+              role="tab"
+              aria-controls="pills-home"
+              aria-selected="true"
+            >Articulos Activos</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="pills-profile-tab"
+              data-toggle="pill"
+              href="#pills-profile"
+              role="tab"
+              aria-controls="pills-profile"
+              aria-selected="false"
+            >Articulos sin existencia física</a>
+          </li>
+        </ul>
+
             </div>
 
             <!--nueva compra  v-if="ingreso !=''"-->
-            <section>
-              <div id="cardPrueba2" class="card-body fantasma">
+            <div class="tab-content" id="pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="pills-home"
+            role="tabpanel"
+            aria-labelledby="pills-home-tab"
+          >
+          <div class="card-body">
                 <h5 class="card-title">
                   Nueva compra
-                  <br />Proveedor
+                  <br />Proveedor - Articulos
                 </h5>
 
                 <form class="form-row">
@@ -139,8 +171,8 @@
                       required
                     />
                   </div>
-                  <label class="form-group col-md-2">
-                    <img src="img\cart.png" alt /> Total compra
+                    <label class="form-group col-md-2">
+                    <img src="img\cart.png" alt /> Total
                   </label>
 
                   <div class="form-group col-md-3">
@@ -151,10 +183,45 @@
                       v-model="precio_total_"
                     ></vue-numeric>
                   </div>
+
+                </form>
+
+
+                <form class="form-row">
+                       <label class="form-group col-md-2">
+                    <img src="img\venta.png" alt />total iva
+                  </label>
+
+                  <div class="form-group col-md-3" style>
+                    <vue-numeric
+                         :read-only="true"
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="tota_iva"
+                      v-bind:precision="2"
+                    ></vue-numeric>
+                  </div>
+                         <label class="form-group col-md-2">
+                    <img src="img\venta.png" alt />total Neto
+                  </label>
+
+                  <div class="form-group col-md-3" style>
+                    <vue-numeric
+                         :read-only="true"
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="precio_total_iv"
+                      v-bind:precision="2"
+                    ></vue-numeric>
+                  </div>
+
+
                 </form>
 
                 <form class="form-row">
-                  <label class="form-group col-md-2">
+                    <label class="form-group col-md-2">
                     <img src="img\compra.png" alt />precio compra un
                   </label>
 
@@ -162,8 +229,8 @@
 
                     <vue-numeric
                     :read-only="true"
-                       style="size:30px;"
-                      class="form-control"
+                     read-only-class="test"
+                    v-bind:precision="2"
                       currency="$"
                       separator=","
                       v-model="preciocompra"
@@ -176,6 +243,7 @@
 
                   <div class="form-group col-md-3" style>
                     <vue-numeric
+
                       class="form-control"
                       currency="$"
                       separator=","
@@ -213,7 +281,7 @@
                     </section>
                   </div>
                   <div class="form-group col-md-3" style>
-                    <section v-if="ingreso !=''">
+                    <section v-if="ingresosAll.length > 0">
                       <button
                         type="button"
                         v-on:click="finalizarCompra"
@@ -235,29 +303,223 @@
                   <small class="text-muted">compra de producto</small>
                 </p>
               </div>
-            </section>
+          </div>
+            <div
+            class="tab-pane fade"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
+          >
+
+        <div  class="card-body">
+                <h5 class="card-title">
+                  Nueva compra
+                  <br />Simple
+                </h5>
+
+                <form class="form-row">
+                  <label class="form-group col-md-2">
+                    <img src="img\producto.png" alt /> Artículo
+                  </label>
+
+                  <div class="form-group col-md-5" style>
+                    <multiselect
+                      id="opciones"
+                      v-model="articulo"
+                      noResult="elemento no encontrado"
+                      noOptions="ingrese provedor"
+                      :custom-label="nombresSelectArt"
+                      :options="articulos"
+                      :searchable="true"
+                      selectLabel
+                      deselectLabel="quitar"
+                      selectedLabel="x"
+                      placeholder="seleccione articulo"
+                    ></multiselect>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <vue-numeric
+                      class="form-control"
+                      currency="%"
+
+                      v-model="iva_"
+                    ></vue-numeric>
+
+                  </div>
+                  <label >Iva</label>
+                </form>
+
+                <form class="form-row">
+                  <label class="form-group col-md-2">
+                    <img src="img\cart.png" alt /> Cantidad
+                  </label>
+
+                  <div class="form-group col-md-3">
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Unidades"
+                      v-model.number="cantidad"
+                      id
+                      required
+                    />
+                  </div>
+                    <label class="form-group col-md-2">
+                    <img src="img\cart.png" alt /> Total
+                  </label>
+
+                  <div class="form-group col-md-3">
+                    <vue-numeric
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="precio_total_"
+                    ></vue-numeric>
+                  </div>
+
+                </form>
+
+
+                <form class="form-row">
+                       <label class="form-group col-md-2">
+                    <img src="img\venta.png" alt />total iva
+                  </label>
+
+                  <div class="form-group col-md-3" style>
+                    <vue-numeric
+                         :read-only="true"
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="tota_iva"
+                    ></vue-numeric>
+                  </div>
+                         <label class="form-group col-md-2">
+                    <img src="img\venta.png" alt />total Neto
+                  </label>
+
+                  <div class="form-group col-md-3" style>
+                    <vue-numeric
+                         :read-only="true"
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="precio_total_iv"
+                    ></vue-numeric>
+                  </div>
+
+
+                </form>
+
+                <form class="form-row">
+                    <label class="form-group col-md-2">
+                    <img src="img\compra.png" alt />precio compra un
+                  </label>
+
+                  <div class="form-group col-md-3">
+
+                    <vue-numeric
+                    :read-only="true"
+                     read-only-class="test"
+                    v-bind:precision="2"
+                      currency="$"
+                      separator=","
+                      v-model="preciocompra"
+                    ></vue-numeric>
+                  </div>
+
+                  <label class="form-group col-md-2">
+                    <img src="img\venta.png" alt />precio venta un
+                  </label>
+
+                  <div class="form-group col-md-3" style>
+                    <vue-numeric
+
+                      class="form-control"
+                      currency="$"
+                      separator=","
+                      v-model="precioventa"
+                    ></vue-numeric>
+                  </div>
+                </form>
+
+                <div class="input-group mb-3" style=" height:40px;">
+                  <div class="input-group-prepend"></div>
+                </div>
+
+                <form class="form-row">
+                  <div class="form-group col-md-3">
+                    <button type="button" class="btn btn-info" v-on:click="getIngreso_all">
+                      <span class="cui-contrast"></span> Limpiar
+                    </button>
+                  </div>
+
+                  <div class="form-group col-md-3" style>
+                    <section
+                      v-if="articulo!='' && cantidad > 0 && preciocompra >0 && precioventa >0 && ingreso !=''"
+                    >
+                      <button
+                        type="button"
+                        v-on:click="RegistrarIngreso"
+                        class="btn btn-success animated fadeIn"
+                      >
+                        <span class="cui-contrast"></span> Guardar
+                  </button>
+                    </section>
+
+                    <section v-else>
+                      <Boton></Boton>
+                    </section>
+                  </div>
+                  <div class="form-group col-md-3" style>
+                    <section v-if="ingresosAll.length > 0">
+                      <button
+                        type="button"
+                        v-on:click="finalizarCompra"
+                        class="btn btn-success animated fadeIn"
+                      >
+                        <span class="cui-contrast"></span> Guardar y finalizar
+                      </button>
+                    </section>
+
+                    <section v-else>
+                      <button type="button" class="btn btn-success animated fadeOut">
+                        <span class="cui-contrast"></span> Guardar y finalizar
+                      </button>
+                    </section>
+                  </div>
+                </form>
+
+                <p class="card-text">
+                  <small class="text-muted">compra de producto</small>
+                </p>
+              </div>
+            </div>
+            </div>
           </div>
           <!-- fin formulario crear ingreso -->
 
           <div class="card">
+
             <div class="card-body">
-              <h5 class="card-title">lista de compras registradas</h5>
-            </div>
+                <h5 class="card-title">lista de compras registradas</h5>
 
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
               <section v-if="busqueda.length === 0">
                 <img src="img\comprasx.png" class="rounded mx-auto d-block animated fadeIn" alt />
               </section>
               <section v-else>
-                <table class="table table-bordered table-striped mb-0">
+                <table class="table table-hover mb-0 animated fadeIn">
                   <thead>
-                    <tr>
+                    <tr style="">
                       <th scope="col">Ver mas+</th>
                       <th scope="col">Estado Compra</th>
                       <th scope="col">Proveedor</th>
                       <th scope="col">Numero comprobante</th>
                       <th scope="col">Articulo</th>
                       <th scope="col">Cantidad</th>
+                       <th scope="col">iva</th>
                       <th scope="col">Total Compra</th>
                       <th scope="col">Fecha</th>
                     </tr>
@@ -275,7 +537,6 @@
                         </button>
                         &nbsp;
                       </td>
-
                       <td>
                         <section v-if="ingreso.ingreso[0]['id_estado'] == 2">
                           <span class="badge badge-warning">En Ejecucion</span>
@@ -285,22 +546,48 @@
                         </section>
                       </td>
 
-                      <td v-text="ingreso.persona[0]['nombre']"></td>
-                      <td v-text="ingreso.ingreso[0]['num_comprobante']"></td>
-                      <td v-text="ingreso.articulo[0]['nombre']"></td>
-                      <td v-text="ingreso.cantidad"></td>
-                      <td v-text="ingreso.precio_comrpa *ingreso.cantidad"></td>
-                      <td v-text="ingreso.created_at"></td>
+                      <td  > <h6  v-text="ingreso.persona[0]['nombre']" >  </h6> </td>
+                      <td  > <h6 v-text="ingreso.ingreso[0]['num_comprobante']" >  </h6> </td>
+                      <td  ><h6 v-text="ingreso.articulo[0]['nombre']" >  </h6></td>
+                      <td  > <h6 v-text="ingreso.cantidad" >  </h6> </td>
+                        <td > <h6  v-text="ingreso.total_iva" >  </h6> </td>
+                      <td  > <h6 v-text="(ingreso.precio_comrpa *ingreso.cantidad).toFixed(2).toLocaleString()" >  </h6> </td>
+                      <td  > <h6 v-text="ingreso.created_at" >  </h6> </td>
                     </tr>
                   </tbody>
                 </table>
               </section>
             </div>
 
+                <div class="card-body">
+
+                <form class="form-row">
+                  <label class="form-group col-md-4">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h5>cantidad: 65</h5>
+                    </div>
+                  </label>
+
+                  <div class="form-group col-md-3">
+                    <label for=""><h4>total compra</h4></label>
+                  </div>
+                    <label class="form-group col-md-2">
+                  <h4>total</h4>
+                  </label>
+
+                  <div class="form-group col-md-3">
+                   <label for=""><h4>total neto</h4></label>
+                  </div>
+
+                </form>
+                </div>
+
+
             <p class="card-text">
               <small class="text-muted">Lista de compras</small>
             </p>
           </div>
+           </div>
         </div>
       </div>
     </div>
@@ -520,6 +807,7 @@ border-radius: 34px 40px 40px 40px;"
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import colors from "vuetify/lib/util/colors";
+import { Carousel, Slide } from "vue-carousel";
 
 Vue.use(Vuetify);
 import Multiselect from "vue-multiselect";
@@ -530,7 +818,8 @@ Vue.component("multiselect", Multiselect);
 export default {
   components: {
     Multiselect,
-    VueNumeric
+    VueNumeric,
+     Carousel, Slide
   },
   data() {
     return {
@@ -564,7 +853,7 @@ export default {
       //
       numComp: "",
       //
-      ingreso: "",
+      ingreso: [],
       ingresos: [],
       //
       ingresosAll: [],
@@ -576,7 +865,17 @@ export default {
 
       //formulario
       precio_total_: "",
-      iva_:19
+      iva_:19,
+      precio_total_iv:"",
+      tota_iva:"",
+
+      // datos para la tabla detalle compra
+        iva_t:0,
+        t_comp:0,
+        t_comp_neto:0,
+        cant_art:0,
+
+
     };
   },
 
@@ -626,16 +925,13 @@ export default {
           // handle error
           // console.log(error);
         })
-
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
     },
-
     setarticulos() {
       let art = this;
-
       axios
         .post("api/create_personas", {
           nombre: this.nombrePro,
@@ -661,12 +957,10 @@ export default {
           // handle error
           // console.log(error);
         })
-
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
         .finally(() => (this.loading = false));
-
       this.nombrePro = "";
       this.selectedProvedor = "";
       this.documento = "";
@@ -687,7 +981,6 @@ export default {
           // handle error
           // console.log(error);
         })
-
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
@@ -695,7 +988,6 @@ export default {
     },
     getArticulos() {
       let Atr = this;
-
       axios
         .post("api/articulos")
         .then(function(response) {
@@ -801,13 +1093,13 @@ export default {
       let validarx = this;
       let ing = this;
       let igre = this;
-
       axios
         .post("api/get_ingresosE")
         .then(function(response) {
           if (response.data == 4004) {
             console.log("no hay registos");
             igre.valid = true;
+            this.ingreso = [''];
             document.getElementById("opciones").options.length = 0;
           } else {
             ing.ingresos = response.data;
@@ -819,7 +1111,6 @@ export default {
           // handle error
           // console.log(error);
         })
-
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
@@ -843,7 +1134,8 @@ export default {
           articulo: this.articulo.id,
           cantidad: this.cantidad,
           precio_compra: this.preciocompra,
-          precio_venta: this.precioventa
+          precio_venta: this.precioventa,
+          iva:this.tota_iva
         })
         .then(function(response) {
           console.log(response.data);
@@ -865,7 +1157,7 @@ export default {
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
-        .finally(() => (this.tabla = false));
+        .finally(() => ( this.getIngreso_all(this.ingreso.id)));
 
       this.articulo = "";
       this.cantidad = "";
@@ -873,13 +1165,27 @@ export default {
       this.precioventa = "";
         this.precio_total_ ="";
     },
-    getIngreso_all() {
+    getIngreso_all(id) {
       let ingAll = this;
 
       axios
-        .post("api/setIngresosTodo")
+        .post("api/setIngresosTodo",{
+            id:id
+        })
         .then(function(response) {
+            let cant = 0;
+            let dat = [];
+
           ingAll.ingresosAll = response.data;
+            dat = response.data;
+            dat.forEach(element => {
+
+                ingAll.cant_art += element.cantidad;
+
+            });
+
+
+
         })
         .catch(function(error) {
           // handle error
@@ -889,8 +1195,8 @@ export default {
         .then(function() {})
         //FUNCION QUE CARGA EN LOADING MIENTRAS LA PETICION ES COMPLETADA ,
         //AL COMPLETARSE PARASARA A SER FALSE Y ME MOSTRARA LA OTRA SECTION DEL TEMPLATE VUEJS
-        .finally(() => ((this.tabla = true), (this.reloads = false)));
-      this.getImgresosE();
+        .finally(() => ((this.tabla = true), (this.reloads = false), console.log(this.cant_art)));
+
     },
 
     detalle_p_c(dato) {
@@ -915,7 +1221,7 @@ export default {
   },
 
   mounted() {
-    this.getIngreso_all();
+
     this.getProvedores();
     this.getArticulos();
     this.getComprobantes();
@@ -926,11 +1232,13 @@ export default {
     precio_total_: function(Val) {
       let n = 0;
       let n2 = 0;
-
+      let iv = 0;
       if (Val > 0) {
         n = Val / this.cantidad;
-        n2 = n.toFixed(0);
-
+        n2 = n.toFixed(2);
+        iv = this.iva_/100;
+        this.precio_total_iv = Val + (Val*iv);
+        this.tota_iva = Val*iv;
         this.preciocompra = n2;
       }
     },
@@ -938,18 +1246,15 @@ export default {
     articulo: function(Val) {
       this.detalle_p_c(Val);
     },
+    ingreso: function() {
+           let val = this.ingreso;
 
-    ingreso: function(val) {
-      if (val != "") {
-        function mostrar() {}
-        var x = document.getElementById("cardPrueba2");
-        x.classList.remove("fantasma");
-        x.classList.add("animated", "fadeInUp");
+      if (val.id >0) {
         console.log("cambio  echo");
 
-        // this.getIngreso_all();
+         this.getIngreso_all(val.id);
       }
-      if (val == "") {
+      if (val == null){} /*
         function mostrar() {
           var x = document.getElementById("cardPrueba2");
           x.classList.remove("animated", "fadeInUp");
@@ -960,8 +1265,8 @@ export default {
             x.classList.remove("animated", "fadeOuntDown");
             x.classList.add("fantasma");
           }, 3000);
-        }
-      }
+       */
+
     },
     tabla: function(val) {
       if (val == false) {

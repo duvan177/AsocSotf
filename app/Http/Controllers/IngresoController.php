@@ -46,7 +46,7 @@ class IngresoController extends Controller
 
         $data = " registrado con exito";
 
-        return response()->json($verificar);
+        return response()->json($data);
 
 
     }
@@ -152,6 +152,8 @@ class IngresoController extends Controller
         $precio_comrpa =$request->precio_compra;
         $precio_venta =$request->precio_venta;
 
+        $iva = $request->iva;
+
          $total_exist = DB::table('ingreso')->select('total_compra')->where('id','=',$id_ingreso)->value('total_compra');
          $total = $precio_comrpa * $cantidad;
 
@@ -170,7 +172,6 @@ class IngresoController extends Controller
          $total_real = $total_exist + $total;
         $ingreso_ = ingreso::find($id_ingreso);
         $ingreso_->total_compra = $total_real;
-
         $ingreso_->save();
 
 
@@ -178,7 +179,9 @@ class IngresoController extends Controller
          $detalle_ing->id_ingreso =$id_ingreso;
          $detalle_ing->id_articulo=$id_articulo;
           $detalle_ing->cantidad=$cantidad;
-          $detalle_ing->precio_comrpa=$precio_comrpa;
+          $detalle_ing->total_iva=$iva;
+
+          $detalle_ing->precio_comrpa=round($precio_comrpa,2);
          $detalle_ing->precio_venta=$precio_venta;
         $detalle_ing->save();
 
@@ -197,13 +200,16 @@ class IngresoController extends Controller
 
     }
 
-    public function setIngresosTodo(){
+    public function setIngresosTodo(Request $request){
+
+        $id  = $request->id;
+
         $est = 2;
 
 
-        $count = detalle_ingreso::all()->count();
+        $count = detalle_ingreso::where('id_ingreso',$id)->count();
 
-           $data = detalle_ingreso::orderBy('id','desc')->get();
+           $data = detalle_ingreso::where('id_ingreso',$id)->orderBy('id','desc')->get();
 
 
            for ($i=0; $i <  $count ; $i++) {
